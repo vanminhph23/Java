@@ -1,0 +1,141 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated May 24, 2016 4:58:59 AM by Hibernate Tools 4.3.1 -->
+<hibernate-mapping>
+    <class name="com.isofh.hibernate.entities.HisPatient" table="HIS_PATIENT" schema="HIS" optimistic-lock="version">
+        <id name="hisPatientId" type="long">
+            <column name="HIS_PATIENT_ID" precision="10" scale="0" />
+            <generator class="assigned" />
+        </id>
+        <property name="adClientId" type="long">
+            <column name="AD_CLIENT_ID" precision="10" scale="0" not-null="true" />
+        </property>
+        <property name="adOrgId" type="long">
+            <column name="AD_ORG_ID" precision="10" scale="0" not-null="true" />
+        </property>
+        <property name="address1" type="string">
+            <column name="ADDRESS1" length="60" />
+        </property>
+        <property name="address2" type="string">
+            <column name="ADDRESS2" />
+        </property>
+        <property name="age" type="java.lang.Long">
+            <column name="AGE" precision="10" scale="0" />
+        </property>
+        <property name="assurancecardId" type="java.lang.Long">
+            <column name="ASSURANCECARD_ID" precision="10" scale="0" />
+        </property>
+        <property name="assuranceFromdate" type="date">
+            <column name="ASSURANCE_FROMDATE" length="7" />
+        </property>
+        <property name="assuranceId" type="string">
+            <column name="ASSURANCE_ID" length="22" />
+        </property>
+        <property name="assuranceRegisteredat" type="string">
+            <column name="ASSURANCE_REGISTEREDAT" length="100" />
+        </property>
+        <property name="assuranceTodate" type="date">
+            <column name="ASSURANCE_TODATE" length="7" />
+        </property>
+        <property name="birthday" type="date">
+            <column name="BIRTHDAY" length="7" />
+        </property>
+        <property name="created" type="date">
+            <column name="CREATED" length="7" />
+        </property>
+        <property name="createdby" type="java.lang.Long">
+            <column name="CREATEDBY" precision="10" scale="0" />
+        </property>
+        <property name="guardianidNo" type="string">
+            <column name="GUARDIANID_NO" length="12" />
+        </property>
+        <property name="guardianname" type="string">
+            <column name="GUARDIANNAME" length="100" />
+        </property>
+        <property name="guardiantelno" type="string">
+            <column name="GUARDIANTELNO" length="12" />
+        </property>
+        <property name="hisCountryId" type="java.lang.Long">
+            <column name="HIS_COUNTRY_ID" precision="10" scale="0" />
+        </property>
+        <property name="hisDistrictId" type="java.lang.Long">
+            <column name="HIS_DISTRICT_ID" precision="10" scale="0" />
+        </property>
+        <property name="hisJobId" type="java.lang.Long">
+            <column name="HIS_JOB_ID" precision="10" scale="0" />
+        </property>
+        <property name="hisProvinceId" type="java.lang.Long">
+            <column name="HIS_PROVINCE_ID" precision="10" scale="0" />
+        </property>
+        <property name="hisServiceId" type="java.lang.Long">
+            <column name="HIS_SERVICE_ID" precision="10" scale="0" />
+        </property>
+        <property name="hisZone" type="string">
+            <column name="HIS_ZONE" length="50" />
+        </property>
+        <property name="idNo" type="string">
+            <column name="ID_NO" length="12" />
+        </property>
+        <property name="isactive" type="java.lang.Character">
+            <column name="ISACTIVE" length="1" />
+        </property>
+        <property name="name" type="string">
+            <column name="NAME" length="60" />
+        </property>
+        <property name="telNo" type="string">
+            <column name="TEL_NO" length="15" />
+        </property>
+        <property name="updated" type="date">
+            <column name="UPDATED" length="7" />
+        </property>
+        <property name="updatedby" type="java.lang.Long">
+            <column name="UPDATEDBY" precision="10" scale="0" />
+        </property>
+        <property name="code" type="string">
+            <column name="CODE" length="20" />
+        </property>
+        <property name="hisGenderId" type="java.lang.Character">
+            <column name="HIS_GENDER_ID" length="1" />
+        </property>
+        <property name="hisPatienttypeId" type="string">
+            <column name="HIS_PATIENTTYPE_ID" length="10" />
+        </property>
+        <property name="patientfromHospitalId" type="java.lang.Long">
+            <column name="PATIENTFROM_HOSPITAL_ID" precision="10" scale="0" />
+        </property>
+        <property name="assuranceRegathospitalId" type="java.lang.Long">
+            <column name="ASSURANCE_REGATHOSPITAL_ID" precision="10" scale="0" />
+        </property>
+        <property name="hisZoneId" type="java.lang.Long">
+            <column name="HIS_ZONE_ID" precision="10" scale="0" />
+        </property>
+        <property name="value" type="string">
+            <column name="VALUE" length="40" unique="true" />
+        </property>
+        <property name="inhospitalcount" type="java.lang.Long">
+            <column name="INHOSPITALCOUNT" precision="10" scale="0" />
+        </property>
+        <property name="hisSyncId" type="java.lang.Long">
+            <column name="HIS_SYNC_ID" precision="10" scale="0" />
+        </property>
+        <property name="outpatientcounta" type="java.lang.Long">
+            <column name="OUTPATIENTCOUNTA" precision="10" scale="0" />
+        </property>
+        <property name="outpatientcountabymonth" type="java.lang.Long">
+            <column name="OUTPATIENTCOUNTABYMONTH" precision="10" scale="0" />
+        </property>
+        <property name="outpatientcountabyyear" type="java.lang.Long">
+            <column name="OUTPATIENTCOUNTABYYEAR" precision="10" scale="0" />
+        </property>
+        <property name="outpatientcount" type="java.lang.Long">
+            <column name="OUTPATIENTCOUNT" precision="10" scale="0" />
+        </property>
+        <property name="hisDepartmentId" type="java.lang.Long">
+            <column name="HIS_DEPARTMENT_ID" precision="10" scale="0" />
+        </property>
+        <property name="regionvalue" type="string">
+            <column name="REGIONVALUE" length="10" />
+        </property>
+    </class>
+</hibernate-mapping>

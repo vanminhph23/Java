@@ -1,3 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<session version="1.0">&#x0A;<refactoring comment="Delete 3 resources" deleteContents="false" description="Delete 3 resources" element1="/DemoGame" element2="/DemoGame-core" element3="/DemoGame-desktop" flags="7" id="org.eclipse.ltk.core.refactoring.delete.resources" resources="3" stamp="1450107260650"/>&#x0A;<refactoring comment="Delete resource &apos;xERP_VIETTEL_TRUNK&apos;" deleteContents="false" description="Delete resource &apos;xERP_VIETTEL_TRUNK&apos;" element1="/xERP_VIETTEL_TRUNK" flags="7" id="org.eclipse.ltk.core.refactoring.delete.resources" resources="1" stamp="1450278231829"/>
-</session>
