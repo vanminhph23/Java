@@ -1,0 +1,181 @@
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
+package con.isofh.connection;
+
+import com.isofh.Util;
+import com.isofh.astm.Message;
+import com.isofh.astm.MessageHandle;
+import java.io.BufferedInputStream;
+import java.io.BufferedOutputStream;
+import java.io.DataInputStream;
+import java.io.DataOutputStream;
+import java.io.UnsupportedEncodingException;
+import java.net.Socket;
+import java.util.logging.Level;
+import org.apache.log4j.Logger;
+
+/**
+ *
+ * @author vanminh
+ */
+public class Client extends Thread {
+
+    private static final Logger log = Logger.getLogger(Client.class.getName());
+    private Socket socket = null;
+    private int ID = -1;
+    private DataInputStream streamIn = null;
+    private DataOutputStream streamOut = null;
+    private boolean isDone = false;
+    private CallBack callBack = null;
+    private MessageHandle messageHandle = null;
+
+    public Client(CallBack callBack, Socket socket) {
+        super();
+        this.callBack = callBack;
+        this.socket = socket;
+        ID = socket.getPort();
+        messageHandle = new MessageHandle(this);
+    }
+
+    @Override
+    public void run() {
+        log.debug("Client thread " + ID + " running.");
+        while (!isDone) {
+            try {
+                byte[] data = new byte[2048];
+                int m = streamIn.read(data);
+                if (m == -1) {
+                    log.debug(socket + " is closed by foreign host!");
+                    isDone = true;
+                } else {
+                    log.debug("Client[" + ID + "]: Recieve[" + m + "] - " + new String(data).trim() + " - [" + Util.bytesToHex(data, m) + "]");
+                    if (!handle(data)) {
+                        isDone = true;
+                    }
+                }
+            } catch (Exception e) {
+                log.error(e.getMessage());
+                isDone = true;
+            }
+        }
+        close();
+    }
+
+    public int getID() {
+        return ID;
+    }
+
+    private synchronized boolean handle(byte[] data) {
+        return messageHandle.handle(data);
+    }
+
+    public void open() {
+        try {
+            streamIn = new DataInputStream(new BufferedInputStream(socket.getInputStream()));
+            streamOut = new DataOutputStream(new BufferedOutputStream(socket.getOutputStream()));
+        } catch (Exception e) {
+            e.printStackTrace();
+            log.error(socket + "Error opening: " + e.getMessage());
+            close();
+        }
+    }
+
+    private boolean close() {
+        try {
+            isDone = true;
+            callBack.onClosed(ID);
+
+            if (streamIn != null) {
+                streamIn.close();
+            }
+            if (streamOut != null) {
+                streamOut.close();
+            }
+            if (socket != null) {
+                log.debug("Close client socket: " + socket);
+                socket.close();
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace();
+            log.error(socket + "Error closing: " + e.getMessage());
+            socket = null;
+            streamIn = null;
+            streamOut = null;
+            return false;
+        }
+        return true;
+    }
+
+    private boolean send(byte[] data) {
+        try {
+            log.debug("Send data: " + Util.bytesToHex(data));
+            streamOut.write(data);
+            streamOut.flush();
+            return true;
+        } catch (Exception e) {
+            log.error(socket + " Error sending: " + e.getMessage());
+            close();
+            return false;
+        }
+    }
+
+    public boolean sendMessage(int seQ, boolean isLast, String mes) {
+        try {
+            mes = "1" + seQ + mes + "12345";
+            byte[] data;
+
+            data = mes.getBytes("UTF-8");
+
+            int length = data.length;
+            // start frame
+            data[0] = Message.STX;
+
+            // end frame
+            if (isLast) {
+                data[length - 5] = Message.ETX;
+            } else {
+                data[length - 5] = Message.ETB;
+            }
+            String checkSum = calChecksum(data);
+            data[length - 4] = checkSum.getBytes()[0];
+            data[length - 3] = checkSum.getBytes()[1];
+            data[length - 2] = Message.CR;
+            data[length - 1] = Message.LF;
+
+            return send(data);
+        } catch (UnsupportedEncodingException ex) {
+            ex.printStackTrace();
+            log.error(ex.getMessage());
+            return false;
+        }
+    }
+
+    public boolean sendACK() {
+        return send(new byte[]{Message.ACK});
+    }
+
+    public boolean sendENQ() {
+        return send(new byte[]{Message.ENQ});
+    }
+
+    public boolean sendSTX() {
+        return send(new byte[]{Message.STX});
+    }
+
+    public boolean sendEOT() {
+        return send(new byte[]{Message.EOT});
+    }
+
+    private String calChecksum(byte[] data) {
+        int sum = 0;
+        for (int i = 1; i < data.length - 4; i++) {
+            sum += data[i];
+        }
+        byte[] result = new byte[]{(byte) ((sum % 256) & 255)};
+        return Util.bytesToHex(result);
+    }
+}

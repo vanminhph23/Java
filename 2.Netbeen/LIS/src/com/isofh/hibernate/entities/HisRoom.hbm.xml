@@ -1,0 +1,84 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated May 26, 2016 9:09:14 PM by Hibernate Tools 4.3.1 -->
+<hibernate-mapping>
+    <class name="com.isofh.hibernate.entities.HisRoom" table="HIS_ROOM" schema="HIS" optimistic-lock="version">
+        <id name="hisRoomId" type="long">
+            <column name="HIS_ROOM_ID" precision="10" scale="0" />
+            <generator class="assigned" />
+        </id>
+        <property name="adClientId" type="java.lang.Long">
+            <column name="AD_CLIENT_ID" precision="10" scale="0" />
+        </property>
+        <property name="adOrgId" type="java.lang.Long">
+            <column name="AD_ORG_ID" precision="10" scale="0" />
+        </property>
+        <property name="created" type="date">
+            <column name="CREATED" length="7" />
+        </property>
+        <property name="createdby" type="java.lang.Long">
+            <column name="CREATEDBY" precision="10" scale="0" />
+        </property>
+        <property name="isactive" type="java.lang.Character">
+            <column name="ISACTIVE" length="1" />
+        </property>
+        <property name="name" type="string">
+            <column name="NAME" length="90" not-null="true" />
+        </property>
+        <property name="updated" type="date">
+            <column name="UPDATED" length="7" />
+        </property>
+        <property name="updatedby" type="java.lang.Long">
+            <column name="UPDATEDBY" precision="10" scale="0" />
+        </property>
+        <property name="hisRoomtypeId" type="big_decimal">
+            <column name="HIS_ROOMTYPE_ID" precision="22" scale="0" />
+        </property>
+        <property name="hisDepartmentId" type="big_decimal">
+            <column name="HIS_DEPARTMENT_ID" precision="22" scale="0" />
+        </property>
+        <property name="englishname" type="string">
+            <column name="ENGLISHNAME" />
+        </property>
+        <property name="hisSpecialistId" type="java.lang.Long">
+            <column name="HIS_SPECIALIST_ID" precision="10" scale="0" />
+        </property>
+        <property name="locationcomment" type="string">
+            <column name="LOCATIONCOMMENT" />
+        </property>
+        <property name="description" type="string">
+            <column name="DESCRIPTION" />
+        </property>
+        <property name="bedquantity" type="java.lang.Long">
+            <column name="BEDQUANTITY" precision="10" scale="0" />
+        </property>
+        <property name="location" type="string">
+            <column name="LOCATION" />
+        </property>
+        <property name="value" type="string">
+            <column name="VALUE" length="40" />
+        </property>
+        <property name="isready" type="java.lang.Character">
+            <column name="ISREADY" length="1" />
+        </property>
+        <property name="isemergency" type="java.lang.Character">
+            <column name="ISEMERGENCY" length="1" />
+        </property>
+        <property name="isinpatient" type="java.lang.Character">
+            <column name="ISINPATIENT" length="1" />
+        </property>
+        <property name="isoutpatient" type="java.lang.Character">
+            <column name="ISOUTPATIENT" length="1" />
+        </property>
+        <property name="hisBuildingId" type="java.lang.Long">
+            <column name="HIS_BUILDING_ID" precision="10" scale="0" />
+        </property>
+        <property name="patientquantity" type="java.lang.Long">
+            <column name="PATIENTQUANTITY" precision="10" scale="0" />
+        </property>
+        <property name="hisRoomtype" type="string">
+            <column name="HIS_ROOMTYPE" length="20" />
+        </property>
+    </class>
+</hibernate-mapping>
