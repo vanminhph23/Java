@@ -71,6 +71,21 @@ public class Model {
         return medicaltest;
     }
     
+    public static HisServiceMedicaltest getServiceTestByValue(String value, int hisServiceMedictestgroupId) {
+        HisServiceMedicaltest medicaltest = null;
+
+        Session session = HibernateUtil.getSessionFactory().openSession();
+        try {
+            medicaltest = (HisServiceMedicaltest) session.createQuery("from HisServiceMedicaltest m where m.hisServiceMedictestgroupId = " + hisServiceMedictestgroupId
+            + " and m.value = " + value).uniqueResult();
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            session.close();
+        }
+        return medicaltest;
+    }
+    
     public static List<HisServiceMedicaltest> getServiceTestByPatientID(int hisPatienthistoryId) {
         List<HisServiceMedicaltest> medicaltests = null;
 

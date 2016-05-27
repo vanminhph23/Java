@@ -14,7 +14,7 @@ import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.UnsupportedEncodingException;
 import java.net.Socket;
-import java.util.logging.Level;
+import java.nio.charset.Charset;
 import org.apache.log4j.Logger;
 
 /**
@@ -51,9 +51,9 @@ public class Client extends Thread {
                     log.debug(socket + " is closed by foreign host!");
                     isDone = true;
                 } else {
-                    log.debug("Client[" + ID + "]: Recieve[" + m + "] - " + new String(data).trim() + " - [" + Util.bytesToHex(data, m) + "]");
-                    if (!handle(data)) {
-                        isDone = true;
+                    log.debug("Client[" + ID + "]: Recieve[" + m + "] - " + Util.getMessage(data, m) + " - [" + Util.bytesToHex(data, m) + "]");
+                    if (isValidChecksum(data, m)) {
+                        handle(data, m);
                     }
                 }
             } catch (Exception e) {
@@ -68,8 +68,8 @@ public class Client extends Thread {
         return ID;
     }
 
-    private synchronized boolean handle(byte[] data) {
-        return messageHandle.handle(data);
+    private synchronized boolean handle(byte[] data, int length) {
+        return messageHandle.handle(data, length);
     }
 
     public void open() {
@@ -91,7 +91,7 @@ public class Client extends Thread {
             if (streamIn != null) {
                 streamIn.close();
             }
-            if (streamOut != null) {
+            if (streamOut != null && !socket.isClosed()) {
                 streamOut.close();
             }
             if (socket != null) {
@@ -158,6 +158,10 @@ public class Client extends Thread {
         return send(new byte[]{Message.ACK});
     }
 
+    public boolean sendNACK() {
+        return send(new byte[]{Message.NACK});
+    }
+
     public boolean sendENQ() {
         return send(new byte[]{Message.ENQ});
     }
@@ -170,12 +174,36 @@ public class Client extends Thread {
         return send(new byte[]{Message.EOT});
     }
 
-    private String calChecksum(byte[] data) {
+    private String calChecksum(byte[] data, int length) {
+        if (length == 0) {
+            length = data.length;
+        }
         int sum = 0;
-        for (int i = 1; i < data.length - 4; i++) {
+        for (int i = 1; i < length - 4; i++) {
             sum += data[i];
         }
         byte[] result = new byte[]{(byte) ((sum % 256) & 255)};
         return Util.bytesToHex(result);
+    }
+
+    private String calChecksum(byte[] data) {
+        return calChecksum(data, 0);
+    }
+
+    private boolean isValidChecksum(byte[] data, int length) {
+        if (length == 0) {
+            length = data.length;
+        }
+        if (length <= 8) {
+            return true;
+        }
+        String recCr = new String(new byte[]{data[length - 4], data[length - 3]}, Charset.forName("US-ASCII"));
+        String calCr = calChecksum(data, length);
+        if(recCr.equals(calCr)){
+            return true;
+        } else {
+            log.error("Checksum is not valid : " + recCr + " - " + calCr);
+            return false;
+        }
     }
 }

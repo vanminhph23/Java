@@ -6,10 +6,13 @@
 package com.isofh.astm;
 
 import com.isofh.HardCode;
+import com.isofh.Util;
 import com.isofh.hibernate.entities.HisPatienthistory;
 import com.isofh.hibernate.entities.HisServiceMedicaltest;
 import com.isofh.hibernate.entities.Model;
 import con.isofh.connection.Client;
+import java.math.BigDecimal;
+import java.util.ArrayList;
 import java.util.List;
 import org.apache.log4j.Logger;
 
@@ -24,6 +27,10 @@ public class MessageHandle implements Runnable {
     private boolean isReady = false;
     private Thread threadSend = null;
     private boolean isDone = false;
+    private int seQ = 0;
+    private int HIS_PatientHistory_ID = 0;
+    private int HIS_Service_MedicTestGroup_ID = 0;
+    private List<Result> results = new ArrayList<Result>();
 
     public MessageHandle(Client client) {
         this.client = client;
@@ -44,7 +51,7 @@ public class MessageHandle implements Runnable {
         }
     }
 
-    public boolean handle(byte[] data) {
+    public boolean handle(byte[] data, int length) {
         boolean isOK = !isDone;
 
         if (data[0] == Message.ACK) {
@@ -52,6 +59,7 @@ public class MessageHandle implements Runnable {
             isReady = true;
         } else if (data[0] == Message.ENQ) { // The first
             log.debug("Recieve: ENQ");
+            clear();
             if (isOK) {
                 isOK = client.sendACK();
             }
@@ -61,31 +69,118 @@ public class MessageHandle implements Runnable {
                 isOK = client.sendACK();
             }
         } else {
-            char recordType = (char) data[1];
-            switch (recordType) {
+            String mes = Util.getMessage(data, length);
+            int seQNext = Integer.parseInt(mes.substring(0, 1));
+            if (seQNext != seQ + 1) {
+                log.error("Sequence not match! " + seQNext + " - " + seQ);
+                return false;
+            }
+
+            char typeMes = mes.charAt(1);
+            isOK = true;
+            switch (typeMes) {
                 case 'H':
-                    break;
-                case 'Q':
+                    isOK = header(mes);
                     break;
                 case 'R':
+                    isOK = result(mes);
+                    break;
+                case 'P':
+                    isOK = patient(mes);
                     break;
                 case 'O':
+                    isOK = order(mes);
                     break;
                 case 'L':
+                    isOK = terminator(mes);
                     break;
                 default:
                     break;
             }
             if (isOK) {
-                isOK = client.sendACK();
+                client.sendACK();
+                seQ = seQNext;
+            } else {
+                client.sendNACK();
+                log.error("handle: Cant parse mes: " + mes);
             }
         }
-
-        if (!isOK) {
-            log.error("handle: Cant send mes");
-        }
-
         return isOK;
+    }
+
+    private boolean header(String mes) {
+        log.debug("Recieve header: " + mes);
+        return true;
+    }
+
+    private boolean terminator(String mes) {
+        log.debug("Recieve terminator: " + mes);
+        boolean isOK = HIS_PatientHistory_ID > 0 && HIS_Service_MedicTestGroup_ID > 0;
+        if (isOK) {
+            isOK = updateResults(HIS_PatientHistory_ID, HIS_Service_MedicTestGroup_ID, results);
+        }
+        clear();
+        return true;
+    }
+
+    private void clear() {
+        HIS_PatientHistory_ID = 0;
+        HIS_Service_MedicTestGroup_ID = 0;
+        results = new ArrayList<Result>();
+        seQ = 0;
+    }
+
+    private boolean result(String mes) {
+        log.debug("Recieve result: " + mes);
+        boolean isOK = HIS_PatientHistory_ID > 0 && HIS_Service_MedicTestGroup_ID > 0;
+        try {
+            String[] temp = mes.split("\\|");
+            String value = temp[2].replaceAll("\\^", "");
+            String result = temp[3];
+            results.add(new Result(value, result));
+            return true;
+        } catch (Exception e) {
+            log.equals(e.getMessage());
+            return false;
+        }
+    }
+
+    private boolean patient(String mes) {
+        log.debug("Recieve patient: " + mes);
+        String strPatientID = "";
+        try {
+            String[] temp = mes.split("\\|");
+            strPatientID = temp[2];
+            HIS_PatientHistory_ID = Integer.parseInt(strPatientID);
+            log.debug("Recieve patient: " + HIS_PatientHistory_ID);
+            return true;
+        } catch (Exception e) {
+            log.error("Cannot parse: " + strPatientID);
+            return false;
+        }
+    }
+
+    private boolean order(String mes) {
+        log.debug("Recieve order: " + mes);
+        String strOrderID = "";
+        try {
+            String[] temp = mes.split("\\|");
+            strOrderID = temp[2];
+            HIS_Service_MedicTestGroup_ID = Integer.parseInt(strOrderID);
+            log.debug("Recieve order: " + HIS_Service_MedicTestGroup_ID);
+            return true;
+        } catch (Exception e) {
+            log.error("Cannot parse: " + strOrderID);
+            return false;
+        }
+    }
+
+    private boolean updateResults(int HIS_PatientHistory_ID, int HIS_Service_MedicTestGroup_ID, List<Result> results) {
+        for (Result result : results) {
+            HisServiceMedicaltest serviceMedicaltest = Model.getServiceTestByValue(result.getValue(), HIS_Service_MedicTestGroup_ID);
+//            serviceMedicaltest.setin (BigDecimal.ZERO);
+        }
+        return true;
     }
 
     public boolean sendOrders(int hisPatientHistoryId) {
@@ -139,6 +234,7 @@ public class MessageHandle implements Runnable {
                     } else {
                         isReady = false;
                         isOK = client.sendMessage(seQ, seQ == listMes.length, mes);
+                        log.debug("Send data: " + mes);
                         seQ++;
                         send = 0;
                         break;
@@ -157,13 +253,16 @@ public class MessageHandle implements Runnable {
 
     @Override
     public void run() {
-        try {
-            Thread.sleep(5000);
-        } catch (InterruptedException e) {
-            log.error(e);
+        while (true) {
+            try {
+                Thread.sleep(1000);
+                if (!sendOrders(2084735)) {
+                    Thread.sleep(5000);
+                };
+            } catch (InterruptedException e) {
+                log.error(e);
+            }
         }
-        if (!sendOrders(2081158)) {
-            stop();
-        };
+
     }
 }

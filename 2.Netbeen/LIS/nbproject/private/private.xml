@@ -3,12 +3,14 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/home/vanminh/NetBeansProjects/LIS/src/com/isofh/hibernate/entities/HisServiceMedicaltest.java</file>
-            <file>file:/home/vanminh/NetBeansProjects/LIS/src/com/isofh/astm/Message.java</file>
-            <file>file:/home/vanminh/NetBeansProjects/LIS/src/com/isofh/astm/MessageHandle.java</file>
-            <file>file:/home/vanminh/NetBeansProjects/LIS/src/com/isofh/hibernate/entities/HisPatienthistory.java</file>
-            <file>file:/home/vanminh/NetBeansProjects/LIS/src/com/isofh/hibernate/entities/Model.java</file>
-            <file>file:/home/vanminh/NetBeansProjects/LIS/src/con/isofh/connection/Client.java</file>
+            <file>file:/Users/vanminh/Workspace/Java/2.Netbeen/LIS/src/com/isofh/Util.java</file>
+            <file>file:/Users/vanminh/Workspace/Java/2.Netbeen/LIS/src/com/isofh/astm/MessageHandle.java</file>
+            <file>file:/Users/vanminh/Workspace/Java/2.Netbeen/LIS/src/log4j.properties</file>
+            <file>file:/Users/vanminh/Workspace/Java/2.Netbeen/LIS/src/com/isofh/hibernate/entities/HisServiceMedicaltest.java</file>
+            <file>file:/Users/vanminh/Workspace/Java/2.Netbeen/LIS/src/con/isofh/connection/Client.java</file>
+            <file>file:/Users/vanminh/Workspace/Java/2.Netbeen/LIS/src/com/isofh/hibernate/entities/Model.java</file>
+            <file>file:/Users/vanminh/Workspace/Java/2.Netbeen/LIS/src/com/isofh/astm/Message.java</file>
+            <file>file:/Users/vanminh/Workspace/Java/2.Netbeen/LIS/src/con/isofh/connection/Server.java</file>
         </group>
     </open-files>
 </project-private>

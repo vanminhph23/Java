@@ -5,6 +5,8 @@
  */
 package com.isofh;
 
+import java.nio.charset.Charset;
+
 /**
  *
  * @author vanminh
@@ -41,5 +43,19 @@ public class Util {
             reps /= 2;
         }
         return result;
+    }
+
+    public static String getMessage(byte[] data, int length) {
+        if (length == 0) {
+            length = data.length;
+        }
+        if (length <= 8) {
+            return "";
+        }
+        byte[] results = new byte[length - 8];
+        for (int i = 0; i < results.length; i++) {
+            results[i] = data[i + 1];
+        }
+        return new String(results, Charset.forName("US-ASCII"));
     }
 }
