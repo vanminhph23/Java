@@ -5,7 +5,7 @@
  */
 package com.isofh;
 
-import con.isofh.connection.Server;
+import com.isofh.connection.Server;
 import org.apache.log4j.Logger;
 
 /**

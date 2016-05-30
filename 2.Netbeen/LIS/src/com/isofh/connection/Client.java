@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package con.isofh.connection;
+package com.isofh.connection;
 
 import com.isofh.Util;
 import com.isofh.astm.Message;
@@ -12,7 +12,6 @@ import java.io.BufferedInputStream;
 import java.io.BufferedOutputStream;
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
-import java.io.UnsupportedEncodingException;
 import java.net.Socket;
 import java.nio.charset.Charset;
 import org.apache.log4j.Logger;
@@ -57,6 +56,7 @@ public class Client extends Thread {
                     }
                 }
             } catch (Exception e) {
+                e.printStackTrace();
                 log.error(e.getMessage());
                 isDone = true;
             }
@@ -87,6 +87,9 @@ public class Client extends Thread {
         try {
             isDone = true;
             callBack.onClosed(ID);
+            if (messageHandle != null) {
+                messageHandle.stop();
+            }
 
             if (streamIn != null) {
                 streamIn.close();
@@ -112,7 +115,7 @@ public class Client extends Thread {
 
     private boolean send(byte[] data) {
         try {
-            log.debug("Send data: " + Util.bytesToHex(data));
+            log.debug("Client Send data: " + Util.bytesToHex(data));
             streamOut.write(data);
             streamOut.flush();
             return true;
@@ -122,56 +125,37 @@ public class Client extends Thread {
             return false;
         }
     }
+    
+    public boolean sendFlag(byte flag){
+        return send(new byte[]{flag});
+    }
 
-    public boolean sendMessage(int seQ, boolean isLast, String mes) {
-        try {
-            mes = "1" + seQ + mes + "12345";
-            byte[] data;
-
-            data = mes.getBytes("UTF-8");
-
-            int length = data.length;
-            // start frame
-            data[0] = Message.STX;
-
-            // end frame
-            if (isLast) {
-                data[length - 5] = Message.ETX;
-            } else {
-                data[length - 5] = Message.ETB;
-            }
-            String checkSum = calChecksum(data);
-            data[length - 4] = checkSum.getBytes()[0];
-            data[length - 3] = checkSum.getBytes()[1];
-            data[length - 2] = Message.CR;
-            data[length - 1] = Message.LF;
-
-            return send(data);
-        } catch (UnsupportedEncodingException ex) {
-            ex.printStackTrace();
-            log.error(ex.getMessage());
-            return false;
+    public boolean sendMessage(int seQ, boolean isLast, byte[] mes) {
+        if(mes.length == 1){
+            return send(mes);
         }
-    }
-
-    public boolean sendACK() {
-        return send(new byte[]{Message.ACK});
-    }
-
-    public boolean sendNACK() {
-        return send(new byte[]{Message.NACK});
-    }
-
-    public boolean sendENQ() {
-        return send(new byte[]{Message.ENQ});
-    }
-
-    public boolean sendSTX() {
-        return send(new byte[]{Message.STX});
-    }
-
-    public boolean sendEOT() {
-        return send(new byte[]{Message.EOT});
+        
+        byte[] data = new byte[mes.length + 7];
+        int length = data.length;
+        // start frame
+        data[0] = Message.STX;
+        // Seq
+        data[1] = String.valueOf(seQ).getBytes()[0];
+        for (int i = 0; i < mes.length; i++) {
+            data[i + 2] = mes[i];
+        }
+        // end frame
+        if (isLast) {
+            data[length - 5] = Message.ETX;
+        } else {
+            data[length - 5] = Message.ETB;
+        }
+        String checkSum = calChecksum(data);
+        data[length - 4] = checkSum.getBytes()[0];
+        data[length - 3] = checkSum.getBytes()[1];
+        data[length - 2] = Message.CR;
+        data[length - 1] = Message.LF;
+        return send(data);
     }
 
     private String calChecksum(byte[] data, int length) {
@@ -197,9 +181,9 @@ public class Client extends Thread {
         if (length <= 8) {
             return true;
         }
-        String recCr = new String(new byte[]{data[length - 4], data[length - 3]}, Charset.forName("US-ASCII"));
+        String recCr = new String(new byte[]{data[length - 4], data[length - 3]}, Charset.forName("UTF-8"));
         String calCr = calChecksum(data, length);
-        if(recCr.equals(calCr)){
+        if (recCr.equals(calCr)) {
             return true;
         } else {
             log.error("Checksum is not valid : " + recCr + " - " + calCr);

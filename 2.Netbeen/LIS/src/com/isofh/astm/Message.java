@@ -73,11 +73,12 @@ public class Message {
         SimpleDateFormat format = new SimpleDateFormat("YYYYMMDDHHMMSS");
         Date acDate = serviceMedicaltests.get(0).getActdate();
         acDate = acDate==null?new Date() : acDate;
+//        int CheckUp_User_ID = serviceMedicaltests.get(0).getHisChecknullupUserId() == 
         
         record = "O" + PIPE + "1" + PIPE + serviceMedicaltests.get(0).getHisServiceMedictestgroupId() + PIPE + PIPE + testRecord + PIPE + PIPE + "R" + PIPE 
                 + format.format(acDate) + PIPE  
                 + Util.repChar(PIPE, 5) + "A"
-                + Util.repChar(PIPE, 5) + serviceMedicaltests.get(0).getHisCheckupUserId() + Util.repChar(PIPE, 2) + serviceMedicaltests.get(0).getHisRoomId()
+                + Util.repChar(PIPE, 5) + "1001990" + Util.repChar(PIPE, 2) + serviceMedicaltests.get(0).getHisRoomId()
                 + Util.repChar(PIPE, 8) + "O" + "\n";
 
         return record;

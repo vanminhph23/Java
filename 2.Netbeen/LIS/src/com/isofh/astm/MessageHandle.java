@@ -7,11 +7,9 @@ package com.isofh.astm;
 
 import com.isofh.HardCode;
 import com.isofh.Util;
-import com.isofh.hibernate.entities.HisPatienthistory;
 import com.isofh.hibernate.entities.HisServiceMedicaltest;
 import com.isofh.hibernate.entities.Model;
-import con.isofh.connection.Client;
-import java.math.BigDecimal;
+import com.isofh.connection.Client;
 import java.util.ArrayList;
 import java.util.List;
 import org.apache.log4j.Logger;
@@ -24,10 +22,11 @@ public class MessageHandle implements Runnable {
 
     private final Logger log = Logger.getLogger(MessageHandle.class.getName());
     private Client client = null;
-    private boolean isReady = false;
+    private boolean isResend = false;
     private Thread threadSend = null;
     private boolean isDone = false;
-    private int seQ = 0;
+    private int seQ_Re = 0, SeQ_Se = 0;
+    private boolean isSuccess = false;
     private int HIS_PatientHistory_ID = 0;
     private int HIS_Service_MedicTestGroup_ID = 0;
     private List<Result> results = new ArrayList<Result>();
@@ -38,8 +37,8 @@ public class MessageHandle implements Runnable {
     }
 
     public void stop() {
+        isDone = true;
         if (threadSend != null) {
-            isDone = true;
             threadSend = null;
         }
     }
@@ -56,23 +55,26 @@ public class MessageHandle implements Runnable {
 
         if (data[0] == Message.ACK) {
             log.debug("Recieve: ACK");
-            isReady = true;
+            isSuccess = true;
         } else if (data[0] == Message.ENQ) { // The first
             log.debug("Recieve: ENQ");
             clear();
-            if (isOK) {
-                isOK = client.sendACK();
+            if (isOK & !isDone) {
+                isOK = client.sendFlag(Message.ACK);
             }
         } else if (data[0] == Message.EOT) { // The end
             log.debug("Recieve: EOT");
-            if (isOK) {
-                isOK = client.sendACK();
+            if (isOK & !isDone) {
+                isOK = client.sendFlag(Message.ACK);
             }
-        } else {
+        } else if (data[0] == Message.NACK) { // The end
+            log.debug("Recieve: NACK");
+            isResend = true;
+        } else if (length > 1) {
             String mes = Util.getMessage(data, length);
             int seQNext = Integer.parseInt(mes.substring(0, 1));
-            if (seQNext != seQ + 1) {
-                log.error("Sequence not match! " + seQNext + " - " + seQ);
+            if (seQNext != seQ_Re + 1) {
+                log.error("Sequence not match! " + seQNext + " - " + seQ_Re);
                 return false;
             }
 
@@ -97,11 +99,11 @@ public class MessageHandle implements Runnable {
                 default:
                     break;
             }
-            if (isOK) {
-                client.sendACK();
-                seQ = seQNext;
+            if (isOK & !isDone) {
+                isOK = client.sendFlag(Message.ACK);
+                seQ_Re = seQNext;
             } else {
-                client.sendNACK();
+                isOK = client.sendFlag(Message.NACK);
                 log.error("handle: Cant parse mes: " + mes);
             }
         }
@@ -116,7 +118,7 @@ public class MessageHandle implements Runnable {
     private boolean terminator(String mes) {
         log.debug("Recieve terminator: " + mes);
         boolean isOK = HIS_PatientHistory_ID > 0 && HIS_Service_MedicTestGroup_ID > 0;
-        if (isOK) {
+        if (isOK & !isDone) {
             isOK = updateResults(HIS_PatientHistory_ID, HIS_Service_MedicTestGroup_ID, results);
         }
         clear();
@@ -127,7 +129,7 @@ public class MessageHandle implements Runnable {
         HIS_PatientHistory_ID = 0;
         HIS_Service_MedicTestGroup_ID = 0;
         results = new ArrayList<Result>();
-        seQ = 0;
+        seQ_Re = 0;
     }
 
     private boolean result(String mes) {
@@ -184,68 +186,92 @@ public class MessageHandle implements Runnable {
     }
 
     public boolean sendOrders(int hisPatientHistoryId) {
-        boolean isOK = true;
+        boolean isOK = !isDone;
         try {
-            if (isOK) {
-                isOK = client.sendENQ();
-            }
-
-            HisPatienthistory patienthistory = Model.getPatientByID(hisPatientHistoryId);
-            List<HisServiceMedicaltest> services = Model.getServiceTestByPatientID(hisPatientHistoryId);
-
-            String str1 = Message.header();
-            String str2 = Message.patient(patienthistory);
-            String str3 = Message.order(1, services);
-            String str4 = Message.terminator();
+//            HisPatienthistory patienthistory = Model.getPatientByID(hisPatientHistoryId);
+//            List<HisServiceMedicaltest> services = Model.getServiceTestByPatientID(hisPatientHistoryId);
+//            String str1 = Message.header();
+//            String str2 = Message.patient(patienthistory);
+//            String str3 = Message.order(1, services);
+//            String str4 = Message.terminator();
+            String str1 = "H|\\^&|||ASTM-Host|||||IsofH-HIS||P||2016051481605455\n";
+            String str2 = "P|1||1605002679||TEST^HIS^LIS||19900101|M|Viet Nam|||\n";
+            String str3 = "O|1|1047708||^^^100020||R|201605148000500||||A|||||1001990||1000874||||||||O\n";
+            String str4 = "L|1|N\n";
 
             String[] listMes = new String[]{str1, str2, str3, str4};
 
-            if (isOK) {
+            if (isOK & !isDone) {
                 isOK = sendMessages(listMes);
-            }
-
-            if (isOK) {
-                isOK = client.sendEOT();
             }
         } catch (Exception e) {
             log.error(e);
             isOK = false;
         }
-        if (!isOK) {
+        if (!isOK & !isDone) {
             log.error("sendOrders: Cant send mes");
         }
         return isOK;
     }
 
     private boolean sendMessages(String[] listMes) {
-        boolean isOK = true;
+        boolean isOK = !isDone;
         try {
             int send = 0;
-            int seQ = 1;
+            int seQ = -1;
+            List<byte[]> listMesInBye = new ArrayList<>();
+            listMesInBye.add(new byte[]{Message.ENQ});
             for (String mes : listMes) {
-                while (isOK) {
-                    if (!isReady) {
-                        Thread.sleep(HardCode.TIME_TRY_TO_SEND);
+                listMesInBye.add(mes.getBytes("UTF-8"));
+            }
+
+            for (byte[] mes : listMesInBye) {
+                isSuccess = false;
+                isResend = false;
+                seQ++;
+                send = 0;
+                log.debug("Send mes: " + new String(mes));
+                isOK = client.sendMessage(seQ, seQ == listMes.length, mes);
+                while (isOK & !isDone) {
+                    if (isSuccess) {
+                        break;
+                    }
+
+                    if (isResend) {
+                        isResend = false;
+                        isOK = client.sendMessage(seQ, seQ == listMes.length, mes);
+                        log.debug("Resend mes: " + mes);
                         send++;
                         if (send >= HardCode.TIME_OUT / HardCode.TIME_TRY_TO_SEND) {
                             isOK = false;
+                            log.debug("A lot of NACK");
                             break;
                         }
-                    } else {
-                        isReady = false;
-                        isOK = client.sendMessage(seQ, seQ == listMes.length, mes);
-                        log.debug("Send data: " + mes);
-                        seQ++;
-                        send = 0;
+                        continue;
+                    }
+
+                    log.debug("Not Receive ACK.");
+                    Thread.sleep(HardCode.TIME_TRY_TO_SEND);
+                    send++;
+                    if (send >= HardCode.TIME_OUT / HardCode.TIME_TRY_TO_SEND) {
+                        isOK = false;
+                        log.debug("Time out.");
                         break;
                     }
                 }
             }
+            
+            if(isOK & !isDone){
+                client.sendFlag(Message.EOT);
+            }
+            
+            
         } catch (Exception e) {
-            log.error(e);
+            e.printStackTrace();
+            log.error(e.getMessage());
             isOK = false;
         }
-        if (!isOK) {
+        if (!isOK & !isDone) {
             log.error("sendMessages: Cant send mes");
         }
         return isOK;
@@ -253,16 +279,16 @@ public class MessageHandle implements Runnable {
 
     @Override
     public void run() {
-        while (true) {
+        while (!isDone) {
             try {
                 Thread.sleep(1000);
-                if (!sendOrders(2084735)) {
+                if (!sendOrders(2084993)) {
                     Thread.sleep(5000);
                 };
             } catch (InterruptedException e) {
                 log.error(e);
             }
         }
-
+        log.debug("Stop thread handle message of " + client.getID());
     }
 }
