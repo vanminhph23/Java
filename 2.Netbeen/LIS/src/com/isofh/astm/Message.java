@@ -77,8 +77,8 @@ public class Message {
         acDate = acDate==null?new Date() : acDate;
         
         record = "O" + PIPE + "1" + PIPE + serviceMedicaltests.get(0).getHisServiceMedictestgroupId() + PIPE + PIPE + testRecord + PIPE + PIPE + "R" + PIPE 
-                + format.format(acDate) + PIPE  
-                + Util.repChar(PIPE, 5) + "A"
+                + format.format(acDate)  
+                + Util.repChar(PIPE, 4) + "A"
                 + Util.repChar(PIPE, 5) + "1001990" + Util.repChar(PIPE, 2) + serviceMedicaltests.get(0).getHisRoomId()
                 + Util.repChar(PIPE, 8) + "O" + "\n";
 

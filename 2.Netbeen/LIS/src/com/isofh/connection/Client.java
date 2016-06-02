@@ -144,6 +144,7 @@ public class Client extends Thread {
         for (int i = 0; i < mes.length; i++) {
             data[i + 2] = mes[i];
         }
+        data[length - 6] = Message.CR;
         // end frame
         if (isLast) {
             data[length - 5] = Message.ETX;

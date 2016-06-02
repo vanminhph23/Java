@@ -12,7 +12,7 @@ package com.isofh;
 public class HardCode {
     
     public static final int PORT = 9999;
-    public static final int TIME_OUT = 1000;
-    public static final int TIME_TRY_TO_SEND = 50;
+    public static final int TIME_OUT = 10000;
+    public static final int TIME_TRY_TO_SEND = 500;
     
 }
