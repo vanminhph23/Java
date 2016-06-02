@@ -9,12 +9,12 @@
     <property name="hibernate.connection.password">123456</property>
     <property name="hibernate.show_sql">true</property>
     <property name="hibernate.query.factory_class">org.hibernate.hql.internal.classic.ClassicQueryTranslatorFactory</property>
-    <mapping resource="com/isofh/hibernate/entities/HisMedicaltest.hbm.xml"/>
-    <mapping resource="com/isofh/hibernate/entities/HisServiceMedictestline.hbm.xml"/>
-    <mapping resource="com/isofh/hibernate/entities/HisRoom.hbm.xml"/>
-    <mapping resource="com/isofh/hibernate/entities/AdUser.hbm.xml"/>
-    <mapping resource="com/isofh/hibernate/entities/HisPatienthistory.hbm.xml"/>
-    <mapping resource="com/isofh/hibernate/entities/HisMedicaltestline.hbm.xml"/>
     <mapping resource="com/isofh/hibernate/entities/HisServiceMedicaltest.hbm.xml"/>
+    <mapping resource="com/isofh/hibernate/entities/HisRoom.hbm.xml"/>
+    <mapping resource="com/isofh/hibernate/entities/HisServiceMedictestline.hbm.xml"/>
+    <mapping resource="com/isofh/hibernate/entities/HisMedicaltestline.hbm.xml"/>
+    <mapping resource="com/isofh/hibernate/entities/HisMedicaltest.hbm.xml"/>
+    <mapping resource="com/isofh/hibernate/entities/HisPatienthistory.hbm.xml"/>
+    <mapping resource="com/isofh/hibernate/entities/AdUser.hbm.xml"/>
   </session-factory>
 </hibernate-configuration>

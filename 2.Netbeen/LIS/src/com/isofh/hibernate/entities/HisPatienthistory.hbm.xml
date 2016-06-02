@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
 "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
-<!-- Generated May 26, 2016 9:09:14 PM by Hibernate Tools 4.3.1 -->
+<!-- Generated Jun 2, 2016 11:45:48 AM by Hibernate Tools 4.3.1 -->
 <hibernate-mapping>
     <class name="com.isofh.hibernate.entities.HisPatienthistory" table="HIS_PATIENTHISTORY" schema="HIS" optimistic-lock="version">
         <id name="hisPatienthistoryId" type="long">
@@ -409,6 +409,24 @@
         </property>
         <property name="hisOutmedicalrecordno" type="string">
             <column name="HIS_OUTMEDICALRECORDNO" length="22" />
+        </property>
+        <property name="hisOpTreatmentdirection" type="string">
+            <column name="HIS_OP_TREATMENTDIRECTION" length="50" />
+        </property>
+        <property name="transfertoDepartmentId" type="java.lang.Long">
+            <column name="TRANSFERTO_DEPARTMENT_ID" precision="10" scale="0" />
+        </property>
+        <property name="needprovisional" type="java.lang.Character">
+            <column name="NEEDPROVISIONAL" length="1" />
+        </property>
+        <property name="previousDiseasediagnosticId" type="java.lang.Long">
+            <column name="PREVIOUS_DISEASEDIAGNOSTIC_ID" precision="10" scale="0" />
+        </property>
+        <property name="hisMedicaltypedetailId" type="java.lang.Long">
+            <column name="HIS_MEDICALTYPEDETAIL_ID" precision="10" scale="0" />
+        </property>
+        <property name="doctoruserId" type="java.lang.Long">
+            <column name="DOCTORUSER_ID" precision="10" scale="0" />
         </property>
     </class>
 </hibernate-mapping>

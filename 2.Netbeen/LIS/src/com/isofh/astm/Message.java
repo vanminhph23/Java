@@ -7,6 +7,7 @@ package com.isofh.astm;
 
 import com.isofh.Util;
 import com.isofh.hibernate.entities.HisMedicaltest;
+import com.isofh.hibernate.entities.HisMedicaltestline;
 import com.isofh.hibernate.entities.HisPatienthistory;
 import com.isofh.hibernate.entities.HisServiceMedicaltest;
 import com.isofh.hibernate.entities.Model;
@@ -65,6 +66,7 @@ public class Message {
         for (HisServiceMedicaltest serviceMedicaltest : serviceMedicaltests) {
             HisMedicaltest medicaltest = Model.getTestByID(serviceMedicaltest.getHisServiceId());
             testRecord += "^^^" + medicaltest.getHisLisCode() + "\\";
+            testRecord += orderLine(serviceMedicaltest);
         }
         if (!testRecord.isEmpty()) {
             testRecord = testRecord.substring(0, testRecord.length() - 1); //trim the last backslash
@@ -73,7 +75,6 @@ public class Message {
         SimpleDateFormat format = new SimpleDateFormat("YYYYMMDDHHMMSS");
         Date acDate = serviceMedicaltests.get(0).getActdate();
         acDate = acDate==null?new Date() : acDate;
-//        int CheckUp_User_ID = serviceMedicaltests.get(0).getHisChecknullupUserId() == 
         
         record = "O" + PIPE + "1" + PIPE + serviceMedicaltests.get(0).getHisServiceMedictestgroupId() + PIPE + PIPE + testRecord + PIPE + PIPE + "R" + PIPE 
                 + format.format(acDate) + PIPE  
@@ -82,6 +83,18 @@ public class Message {
                 + Util.repChar(PIPE, 8) + "O" + "\n";
 
         return record;
+    }
+    
+    private static String orderLine(HisServiceMedicaltest serviceMedicaltest){
+        HisMedicaltest medicaltest = Model.getTestByID(serviceMedicaltest.getHisServiceId());
+        List<HisMedicaltestline> lines = Model.getTestLineByTestID(medicaltest.getHisMedicaltestId());
+        String testRecord = "";
+        if(lines != null && !lines.isEmpty()){
+            for(HisMedicaltestline line : lines){
+                testRecord += "^^^" + line.getHisLisCode() + "\\";
+            }
+        }
+        return testRecord;
     }
 
 }

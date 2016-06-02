@@ -57,6 +57,20 @@ public class Model {
         return medicaltest;
     }
     
+        public static List<HisMedicaltestline> getTestLineByTestID(long hisMedicalTestId) {
+        List<HisMedicaltestline> lines = null;
+
+        Session session = HibernateUtil.getSessionFactory().openSession();
+        try {
+            lines = session.createQuery("from HisMedicaltestline m where m.hisMedicaltestId = " + hisMedicalTestId).list();
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            session.close();
+        }
+        return lines;
+    }
+    
     public static HisServiceMedicaltest getServiceTestByID(int hisServiceMedicaltestId) {
         HisServiceMedicaltest medicaltest = null;
 

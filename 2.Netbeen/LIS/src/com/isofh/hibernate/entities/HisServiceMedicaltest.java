@@ -1,5 +1,5 @@
 package com.isofh.hibernate.entities;
-// Generated May 26, 2016 9:09:09 PM by Hibernate Tools 4.3.1
+// Generated Jun 2, 2016 11:45:36 AM by Hibernate Tools 4.3.1
 
 
 import java.math.BigDecimal;
@@ -118,6 +118,9 @@ public class HisServiceMedicaltest  implements java.io.Serializable {
      private Long hisServiceHtgroupId;
      private Character istimekeeping;
      private String hisSurgeryformId;
+     private String statusbefore;
+     private Character isapproved;
+     private String indicatorStr;
 
     public HisServiceMedicaltest() {
     }
@@ -130,7 +133,7 @@ public class HisServiceMedicaltest  implements java.io.Serializable {
         this.isinpackage = isinpackage;
         this.iscreatedform = iscreatedform;
     }
-    public HisServiceMedicaltest(long hisServiceMedicaltestId, Long adClientId, Long adOrgId, Date actdate, BigDecimal amount, BigDecimal amounta, BigDecimal amounts, String btnGotresult, String btnHasresult, Character btnRequestcancel, String btnTakepatient, Long CUomId, String conclusion, Date created, Long createdby, Long createdfromrecordId, String createdfromservicetype, Long diseasediagnosticId, Date docdate, Long fromDepartmentId, Long hisCheckupUserId, Long hisDiagnosticUserId, Long hisInvoicelineaId, Long hisInvoicelinesId, Long hisInvoicelineId, String hisInvoicetype, Long hisMedicaltestId, Long hisNurseUserId, Long hisPatienthistoryId, String hisPatienttypeId, Long hisRoomId, Long hisServiceId, Long hisUser1Id, Long hisUser2Id, String higherindicator, BigDecimal indicator, Character isactive, Character iscomplete, Character isemergency, Character isinpatient, Character isready, Character isserviceused, String lowerindicator, Long patientage, Date patientbirthday, String patientcode, String patientgender, String patientname, String patienttype, Long priorityvalue, BigDecimal quantity, Long sequenceno, String status, String summaryresult, Date timegotresult, Date timehasresult, Date timetakepatient, BigDecimal totalamount, BigDecimal totalpriceAssurance, BigDecimal totalpriceService, String unit, BigDecimal unitpriceAssurance, BigDecimal unitpriceDifference, BigDecimal unitpriceService, Date updated, Long updatedby, Long hisServiceMedictestgroupId, Long hisReceiptlineaId, Long hisReceiptlinesId, Long hisServicepackageId, Long hisServicepackageHistoryId, Character ispackagesurgery, Character isnotcounted, Date fromdate, Date todate, char isinpackage, String hisTimesurgery, Long hisServiceMajorsurgeryId, String note, Character btnCreatemedicaltestform, char iscreatedform, Character ishightech, Character isinvoicelineignored, Character ispaids, Character ispaida, Long hisInvoiceaId, Long hisInvoicesId, Long medicaltestsourceId, String medicattestno, Long mainuser1Id, Long mainuser2Id, Long mainuser3Id, Long mainuser4Id, Long mainuser5Id, Long subuser1Id, Long subuser2Id, Long subuser3Id, Long subuser4Id, Long subuser5Id, Long hisExternalDoctorId, String patientvalue, String patientmedicalrecordno, Character ispaid, String unitprint, Long hisServiceHtgroupId, Character istimekeeping, String hisSurgeryformId) {
+    public HisServiceMedicaltest(long hisServiceMedicaltestId, Long adClientId, Long adOrgId, Date actdate, BigDecimal amount, BigDecimal amounta, BigDecimal amounts, String btnGotresult, String btnHasresult, Character btnRequestcancel, String btnTakepatient, Long CUomId, String conclusion, Date created, Long createdby, Long createdfromrecordId, String createdfromservicetype, Long diseasediagnosticId, Date docdate, Long fromDepartmentId, Long hisCheckupUserId, Long hisDiagnosticUserId, Long hisInvoicelineaId, Long hisInvoicelinesId, Long hisInvoicelineId, String hisInvoicetype, Long hisMedicaltestId, Long hisNurseUserId, Long hisPatienthistoryId, String hisPatienttypeId, Long hisRoomId, Long hisServiceId, Long hisUser1Id, Long hisUser2Id, String higherindicator, BigDecimal indicator, Character isactive, Character iscomplete, Character isemergency, Character isinpatient, Character isready, Character isserviceused, String lowerindicator, Long patientage, Date patientbirthday, String patientcode, String patientgender, String patientname, String patienttype, Long priorityvalue, BigDecimal quantity, Long sequenceno, String status, String summaryresult, Date timegotresult, Date timehasresult, Date timetakepatient, BigDecimal totalamount, BigDecimal totalpriceAssurance, BigDecimal totalpriceService, String unit, BigDecimal unitpriceAssurance, BigDecimal unitpriceDifference, BigDecimal unitpriceService, Date updated, Long updatedby, Long hisServiceMedictestgroupId, Long hisReceiptlineaId, Long hisReceiptlinesId, Long hisServicepackageId, Long hisServicepackageHistoryId, Character ispackagesurgery, Character isnotcounted, Date fromdate, Date todate, char isinpackage, String hisTimesurgery, Long hisServiceMajorsurgeryId, String note, Character btnCreatemedicaltestform, char iscreatedform, Character ishightech, Character isinvoicelineignored, Character ispaids, Character ispaida, Long hisInvoiceaId, Long hisInvoicesId, Long medicaltestsourceId, String medicattestno, Long mainuser1Id, Long mainuser2Id, Long mainuser3Id, Long mainuser4Id, Long mainuser5Id, Long subuser1Id, Long subuser2Id, Long subuser3Id, Long subuser4Id, Long subuser5Id, Long hisExternalDoctorId, String patientvalue, String patientmedicalrecordno, Character ispaid, String unitprint, Long hisServiceHtgroupId, Character istimekeeping, String hisSurgeryformId, String statusbefore, Character isapproved, String indicatorStr) {
        this.hisServiceMedicaltestId = hisServiceMedicaltestId;
        this.adClientId = adClientId;
        this.adOrgId = adOrgId;
@@ -238,6 +241,9 @@ public class HisServiceMedicaltest  implements java.io.Serializable {
        this.hisServiceHtgroupId = hisServiceHtgroupId;
        this.istimekeeping = istimekeeping;
        this.hisSurgeryformId = hisSurgeryformId;
+       this.statusbefore = statusbefore;
+       this.isapproved = isapproved;
+       this.indicatorStr = indicatorStr;
     }
    
     public long getHisServiceMedicaltestId() {
@@ -988,6 +994,27 @@ public class HisServiceMedicaltest  implements java.io.Serializable {
     
     public void setHisSurgeryformId(String hisSurgeryformId) {
         this.hisSurgeryformId = hisSurgeryformId;
+    }
+    public String getStatusbefore() {
+        return this.statusbefore;
+    }
+    
+    public void setStatusbefore(String statusbefore) {
+        this.statusbefore = statusbefore;
+    }
+    public Character getIsapproved() {
+        return this.isapproved;
+    }
+    
+    public void setIsapproved(Character isapproved) {
+        this.isapproved = isapproved;
+    }
+    public String getIndicatorStr() {
+        return this.indicatorStr;
+    }
+    
+    public void setIndicatorStr(String indicatorStr) {
+        this.indicatorStr = indicatorStr;
     }
 
 

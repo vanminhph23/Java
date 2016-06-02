@@ -10,6 +10,7 @@ import com.isofh.Util;
 import com.isofh.hibernate.entities.HisServiceMedicaltest;
 import com.isofh.hibernate.entities.Model;
 import com.isofh.connection.Client;
+import com.isofh.hibernate.entities.HisPatienthistory;
 import java.util.ArrayList;
 import java.util.List;
 import org.apache.log4j.Logger;
@@ -188,16 +189,17 @@ public class MessageHandle implements Runnable {
     public boolean sendOrders(int hisPatientHistoryId) {
         boolean isOK = !isDone;
         try {
-//            HisPatienthistory patienthistory = Model.getPatientByID(hisPatientHistoryId);
-//            List<HisServiceMedicaltest> services = Model.getServiceTestByPatientID(hisPatientHistoryId);
-//            String str1 = Message.header();
-//            String str2 = Message.patient(patienthistory);
-//            String str3 = Message.order(1, services);
-//            String str4 = Message.terminator();
-            String str1 = "H|\\^&|||ASTM-Host|||||IsofH-HIS||P||2016051481605455\n";
-            String str2 = "P|1||1605002679||TEST^HIS^LIS||19900101|M|Viet Nam|||\n";
-            String str3 = "O|1|1047708||^^^100020||R|201605148000500||||A|||||1001990||1000874||||||||O\n";
-            String str4 = "L|1|N\n";
+            HisPatienthistory patienthistory = Model.getPatientByID(hisPatientHistoryId);
+            List<HisServiceMedicaltest> services = Model.getServiceTestByPatientID(hisPatientHistoryId);
+            String str1 = Message.header();
+            String str2 = Message.patient(patienthistory);
+            String str3 = Message.order(1, services);
+            String str4 = Message.terminator();
+            
+//            String str1 = "H|\\^&|||ASTM-Host|||||IsofH-HIS||P||2016051481605455\n";
+//            String str2 = "P|1||1605002679||TEST^HIS^LIS||19900101|M|Viet Nam|||\n";
+//            String str3 = "O|1|1047708||^^^100020||R|201605148000500||||A|||||1001990||1000874||||||||O\n";
+//            String str4 = "L|1|N\n";
 
             String[] listMes = new String[]{str1, str2, str3, str4};
 
@@ -259,6 +261,9 @@ public class MessageHandle implements Runnable {
                         break;
                     }
                 }
+//                if(!isOK){
+//                    break;
+//                }
             }
             
             if(isOK & !isDone){
@@ -282,7 +287,7 @@ public class MessageHandle implements Runnable {
         while (!isDone) {
             try {
                 Thread.sleep(1000);
-                if (!sendOrders(2084993)) {
+                if (!sendOrders(2085318)) {
                     Thread.sleep(5000);
                 };
             } catch (InterruptedException e) {
