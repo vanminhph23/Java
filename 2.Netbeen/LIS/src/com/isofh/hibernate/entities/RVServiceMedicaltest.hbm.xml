@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated Jun 3, 2016 3:57:49 PM by Hibernate Tools 4.3.1 -->
+<hibernate-mapping>
+  <class name="com.isofh.hibernate.model.MRVServiceMedicaltest" optimistic-lock="version" schema="HIS" table="HIS_RV_LIS_MEDICALTEST_LP">
+    <id name="RVserviceMedicalTestID" type="long">
+      <column name="HIS_RV_LIS_MEDICALTEST_LP_ID" precision="10" scale="0"/>
+      <generator class="assigned"/>
+    </id>
+    <property name="created" type="date">
+      <column length="7" name="CREATED"/>
+    </property>
+    <property name="createdby" type="java.lang.Integer">
+      <column name="CREATEDBY" precision="10" scale="0"/>
+    </property>
+    <property name="value" type="string">
+      <column length="40" name="VALUE"/>
+    </property>
+    <property name="name" type="string">
+      <column length="512" name="NAME"/>
+    </property>
+    <property name="patientTypeID" type="string">
+      <column length="2" name="HIS_PATIENTTYPE_ID"/>
+    </property>
+    <property name="birthday" type="date">
+      <column length="7" name="BIRTHDAY"/>
+    </property>
+    <property name="genderID" type="java.lang.Character">
+      <column length="1" name="HIS_GENDER_ID"/>
+    </property>
+    <property name="address2" type="string">
+      <column name="ADDRESS2"/>
+    </property>
+    <property name="assuranceID" type="string">
+      <column length="15" name="ASSURANCE_ID"/>
+    </property>
+    <property name="status" type="string">
+      <column length="10" name="STATUS"/>
+    </property>
+    <property name="statusLis" type="string">
+      <column length="10" name="STATUS_LIS"/>
+    </property>
+    <property name="actdate" type="date">
+      <column length="7" name="ACTDATE"/>
+    </property>
+    <property name="hisLisCode" type="string">
+      <column length="20" name="HIS_LIS_CODE"/>
+    </property>
+    <property name="hisLisCodeline" type="string">
+      <column length="20" name="HIS_LIS_CODELINE"/>
+    </property>
+    <property name="patientHistoryID" type="java.lang.Integer">
+      <column name="HIS_PATIENTHISTORY_ID" precision="10" scale="0"/>
+    </property>
+    <property name="serviceID" type="java.lang.Integer">
+      <column name="HIS_SERVICE_ID" precision="10" scale="0"/>
+    </property>
+    <property name="serviceMedicalTestID" type="java.lang.Integer">
+      <column name="HIS_SERVICE_MEDICALTEST_ID" precision="10" scale="0"/>
+    </property>
+    <property name="serviceMedicalTestLineID" type="java.lang.Integer">
+      <column name="HIS_SERVICE_MEDICTESTLINE_ID" precision="10" scale="0"/>
+    </property>
+    <property name="roomID" type="java.lang.Integer">
+      <column name="HIS_ROOM_ID" precision="10" scale="0"/>
+    </property>
+    <property name="room" type="string">
+      <column length="90" name="HIS_ROOM"/>
+    </property>
+    <property name="roomValue" type="string">
+      <column length="40" name="HIS_ROOM_VALUE"/>
+    </property>
+    <property name="isInpatient" type="java.lang.Character">
+      <column length="1" name="ISINPATIENT"/>
+    </property>
+    <property name="medicaltestID" type="java.lang.Integer">
+      <column name="HIS_MEDICALTEST_ID" precision="10" scale="0"/>
+    </property>
+    <property name="isEmergency" type="java.lang.Character">
+      <column length="1" name="ISEMERGENCY"/>
+    </property>
+    <property name="diseaseDiagnosticID" type="java.lang.Integer">
+      <column name="DISEASEDIAGNOSTIC_ID" precision="10" scale="0"/>
+    </property>
+    <property name="fromDepartment" type="string">
+      <column length="60" name="FROM_DEPARTMENT"/>
+    </property>
+    <property name="fromDepartmentID" type="java.lang.Integer">
+      <column name="FROM_DEPARTMENT_ID" precision="10" scale="0"/>
+    </property>
+    <property name="departmentID" type="java.lang.Integer">
+      <column name="HIS_DEPARTMENT_ID" precision="10" scale="0"/>
+    </property>
+    <property name="diseaseiagnostic" type="string">
+      <column name="DISEASEDIAGNOSTIC"/>
+    </property>
+    <property name="checkupUserID" type="java.lang.Integer">
+      <column name="HIS_CHECKUP_USER_ID" precision="10" scale="0"/>
+    </property>
+    <property name="checkupUserName" type="string">
+      <column length="60" name="CHECKUP_USER_NAME"/>
+    </property>
+    <property name="serviceMedictestgroupID" type="java.lang.Integer">
+      <column name="HIS_SERVICE_MEDICTESTGROUP_ID" precision="10" scale="0"/>
+    </property>
+  </class>
+</hibernate-mapping>

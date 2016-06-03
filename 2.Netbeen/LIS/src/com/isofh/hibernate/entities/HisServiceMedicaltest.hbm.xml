@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
 "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
-<!-- Generated Jun 2, 2016 11:45:48 AM by Hibernate Tools 4.3.1 -->
+<!-- Generated Jun 3, 2016 4:51:44 PM by Hibernate Tools 4.3.1 -->
 <hibernate-mapping>
     <class name="com.isofh.hibernate.entities.HisServiceMedicaltest" table="HIS_SERVICE_MEDICALTEST" schema="HIS" optimistic-lock="version">
         <id name="hisServiceMedicaltestId" type="long">
@@ -334,6 +334,12 @@
         </property>
         <property name="indicatorStr" type="string">
             <column name="INDICATOR_STR" length="60" />
+        </property>
+        <property name="servicename" type="string">
+            <column name="SERVICENAME" length="522" />
+        </property>
+        <property name="statusLis" type="string">
+            <column name="STATUS_LIS" length="10" />
         </property>
     </class>
 </hibernate-mapping>

@@ -9,8 +9,7 @@
     <property name="hibernate.connection.password">123456</property>
     <property name="hibernate.show_sql">true</property>
     <property name="hibernate.query.factory_class">org.hibernate.hql.internal.classic.ClassicQueryTranslatorFactory</property>
-    <mapping resource="com/isofh/hibernate/entities/RVServiceMedicaltest.hbm.xml"/>
-    <mapping resource="com/isofh/hibernate/entities/HisServiceMedictestline.hbm.xml"/>
-    <mapping resource="com/isofh/hibernate/entities/HisServiceMedicaltest.hbm.xml"/>
+    <mapping resource="com/vanminh/model/HISPatientHistory.hbm.xml"/>
+    <mapping resource="com/vanminh/model/RVServiceMedicaltest.hbm.xml"/>
   </session-factory>
 </hibernate-configuration>

@@ -135,7 +135,7 @@ public class Client extends Thread {
             return send(mes);
         }
         
-        byte[] data = new byte[mes.length + 7];
+        byte[] data = new byte[mes.length + 8];
         int length = data.length;
         // start frame
         data[0] = Message.STX;

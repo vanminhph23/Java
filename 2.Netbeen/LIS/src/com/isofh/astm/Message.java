@@ -6,11 +6,9 @@
 package com.isofh.astm;
 
 import com.isofh.Util;
-import com.isofh.hibernate.entities.HisMedicaltest;
-import com.isofh.hibernate.entities.HisMedicaltestline;
-import com.isofh.hibernate.entities.HisPatienthistory;
 import com.isofh.hibernate.entities.HisServiceMedicaltest;
-import com.isofh.hibernate.entities.Model;
+import com.isofh.hibernate.model.MRVServiceMedicaltest;
+import com.isofh.hibernate.model.Model;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
@@ -47,54 +45,40 @@ public class Message {
         return "L" + PIPE + "1" + PIPE + "N" + "\n";
     }
 
-    public static String patient(HisPatienthistory patienthistory) {
+    public static String patient(MRVServiceMedicaltest mRVServiceMedicaltest) {
         SimpleDateFormat format = new SimpleDateFormat("YYYYMMDD");
-        String assurancecard =  patienthistory.getAssuranceId()==null?"":patienthistory.getAssuranceId();
+        String assurancecard =  mRVServiceMedicaltest.getAssuranceID()==null?"":mRVServiceMedicaltest.getAssuranceID();
         return "P" + PIPE + "1" + Util.repChar(PIPE, 2)
-                + patienthistory.getValue() + Util.repChar(PIPE, 2)
-                + patienthistory.getName() + Util.repChar(PIPE, 2)
-                + format.format(patienthistory.getBirthday()) + PIPE
-                + patienthistory.getHisGenderId() + PIPE
-                + patienthistory.getAddress2() + Util.repChar(PIPE, 2)
+                + mRVServiceMedicaltest.getValue() + Util.repChar(PIPE, 2)
+                + mRVServiceMedicaltest.getName() + Util.repChar(PIPE, 2)
+                + format.format(mRVServiceMedicaltest.getBirthday()) + PIPE
+                + mRVServiceMedicaltest.getGenderID() + PIPE
+                + mRVServiceMedicaltest.getAddress2() + Util.repChar(PIPE, 2)
                 + assurancecard
                 + PIPE + "\n";
     }
 
-    public static String order(int seQ, List<HisServiceMedicaltest> serviceMedicaltests) {
+    public static String order(int seQ, List<MRVServiceMedicaltest> mRVServiceMedicaltests) {
         String record;
         String testRecord = "";
-        for (HisServiceMedicaltest serviceMedicaltest : serviceMedicaltests) {
-            HisMedicaltest medicaltest = Model.getTestByID(serviceMedicaltest.getHisServiceId());
-            testRecord += "^^^" + medicaltest.getHisLisCode() + "\\";
-            testRecord += orderLine(serviceMedicaltest);
+        for (MRVServiceMedicaltest mRVServiceMedicaltest : mRVServiceMedicaltests) {
+            testRecord += "^^^" + mRVServiceMedicaltest.getHisLisCode() + "\\";
         }
         if (!testRecord.isEmpty()) {
             testRecord = testRecord.substring(0, testRecord.length() - 1); //trim the last backslash
         }
         
         SimpleDateFormat format = new SimpleDateFormat("YYYYMMDDHHMMSS");
-        Date acDate = serviceMedicaltests.get(0).getActdate();
+        Date acDate = mRVServiceMedicaltests.get(0).getActdate();
         acDate = acDate==null?new Date() : acDate;
         
-        record = "O" + PIPE + "1" + PIPE + serviceMedicaltests.get(0).getHisServiceMedictestgroupId() + PIPE + PIPE + testRecord + PIPE + PIPE + "R" + PIPE 
+        record = "O" + PIPE + "1" + PIPE + mRVServiceMedicaltests.get(0).getServiceMedictestgroupID() + PIPE + PIPE + testRecord + PIPE + PIPE + "R" + PIPE 
                 + format.format(acDate)  
                 + Util.repChar(PIPE, 4) + "A"
-                + Util.repChar(PIPE, 5) + "1001990" + Util.repChar(PIPE, 2) + serviceMedicaltests.get(0).getHisRoomId()
+                + Util.repChar(PIPE, 5) + "1001990" + Util.repChar(PIPE, 2) + mRVServiceMedicaltests.get(0).getRoomValue()
                 + Util.repChar(PIPE, 8) + "O" + "\n";
 
         return record;
-    }
-    
-    private static String orderLine(HisServiceMedicaltest serviceMedicaltest){
-        HisMedicaltest medicaltest = Model.getTestByID(serviceMedicaltest.getHisServiceId());
-        List<HisMedicaltestline> lines = Model.getTestLineByTestID(medicaltest.getHisMedicaltestId());
-        String testRecord = "";
-        if(lines != null && !lines.isEmpty()){
-            for(HisMedicaltestline line : lines){
-                testRecord += "^^^" + line.getHisLisCode() + "\\";
-            }
-        }
-        return testRecord;
     }
 
 }

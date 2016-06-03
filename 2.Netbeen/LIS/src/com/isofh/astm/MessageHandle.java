@@ -7,10 +7,8 @@ package com.isofh.astm;
 
 import com.isofh.HardCode;
 import com.isofh.Util;
-import com.isofh.hibernate.entities.HisServiceMedicaltest;
-import com.isofh.hibernate.entities.Model;
 import com.isofh.connection.Client;
-import com.isofh.hibernate.entities.HisPatienthistory;
+import com.isofh.hibernate.model.MRVServiceMedicaltest;
 import java.util.ArrayList;
 import java.util.List;
 import org.apache.log4j.Logger;
@@ -189,17 +187,12 @@ public class MessageHandle implements Runnable {
     public boolean sendOrders(int hisPatientHistoryId) {
         boolean isOK = !isDone;
         try {
-            HisPatienthistory patienthistory = Model.getPatientByID(hisPatientHistoryId);
-            List<HisServiceMedicaltest> services = Model.getServiceTestByPatientID(hisPatientHistoryId);
+            List<MRVServiceMedicaltest> services = MRVServiceMedicaltest.getServiceTestByPatientID(hisPatientHistoryId);
+            
             String str1 = Message.header();
-            String str2 = Message.patient(patienthistory);
+            String str2 = Message.patient(services.get(0));
             String str3 = Message.order(1, services);
             String str4 = Message.terminator();
-            
-//            String str1 = "H|\\^&|||ASTM-Host|||||IsofH-HIS||P||2016051481605455\n";
-//            String str2 = "P|1||1605002679||TEST^HIS^LIS||19900101|M|Viet Nam|||\n";
-//            String str3 = "O|1|1047708||^^^100020||R|201605148000500||||A|||||1001990||1000874||||||||O\n";
-//            String str4 = "L|1|F\n";
 
             String[] listMes = new String[]{str1, str2, str3, str4};
 
@@ -284,16 +277,16 @@ public class MessageHandle implements Runnable {
 
     @Override
     public void run() {
-//        while (!isDone) {
-//            try {
-//                Thread.sleep(1000);
-//                if (sendOrders(2085318)) {
-//                    Thread.sleep(60000);
-//                };
-//            } catch (InterruptedException e) {
-//                log.error(e);
-//            }
-//        }
-//        log.debug("Stop thread handle message of " + client.getID());
+        while (!isDone) {
+            try {
+                Thread.sleep(1000);
+                if (sendOrders(2080058)) {
+                    Thread.sleep(60000);
+                };
+            } catch (InterruptedException e) {
+                log.error(e);
+            }
+        }
+        log.debug("Stop thread handle message of " + client.getID());
     }
 }
