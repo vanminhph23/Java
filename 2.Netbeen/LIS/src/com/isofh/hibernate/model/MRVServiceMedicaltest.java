@@ -7,7 +7,6 @@ package com.isofh.hibernate.model;
 
 import com.isofh.hibernate.HibernateUtil;
 import com.isofh.hibernate.entities.*;
-import java.util.ArrayList;
 import java.util.List;
 import org.hibernate.Session;
 
@@ -15,37 +14,58 @@ import org.hibernate.Session;
  *
  * @author vanminh
  */
-public class MRVServiceMedicaltest extends RVServiceMedicaltest implements IModel<MRVServiceMedicaltest> {
+public class MRVServiceMedicaltest extends RVServiceMedicaltest {
 
     public MRVServiceMedicaltest() {
         super();
     }
 
-    public MRVServiceMedicaltest getByID(int ID) {
-        MRVServiceMedicaltest patienthistory = null;
+    public static MRVServiceMedicaltest getByID(int ID) {
         Session session = HibernateUtil.getSessionFactory().openSession();
         try {
-            patienthistory = (MRVServiceMedicaltest) session.createQuery("from MRVServiceMedicaltest m where m.RVserviceMedicalTestID = " + "10381771785").uniqueResult();
+            return (MRVServiceMedicaltest) session.createQuery("from MRVServiceMedicaltest m where m.serviceMedicalTestID = " + "10381771785").uniqueResult();
         } catch (Exception e) {
             e.printStackTrace();
+            return null;
         } finally {
             session.close();
         }
-        return patienthistory;
     }
 
-    public List<MRVServiceMedicaltest> getByPatientID(int patientHistoryID) {
-        List<MRVServiceMedicaltest> list = new ArrayList<>();
-
+    public static List<MRVServiceMedicaltest> getByPatientID(int patientHistoryID) {
         Session session = HibernateUtil.getSessionFactory().openSession();
         try {
-            list = session.createQuery("from MRVServiceMedicaltest m where m.patientHistoryID = " + patientHistoryID).list();
+            return session.createQuery("from MRVServiceMedicaltest m where m.patientHistoryID = " + patientHistoryID).list();
         } catch (Exception e) {
             e.printStackTrace();
+            return null;
         } finally {
             session.close();
         }
-        return list;
+    }
+
+    public static List<MRVServiceMedicaltest> getByGroupMedicaltestID(int groupID) {
+        Session session = HibernateUtil.getSessionFactory().openSession();
+        try {
+            return session.createQuery("from MRVServiceMedicaltest m where m.serviceMedictestgroupID = " + groupID).list();
+        } catch (Exception e) {
+            e.printStackTrace();
+            return null;
+        } finally {
+            session.close();
+        }
+    }
+
+    public static List<Integer> getGroupMedicaltestID() {
+        Session session = HibernateUtil.getSessionFactory().openSession();
+        try {
+            return session.createQuery("select distinct m.serviceMedictestgroupID from MRVServiceMedicaltest m").list();
+        } catch (Exception e) {
+            e.printStackTrace();
+            return null;
+        } finally {
+            session.close();
+        }
     }
 
 }

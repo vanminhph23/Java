@@ -8,10 +8,14 @@ package com.isofh.astm;
 import com.isofh.HardCode;
 import com.isofh.Util;
 import com.isofh.connection.Client;
+import com.isofh.hibernate.HibernateUtil;
+import com.isofh.hibernate.model.MPatientHistory;
 import com.isofh.hibernate.model.MRVServiceMedicaltest;
+import com.isofh.hibernate.model.MServiceMedicaltest;
 import java.util.ArrayList;
 import java.util.List;
 import org.apache.log4j.Logger;
+import org.hibernate.Session;
 
 /**
  *
@@ -184,14 +188,14 @@ public class MessageHandle implements Runnable {
         return true;
     }
 
-    public boolean sendOrders(int hisPatientHistoryId) {
+    public boolean sendOrders(int groupID) {
         boolean isOK = !isDone;
         try {
-            List<MRVServiceMedicaltest> services = MRVServiceMedicaltest.getServiceTestByPatientID(hisPatientHistoryId);
-            
+            List<MRVServiceMedicaltest> services = MRVServiceMedicaltest.getByGroupMedicaltestID(groupID);
+            MPatientHistory patientHistory = MPatientHistory.getByMedicaltestGroupID(groupID);
             String str1 = Message.header();
-            String str2 = Message.patient(services.get(0));
-            String str3 = Message.order(1, services);
+            String str2 = Message.patient(patientHistory);
+            String str3 = Message.order(services);
             String str4 = Message.terminator();
 
             String[] listMes = new String[]{str1, str2, str3, str4};
@@ -199,9 +203,14 @@ public class MessageHandle implements Runnable {
             if (isOK & !isDone) {
                 isOK = sendMessages(listMes);
             }
+            
+            if(isOK){
+                isOK = MServiceMedicaltest.updateStatus(groupID, MServiceMedicaltest.Status.STATUS_AC);
+            }
         } catch (Exception e) {
             log.error(e);
             isOK = false;
+        } finally {
         }
         if (!isOK & !isDone) {
             log.error("sendOrders: Cant send mes");
@@ -258,12 +267,11 @@ public class MessageHandle implements Runnable {
 //                    break;
 //                }
             }
-            
-            if(isOK & !isDone){
+
+            if (isOK & !isDone) {
                 client.sendFlag(Message.EOT);
             }
-            
-            
+
         } catch (Exception e) {
             e.printStackTrace();
             log.error(e.getMessage());
@@ -279,10 +287,12 @@ public class MessageHandle implements Runnable {
     public void run() {
         while (!isDone) {
             try {
-                Thread.sleep(1000);
-                if (sendOrders(2080058)) {
-                    Thread.sleep(60000);
-                };
+                List<Integer> allGroupMedicaltest = MRVServiceMedicaltest.getGroupMedicaltestID();
+                for (Integer groupID : allGroupMedicaltest) {
+                    sendOrders(groupID);
+                    Thread.sleep(3000);
+                }
+                Thread.sleep(60000);
             } catch (InterruptedException e) {
                 log.error(e);
             }

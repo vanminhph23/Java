@@ -6,9 +6,8 @@
 package com.isofh.astm;
 
 import com.isofh.Util;
-import com.isofh.hibernate.entities.HisServiceMedicaltest;
+import com.isofh.hibernate.model.MPatientHistory;
 import com.isofh.hibernate.model.MRVServiceMedicaltest;
-import com.isofh.hibernate.model.Model;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
@@ -38,27 +37,27 @@ public class Message {
 
     public static String header() {
         SimpleDateFormat format = new SimpleDateFormat("YYYYMMDDHHMMSS");
-        return "H" + DELIMITERDEF + Util.repChar(PIPE, 3) + INSTRUMENT + Util.repChar(PIPE, 5) + HOST + Util.repChar(PIPE, 2) + "P" + Util.repChar(PIPE, 2) + format.format(new Date()) + "\n";
+        return "H" + DELIMITERDEF + Util.repChar(PIPE, 3) + INSTRUMENT + Util.repChar(PIPE, 5) + HOST + Util.repChar(PIPE, 2) + "P" + Util.repChar(PIPE, 2) + format.format(new Date());
     }
 
     public static String terminator() {
-        return "L" + PIPE + "1" + PIPE + "N" + "\n";
+        return "L" + PIPE + "1" + PIPE + "N";
     }
 
-    public static String patient(MRVServiceMedicaltest mRVServiceMedicaltest) {
+    public static String patient(MPatientHistory patientHistory) {
         SimpleDateFormat format = new SimpleDateFormat("YYYYMMDD");
-        String assurancecard =  mRVServiceMedicaltest.getAssuranceID()==null?"":mRVServiceMedicaltest.getAssuranceID();
+        String assurancecard =  patientHistory.getAssuranceID()==null?"":patientHistory.getAssuranceID();
         return "P" + PIPE + "1" + Util.repChar(PIPE, 2)
-                + mRVServiceMedicaltest.getValue() + Util.repChar(PIPE, 2)
-                + mRVServiceMedicaltest.getName() + Util.repChar(PIPE, 2)
-                + format.format(mRVServiceMedicaltest.getBirthday()) + PIPE
-                + mRVServiceMedicaltest.getGenderID() + PIPE
-                + mRVServiceMedicaltest.getAddress2() + Util.repChar(PIPE, 2)
+                + patientHistory.getValue() + Util.repChar(PIPE, 2)
+                + patientHistory.getName() + Util.repChar(PIPE, 2)
+                + format.format(patientHistory.getBirthday()) + PIPE
+                + patientHistory.getGenderID() + PIPE
+                + patientHistory.getAddress() + Util.repChar(PIPE, 2)
                 + assurancecard
-                + PIPE + "\n";
+                + PIPE;
     }
 
-    public static String order(int seQ, List<MRVServiceMedicaltest> mRVServiceMedicaltests) {
+    public static String order(List<MRVServiceMedicaltest> mRVServiceMedicaltests) {
         String record;
         String testRecord = "";
         for (MRVServiceMedicaltest mRVServiceMedicaltest : mRVServiceMedicaltests) {
@@ -76,7 +75,7 @@ public class Message {
                 + format.format(acDate)  
                 + Util.repChar(PIPE, 4) + "A"
                 + Util.repChar(PIPE, 5) + "1001990" + Util.repChar(PIPE, 2) + mRVServiceMedicaltests.get(0).getRoomValue()
-                + Util.repChar(PIPE, 8) + "O" + "\n";
+                + Util.repChar(PIPE, 8) + "O";
 
         return record;
     }
