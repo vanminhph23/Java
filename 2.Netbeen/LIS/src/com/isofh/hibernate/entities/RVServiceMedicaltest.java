@@ -29,7 +29,7 @@ public class RVServiceMedicaltest implements java.io.Serializable {
     private String diseaseiagnostic;
     private Integer checkupUserID;
     private String checkupUserName;
-    private Integer serviceMedictestgroupID;
+    private Integer serviceMedictestGroupID;
 
     public RVServiceMedicaltest() {
     }
@@ -210,13 +210,16 @@ public class RVServiceMedicaltest implements java.io.Serializable {
         this.checkupUserName = checkupUserName;
     }
 
-    public Integer getServiceMedictestgroupID() {
-        return serviceMedictestgroupID;
+    public Integer getServiceMedictestGroupID() {
+        return serviceMedictestGroupID;
     }
 
-    public void setServiceMedictestgroupID(Integer serviceMedictestgroupID) {
-        this.serviceMedictestgroupID = serviceMedictestgroupID;
+    public void setServiceMedictestGroupID(Integer serviceMedictestGroupID) {
+        this.serviceMedictestGroupID = serviceMedictestGroupID;
     }
+
+    
+
 
    
 

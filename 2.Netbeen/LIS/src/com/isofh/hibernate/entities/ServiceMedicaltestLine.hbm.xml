@@ -2,7 +2,7 @@
 <!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
 <!-- Generated Jun 3, 2016 4:51:44 PM by Hibernate Tools 4.3.1 -->
 <hibernate-mapping>
-  <class name="com.isofh.hibernate.model.MServiceMedicaltestLine" optimistic-lock="version" schema="HIS" table="HIS_SERVICE_MEDICTESTLINE">
+  <class name="com.isofh.hibernate.model.MServiceMedicaltestLine" optimistic-lock="version" schema="HIS" table="HIS_Service_MedictestLine">
     <id name="serviceMedicaltestLineID" type="int">
       <column name="HIS_Service_MedictestLine_ID" precision="10" scale="0"/>
       <generator class="assigned"/>
@@ -13,7 +13,7 @@
     <property name="serviceMedicaltestID" type="int">
       <column name="HIS_Service_Medicaltest_ID" precision="10" scale="0"/>
     </property>
-    <property name="updated" type="date">
+    <property name="updated" type="java.sql.Timestamp">
       <column length="7" name="Updated"/>
     </property>
     <property name="updatedBy" type="int">
@@ -22,7 +22,7 @@
     <property name="patientHistoryID" type="int">
       <column name="HIS_PatientHistory_ID" precision="10" scale="0"/>
     </property>
-    <property name="indicatorStr" type="string">
+    <property name="indicatorStr" type="java.lang.String">
       <column length="60" name="Indicator_Str"/>
     </property>
   </class>

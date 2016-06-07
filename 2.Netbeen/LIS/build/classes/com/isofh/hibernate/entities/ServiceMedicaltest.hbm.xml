@@ -13,16 +13,16 @@
     <property name="status" type="java.lang.String">
       <column name="Status"/>
     </property>
-     <property name="timegotResult" type="date">
+     <property name="timegotResult" type="java.sql.Timestamp">
       <column name="TimeGotResult"/>
     </property>
-     <property name="timehasResult" type="date">
+     <property name="timehasResult" type="java.sql.Timestamp">
       <column name="TimeHasResult"/>
     </property>
-    <property name="timeTakePatient" type="date">
+    <property name="timeTakePatient" type="java.sql.Timestamp">
       <column name="TimeTakePatient"/>
     </property>
-     <property name="updated" type="date">
+     <property name="updated" type="java.sql.Timestamp">
       <column name="Updated"/>
     </property>
      <property name="updatedby" type="int">
@@ -39,6 +39,9 @@
     </property>
     <property name="indicatorStr" type="java.lang.String">
       <column name="Indicator_Str"/>
+    </property>
+    <property name="statusLIS" type="java.lang.String">
+      <column name="STATUS_LIS"/>
     </property>
   </class>
 </hibernate-mapping>

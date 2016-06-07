@@ -6,14 +6,14 @@
 package com.isofh.hibernate.model;
 
 import com.isofh.hibernate.HibernateUtil;
-import com.isofh.hibernate.entities.HisPatientHistory;
+import com.isofh.hibernate.entities.PatientHistory;
 import org.hibernate.Session;
 
 /**
  *
  * @author vanminh
  */
-public class MPatientHistory extends HisPatientHistory {
+public class MPatientHistory extends PatientHistory {
 
     public MPatientHistory() {
         super();
@@ -34,7 +34,7 @@ public class MPatientHistory extends HisPatientHistory {
     public static MPatientHistory getByMedicaltestGroupID(int groupID) {
         Session session = HibernateUtil.getSessionFactory().openSession();
         try {
-            Integer patientHistoryID = (Integer) session.createQuery("select m.patientHistoryID From MRVServiceMedicaltest m where m.serviceMedictestgroupID = " + groupID).uniqueResult();
+            Integer patientHistoryID = (Integer) session.createQuery("select m.patientHistoryID From MRVServiceMedicaltest m where m.serviceMedictestGroupID = " + groupID + " and rownum < 2").uniqueResult();
             if (patientHistoryID.compareTo(0) <= 0) {
                 return null;
             }

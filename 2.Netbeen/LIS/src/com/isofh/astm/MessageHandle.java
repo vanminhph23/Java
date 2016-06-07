@@ -12,10 +12,15 @@ import com.isofh.hibernate.HibernateUtil;
 import com.isofh.hibernate.model.MPatientHistory;
 import com.isofh.hibernate.model.MRVServiceMedicaltest;
 import com.isofh.hibernate.model.MServiceMedicaltest;
+import static com.isofh.hibernate.model.MServiceMedicaltest.AD_USER_ID_HIS_LIS;
+import static com.isofh.hibernate.model.MServiceMedicaltest.getByMedicaltestGroupID;
+import com.isofh.hibernate.model.MServiceMedicaltestLine;
+import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
 import org.apache.log4j.Logger;
 import org.hibernate.Session;
+import org.hibernate.Transaction;
 
 /**
  *
@@ -181,9 +186,37 @@ public class MessageHandle implements Runnable {
     }
 
     private boolean updateResults(int HIS_PatientHistory_ID, int HIS_Service_MedicTestGroup_ID, List<Result> results) {
-        for (Result result : results) {
-//            HisServiceMedicaltest serviceMedicaltest = Model.getServiceTestByValue(result.getValue(), HIS_Service_MedicTestGroup_ID);
-//            serviceMedicaltest.setin (BigDecimal.ZERO);
+        Session session = null;
+        Transaction transaction = null;
+        try {
+            session = HibernateUtil.getSessionFactory().openSession();
+            transaction = session.beginTransaction();
+            for (Result result : results) {
+                MServiceMedicaltest serviceMedicaltest = MServiceMedicaltest.getByHISLISCode(HIS_PatientHistory_ID, result.getValue(), HIS_Service_MedicTestGroup_ID);
+                if (serviceMedicaltest != null) {
+                    serviceMedicaltest.setIndicatorStr(result.getResult());
+                    serviceMedicaltest.setStatus(MServiceMedicaltest.Status.STATUS_HR.Status());
+                    serviceMedicaltest.setUpdated(new Timestamp(System.currentTimeMillis()));
+                    serviceMedicaltest.setUpdatedby(MServiceMedicaltest.AD_USER_ID_HIS_LIS);
+                    session.update(serviceMedicaltest);
+                    continue;
+                }
+                MServiceMedicaltestLine serviceMedicaltestLine = MServiceMedicaltestLine.getByHISLISCode(HIS_PatientHistory_ID, result.getValue(), HIS_Service_MedicTestGroup_ID);
+                if (serviceMedicaltestLine != null) {
+                    serviceMedicaltestLine.setIndicatorStr(result.getResult());
+                    serviceMedicaltest.setUpdated(new Timestamp(System.currentTimeMillis()));
+                    serviceMedicaltest.setUpdatedby(MServiceMedicaltest.AD_USER_ID_HIS_LIS);
+                    session.update(serviceMedicaltestLine);
+                }
+                
+            }
+            transaction.commit();
+        } catch (Exception e) {
+            e.printStackTrace();
+            transaction.rollback();
+            return false;
+        } finally {
+            session.close();
         }
         return true;
     }
@@ -203,9 +236,10 @@ public class MessageHandle implements Runnable {
             if (isOK & !isDone) {
                 isOK = sendMessages(listMes);
             }
-            
-            if(isOK){
-                isOK = MServiceMedicaltest.updateStatus(groupID, MServiceMedicaltest.Status.STATUS_AC);
+
+            if (isOK) {
+                log.debug("sendOrders: Send successfully " + groupID);
+                isOK = MServiceMedicaltest.updateStatus(groupID, MServiceMedicaltest.Status.STATUS_WT);
             }
         } catch (Exception e) {
             log.error(e);
@@ -263,9 +297,9 @@ public class MessageHandle implements Runnable {
                         break;
                     }
                 }
-//                if(!isOK){
-//                    break;
-//                }
+                if (!isOK) {
+                    break;
+                }
             }
 
             if (isOK & !isDone) {
@@ -289,7 +323,7 @@ public class MessageHandle implements Runnable {
             try {
                 List<Integer> allGroupMedicaltest = MRVServiceMedicaltest.getGroupMedicaltestID();
                 for (Integer groupID : allGroupMedicaltest) {
-                    sendOrders(groupID);
+//                    sendOrders(groupID);
                     Thread.sleep(3000);
                 }
                 Thread.sleep(60000);

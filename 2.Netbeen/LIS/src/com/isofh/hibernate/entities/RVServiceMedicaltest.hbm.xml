@@ -70,7 +70,7 @@
     <property name="checkupUserName" type="string">
       <column length="60" name="CHECKUP_USER_NAME"/>
     </property>
-    <property name="serviceMedictestgroupID" type="java.lang.Integer">
+    <property name="serviceMedictestGroupID" type="java.lang.Integer">
       <column name="HIS_SERVICE_MEDICTESTGROUP_ID" precision="10" scale="0"/>
     </property>
   </class>

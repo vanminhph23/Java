@@ -8,6 +8,7 @@ package com.isofh.astm;
 import com.isofh.Util;
 import com.isofh.hibernate.model.MPatientHistory;
 import com.isofh.hibernate.model.MRVServiceMedicaltest;
+import com.isofh.hibernate.model.MRVServiceMedictestLine;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
@@ -62,6 +63,7 @@ public class Message {
         String testRecord = "";
         for (MRVServiceMedicaltest mRVServiceMedicaltest : mRVServiceMedicaltests) {
             testRecord += "^^^" + mRVServiceMedicaltest.getHisLisCode() + "\\";
+            testRecord += orderLine(mRVServiceMedicaltest);
         }
         if (!testRecord.isEmpty()) {
             testRecord = testRecord.substring(0, testRecord.length() - 1); //trim the last backslash
@@ -71,13 +73,22 @@ public class Message {
         Date acDate = mRVServiceMedicaltests.get(0).getActdate();
         acDate = acDate==null?new Date() : acDate;
         
-        record = "O" + PIPE + "1" + PIPE + mRVServiceMedicaltests.get(0).getServiceMedictestgroupID() + PIPE + PIPE + testRecord + PIPE + PIPE + "R" + PIPE 
+        record = "O" + PIPE + "1" + PIPE + mRVServiceMedicaltests.get(0).getServiceMedictestGroupID() + PIPE + PIPE + testRecord + PIPE + PIPE + "R" + PIPE 
                 + format.format(acDate)  
                 + Util.repChar(PIPE, 4) + "A"
                 + Util.repChar(PIPE, 5) + "1001990" + Util.repChar(PIPE, 2) + mRVServiceMedicaltests.get(0).getRoomValue()
                 + Util.repChar(PIPE, 8) + "O";
 
         return record;
+    }
+    
+    private static String orderLine(MRVServiceMedicaltest mRVServiceMedicaltest){
+        List<MRVServiceMedictestLine> testLines = MRVServiceMedictestLine.getByMedicaltestID(mRVServiceMedicaltest.getServiceMedicalTestID());
+        String testRecord = "";
+        for(MRVServiceMedictestLine line : testLines){
+            testRecord += "^^^" + line.getHisLISCode() + "\\";
+        }
+        return testRecord;
     }
 
 }
