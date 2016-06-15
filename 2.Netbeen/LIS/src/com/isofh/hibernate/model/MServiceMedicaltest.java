@@ -73,16 +73,18 @@ public class MServiceMedicaltest extends ServiceMedicaltest {
             session.close();
         }
     }
-    
-    public static MServiceMedicaltest getByHISLISCode(int patientHistoryID, String hisLisCode, int serviceMedictestGroupID){
+
+    public static MServiceMedicaltest getByHISLISCode(String hisLisCode, int serviceMedictestGroupID) {
         Session session = HibernateUtil.getSessionFactory().openSession();
         try {
-            Integer ID = (Integer) session.createQuery("select m.serviceMedicalTestID from MRVServiceMedicaltest m where m.patientHistoryID = ? and m.hisLisCode = ? and m.serviceMedictestGroupID = ?" )
-                    .setParameter(0, patientHistoryID)
-                    .setParameter(1, hisLisCode)
-                    .setParameter(2, serviceMedictestGroupID)
+            Object ID = session.createQuery("select m.serviceMedicalTestID from MRVServiceMedicaltest m where m.hisLisCode = ? and m.serviceMedictestGroupID = ?")
+                    .setParameter(0, hisLisCode)
+                    .setParameter(1, serviceMedictestGroupID)
                     .uniqueResult();
-            return MServiceMedicaltest.getByID(ID);
+            if (ID == null) {
+                return null;
+            }
+            return MServiceMedicaltest.getByID((Integer) ID);
         } catch (Exception e) {
             e.printStackTrace();
             return null;
@@ -98,7 +100,7 @@ public class MServiceMedicaltest extends ServiceMedicaltest {
             session = HibernateUtil.getSessionFactory().openSession();
             transaction = session.beginTransaction();
             List<MServiceMedicaltest> list = getByMedicaltestGroupID(groupID);
-            
+
             for (MServiceMedicaltest serviceMedicaltest : list) {
                 serviceMedicaltest.setStatus(status.Status());
                 serviceMedicaltest.setStatusLIS(status.Status());

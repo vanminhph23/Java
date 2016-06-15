@@ -7,9 +7,10 @@ package com.isofh.hibernate.entities;
 public class RVServiceMedictestLine implements java.io.Serializable {
 
     private int serviceMedicaltestLineID;
-    private int serviceMedicaltestID;
     private String hisLISCode;
     private int patientHistoryID;
+    private Integer serviceMedictestGroupID;
+    private int serviceMedicaltestID;
 
     public RVServiceMedictestLine() {
     }
@@ -20,14 +21,6 @@ public class RVServiceMedictestLine implements java.io.Serializable {
 
     public void setServiceMedicaltestLineID(int serviceMedicaltestLineID) {
         this.serviceMedicaltestLineID = serviceMedicaltestLineID;
-    }
-
-    public int getServiceMedicaltestID() {
-        return serviceMedicaltestID;
-    }
-
-    public void setServiceMedicaltestID(int serviceMedicaltestID) {
-        this.serviceMedicaltestID = serviceMedicaltestID;
     }
 
     public String getHisLISCode() {
@@ -45,5 +38,23 @@ public class RVServiceMedictestLine implements java.io.Serializable {
     public void setPatientHistoryID(int patientHistoryID) {
         this.patientHistoryID = patientHistoryID;
     }
+
+    public Integer getServiceMedictestGroupID() {
+        return serviceMedictestGroupID;
+    }
+
+    public void setServiceMedictestGroupID(Integer serviceMedictestGroupID) {
+        this.serviceMedictestGroupID = serviceMedictestGroupID;
+    }
+
+    public int getServiceMedicaltestID() {
+        return serviceMedicaltestID;
+    }
+
+    public void setServiceMedicaltestID(int serviceMedicaltestID) {
+        this.serviceMedicaltestID = serviceMedicaltestID;
+    }
+    
+    
 
 }

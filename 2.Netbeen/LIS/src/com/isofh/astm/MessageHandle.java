@@ -12,8 +12,6 @@ import com.isofh.hibernate.HibernateUtil;
 import com.isofh.hibernate.model.MPatientHistory;
 import com.isofh.hibernate.model.MRVServiceMedicaltest;
 import com.isofh.hibernate.model.MServiceMedicaltest;
-import static com.isofh.hibernate.model.MServiceMedicaltest.AD_USER_ID_HIS_LIS;
-import static com.isofh.hibernate.model.MServiceMedicaltest.getByMedicaltestGroupID;
 import com.isofh.hibernate.model.MServiceMedicaltestLine;
 import java.sql.Timestamp;
 import java.util.ArrayList;
@@ -127,7 +125,7 @@ public class MessageHandle implements Runnable {
         log.debug("Recieve terminator: " + mes);
         boolean isOK = HIS_PatientHistory_ID > 0 && HIS_Service_MedicTestGroup_ID > 0;
         if (isOK & !isDone) {
-            isOK = updateResults(HIS_PatientHistory_ID, HIS_Service_MedicTestGroup_ID, results);
+            isOK = updateResults(HIS_Service_MedicTestGroup_ID, results);
         }
         clear();
         return true;
@@ -176,6 +174,7 @@ public class MessageHandle implements Runnable {
         try {
             String[] temp = mes.split("\\|");
             strOrderID = temp[2];
+            strOrderID = strOrderID.substring(0, strOrderID.length() - 2);
             HIS_Service_MedicTestGroup_ID = Integer.parseInt(strOrderID);
             log.debug("Recieve order: " + HIS_Service_MedicTestGroup_ID);
             return true;
@@ -185,14 +184,14 @@ public class MessageHandle implements Runnable {
         }
     }
 
-    private boolean updateResults(int HIS_PatientHistory_ID, int HIS_Service_MedicTestGroup_ID, List<Result> results) {
+    private boolean updateResults(int HIS_Service_MedicTestGroup_ID, List<Result> results) {
         Session session = null;
         Transaction transaction = null;
         try {
             session = HibernateUtil.getSessionFactory().openSession();
             transaction = session.beginTransaction();
             for (Result result : results) {
-                MServiceMedicaltest serviceMedicaltest = MServiceMedicaltest.getByHISLISCode(HIS_PatientHistory_ID, result.getValue(), HIS_Service_MedicTestGroup_ID);
+                MServiceMedicaltest serviceMedicaltest = MServiceMedicaltest.getByHISLISCode(result.getValue(), HIS_Service_MedicTestGroup_ID);
                 if (serviceMedicaltest != null) {
                     serviceMedicaltest.setIndicatorStr(result.getResult());
                     serviceMedicaltest.setStatus(MServiceMedicaltest.Status.STATUS_HR.Status());
@@ -201,15 +200,16 @@ public class MessageHandle implements Runnable {
                     session.update(serviceMedicaltest);
                     continue;
                 }
-                MServiceMedicaltestLine serviceMedicaltestLine = MServiceMedicaltestLine.getByHISLISCode(HIS_PatientHistory_ID, result.getValue(), HIS_Service_MedicTestGroup_ID);
+                MServiceMedicaltestLine serviceMedicaltestLine = MServiceMedicaltestLine.getByHISLISCode(result.getValue(), HIS_Service_MedicTestGroup_ID);
                 if (serviceMedicaltestLine != null) {
                     serviceMedicaltestLine.setIndicatorStr(result.getResult());
-                    serviceMedicaltest.setUpdated(new Timestamp(System.currentTimeMillis()));
-                    serviceMedicaltest.setUpdatedby(MServiceMedicaltest.AD_USER_ID_HIS_LIS);
+                    serviceMedicaltestLine.setUpdated(new Timestamp(System.currentTimeMillis()));
+                    serviceMedicaltestLine.setUpdatedBy(MServiceMedicaltest.AD_USER_ID_HIS_LIS);
                     session.update(serviceMedicaltestLine);
                 }
-                
+
             }
+            MServiceMedicaltest.updateStatus(HIS_Service_MedicTestGroup_ID, MServiceMedicaltest.Status.STATUS_HR);
             transaction.commit();
         } catch (Exception e) {
             e.printStackTrace();
@@ -239,7 +239,7 @@ public class MessageHandle implements Runnable {
 
             if (isOK) {
                 log.debug("sendOrders: Send successfully " + groupID);
-                isOK = MServiceMedicaltest.updateStatus(groupID, MServiceMedicaltest.Status.STATUS_WT);
+                isOK = MServiceMedicaltest.updateStatus(groupID, MServiceMedicaltest.Status.STATUS_AC);
             }
         } catch (Exception e) {
             log.error(e);
@@ -321,14 +321,19 @@ public class MessageHandle implements Runnable {
     public void run() {
         while (!isDone) {
             try {
+                Thread.sleep(HardCode.TIMER_SEND_DATA);
                 List<Integer> allGroupMedicaltest = MRVServiceMedicaltest.getGroupMedicaltestID();
-                for (Integer groupID : allGroupMedicaltest) {
-//                    sendOrders(groupID);
-                    Thread.sleep(3000);
+                if(allGroupMedicaltest == null){
+                    continue;
                 }
-                Thread.sleep(60000);
-            } catch (InterruptedException e) {
-                log.error(e);
+                for (Integer groupID : allGroupMedicaltest) {
+                    sendOrders(groupID);
+                    Thread.sleep(2000);
+                }
+                
+            } catch (Exception e) {
+                log.error(e.getMessage());
+                e.printStackTrace();
             }
         }
         log.debug("Stop thread handle message of " + client.getID());

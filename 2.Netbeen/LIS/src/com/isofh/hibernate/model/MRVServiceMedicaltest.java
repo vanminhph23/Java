@@ -23,7 +23,7 @@ public class MRVServiceMedicaltest extends RVServiceMedicaltest {
     public static MRVServiceMedicaltest getByID(int ID) {
         Session session = HibernateUtil.getSessionFactory().openSession();
         try {
-            return (MRVServiceMedicaltest) session.createQuery("from MRVServiceMedicaltest m where m.serviceMedicalTestID = " + "10381771785").uniqueResult();
+            return (MRVServiceMedicaltest) session.createQuery("from MRVServiceMedicaltest m where m.serviceMedicalTestID = " + ID).uniqueResult();
         } catch (Exception e) {
             e.printStackTrace();
             return null;
@@ -59,7 +59,7 @@ public class MRVServiceMedicaltest extends RVServiceMedicaltest {
     public static List<Integer> getGroupMedicaltestID() {
         Session session = HibernateUtil.getSessionFactory().openSession();
         try {
-            return session.createQuery("select distinct m.serviceMedictestGroupID from MRVServiceMedicaltest m where m.patientHistoryID = " + 2085867).list();
+            return session.createQuery("select distinct m.serviceMedictestGroupID from MRVServiceMedicaltest m where m.status = 'AC' and m.status <> m.statusLis").list();
         } catch (Exception e) {
             e.printStackTrace();
             return null;

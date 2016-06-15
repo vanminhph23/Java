@@ -30,13 +30,12 @@ public class MServiceMedicaltestLine extends SeviceMedicaltestLine {
         }
     }
 
-    public static MServiceMedicaltestLine getByHISLISCode(int patientHistoryID, String hisLisCode, int serviceMedictestGroupID) {
+    public static MServiceMedicaltestLine getByHISLISCode(String hisLisCode, int serviceMedictestGroupID) {
         Session session = HibernateUtil.getSessionFactory().openSession();
         try {
-            Integer ID = (Integer) session.createQuery("select m.serviceMedicalTestID from MRVServiceMedictestLine m where m.patientHistoryID = ? and m.hisLisCode = ? and m.serviceMedictestGroupID = ?")
-                    .setParameter(0, patientHistoryID)
-                    .setParameter(1, hisLisCode)
-                    .setParameter(2, serviceMedictestGroupID)
+            Integer ID = (Integer) session.createQuery("select m.serviceMedicaltestLineID from MRVServiceMedictestLine m where m.hisLISCode = ? and m.serviceMedictestGroupID = ?")
+                    .setParameter(0, hisLisCode)
+                    .setParameter(1, serviceMedictestGroupID)
                     .uniqueResult();
             return MServiceMedicaltestLine.getByID(ID);
         } catch (Exception e) {

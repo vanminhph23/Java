@@ -49,7 +49,7 @@ public class Message {
         SimpleDateFormat format = new SimpleDateFormat("YYYYMMDD");
         String assurancecard =  patientHistory.getAssuranceID()==null?"":patientHistory.getAssuranceID();
         return "P" + PIPE + "1" + Util.repChar(PIPE, 2)
-                + patientHistory.getValue() + Util.repChar(PIPE, 2)
+                + patientHistory.getPatientHistoryID() + Util.repChar(PIPE, 2)
                 + patientHistory.getName() + Util.repChar(PIPE, 2)
                 + format.format(patientHistory.getBirthday()) + PIPE
                 + patientHistory.getGenderID() + PIPE
