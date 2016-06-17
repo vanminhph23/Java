@@ -33,7 +33,7 @@ public class MessageHandle implements Runnable {
     private boolean isDone = false;
     private int seQ_Re = 0, SeQ_Se = 0;
     private boolean isSuccess = false;
-    private int HIS_PatientHistory_ID = 0;
+    private String value = "";
     private int HIS_Service_MedicTestGroup_ID = 0;
     private List<Result> results = new ArrayList<Result>();
 
@@ -123,7 +123,7 @@ public class MessageHandle implements Runnable {
 
     private boolean terminator(String mes) {
         log.debug("Recieve terminator: " + mes);
-        boolean isOK = HIS_PatientHistory_ID > 0 && HIS_Service_MedicTestGroup_ID > 0;
+        boolean isOK = !value.isEmpty() && HIS_Service_MedicTestGroup_ID > 0;
         if (isOK & !isDone) {
             isOK = updateResults(HIS_Service_MedicTestGroup_ID, results);
         }
@@ -132,7 +132,7 @@ public class MessageHandle implements Runnable {
     }
 
     private void clear() {
-        HIS_PatientHistory_ID = 0;
+        value = "";
         HIS_Service_MedicTestGroup_ID = 0;
         results = new ArrayList<Result>();
         seQ_Re = 0;
@@ -140,7 +140,7 @@ public class MessageHandle implements Runnable {
 
     private boolean result(String mes) {
         log.debug("Recieve result: " + mes);
-        boolean isOK = HIS_PatientHistory_ID > 0 && HIS_Service_MedicTestGroup_ID > 0;
+        boolean isOK = !value.isEmpty() && HIS_Service_MedicTestGroup_ID > 0;
         try {
             String[] temp = mes.split("\\|");
             String value = temp[2].replaceAll("\\^", "");
@@ -155,15 +155,13 @@ public class MessageHandle implements Runnable {
 
     private boolean patient(String mes) {
         log.debug("Recieve patient: " + mes);
-        String strPatientID = "";
         try {
             String[] temp = mes.split("\\|");
-            strPatientID = temp[2];
-            HIS_PatientHistory_ID = Integer.parseInt(strPatientID);
-            log.debug("Recieve patient: " + HIS_PatientHistory_ID);
+            value = temp[2];
+            log.debug("Recieve patient: " + value);
             return true;
         } catch (Exception e) {
-            log.error("Cannot parse: " + strPatientID);
+            log.error("Cannot parse: " + value);
             return false;
         }
     }
