@@ -31,9 +31,9 @@ public class MessageHandle implements Runnable {
     private boolean isResend = false;
     private Thread threadSend = null;
     private boolean isDone = false;
-    private int seQ_Re = 0, SeQ_Se = 0;
+    private int seQ_Re = 0;
     private boolean isSuccess = false;
-    private String value = "";
+    private String patientValue = "";
     private int HIS_Service_MedicTestGroup_ID = 0;
     private List<Result> results = new ArrayList<Result>();
 
@@ -79,6 +79,10 @@ public class MessageHandle implements Runnable {
         } else if (length > 1) {
             String mes = Util.getMessage(data, length);
             int seQNext = Integer.parseInt(mes.substring(0, 1));
+            if (seQ_Re + 1 >= 8) {
+                seQ_Re = -1;
+            }
+
             if (seQNext != seQ_Re + 1) {
                 log.error("Sequence not match! " + seQNext + " - " + seQ_Re);
                 return false;
@@ -108,6 +112,7 @@ public class MessageHandle implements Runnable {
             if (isOK & !isDone) {
                 isOK = client.sendFlag(Message.ACK);
                 seQ_Re = seQNext;
+
             } else {
                 isOK = client.sendFlag(Message.NACK);
                 log.error("handle: Cant parse mes: " + mes);
@@ -122,17 +127,25 @@ public class MessageHandle implements Runnable {
     }
 
     private boolean terminator(String mes) {
-        log.debug("Recieve terminator: " + mes);
-        boolean isOK = !value.isEmpty() && HIS_Service_MedicTestGroup_ID > 0;
+        log.debug("Recieve terminator: " + mes + ": ");
+        boolean isOK = !patientValue.isEmpty() && HIS_Service_MedicTestGroup_ID > 0;
         if (isOK & !isDone) {
             isOK = updateResults(HIS_Service_MedicTestGroup_ID, results);
         }
+        if (isOK) {
+            isOK = MServiceMedicaltest.updateStatus(HIS_Service_MedicTestGroup_ID, MServiceMedicaltest.Status.STATUS_HR);
+        }
+        if (!isOK) {
+            log.error("Update result fail for: " + patientValue + " - " + HIS_Service_MedicTestGroup_ID);
+        } else {
+            log.debug("Update result successfully for: " + patientValue + " - " + HIS_Service_MedicTestGroup_ID);
+        }
         clear();
-        return true;
+        return isOK;
     }
 
     private void clear() {
-        value = "";
+        patientValue = "";
         HIS_Service_MedicTestGroup_ID = 0;
         results = new ArrayList<Result>();
         seQ_Re = 0;
@@ -140,7 +153,11 @@ public class MessageHandle implements Runnable {
 
     private boolean result(String mes) {
         log.debug("Recieve result: " + mes);
-        boolean isOK = !value.isEmpty() && HIS_Service_MedicTestGroup_ID > 0;
+
+        if (patientValue.isEmpty() || HIS_Service_MedicTestGroup_ID <= 0) {
+            log.debug("Invalid patient: " + patientValue + " - " + HIS_Service_MedicTestGroup_ID);
+        }
+
         try {
             String[] temp = mes.split("\\|");
             String value = temp[2].replaceAll("\\^", "");
@@ -157,11 +174,11 @@ public class MessageHandle implements Runnable {
         log.debug("Recieve patient: " + mes);
         try {
             String[] temp = mes.split("\\|");
-            value = temp[2];
-            log.debug("Recieve patient: " + value);
+            patientValue = temp[2];
+            log.debug("Recieve patient: " + patientValue);
             return true;
         } catch (Exception e) {
-            log.error("Cannot parse: " + value);
+            log.error("Cannot parse: " + patientValue);
             return false;
         }
     }
@@ -183,6 +200,7 @@ public class MessageHandle implements Runnable {
     }
 
     private boolean updateResults(int HIS_Service_MedicTestGroup_ID, List<Result> results) {
+        log.debug("Start update: " + HIS_Service_MedicTestGroup_ID);
         Session session = null;
         Transaction transaction = null;
         try {
@@ -204,10 +222,10 @@ public class MessageHandle implements Runnable {
                     serviceMedicaltestLine.setUpdated(new Timestamp(System.currentTimeMillis()));
                     serviceMedicaltestLine.setUpdatedBy(MServiceMedicaltest.AD_USER_ID_HIS_LIS);
                     session.update(serviceMedicaltestLine);
+                    continue;
                 }
-
+                log.debug("Not found Value: " + result.getValue() + " HIS_Service_MedicTestGroup_ID: " + HIS_Service_MedicTestGroup_ID);
             }
-            MServiceMedicaltest.updateStatus(HIS_Service_MedicTestGroup_ID, MServiceMedicaltest.Status.STATUS_HR);
             transaction.commit();
         } catch (Exception e) {
             e.printStackTrace();
@@ -321,14 +339,14 @@ public class MessageHandle implements Runnable {
             try {
                 Thread.sleep(HardCode.TIMER_SEND_DATA);
                 List<Integer> allGroupMedicaltest = MRVServiceMedicaltest.getGroupMedicaltestID();
-                if(allGroupMedicaltest == null){
+                if (allGroupMedicaltest == null) {
                     continue;
                 }
                 for (Integer groupID : allGroupMedicaltest) {
                     sendOrders(groupID);
-                    Thread.sleep(2000);
+                    Thread.sleep(1000);
                 }
-                
+
             } catch (Exception e) {
                 log.error(e.getMessage());
                 e.printStackTrace();

@@ -14,6 +14,6 @@ public class HardCode {
     public static final int PORT = 9999;
     public static final int TIME_OUT = 10000;
     public static final int TIME_TRY_TO_SEND = 500;
-    public static final int TIMER_SEND_DATA = 10000;
+    public static final int TIMER_SEND_DATA = 3000;
     
 }

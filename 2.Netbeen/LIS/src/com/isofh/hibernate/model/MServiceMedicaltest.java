@@ -106,7 +106,11 @@ public class MServiceMedicaltest extends ServiceMedicaltest {
                 serviceMedicaltest.setStatusLIS(status.Status());
                 serviceMedicaltest.setUpdated(new Timestamp(System.currentTimeMillis()));
                 serviceMedicaltest.setUpdatedby(AD_USER_ID_HIS_LIS);
-                serviceMedicaltest.setTimeTakePatient(new Timestamp(System.currentTimeMillis()));
+                if(status.equals(Status.STATUS_HR)){
+                    serviceMedicaltest.setTimehasResult(new Timestamp(System.currentTimeMillis()));
+                } else if(status.equals(Status.STATUS_AC)){
+                    serviceMedicaltest.setTimeTakePatient(new Timestamp(System.currentTimeMillis()));
+                }
                 session.update(serviceMedicaltest);
             }
             transaction.commit();
