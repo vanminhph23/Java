@@ -1,0 +1,177 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated May 24, 2016 4:58:59 AM by Hibernate Tools 4.3.1 -->
+<hibernate-mapping>
+    <class name="com.isofh.hibernate.entities.HisMedicaltest" table="HIS_MEDICALTEST" schema="HIS" optimistic-lock="version">
+        <id name="hisMedicaltestId" type="long">
+            <column name="HIS_MEDICALTEST_ID" precision="10" scale="0" />
+            <generator class="assigned" />
+        </id>
+        <property name="adClientId" type="java.lang.Long">
+            <column name="AD_CLIENT_ID" precision="10" scale="0" />
+        </property>
+        <property name="adOrgId" type="java.lang.Long">
+            <column name="AD_ORG_ID" precision="10" scale="0" />
+        </property>
+        <property name="CUomId" type="java.lang.Long">
+            <column name="C_UOM_ID" precision="10" scale="0" />
+        </property>
+        <property name="created" type="date">
+            <column name="CREATED" length="7" />
+        </property>
+        <property name="createdby" type="java.lang.Long">
+            <column name="CREATEDBY" precision="10" scale="0" />
+        </property>
+        <property name="englishname" type="string">
+            <column name="ENGLISHNAME" />
+        </property>
+        <property name="femalehighindicator" type="string">
+            <column name="FEMALEHIGHINDICATOR" />
+        </property>
+        <property name="femalelowindicator" type="string">
+            <column name="FEMALELOWINDICATOR" />
+        </property>
+        <property name="hisMedicaltestUu" type="string">
+            <column name="HIS_MEDICALTEST_UU" length="36" unique="true" />
+        </property>
+        <property name="hisRoomId" type="java.lang.Long">
+            <column name="HIS_ROOM_ID" precision="10" scale="0" />
+        </property>
+        <property name="hisServicegrouplevel1Id" type="long">
+            <column name="HIS_SERVICEGROUPLEVEL1_ID" precision="10" scale="0" not-null="true" />
+        </property>
+        <property name="hisServicegrouplevel2Id" type="java.lang.Long">
+            <column name="HIS_SERVICEGROUPLEVEL2_ID" precision="10" scale="0" />
+        </property>
+        <property name="hisServicegrouplevel3Id" type="java.lang.Long">
+            <column name="HIS_SERVICEGROUPLEVEL3_ID" precision="10" scale="0" />
+        </property>
+        <property name="hisServicetype" type="string">
+            <column name="HIS_SERVICETYPE" length="20" not-null="true" />
+        </property>
+        <property name="isactive" type="java.lang.Character">
+            <column name="ISACTIVE" length="1" />
+        </property>
+        <property name="ishightech" type="java.lang.Character">
+            <column name="ISHIGHTECH" length="1" />
+        </property>
+        <property name="isincomereport" type="java.lang.Character">
+            <column name="ISINCOMEREPORT" length="1" />
+        </property>
+        <property name="isinpatient" type="java.lang.Character">
+            <column name="ISINPATIENT" length="1" />
+        </property>
+        <property name="isinputquantity" type="java.lang.Character">
+            <column name="ISINPUTQUANTITY" length="1" />
+        </property>
+        <property name="isoutpatient" type="java.lang.Character">
+            <column name="ISOUTPATIENT" length="1" />
+        </property>
+        <property name="malehighindicator" type="string">
+            <column name="MALEHIGHINDICATOR" />
+        </property>
+        <property name="malelowindicator" type="string">
+            <column name="MALELOWINDICATOR" />
+        </property>
+        <property name="name" type="string">
+            <column name="NAME" length="522" />
+        </property>
+        <property name="priceassurance" type="big_decimal">
+            <column name="PRICEASSURANCE" precision="22" scale="0" />
+        </property>
+        <property name="pricediff" type="big_decimal">
+            <column name="PRICEDIFF" precision="22" scale="0" />
+        </property>
+        <property name="priceservice" type="big_decimal">
+            <column name="PRICESERVICE" precision="22" scale="0" not-null="true" />
+        </property>
+        <property name="shortname" type="string">
+            <column name="SHORTNAME" />
+        </property>
+        <property name="tag1" type="string">
+            <column name="TAG1" length="60" />
+        </property>
+        <property name="updated" type="date">
+            <column name="UPDATED" length="7" />
+        </property>
+        <property name="updatedby" type="java.lang.Long">
+            <column name="UPDATEDBY" precision="10" scale="0" />
+        </property>
+        <property name="useinreception" type="java.lang.Character">
+            <column name="USEINRECEPTION" length="1" />
+        </property>
+        <property name="value" type="string">
+            <column name="VALUE" length="40" />
+        </property>
+        <property name="tag2" type="string">
+            <column name="TAG2" length="10" />
+        </property>
+        <property name="hisLisCode" type="string">
+            <column name="HIS_LIS_CODE" length="20" />
+        </property>
+        <property name="assurancequota" type="big_decimal">
+            <column name="ASSURANCEQUOTA" precision="22" scale="0" />
+        </property>
+        <property name="conclusiontemplate" type="string">
+            <column name="CONCLUSIONTEMPLATE" />
+        </property>
+        <property name="hisCheckupType" type="string">
+            <column name="HIS_CHECKUP_TYPE" length="20" />
+        </property>
+        <property name="hisMedicineId" type="java.lang.Long">
+            <column name="HIS_MEDICINE_ID" precision="10" scale="0" />
+        </property>
+        <property name="hisSpecialistId" type="java.lang.Long">
+            <column name="HIS_SPECIALIST_ID" precision="10" scale="0" />
+        </property>
+        <property name="requiredticket" type="string">
+            <column name="REQUIREDTICKET" />
+        </property>
+        <property name="resulttemplate" type="string">
+            <column name="RESULTTEMPLATE" length="2000" />
+        </property>
+        <property name="templateid" type="string">
+            <column name="TEMPLATEID" />
+        </property>
+        <property name="unit" type="string">
+            <column name="UNIT" length="60" />
+        </property>
+        <property name="hisDepartmentId" type="java.lang.Long">
+            <column name="HIS_DEPARTMENT_ID" precision="10" scale="0" />
+        </property>
+        <property name="isinpackage" type="java.lang.Character">
+            <column name="ISINPACKAGE" length="1" />
+        </property>
+        <property name="istimekeeping" type="java.lang.Character">
+            <column name="ISTIMEKEEPING" length="1" />
+        </property>
+        <property name="note37" type="string">
+            <column name="NOTE37" length="522" />
+        </property>
+        <property name="isserviceinhospital" type="java.lang.Character">
+            <column name="ISSERVICEINHOSPITAL" length="1" />
+        </property>
+        <property name="hisServiceId" type="java.lang.Long">
+            <column name="HIS_SERVICE_ID" precision="10" scale="0" unique="true" />
+        </property>
+        <property name="reporttemplatevalue" type="string">
+            <column name="REPORTTEMPLATEVALUE" length="40" />
+        </property>
+        <property name="hisReporttemplateId" type="java.lang.Long">
+            <column name="HIS_REPORTTEMPLATE_ID" precision="10" scale="0" />
+        </property>
+        <property name="unitprint" type="string">
+            <column name="UNITPRINT" />
+        </property>
+        <property name="higherindicator" type="string">
+            <column name="HIGHERINDICATOR" length="20" />
+        </property>
+        <property name="lowerindicator" type="string">
+            <column name="LOWERINDICATOR" length="20" />
+        </property>
+        <property name="printorder" type="long">
+            <column name="PRINTORDER" precision="10" scale="0" not-null="true" />
+        </property>
+    </class>
+</hibernate-mapping>

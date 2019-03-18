@@ -1,0 +1,408 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated May 24, 2016 4:58:59 AM by Hibernate Tools 4.3.1 -->
+<hibernate-mapping>
+    <class name="com.isofh.hibernate.entities.HisPatienthistory" table="HIS_PATIENTHISTORY" schema="HIS" optimistic-lock="version">
+        <id name="hisPatienthistoryId" type="long">
+            <column name="HIS_PATIENTHISTORY_ID" precision="10" scale="0" />
+            <generator class="assigned" />
+        </id>
+        <property name="adClientId" type="long">
+            <column name="AD_CLIENT_ID" precision="10" scale="0" not-null="true" />
+        </property>
+        <property name="adOrgId" type="long">
+            <column name="AD_ORG_ID" precision="10" scale="0" not-null="true" />
+        </property>
+        <property name="address1" type="string">
+            <column name="ADDRESS1" length="60" />
+        </property>
+        <property name="address2" type="string">
+            <column name="ADDRESS2" />
+        </property>
+        <property name="age" type="java.lang.Long">
+            <column name="AGE" precision="10" scale="0" />
+        </property>
+        <property name="appointmentdate" type="date">
+            <column name="APPOINTMENTDATE" length="7" />
+        </property>
+        <property name="assurancecardId" type="java.lang.Long">
+            <column name="ASSURANCECARD_ID" precision="10" scale="0" />
+        </property>
+        <property name="assuranceFromdate" type="date">
+            <column name="ASSURANCE_FROMDATE" length="7" />
+        </property>
+        <property name="assuranceId" type="string">
+            <column name="ASSURANCE_ID" length="15" />
+        </property>
+        <property name="assuranceRegathospitalId" type="java.lang.Long">
+            <column name="ASSURANCE_REGATHOSPITAL_ID" precision="10" scale="0" />
+        </property>
+        <property name="assuranceTodate" type="date">
+            <column name="ASSURANCE_TODATE" length="7" />
+        </property>
+        <property name="birthday" type="date">
+            <column name="BIRTHDAY" length="7" />
+        </property>
+        <property name="created" type="date">
+            <column name="CREATED" length="7" not-null="true" />
+        </property>
+        <property name="createdby" type="long">
+            <column name="CREATEDBY" precision="10" scale="0" not-null="true" />
+        </property>
+        <property name="createdfromrecordId" type="java.lang.Long">
+            <column name="CREATEDFROMRECORD_ID" precision="10" scale="0" />
+        </property>
+        <property name="createdfromservicetype" type="string">
+            <column name="CREATEDFROMSERVICETYPE" length="22" />
+        </property>
+        <property name="guardianidNo" type="string">
+            <column name="GUARDIANID_NO" length="12" />
+        </property>
+        <property name="guardianname" type="string">
+            <column name="GUARDIANNAME" length="60" />
+        </property>
+        <property name="guardiantelno" type="string">
+            <column name="GUARDIANTELNO" length="20" />
+        </property>
+        <property name="hisBedId" type="java.lang.Long">
+            <column name="HIS_BED_ID" precision="10" scale="0" />
+        </property>
+        <property name="hisCountryId" type="java.lang.Long">
+            <column name="HIS_COUNTRY_ID" precision="10" scale="0" />
+        </property>
+        <property name="hisDepartmentId" type="java.lang.Long">
+            <column name="HIS_DEPARTMENT_ID" precision="10" scale="0" />
+        </property>
+        <property name="hisDistrictId" type="java.lang.Long">
+            <column name="HIS_DISTRICT_ID" precision="10" scale="0" />
+        </property>
+        <property name="hisGenderId" type="java.lang.Character">
+            <column name="HIS_GENDER_ID" length="1" />
+        </property>
+        <property name="hisJobId" type="java.lang.Long">
+            <column name="HIS_JOB_ID" precision="10" scale="0" />
+        </property>
+        <property name="hisMedicalrecordno" type="string">
+            <column name="HIS_MEDICALRECORDNO" length="60" unique="true" />
+        </property>
+        <property name="hisNationId" type="java.lang.Long">
+            <column name="HIS_NATION_ID" precision="10" scale="0" />
+        </property>
+        <property name="hisPatienthistoryUu" type="string">
+            <column name="HIS_PATIENTHISTORY_UU" length="36" unique="true" />
+        </property>
+        <property name="hisPatientpriorityId" type="java.lang.Long">
+            <column name="HIS_PATIENTPRIORITY_ID" precision="10" scale="0" />
+        </property>
+        <property name="hisPatienttypeId" type="string">
+            <column name="HIS_PATIENTTYPE_ID" length="2" />
+        </property>
+        <property name="hisPatientId" type="java.lang.Long">
+            <column name="HIS_PATIENT_ID" precision="10" scale="0" />
+        </property>
+        <property name="hisProvinceId" type="java.lang.Long">
+            <column name="HIS_PROVINCE_ID" precision="10" scale="0" />
+        </property>
+        <property name="hisZoneId" type="java.lang.Long">
+            <column name="HIS_ZONE_ID" precision="10" scale="0" />
+        </property>
+        <property name="hospitalFromdate" type="date">
+            <column name="HOSPITAL_FROMDATE" length="7" />
+        </property>
+        <property name="hospitalTodate" type="date">
+            <column name="HOSPITAL_TODATE" length="7" />
+        </property>
+        <property name="idNo" type="string">
+            <column name="ID_NO" length="20" />
+        </property>
+        <property name="inpatientstate" type="string">
+            <column name="INPATIENTSTATE" />
+        </property>
+        <property name="isactive" type="char">
+            <column name="ISACTIVE" length="1" not-null="true" />
+        </property>
+        <property name="isappointment" type="java.lang.Character">
+            <column name="ISAPPOINTMENT" length="1" />
+        </property>
+        <property name="iscomplete" type="char">
+            <column name="ISCOMPLETE" length="1" not-null="true" />
+        </property>
+        <property name="isemergency" type="java.lang.Character">
+            <column name="ISEMERGENCY" length="1" />
+        </property>
+        <property name="isinpatient" type="java.lang.Character">
+            <column name="ISINPATIENT" length="1" />
+        </property>
+        <property name="iskeepingassurancecard" type="java.lang.Character">
+            <column name="ISKEEPINGASSURANCECARD" length="1" />
+        </property>
+        <property name="name" type="string">
+            <column name="NAME" length="512" />
+        </property>
+        <property name="patientfromHospitalId" type="java.lang.Long">
+            <column name="PATIENTFROM_HOSPITAL_ID" precision="10" scale="0" />
+        </property>
+        <property name="patientstate" type="string">
+            <column name="PATIENTSTATE" length="30" />
+        </property>
+        <property name="regdate" type="date">
+            <column name="REGDATE" length="7" />
+        </property>
+        <property name="selectservice" type="string">
+            <column name="SELECTSERVICE" length="10" />
+        </property>
+        <property name="sequenceno" type="java.lang.Long">
+            <column name="SEQUENCENO" precision="10" scale="0" />
+        </property>
+        <property name="telNo" type="string">
+            <column name="TEL_NO" length="15" />
+        </property>
+        <property name="timegoin" type="date">
+            <column name="TIMEGOIN" length="7" />
+        </property>
+        <property name="timegoout" type="date">
+            <column name="TIMEGOOUT" length="7" />
+        </property>
+        <property name="updated" type="date">
+            <column name="UPDATED" length="7" not-null="true" />
+        </property>
+        <property name="updatedby" type="long">
+            <column name="UPDATEDBY" precision="10" scale="0" not-null="true" />
+        </property>
+        <property name="value" type="string">
+            <column name="VALUE" length="40" not-null="true" />
+        </property>
+        <property name="processout" type="java.lang.Character">
+            <column name="PROCESSOUT" length="1" />
+        </property>
+        <property name="inhospitalcount" type="java.lang.Long">
+            <column name="INHOSPITALCOUNT" precision="10" scale="0" />
+        </property>
+        <property name="fromDepartmentId" type="java.lang.Long">
+            <column name="FROM_DEPARTMENT_ID" precision="10" scale="0" />
+        </property>
+        <property name="fromuserId" type="java.lang.Long">
+            <column name="FROMUSER_ID" precision="10" scale="0" />
+        </property>
+        <property name="inpatientintroducerId" type="java.lang.Long">
+            <column name="INPATIENTINTRODUCER_ID" precision="10" scale="0" />
+        </property>
+        <property name="hisInpatientintroducetype" type="string">
+            <column name="HIS_INPATIENTINTRODUCETYPE" length="10" />
+        </property>
+        <property name="departmentindate" type="date">
+            <column name="DEPARTMENTINDATE" length="7" />
+        </property>
+        <property name="hasassurancecard" type="java.lang.Character">
+            <column name="HASASSURANCECARD" length="1" />
+        </property>
+        <property name="hisMedicalrecordtypeId" type="java.lang.Long">
+            <column name="HIS_MEDICALRECORDTYPE_ID" precision="10" scale="0" />
+        </property>
+        <property name="assuranceFromdateExtended" type="date">
+            <column name="ASSURANCE_FROMDATE_EXTENDED" length="7" />
+        </property>
+        <property name="assuranceTodateExtended" type="date">
+            <column name="ASSURANCE_TODATE_EXTENDED" length="7" />
+        </property>
+        <property name="deadnote" type="string">
+            <column name="DEADNOTE" length="2000" />
+        </property>
+        <property name="deadplace" type="string">
+            <column name="DEADPLACE" />
+        </property>
+        <property name="deadreason" type="string">
+            <column name="DEADREASON" />
+        </property>
+        <property name="deadtime" type="date">
+            <column name="DEADTIME" length="7" />
+        </property>
+        <property name="deadDiagdiseaseId" type="java.lang.Long">
+            <column name="DEAD_DIAGDISEASE_ID" precision="10" scale="0" />
+        </property>
+        <property name="dischargeDiagdiseaseId" type="java.lang.Long">
+            <column name="DISCHARGE_DIAGDISEASE_ID" precision="10" scale="0" />
+        </property>
+        <property name="hisDischargeType" type="string">
+            <column name="HIS_DISCHARGE_TYPE" length="20" />
+        </property>
+        <property name="hisDoctoradviceId" type="java.lang.Long">
+            <column name="HIS_DOCTORADVICE_ID" precision="10" scale="0" />
+        </property>
+        <property name="checkupDiagdiseaseId" type="java.lang.Long">
+            <column name="CHECKUP_DIAGDISEASE_ID" precision="10" scale="0" />
+        </property>
+        <property name="introducerDiagdiseaseId" type="java.lang.Long">
+            <column name="INTRODUCER_DIAGDISEASE_ID" precision="10" scale="0" />
+        </property>
+        <property name="dischargeDiagdisease2Id" type="java.lang.Long">
+            <column name="DISCHARGE_DIAGDISEASE2_ID" precision="10" scale="0" />
+        </property>
+        <property name="hisIpTreatmentdirection" type="string">
+            <column name="HIS_IP_TREATMENTDIRECTION" length="20" />
+        </property>
+        <property name="isautopsy" type="java.lang.Character">
+            <column name="ISAUTOPSY" length="1" />
+        </property>
+        <property name="hisTreatmentDetails" type="string">
+            <column name="HIS_TREATMENT_DETAILS" length="1000" />
+        </property>
+        <property name="pathology" type="string">
+            <column name="PATHOLOGY" length="20" />
+        </property>
+        <property name="hisTreatmentResult" type="string">
+            <column name="HIS_TREATMENT_RESULT" length="20" />
+        </property>
+        <property name="isautocreated" type="java.lang.Character">
+            <column name="ISAUTOCREATED" length="1" />
+        </property>
+        <property name="transfertoHospitalId" type="java.lang.Long">
+            <column name="TRANSFERTO_HOSPITAL_ID" precision="10" scale="0" />
+        </property>
+        <property name="ispaid" type="java.lang.Character">
+            <column name="ISPAID" length="1" />
+        </property>
+        <property name="isextra" type="java.lang.Character">
+            <column name="ISEXTRA" length="1" />
+        </property>
+        <property name="assurancepercent" type="big_decimal">
+            <column name="ASSURANCEPERCENT" precision="22" scale="0" />
+        </property>
+        <property name="isreferral" type="java.lang.Character">
+            <column name="ISREFERRAL" length="1" />
+        </property>
+        <property name="asscardreturndate" type="date">
+            <column name="ASSCARDRETURNDATE" length="7" />
+        </property>
+        <property name="processouttemporary" type="java.lang.Character">
+            <column name="PROCESSOUTTEMPORARY" length="1" />
+        </property>
+        <property name="needprovisionalassurance" type="java.lang.Character">
+            <column name="NEEDPROVISIONALASSURANCE" length="1" />
+        </property>
+        <property name="needprovisionalservice" type="java.lang.Character">
+            <column name="NEEDPROVISIONALSERVICE" length="1" />
+        </property>
+        <property name="dischargeDiagdisease3Id" type="java.lang.Long">
+            <column name="DISCHARGE_DIAGDISEASE3_ID" precision="10" scale="0" />
+        </property>
+        <property name="processinhospital" type="java.lang.Character">
+            <column name="PROCESSINHOSPITAL" length="1" />
+        </property>
+        <property name="actassurancedate" type="date">
+            <column name="ACTASSURANCEDATE" length="7" />
+        </property>
+        <property name="btnReturnfund" type="java.lang.Character">
+            <column name="BTN_RETURNFUND" length="1" />
+        </property>
+        <property name="isheartcenterpatient" type="java.lang.Character">
+            <column name="ISHEARTCENTERPATIENT" length="1" />
+        </property>
+        <property name="doctoradvicenote" type="string">
+            <column name="DOCTORADVICENOTE" length="500" />
+        </property>
+        <property name="dischargeDiagdisease4Id" type="java.lang.Long">
+            <column name="DISCHARGE_DIAGDISEASE4_ID" precision="10" scale="0" />
+        </property>
+        <property name="note" type="string">
+            <column name="NOTE" length="2000" />
+        </property>
+        <property name="scancode" type="string">
+            <column name="SCANCODE" length="1000" />
+        </property>
+        <property name="btnChangedepartment" type="java.lang.Character">
+            <column name="BTN_CHANGEDEPARTMENT" length="1" />
+        </property>
+        <property name="btnChangebed" type="java.lang.Character">
+            <column name="BTN_CHANGEBED" length="1" />
+        </property>
+        <property name="btnBed" type="java.lang.Character">
+            <column name="BTN_BED" length="1" />
+        </property>
+        <property name="ispayment" type="java.lang.Character">
+            <column name="ISPAYMENT" length="1" />
+        </property>
+        <property name="btnCopyinpatientservices" type="java.lang.Character">
+            <column name="BTN_COPYINPATIENTSERVICES" length="1" />
+        </property>
+        <property name="hisSyncId" type="string">
+            <column name="HIS_SYNC_ID" length="30" />
+        </property>
+        <property name="ischangepatienttype" type="java.lang.Character">
+            <column name="ISCHANGEPATIENTTYPE" length="1" />
+        </property>
+        <property name="btnUpdateinfo" type="java.lang.Character">
+            <column name="BTN_UPDATEINFO" length="1" />
+        </property>
+        <property name="hisServiceId" type="java.lang.Long">
+            <column name="HIS_SERVICE_ID" precision="10" scale="0" />
+        </property>
+        <property name="ischangetoisinpatient" type="java.lang.Character">
+            <column name="ISCHANGETOISINPATIENT" length="1" />
+        </property>
+        <property name="oldPatienthistoryId" type="java.lang.Long">
+            <column name="OLD_PATIENTHISTORY_ID" precision="10" scale="0" />
+        </property>
+        <property name="btnChangetype" type="java.lang.Character">
+            <column name="BTN_CHANGETYPE" length="1" />
+        </property>
+        <property name="btnApointmentaccept" type="java.lang.Character">
+            <column name="BTN_APOINTMENTACCEPT" length="1" />
+        </property>
+        <property name="hisBuildingId" type="java.lang.Long">
+            <column name="HIS_BUILDING_ID" precision="10" scale="0" />
+        </property>
+        <property name="ispatientinhospital" type="char">
+            <column name="ISPATIENTINHOSPITAL" length="1" not-null="true" />
+        </property>
+        <property name="outpatientcount" type="java.lang.Long">
+            <column name="OUTPATIENTCOUNT" precision="10" scale="0" />
+        </property>
+        <property name="outpatientcounta" type="java.lang.Long">
+            <column name="OUTPATIENTCOUNTA" precision="10" scale="0" />
+        </property>
+        <property name="outpatientcountabymonth" type="java.lang.Long">
+            <column name="OUTPATIENTCOUNTABYMONTH" precision="10" scale="0" />
+        </property>
+        <property name="outpatientcountabyyear" type="java.lang.Long">
+            <column name="OUTPATIENTCOUNTABYYEAR" precision="10" scale="0" />
+        </property>
+        <property name="idType" type="string">
+            <column name="ID_TYPE" length="20" />
+        </property>
+        <property name="btnTransferinpatient" type="java.lang.Character">
+            <column name="BTN_TRANSFERINPATIENT" length="1" />
+        </property>
+        <property name="monthage" type="java.lang.Long">
+            <column name="MONTHAGE" precision="10" scale="0" />
+        </property>
+        <property name="btnUpdateinpatientinfo" type="string">
+            <column name="BTN_UPDATEINPATIENTINFO" length="20" />
+        </property>
+        <property name="isoutpatienttreatment" type="char">
+            <column name="ISOUTPATIENTTREATMENT" length="1" not-null="true" />
+        </property>
+        <property name="isnotcopayment" type="java.lang.Character">
+            <column name="ISNOTCOPAYMENT" length="1" />
+        </property>
+        <property name="patientpercentpaid" type="big_decimal">
+            <column name="PATIENTPERCENTPAID" precision="22" scale="0" />
+        </property>
+        <property name="assurancepercentpaid" type="big_decimal">
+            <column name="ASSURANCEPERCENTPAID" precision="22" scale="0" />
+        </property>
+        <property name="diagnostic" type="string">
+            <column name="DIAGNOSTIC" length="500" />
+        </property>
+        <property name="daycount" type="big_decimal">
+            <column name="DAYCOUNT" precision="22" scale="0" />
+        </property>
+        <property name="regionvalue" type="string">
+            <column name="REGIONVALUE" length="10" />
+        </property>
+        <property name="firstDiagnostic" type="string">
+            <column name="FIRST_DIAGNOSTIC" length="1024" />
+        </property>
+    </class>
+</hibernate-mapping>
