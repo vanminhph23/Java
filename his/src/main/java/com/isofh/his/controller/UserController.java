@@ -13,9 +13,9 @@ public class UserController {
     @Autowired
     private UserRepository userRepository;
 
-    @GetMapping("/user/{name}")
-    public User getById(@PathVariable String name) {
-        return userRepository.findByName(name);
+    @GetMapping("/user/{id}")
+    public User getById(@PathVariable Long id) {
+        return userRepository.findById(id).orElse(null);
     }
 
     @PostMapping("/user")
