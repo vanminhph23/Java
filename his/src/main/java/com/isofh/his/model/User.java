@@ -1,6 +1,10 @@
 package com.isofh.his.model;
 
+import org.springframework.security.core.GrantedAuthority;
+
 import javax.persistence.*;
+import java.util.Collection;
+import java.util.List;
 
 @Entity
 @Table(name = "his_user")
@@ -17,8 +21,11 @@ public class User extends AuditModel {
     @Column(name = "value", nullable = false)
     private String value;
 
-    @Column(name = "name", nullable = false)
-    private String name;
+    @Column(name = "username", nullable = false)
+    private String username;
+
+    @Column(name = "password", nullable = false)
+    private String password;
 
     public Long getId() {
         return id;
@@ -36,11 +43,23 @@ public class User extends AuditModel {
         this.value = value;
     }
 
-    public String getName() {
-        return name;
+    public String getUsername() {
+        return username;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setUsername(String username) {
+        this.username = username;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
+    public List<GrantedAuthority> getAuthorities() {
+        return null;
     }
 }
