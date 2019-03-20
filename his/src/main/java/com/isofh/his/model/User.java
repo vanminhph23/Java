@@ -12,7 +12,7 @@ import java.util.List;
 @Entity
 @Table(name = "his_user")
 @JsonInclude(JsonInclude.Include.NON_NULL)
-@JsonIgnoreProperties(value = { "roles", "authorities" })
+@JsonIgnoreProperties(value = { "roles", "authorities"})
 public class User extends AuditModel {
     @Id
     @GeneratedValue(generator = "user_generator")
@@ -28,6 +28,9 @@ public class User extends AuditModel {
 
     @Column(name = "password", nullable = false)
     private String password;
+
+    @Transient
+    private String loginToken;
 
     public Long getId() {
         return id;
@@ -51,6 +54,14 @@ public class User extends AuditModel {
 
     public void setPassword(String password) {
         this.password = password;
+    }
+
+    public String getLoginToken() {
+        return loginToken;
+    }
+
+    public void setLoginToken(String loginToken) {
+        this.loginToken = loginToken;
     }
 
     public List<GrantedAuthority> getAuthorities() {

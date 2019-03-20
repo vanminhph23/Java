@@ -1,5 +1,6 @@
 package com.isofh.his.controller;
 
+import com.isofh.his.model.ResultEntity;
 import com.isofh.his.model.User;
 import com.isofh.his.service.UserService;
 import com.isofh.his.service.security.JwtService;
@@ -13,7 +14,7 @@ import javax.validation.Valid;
 
 @RestController
 @RequestMapping("/user")
-public class UserController {
+public class UserController extends BaseController {
 
     @Autowired
     private JwtService jwtService;
@@ -32,21 +33,16 @@ public class UserController {
     }
 
     @RequestMapping(value = "/login", method = RequestMethod.POST)
-    public ResponseEntity<String> login(HttpServletRequest request, @RequestBody User user) {
-        String result = "";
-        HttpStatus httpStatus = null;
+    public ResponseEntity<ResultEntity> login(HttpServletRequest request, @RequestBody User user) {
         try {
             if (userService.checkLogin(user)) {
-                result = jwtService.generateTokenLogin(user.getUsername());
-                httpStatus = HttpStatus.OK;
+                user.setLoginToken(jwtService.generateTokenLogin(user.getUsername()));
+                return response("user", user);
             } else {
-                result = "Wrong userId and password";
-                httpStatus = HttpStatus.BAD_REQUEST;
+                return response(3, "Invalid username or password");
             }
         } catch (Exception ex) {
-            result = "Server Error";
-            httpStatus = HttpStatus.INTERNAL_SERVER_ERROR;
+            return response(ex);
         }
-        return new ResponseEntity<String>(result, httpStatus);
     }
 }
