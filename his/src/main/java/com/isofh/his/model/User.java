@@ -12,7 +12,8 @@ import java.util.List;
 @Entity
 @Table(name = "his_user")
 @JsonInclude(JsonInclude.Include.NON_NULL)
-@JsonIgnoreProperties(value = { "roles", "authorities"})
+@JsonIgnoreProperties(value = { "roles", "authorities", "password"},
+        allowSetters = true)
 public class User extends AuditModel {
     @Id
     @GeneratedValue(generator = "user_generator")
