@@ -9,10 +9,11 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
 public class CustomAccessDeniedHandler implements AccessDeniedHandler {
+
     @Override
     public void handle(HttpServletRequest request, HttpServletResponse response, AccessDeniedException exc) throws IOException, ServletException {
-//    Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-        response.setStatus(HttpServletResponse.SC_FORBIDDEN);
-        response.getWriter().write("Access Denied!");
+        response.setContentType("application/json;charset=UTF-8");
+        response.setStatus(HttpServletResponse.SC_OK);
+        response.getWriter().write("{\"code\": 403,\"message\": \"Access Denied!\",\"data\": null}");
     }
 }

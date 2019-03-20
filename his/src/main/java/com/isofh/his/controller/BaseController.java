@@ -1,7 +1,7 @@
 package com.isofh.his.controller;
 
 import com.isofh.his.exception.BaseException;
-import com.isofh.his.model.ResultEntity;
+import com.isofh.his.model.ResponseMsg;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 
@@ -12,21 +12,11 @@ import java.util.Map;
 public class BaseController {
 
     protected ResponseEntity response(int code, String message, Map<String, Object> data) {
-        return new ResponseEntity(new ResultEntity(code, message, data), HttpStatus.OK);
+        return new ResponseEntity(new ResponseMsg(code, message, data), HttpStatus.OK);
     }
 
     protected ResponseEntity response(Exception ex) {
-        int code = 500;
-        String message = ex.getMessage();
-        Object data = null;
-        if (ex instanceof BaseException) {
-            BaseException baseException = (BaseException) ex;
-            data = baseException.getData();
-        } else {
-            message = "Internal Server Error: " + message;
-        }
-
-        return new ResponseEntity(new ResultEntity(code, message, data), HttpStatus.OK);
+        return new ResponseEntity(ResponseMsg.get(ex), HttpStatus.OK);
     }
 
     protected ResponseEntity response(int code, String message, List<String> keys, List<Object> values) throws BaseException {

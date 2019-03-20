@@ -18,11 +18,15 @@ import javax.servlet.http.HttpServletRequest;
 import java.io.IOException;
 
 public class JwtAuthenticationTokenFilter extends UsernamePasswordAuthenticationFilter {
+
     private final static String TOKEN_HEADER = "authorization";
+
     @Autowired
     private JwtService jwtService;
+
     @Autowired
     private UserRepository userRepository;
+
     @Override
     public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException {
         HttpServletRequest httpRequest = (HttpServletRequest) request;
