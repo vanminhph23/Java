@@ -1,7 +1,7 @@
 package com.isofh.his.controller;
 
 import com.isofh.his.model.User;
-import com.isofh.his.repository.UserRepository;
+import com.isofh.his.service.UserService;
 import com.isofh.his.service.security.JwtService;
 import org.springframework.beans.factory.annotation.*;
 import org.springframework.http.HttpStatus;
@@ -12,22 +12,23 @@ import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 
 @RestController
+@RequestMapping("/user")
 public class UserController {
 
     @Autowired
     private JwtService jwtService;
 
     @Autowired
-    private UserRepository userRepository;
+    private UserService userService;
 
-    @GetMapping("/user/{id}")
+    @GetMapping("/{id}")
     public User getById(@PathVariable Long id) {
-        return userRepository.findById(id).orElse(null);
+        return userService.get(id);
     }
 
-    @PostMapping("/user")
+    @PostMapping("/")
     public User createUser(@Valid @RequestBody User user) {
-        return userRepository.save(user);
+        return userService.createUser(user);
     }
 
     @RequestMapping(value = "/login", method = RequestMethod.POST)
@@ -35,7 +36,7 @@ public class UserController {
         String result = "";
         HttpStatus httpStatus = null;
         try {
-            if (userRepository.checkLogin(user)) {
+            if (userService.checkLogin(user)) {
                 result = jwtService.generateTokenLogin(user.getUsername());
                 httpStatus = HttpStatus.OK;
             } else {

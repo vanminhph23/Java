@@ -1,13 +1,18 @@
 package com.isofh.his.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonInclude;
 import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 
 import javax.persistence.*;
-import java.util.Collection;
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
 @Table(name = "his_user")
+@JsonInclude(JsonInclude.Include.NON_NULL)
+@JsonIgnoreProperties(value = { "roles", "authorities" })
 public class User extends AuditModel {
     @Id
     @GeneratedValue(generator = "user_generator")
@@ -17,9 +22,6 @@ public class User extends AuditModel {
             initialValue = 1000000
     )
     private Long id;
-
-    @Column(name = "value", nullable = false)
-    private String value;
 
     @Column(name = "username", nullable = false)
     private String username;
@@ -33,14 +35,6 @@ public class User extends AuditModel {
 
     public void setId(Long id) {
         this.id = id;
-    }
-
-    public String getValue() {
-        return value;
-    }
-
-    public void setValue(String value) {
-        this.value = value;
     }
 
     public String getUsername() {
@@ -60,6 +54,10 @@ public class User extends AuditModel {
     }
 
     public List<GrantedAuthority> getAuthorities() {
-        return null;
+        List<GrantedAuthority> authorities = new ArrayList<GrantedAuthority>();
+        for (String role : new String[] {"ROLE_ADMIN"}) {
+            authorities.add(new SimpleGrantedAuthority(role));
+        }
+        return authorities;
     }
 }
