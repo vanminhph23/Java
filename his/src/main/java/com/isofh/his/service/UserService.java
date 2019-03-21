@@ -29,6 +29,17 @@ public class UserService {
         return repository.save(user);
     }
 
+    public User updateUser(User user) {
+        User userExist = repository.findByUsername(user.getUsername());
+        if (userExist == null) {
+            return createUser(user);
+        }
+
+        userExist.setPassword(user.getPassword());
+
+        return repository.save(userExist);
+    }
+
     public User get(Long id) {
         return repository.findById(id).orElse(null);
     }

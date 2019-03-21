@@ -31,6 +31,11 @@ public class UserController extends BaseController {
         return response("user", userService.createUser(user));
     }
 
+    @PostMapping("/update-user")
+    public ResponseEntity<ResponseMsg> updateUser(@Valid @RequestBody User user) {
+        return response("user", userService.updateUser(user));
+    }
+
     @RequestMapping(value = "/login", method = RequestMethod.POST)
     public ResponseEntity<ResponseMsg> login(HttpServletRequest request, @RequestBody User user) {
 
