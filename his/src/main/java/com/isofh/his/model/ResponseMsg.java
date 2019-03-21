@@ -30,6 +30,8 @@ public class ResponseMsg {
             message = "Internal Server Error: " + message;
         }
 
+        ex.printStackTrace();
+
         return new ResponseMsg(code, message, data);
     }
 
