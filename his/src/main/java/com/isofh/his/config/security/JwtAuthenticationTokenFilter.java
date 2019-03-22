@@ -2,6 +2,7 @@ package com.isofh.his.config.security;
 
 import com.isofh.his.repository.UserRepository;
 import com.isofh.his.security.JwtService;
+import com.isofh.his.service.user.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -25,7 +26,7 @@ public class JwtAuthenticationTokenFilter extends UsernamePasswordAuthentication
     private JwtService jwtService;
 
     @Autowired
-    private UserRepository userRepository;
+    private UserService userService;
 
     @Override
     public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException {
@@ -33,7 +34,7 @@ public class JwtAuthenticationTokenFilter extends UsernamePasswordAuthentication
         String authToken = httpRequest.getHeader(TOKEN_HEADER);
         if (jwtService.validateTokenLogin(authToken)) {
             String username = jwtService.getUsernameFromToken(authToken);
-            com.isofh.his.model.User user = userRepository.findByUsername(username);
+            com.isofh.his.model.User user = userService.findByUsername(username);
             if (user != null) {
                 boolean enabled = true;
                 boolean accountNonExpired = true;

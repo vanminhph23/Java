@@ -23,18 +23,4 @@ public class UserDto implements BaseDto {
     private boolean enabled = true;
 
     private Collection<Role> roles;
-
-    private ModelMapper modelMapper;
-    @Override
-    public ModelMapper getModelMapper() {
-        if (modelMapper == null) {
-            modelMapper = new ModelMapper();
-        }
-
-        return modelMapper;
-    }
-
-    public User getModel() {
-        return getModelMapper().map(this, User.class);
-    }
 }

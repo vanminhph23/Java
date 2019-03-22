@@ -15,18 +15,4 @@ public class RoleDto implements BaseDto {
     private Collection<User> users;
 
     private Collection<Privilege> privileges;
-
-    private ModelMapper modelMapper;
-    @Override
-    public ModelMapper getModelMapper() {
-        if (modelMapper == null) {
-            modelMapper = new ModelMapper();
-        }
-
-        return modelMapper;
-    }
-
-    public Role getModel() {
-        return getModelMapper().map(this, Role.class);
-    }
 }

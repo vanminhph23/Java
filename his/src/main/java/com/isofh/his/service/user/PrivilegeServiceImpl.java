@@ -1,9 +1,13 @@
 package com.isofh.his.service.user;
 
+import com.isofh.his.dto.BaseDto;
+import com.isofh.his.dto.PrivilegeDto;
+import com.isofh.his.model.BaseModel;
 import com.isofh.his.model.Privilege;
 import com.isofh.his.model.Role;
 import com.isofh.his.repository.PrivilegeRepository;
 import com.isofh.his.repository.RoleRepository;
+import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -23,4 +27,23 @@ public class PrivilegeServiceImpl implements PrivilegeService {
         return repository.findById(id).orElse(null);
     }
 
+    ModelMapper modelMapper = null;
+    @Override
+    public ModelMapper getModelMapper() {
+        if (modelMapper == null) {
+            modelMapper = new ModelMapper();
+        }
+
+        return modelMapper;
+    }
+
+    @Override
+    public Privilege getModel(BaseDto source) {
+        return getModelMapper().map(source, Privilege.class);
+    }
+
+    @Override
+    public PrivilegeDto getDto(BaseModel source) {
+        return getModelMapper().map(source, PrivilegeDto.class);
+    }
 }

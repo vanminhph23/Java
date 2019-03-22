@@ -1,8 +1,14 @@
 package com.isofh.his.service.user;
 
+import com.isofh.his.dto.BaseDto;
+import com.isofh.his.dto.RoleDto;
+import com.isofh.his.dto.UserDto;
+import com.isofh.his.model.BaseModel;
+import com.isofh.his.model.Role;
 import com.isofh.his.model.User;
 import com.isofh.his.repository.UserRepository;
 import org.apache.commons.lang3.StringUtils;
+import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -47,4 +53,23 @@ public class UserServiceImpl implements UserService {
         return repository.findById(id).orElse(null);
     }
 
+    ModelMapper modelMapper = null;
+    @Override
+    public ModelMapper getModelMapper() {
+        if (modelMapper == null) {
+            modelMapper = new ModelMapper();
+        }
+
+        return modelMapper;
+    }
+
+    @Override
+    public User getModel(BaseDto source) {
+        return getModelMapper().map(source, User.class);
+    }
+
+    @Override
+    public UserDto getDto(BaseModel source) {
+        return getModelMapper().map(source, UserDto.class);
+    }
 }

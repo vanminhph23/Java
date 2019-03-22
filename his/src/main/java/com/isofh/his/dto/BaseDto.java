@@ -5,7 +5,4 @@ import org.modelmapper.ModelMapper;
 
 public interface BaseDto {
 
-    <T extends BaseModel> T getModel();
-
-    ModelMapper getModelMapper();
 }

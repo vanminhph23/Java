@@ -2,7 +2,7 @@ package com.isofh.his.service.user;
 
 import com.isofh.his.model.User;
 
-public interface UserService {
+public interface UserService extends BaseService {
 
     public boolean checkLogin(User user);
 
