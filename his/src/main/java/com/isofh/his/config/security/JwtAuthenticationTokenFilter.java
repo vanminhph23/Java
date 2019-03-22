@@ -1,7 +1,7 @@
 package com.isofh.his.config.security;
 
 import com.isofh.his.repository.UserRepository;
-import com.isofh.his.service.security.JwtService;
+import com.isofh.his.security.JwtService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.context.SecurityContextHolder;

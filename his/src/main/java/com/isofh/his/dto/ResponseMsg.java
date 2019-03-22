@@ -1,4 +1,4 @@
-package com.isofh.his.model;
+package com.isofh.his.dto;
 
 
 import com.isofh.his.exception.BaseException;

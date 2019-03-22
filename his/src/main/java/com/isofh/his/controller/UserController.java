@@ -1,9 +1,9 @@
 package com.isofh.his.controller;
 
-import com.isofh.his.model.ResponseMsg;
+import com.isofh.his.dto.ResponseMsg;
 import com.isofh.his.model.User;
-import com.isofh.his.service.UserService;
-import com.isofh.his.service.security.JwtService;
+import com.isofh.his.service.his.user.UserServiceImpl;
+import com.isofh.his.security.JwtService;
 import org.springframework.beans.factory.annotation.*;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -19,7 +19,7 @@ public class UserController extends BaseController {
     private JwtService jwtService;
 
     @Autowired
-    private UserService userService;
+    private UserServiceImpl userService;
 
     @GetMapping("/{id}")
     public ResponseEntity<ResponseMsg> getById(@PathVariable Long id) {

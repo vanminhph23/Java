@@ -1,7 +1,7 @@
 package com.isofh.his.controller;
 
 import com.isofh.his.exception.BaseException;
-import com.isofh.his.model.ResponseMsg;
+import com.isofh.his.dto.ResponseMsg;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 
