@@ -1,9 +1,10 @@
 package com.isofh.his.model;
 
+import com.isofh.his.model.base.BaseModel;
 import org.hibernate.envers.Audited;
 
 import javax.persistence.*;
-import java.util.Collection;
+import java.util.List;
 
 @Entity
 @Table(name = "his_user")
@@ -46,7 +47,7 @@ public class User extends BaseModel {
             name = "his_users_roles",
             joinColumns = @JoinColumn(name = "user_id", referencedColumnName = "id"),
             inverseJoinColumns = @JoinColumn(name = "role_id", referencedColumnName = "id"))
-    private Collection<Role> roles;
+    private List<Role> roles;
 
     public Long getId() {
         return id;
@@ -104,11 +105,11 @@ public class User extends BaseModel {
         this.enabled = enabled;
     }
 
-    public Collection<Role> getRoles() {
+    public List<Role> getRoles() {
         return roles;
     }
 
-    public void setRoles(Collection<Role> roles) {
+    public void setRoles(List<Role> roles) {
         this.roles = roles;
     }
 }

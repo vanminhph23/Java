@@ -1,15 +1,14 @@
 package com.isofh.his.service.user;
 
 import com.isofh.his.dto.BaseDto;
-import com.isofh.his.dto.RoleDto;
 import com.isofh.his.dto.UserDto;
-import com.isofh.his.model.BaseModel;
-import com.isofh.his.model.Role;
 import com.isofh.his.model.User;
+import com.isofh.his.model.base.BaseModel;
 import com.isofh.his.repository.UserRepository;
 import org.apache.commons.lang3.StringUtils;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -19,12 +18,17 @@ public class UserServiceImpl implements UserService {
     private UserRepository repository;
 
     @Override
+    public User getByUsername(String username) throws UsernameNotFoundException {
+        return repository.findByUsername(username).orElseThrow(() ->
+                new UsernameNotFoundException("User not found with username : " + username)
+        );
+    }
+
+    @Override
     public boolean checkLogin(User user) {
 
-        User userExist = repository.findByUsername(user.getUsername());
-
-        if (userExist != null && StringUtils.equals(user.getUsername(), userExist.getUsername())
-                && StringUtils.equals(user.getPassword(), userExist.getPassword())) {
+        User userExist = getByUsername(user.getUsername());
+        if (StringUtils.equals(user.getUsername(), userExist.getUsername()) && StringUtils.equals(user.getPassword(), userExist.getPassword())) {
             return true;
         }
 
@@ -38,18 +42,15 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public User updateUser(User user) {
-        User userExist = repository.findByUsername(user.getUsername());
-        if (userExist == null) {
-            return createUser(user);
-        }
-
+        User userExist = getByUsername(user.getUsername());
         userExist.setPassword(user.getPassword());
+        userExist.setEmail(user.getEmail());
 
         return repository.save(userExist);
     }
 
     @Override
-    public User get(Long id) {
+    public User getById(Long id) {
         return repository.findById(id).orElse(null);
     }
 

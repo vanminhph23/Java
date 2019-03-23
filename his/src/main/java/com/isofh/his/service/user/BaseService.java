@@ -1,7 +1,7 @@
 package com.isofh.his.service.user;
 
 import com.isofh.his.dto.BaseDto;
-import com.isofh.his.model.BaseModel;
+import com.isofh.his.model.base.BaseModel;
 import org.modelmapper.ModelMapper;
 
 public interface BaseService {

@@ -1,6 +1,7 @@
 package com.isofh.his.service.user;
 
 import com.isofh.his.model.User;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 
 public interface UserService extends BaseService {
 
@@ -10,6 +11,7 @@ public interface UserService extends BaseService {
 
     public User updateUser(User user);
 
-    public User get(Long id);
+    public User getById(Long id);
 
+    public User getByUsername(String username) throws UsernameNotFoundException;
 }

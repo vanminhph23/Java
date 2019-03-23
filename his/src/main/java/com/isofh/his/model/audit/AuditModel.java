@@ -1,4 +1,4 @@
-package com.isofh.his.model;
+package com.isofh.his.model.audit;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import org.springframework.data.annotation.CreatedBy;
@@ -20,7 +20,7 @@ import java.util.Date;
         allowGetters = true
 )
 
-public abstract class BaseModel implements Serializable {
+public abstract class AuditModel implements Serializable {
     @Temporal(TemporalType.TIMESTAMP)
     @Column(name = "created_at", nullable = false, updatable = false)
     @CreatedDate
@@ -33,11 +33,11 @@ public abstract class BaseModel implements Serializable {
 
     @CreatedBy
     @Column(name = "created_by")
-    private String createdBy;
+    private Long createdBy;
 
     @LastModifiedBy
     @Column(name = "updated_by")
-    private String updatedBy;
+    private Long updatedBy;
 
     public Date getCreatedAt() {
         return createdAt;
@@ -55,19 +55,19 @@ public abstract class BaseModel implements Serializable {
         this.updatedAt = updatedAt;
     }
 
-    public String getCreatedBy() {
+    public Long getCreatedBy() {
         return createdBy;
     }
 
-    public void setCreatedBy(String createdBy) {
+    public void setCreatedBy(Long createdBy) {
         this.createdBy = createdBy;
     }
 
-    public String getUpdatedBy() {
+    public Long getUpdatedBy() {
         return updatedBy;
     }
 
-    public void setUpdatedBy(String updatedBy) {
+    public void setUpdatedBy(Long updatedBy) {
         this.updatedBy = updatedBy;
     }
 }
