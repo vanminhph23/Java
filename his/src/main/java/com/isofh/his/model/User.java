@@ -18,7 +18,7 @@ public class User extends BaseModel {
     )
     private Long id;
 
-    @Column(name = "username", nullable = false)
+    @Column(name = "username", nullable = false, unique = true)
     @Audited
     private String username;
 
@@ -34,7 +34,7 @@ public class User extends BaseModel {
     @Audited
     private String lastName;
 
-    @Column(name = "email")
+    @Column(name = "email", unique = true)
     @Audited
     private String email;
 
@@ -49,10 +49,12 @@ public class User extends BaseModel {
             inverseJoinColumns = @JoinColumn(name = "role_id", referencedColumnName = "id"))
     private List<Role> roles;
 
+    @Override
     public Long getId() {
         return id;
     }
 
+    @Override
     public void setId(Long id) {
         this.id = id;
     }

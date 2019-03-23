@@ -1,14 +1,14 @@
 package com.isofh.his.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.isofh.his.model.base.BaseModel;
+import com.isofh.his.model.base.Base2Model;
 
 import javax.persistence.*;
 import java.util.List;
 
 @Entity
 @Table(name = "his_role")
-public class Role extends BaseModel {
+public class Role extends Base2Model {
     @Id
     @GeneratedValue(generator = "role_generator")
     @SequenceGenerator(
@@ -17,12 +17,6 @@ public class Role extends BaseModel {
             initialValue = 1000000
     )
     private Long id;
-
-    @Column(name = "name", nullable = false)
-    private String name;
-
-    @Column(name = "value", nullable = false)
-    private String value;
 
     @JsonIgnore
     @ManyToMany(mappedBy = "roles")
@@ -35,20 +29,14 @@ public class Role extends BaseModel {
             inverseJoinColumns = @JoinColumn(name = "privilege_id", referencedColumnName = "id"))
     private List<Privilege> privileges;
 
+    @Override
     public Long getId() {
         return id;
     }
 
+    @Override
     public void setId(Long id) {
         this.id = id;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
     }
 
     public List<User> getUsers() {
