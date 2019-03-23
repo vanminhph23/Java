@@ -1,10 +1,6 @@
 package com.isofh.his.dto;
 
-import com.isofh.his.model.Role;
-import com.isofh.his.model.User;
-import org.modelmapper.ModelMapper;
-
-import java.util.Collection;
+import java.util.List;
 
 public class UserDto implements BaseDto {
 
@@ -22,5 +18,5 @@ public class UserDto implements BaseDto {
 
     private boolean enabled = true;
 
-    private Collection<Role> roles;
+    private List<RoleDto> roles;
 }

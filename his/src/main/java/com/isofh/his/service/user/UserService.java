@@ -7,9 +7,9 @@ public interface UserService extends BaseService {
 
     public boolean checkLogin(User user);
 
-    public User createUser(User user);
+    public User create(User user);
 
-    public User updateUser(User user);
+    public User update(User user);
 
     public User getById(Long id);
 

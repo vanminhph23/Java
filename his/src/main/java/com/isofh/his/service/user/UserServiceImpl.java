@@ -36,12 +36,12 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public User createUser(User user) {
+    public User create(User user) {
         return repository.save(user);
     }
 
     @Override
-    public User updateUser(User user) {
+    public User update(User user) {
         User userExist = getByUsername(user.getUsername());
         userExist.setPassword(user.getPassword());
         userExist.setEmail(user.getEmail());

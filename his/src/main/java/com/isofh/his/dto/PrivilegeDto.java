@@ -1,6 +1,6 @@
 package com.isofh.his.dto;
 
-import java.util.Collection;
+import java.util.List;
 
 public class PrivilegeDto implements BaseDto {
 
@@ -8,5 +8,5 @@ public class PrivilegeDto implements BaseDto {
 
     private String name;
 
-    private Collection<RoleDto> roles;
+    private List<RoleDto> roles;
 }

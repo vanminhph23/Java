@@ -21,13 +21,13 @@ public class UserController extends BaseController {
         return response("user", userService.getById(id));
     }
 
-    @PostMapping("/create-user")
-    public ResponseEntity<ResponseMsg> createUser(@Valid @RequestBody User user) {
-        return response("user", userService.createUser(user));
+    @PostMapping("/create")
+    public ResponseEntity<ResponseMsg> create(@Valid @RequestBody User user) {
+        return response("user", userService.create(user));
     }
 
-    @PostMapping("/update-user")
-    public ResponseEntity<ResponseMsg> updateUser(@Valid @RequestBody User user) {
-        return response("user", userService.updateUser(user));
+    @PostMapping("/update")
+    public ResponseEntity<ResponseMsg> update(@Valid @RequestBody User user) {
+        return response("user", userService.update(user));
     }
 }

@@ -21,9 +21,9 @@ public class PrivilegeController extends BaseController {
         return response("privilege", service.get(id));
     }
 
-    @PostMapping("/create-privilege")
-    public ResponseEntity<ResponseMsg> createPrivilege(@Valid @RequestBody Privilege privilege) {
-        return response("privilege", service.createPrivilege(privilege));
+    @PostMapping("/create")
+    public ResponseEntity<ResponseMsg> create(@Valid @RequestBody Privilege privilege) {
+        return response("privilege", service.create(privilege));
     }
 
 }
