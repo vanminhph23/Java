@@ -1,7 +1,9 @@
 package com.isofh.his.model.base;
 
 import javax.persistence.Column;
+import javax.persistence.MappedSuperclass;
 
+@MappedSuperclass
 public abstract class Base2Model extends BaseModel {
 
     @Column(name = "value", nullable = false, unique = true)
