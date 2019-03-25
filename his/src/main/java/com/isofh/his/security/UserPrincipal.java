@@ -40,7 +40,7 @@ public class UserPrincipal implements UserDetails {
     private Collection<? extends GrantedAuthority> authorities;
 
 
-    public UserPrincipal(Long id, String username, String email, String password, Long departmentId, List<Long> departmentIds, List<Long> roleIds, Collection<? extends GrantedAuthority> authorities) {
+    public UserPrincipal(Long id, String username, String email, String password, boolean isEnabled, Long departmentId, List<Long> departmentIds, List<Long> roleIds, Collection<? extends GrantedAuthority> authorities) {
         this.id = id;
         this.username = username;
         this.email = email;
@@ -77,7 +77,7 @@ public class UserPrincipal implements UserDetails {
             validId(departmentIds, finalDepartmentIds, d.getId());
         }
 
-        return new UserPrincipal(user.getId(), user.getName(), user.getEmail(), user.getPassword(), user.getDepartmentId(), finalDepartmentIds, finalRoleIds, authorities);
+        return new UserPrincipal(user.getId(), user.getName(), user.getEmail(), user.getPassword(), user.isEnabled(), user.getDepartmentId(), finalDepartmentIds, finalRoleIds, authorities);
     }
 
     private static void validId(List<Long> departmentIds, List<Long> finalDepartmentIds, Long id) {

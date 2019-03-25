@@ -1,4 +1,4 @@
-package com.isofh.his.service.user;
+package com.isofh.his.service.base;
 
 import com.isofh.his.dto.base.BaseDto;
 import com.isofh.his.model.base.BaseModel;
