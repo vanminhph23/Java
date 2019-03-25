@@ -1,11 +1,7 @@
 package com.isofh.his.repository;
 
 import com.isofh.his.model.User;
-import org.springframework.data.jpa.repository.JpaRepository;
+import com.isofh.his.repository.base.Base2Repository;
 
-import java.util.Optional;
-
-public interface UserRepository extends JpaRepository<User, Long> {
-
-    Optional<User> findByName(String username);
+public interface UserRepository extends Base2Repository<User, Long> {
 }

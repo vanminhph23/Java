@@ -1,10 +1,7 @@
 package com.isofh.his.repository;
 
 import com.isofh.his.model.Privilege;
-import com.isofh.his.model.Role;
-import org.springframework.data.jpa.repository.JpaRepository;
+import com.isofh.his.repository.base.Base2Repository;
 
-public interface PrivilegeRepository extends JpaRepository<Privilege, Long> {
-
-    Privilege findByName(String name);
+public interface PrivilegeRepository extends Base2Repository<Privilege, Long> {
 }
