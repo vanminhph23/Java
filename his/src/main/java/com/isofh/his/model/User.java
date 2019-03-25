@@ -1,6 +1,6 @@
 package com.isofh.his.model;
 
-import com.isofh.his.model.base.BaseModel;
+import com.isofh.his.model.base.Base2Model;
 import org.hibernate.envers.Audited;
 
 import javax.persistence.*;
@@ -8,7 +8,7 @@ import java.util.List;
 
 @Entity
 @Table(name = "his_user")
-public class User extends BaseModel {
+public class User extends Base2Model {
     @Id
     @GeneratedValue(generator = "user_generator")
     @SequenceGenerator(
@@ -17,10 +17,6 @@ public class User extends BaseModel {
             initialValue = 1000000
     )
     private Long id;
-
-    @Column(name = "name", nullable = false, unique = true)
-    @Audited
-    private String name;
 
     @Column(name = "password", nullable = false)
     @Audited
@@ -72,14 +68,6 @@ public class User extends BaseModel {
     @Override
     public void setId(Long id) {
         this.id = id;
-    }
-
-    public String getName() {
-        return this.name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
     }
 
     public String getPassword() {
