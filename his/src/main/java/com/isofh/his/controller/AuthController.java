@@ -5,6 +5,7 @@ import com.isofh.his.dto.JwtAuthenticationResponse;
 import com.isofh.his.dto.LoginRequest;
 import com.isofh.his.dto.ResponseMsg;
 import com.isofh.his.security.JwtTokenProvider;
+import com.isofh.his.security.UserPrincipal;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -17,7 +18,8 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.validation.Valid;
-import java.util.List;
+import java.util.HashMap;
+import java.util.Map;
 
 @RestController
 @RequestMapping("/auth")
@@ -38,9 +40,17 @@ public class AuthController extends BaseController {
 
         SecurityContextHolder.getContext().setAuthentication(authentication);
 
-        String jwt = tokenProvider.generateToken(authentication);
+        Map<String, Object> map = new HashMap<>();
+        map.put("authentication", new JwtAuthenticationResponse(tokenProvider.generateToken(authentication)));
 
-        return response("authentication", new JwtAuthenticationResponse(jwt));
+        UserPrincipal userPrincipal = (UserPrincipal) authentication.getPrincipal();
+
+        if (userPrincipal != null) {
+            map.put("roleIds", userPrincipal.getRoleIds());
+            map.put("departmentIds", userPrincipal.getDepartmentIds());
+        }
+
+        return response(map);
     }
 
     @RequestMapping(value = "/chooseRole", method = RequestMethod.POST)

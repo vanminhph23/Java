@@ -15,6 +15,14 @@ public class BaseController {
         return new ResponseEntity(new ResponseMsg(code, message, data), HttpStatus.OK);
     }
 
+    protected ResponseEntity response(String message, Map<String, Object> data) {
+        return response(0, message , data);
+    }
+
+    protected ResponseEntity response(Map<String, Object> data) {
+        return response(null, data);
+    }
+
     protected ResponseEntity response(Exception ex) {
         return new ResponseEntity(ResponseMsg.get(ex), HttpStatus.OK);
     }

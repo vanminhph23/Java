@@ -23,11 +23,15 @@ public class UserPrincipal implements UserDetails {
 
     private Department department;
 
-    private List<Long> departmentIds;
-
     private List<Long> roleIds;
 
+    private List<Role> roles;
+
+    private List<Long> departmentIds;
+
     private List<Department> departments;
+
+
 
     @JsonIgnore
     private String email;
@@ -137,6 +141,14 @@ public class UserPrincipal implements UserDetails {
 
     public void setDepartment(Department department) {
         this.department = department;
+    }
+
+    public List<Role> getRoles() {
+        return roles;
+    }
+
+    public void setRoles(List<Role> roles) {
+        this.roles = roles;
     }
 
     @Override
