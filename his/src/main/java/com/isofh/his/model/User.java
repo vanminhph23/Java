@@ -18,9 +18,9 @@ public class User extends BaseModel {
     )
     private Long id;
 
-    @Column(name = "username", nullable = false, unique = true)
+    @Column(name = "name", nullable = false, unique = true)
     @Audited
-    private String username;
+    private String name;
 
     @Column(name = "password", nullable = false)
     @Audited
@@ -74,12 +74,12 @@ public class User extends BaseModel {
         this.id = id;
     }
 
-    public String getUsername() {
-        return username;
+    public String getName() {
+        return this.name;
     }
 
-    public void setUsername(String username) {
-        this.username = username;
+    public void setName(String name) {
+        this.name = name;
     }
 
     public String getPassword() {

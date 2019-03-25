@@ -10,5 +10,5 @@ public interface UserService extends BaseService<User, UserDto> {
 
     public User get(Long id);
 
-    public User getByUsername(String username) throws UsernameNotFoundException;
+    public User getByName(String name) throws UsernameNotFoundException;
 }

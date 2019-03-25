@@ -77,7 +77,7 @@ public class UserPrincipal implements UserDetails {
             validId(departmentIds, finalDepartmentIds, d.getId());
         }
 
-        return new UserPrincipal(user.getId(), user.getUsername(), user.getEmail(), user.getPassword(), user.getDepartmentId(), finalDepartmentIds, finalRoleIds, authorities);
+        return new UserPrincipal(user.getId(), user.getName(), user.getEmail(), user.getPassword(), user.getDepartmentId(), finalDepartmentIds, finalRoleIds, authorities);
     }
 
     private static void validId(List<Long> departmentIds, List<Long> finalDepartmentIds, Long id) {
