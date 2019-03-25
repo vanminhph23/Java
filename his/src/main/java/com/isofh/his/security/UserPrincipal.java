@@ -1,6 +1,7 @@
 package com.isofh.his.security;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.isofh.his.model.Department;
 import com.isofh.his.model.Privilege;
 import com.isofh.his.model.Role;
 import com.isofh.his.model.User;
@@ -18,6 +19,16 @@ public class UserPrincipal implements UserDetails {
 
     private String username;
 
+    private Long departmentId;
+
+    private Department department;
+
+    private List<Long> departmentIds;
+
+    private List<Long> roleIds;
+
+    private List<Department> departments;
+
     @JsonIgnore
     private String email;
 
@@ -28,27 +39,56 @@ public class UserPrincipal implements UserDetails {
 
     private Collection<? extends GrantedAuthority> authorities;
 
-    public UserPrincipal(Long id, String username, String email, String password, boolean isEnabled, List<? extends GrantedAuthority> authorities) {
+
+    public UserPrincipal(Long id, String username, String email, String password, Long departmentId, List<Long> departmentIds, List<Long> roleIds, Collection<? extends GrantedAuthority> authorities) {
         this.id = id;
         this.username = username;
         this.email = email;
         this.password = password;
         this.isEnabled = isEnabled;
         this.authorities = authorities;
+        this.departmentId = departmentId;
+        this.roleIds = roleIds;
+        this.departmentIds = departmentIds;
     }
 
     public static UserPrincipal get(User user) {
+        return get(user, null, null);
+    }
+
+    public static UserPrincipal get(User user, List<Long> roleIds, List<Long> departmentIds) {
 
         List<Role> roles = user.getRoles();
+        List<Long> finalRoleIds = new ArrayList<>();
         List<GrantedAuthority> authorities = new ArrayList<>();
+
         for (Role r : roles) {
+            validId(roleIds, finalRoleIds, r.getId());
+
             List<Privilege> privileges = r.getPrivileges();
             for (Privilege pr : privileges) {
                 authorities.add(new SimpleGrantedAuthority(pr.getValue()));
             }
         }
 
-        return new UserPrincipal( user.getId(), user.getUsername(), user.getEmail(), user.getPassword(), user.isEnabled(), authorities);
+        List<Department> departments = user.getDepartments();
+        List<Long> finalDepartmentIds = new ArrayList<>();
+        for (Department d : departments) {
+            validId(departmentIds, finalDepartmentIds, d.getId());
+        }
+
+        return new UserPrincipal(user.getId(), user.getUsername(), user.getEmail(), user.getPassword(), user.getDepartmentId(), finalDepartmentIds, finalRoleIds, authorities);
+    }
+
+    private static void validId(List<Long> departmentIds, List<Long> finalDepartmentIds, Long id) {
+        if (departmentIds != null && departmentIds.size() > 0) {
+
+            if (!departmentIds.contains(id)) {
+                return;
+            }
+        }
+
+        finalDepartmentIds.add(id);
     }
 
     public Long getId() {
@@ -57,6 +97,46 @@ public class UserPrincipal implements UserDetails {
 
     public String getEmail() {
         return email;
+    }
+
+    public List<Long> getRoleIds() {
+        return roleIds;
+    }
+
+    public void setRoleIds(List<Long> roleIds) {
+        this.roleIds = roleIds;
+    }
+
+    public List<Department> getDepartments() {
+        return departments;
+    }
+
+    public void setDepartments(List<Department> departments) {
+        this.departments = departments;
+    }
+
+    public List<Long> getDepartmentIds() {
+        return departmentIds;
+    }
+
+    public void setDepartmentIds(List<Long> departmentIds) {
+        this.departmentIds = departmentIds;
+    }
+
+    public Long getDepartmentId() {
+        return departmentId;
+    }
+
+    public void setDepartmentId(Long departmentId) {
+        this.departmentId = departmentId;
+    }
+
+    public Department getDepartment() {
+        return department;
+    }
+
+    public void setDepartment(Department department) {
+        this.department = department;
     }
 
     @Override

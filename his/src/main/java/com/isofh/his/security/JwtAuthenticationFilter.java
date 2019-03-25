@@ -1,5 +1,6 @@
 package com.isofh.his.security;
 
+import com.isofh.his.dto.UserDto;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -32,8 +33,10 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
             String jwt = getJwtFromRequest(request);
 
             if (StringUtils.hasText(jwt) && tokenProvider.validateToken(jwt)) {
-                Long userId = tokenProvider.getUserIdFromJWT(jwt);
-                UserDetails userDetails = userDetailsService.loadUserById(userId);
+                UserDto user = tokenProvider.getUserIdFromJWT(jwt);
+
+                UserDetails userDetails = userDetailsService.loadUserById(user.getId(), user.getRoleIds(), user.getDepartmentIds());
+
                 UsernamePasswordAuthenticationToken authentication = new UsernamePasswordAuthenticationToken(userDetails, null, userDetails.getAuthorities());
                 authentication.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
 

@@ -1,11 +1,8 @@
 package com.isofh.his.service.user;
 
-import com.isofh.his.dto.BaseDto;
 import com.isofh.his.dto.UserDto;
 import com.isofh.his.model.User;
-import com.isofh.his.model.base.BaseModel;
 import com.isofh.his.repository.UserRepository;
-import org.apache.commons.lang3.StringUtils;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -25,32 +22,12 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public boolean checkLogin(User user) {
-
-        User userExist = getByUsername(user.getUsername());
-        if (StringUtils.equals(user.getUsername(), userExist.getUsername()) && StringUtils.equals(user.getPassword(), userExist.getPassword())) {
-            return true;
-        }
-
-        return false;
-    }
-
-    @Override
     public User create(User user) {
         return repository.save(user);
     }
 
     @Override
-    public User update(User user) {
-        User userExist = getByUsername(user.getUsername());
-        userExist.setPassword(user.getPassword());
-        userExist.setEmail(user.getEmail());
-
-        return repository.save(userExist);
-    }
-
-    @Override
-    public User getById(Long id) {
+    public User get(Long id) {
         return repository.findById(id).orElse(null);
     }
 
@@ -65,12 +42,12 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public User getModel(BaseDto source) {
-        return getModelMapper().map(source, User.class);
+    public User getModel(UserDto dto) {
+        return getModelMapper().map(dto, User.class);
     }
 
     @Override
-    public UserDto getDto(BaseModel source) {
-        return getModelMapper().map(source, UserDto.class);
+    public UserDto getDto(User model) {
+        return getModelMapper().map(model, UserDto.class);
     }
 }

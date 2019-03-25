@@ -1,5 +1,6 @@
 package com.isofh.his.controller;
 
+import com.isofh.his.dto.ChooseRoleRequest;
 import com.isofh.his.dto.JwtAuthenticationResponse;
 import com.isofh.his.dto.LoginRequest;
 import com.isofh.his.dto.ResponseMsg;
@@ -16,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.validation.Valid;
+import java.util.List;
 
 @RestController
 @RequestMapping("/auth")
@@ -39,5 +41,11 @@ public class AuthController extends BaseController {
         String jwt = tokenProvider.generateToken(authentication);
 
         return response("authentication", new JwtAuthenticationResponse(jwt));
+    }
+
+    @RequestMapping(value = "/chooseRole", method = RequestMethod.POST)
+    public ResponseEntity<ResponseMsg> chooseRole(@Valid @RequestBody ChooseRoleRequest chooseRoleRequest) {
+
+        return null;
     }
 }

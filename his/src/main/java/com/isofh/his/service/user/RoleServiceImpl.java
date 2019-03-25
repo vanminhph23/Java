@@ -1,7 +1,7 @@
 package com.isofh.his.service.user;
 
-import com.isofh.his.dto.BaseDto;
 import com.isofh.his.dto.RoleDto;
+import com.isofh.his.dto.base.BaseDto;
 import com.isofh.his.model.Role;
 import com.isofh.his.model.base.BaseModel;
 import com.isofh.his.repository.RoleRepository;
@@ -36,12 +36,12 @@ public class RoleServiceImpl implements RoleService {
     }
 
     @Override
-    public Role getModel(BaseDto source) {
-        return getModelMapper().map(source, Role.class);
+    public Role getModel(RoleDto dto) {
+        return getModelMapper().map(dto, Role.class);
     }
 
     @Override
-    public RoleDto getDto(BaseModel source) {
-        return getModelMapper().map(source, RoleDto.class);
+    public RoleDto getDto(Role model) {
+        return getModelMapper().map(model, RoleDto.class);
     }
 }

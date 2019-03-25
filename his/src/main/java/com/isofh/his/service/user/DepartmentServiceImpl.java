@@ -1,27 +1,30 @@
 package com.isofh.his.service.user;
 
+import com.isofh.his.dto.DepartmentDto;
 import com.isofh.his.dto.PrivilegeDto;
 import com.isofh.his.dto.base.BaseDto;
+import com.isofh.his.model.Department;
 import com.isofh.his.model.Privilege;
 import com.isofh.his.model.base.BaseModel;
+import com.isofh.his.repository.DepartmentRepository;
 import com.isofh.his.repository.PrivilegeRepository;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 @Service
-public class PrivilegeServiceImpl implements PrivilegeService {
+public class DepartmentServiceImpl implements DepartmentService {
 
     @Autowired
-    private PrivilegeRepository repository;
+    private DepartmentRepository repository;
 
     @Override
-    public Privilege create(Privilege privilege) {
-        return repository.save(privilege);
+    public Department create(Department department) {
+        return repository.save(department);
     }
 
     @Override
-    public Privilege get(Long id) {
+    public Department get(Long id) {
         return repository.findById(id).orElse(null);
     }
 
@@ -36,12 +39,12 @@ public class PrivilegeServiceImpl implements PrivilegeService {
     }
 
     @Override
-    public Privilege getModel(PrivilegeDto dto) {
-        return getModelMapper().map(dto, Privilege.class);
+    public Department getModel(DepartmentDto dto) {
+        return getModelMapper().map(dto, Department.class);
     }
 
     @Override
-    public PrivilegeDto getDto(Privilege model) {
-        return getModelMapper().map(model, PrivilegeDto.class);
+    public DepartmentDto getDto(Department model) {
+        return getModelMapper().map(model, DepartmentDto.class);
     }
 }

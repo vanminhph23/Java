@@ -24,7 +24,7 @@ public class Role extends Base2Model {
 
     @ManyToMany
     @JoinTable(
-            name = "roles_privileges",
+            name = "his_roles_privileges",
             joinColumns = @JoinColumn(name = "role_id", referencedColumnName = "id"),
             inverseJoinColumns = @JoinColumn(name = "privilege_id", referencedColumnName = "id"))
     private List<Privilege> privileges;

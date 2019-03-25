@@ -38,6 +38,14 @@ public class User extends BaseModel {
     @Audited
     private String email;
 
+    @Column(name = "department_id")
+    @Audited
+    private Long departmentId;
+
+    @ManyToOne
+    @JoinColumn(name = "department_id", insertable = false, updatable = false)
+    private Department department;
+
     @Column(name = "enabled", nullable = false)
     @Audited
     private boolean enabled = true;
@@ -48,6 +56,13 @@ public class User extends BaseModel {
             joinColumns = @JoinColumn(name = "user_id", referencedColumnName = "id"),
             inverseJoinColumns = @JoinColumn(name = "role_id", referencedColumnName = "id"))
     private List<Role> roles;
+
+    @ManyToMany
+    @JoinTable(
+            name = "his_users_departments",
+            joinColumns = @JoinColumn(name = "user_id", referencedColumnName = "id"),
+            inverseJoinColumns = @JoinColumn(name = "department_id", referencedColumnName = "id"))
+    private List<Department> departments;
 
     @Override
     public Long getId() {
@@ -113,5 +128,29 @@ public class User extends BaseModel {
 
     public void setRoles(List<Role> roles) {
         this.roles = roles;
+    }
+
+    public Department getDepartment() {
+        return department;
+    }
+
+    public void setDepartment(Department department) {
+        this.department = department;
+    }
+
+    public List<Department> getDepartments() {
+        return departments;
+    }
+
+    public void setDepartments(List<Department> departments) {
+        this.departments = departments;
+    }
+
+    public Long getDepartmentId() {
+        return departmentId;
+    }
+
+    public void setDepartmentId(Long departmentId) {
+        this.departmentId = departmentId;
     }
 }
