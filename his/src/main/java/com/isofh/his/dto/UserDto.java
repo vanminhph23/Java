@@ -30,8 +30,7 @@ public class UserDto extends BaseDto {
 
     private Long departmentId;
 
-    public UserDto(Long id) {
-        super(id);
+    public UserDto() {
     }
 
     public String getUsername() {

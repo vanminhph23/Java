@@ -6,6 +6,8 @@ import com.isofh.his.dto.LoginRequest;
 import com.isofh.his.dto.ResponseMsg;
 import com.isofh.his.security.JwtTokenProvider;
 import com.isofh.his.security.UserPrincipal;
+import com.isofh.his.service.user.DepartmentService;
+import com.isofh.his.service.user.RoleService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -31,6 +33,12 @@ public class AuthController extends BaseController {
     @Autowired
     JwtTokenProvider tokenProvider;
 
+    @Autowired
+    RoleService roleService;
+
+    @Autowired
+    DepartmentService departmentService;
+
     @RequestMapping(value = "/login", method = RequestMethod.POST)
     public ResponseEntity<ResponseMsg> login(@Valid @RequestBody LoginRequest loginRequest) {
 
@@ -46,9 +54,9 @@ public class AuthController extends BaseController {
         UserPrincipal userPrincipal = (UserPrincipal) authentication.getPrincipal();
 
         if (userPrincipal != null) {
-            map.put("roles", userPrincipal.getRoles());
-            map.put("departments", userPrincipal.getDepartments());
-            map.put("department", userPrincipal.getDepartment());
+            map.put("roles", userPrincipal.getRoles().stream().map(r -> roleService.getDto(r)));
+            map.put("departments", userPrincipal.getDepartments().stream().map(d -> departmentService.getDto(d)));
+            map.put("department", departmentService.getDto(userPrincipal.getDepartment()));
         }
 
         return response(map);

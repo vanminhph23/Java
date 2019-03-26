@@ -4,7 +4,6 @@ import com.isofh.his.dto.base.Base2Dto;
 
 public class DepartmentDto extends Base2Dto {
 
-    public DepartmentDto(Long id) {
-        super(id);
+    public DepartmentDto() {
     }
 }

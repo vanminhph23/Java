@@ -1,5 +1,6 @@
 package com.isofh.his.controller;
 
+import com.isofh.his.dto.DepartmentDto;
 import com.isofh.his.dto.ResponseMsg;
 import com.isofh.his.model.Department;
 import com.isofh.his.model.User;
@@ -20,11 +21,11 @@ public class DepartmentController extends BaseController {
 
     @GetMapping("/{id}")
     public ResponseEntity<ResponseMsg> getById(@PathVariable Long id) {
-        return response("user", service.get(id));
+        return response("department", service.getDto(service.get(id)));
     }
 
     @PostMapping("/create")
-    public ResponseEntity<ResponseMsg> create(@Valid @RequestBody Department model) {
-        return response("department", service.create(model));
+    public ResponseEntity<ResponseMsg> create(@Valid @RequestBody DepartmentDto model) {
+        return response("department", service.getDto(service.create(service.getModel(model))));
     }
 }

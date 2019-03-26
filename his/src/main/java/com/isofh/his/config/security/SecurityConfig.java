@@ -59,13 +59,15 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         return new BCryptPasswordEncoder();
     }
 
+    @Override
     protected void configure(HttpSecurity http) throws Exception {
-        http.csrf().ignoringAntMatchers("/user/**");
-        http.antMatcher("/user/**").httpBasic().authenticationEntryPoint(unauthorizedHandler).and()
+        http.csrf().disable()
+                .antMatcher("**").httpBasic().authenticationEntryPoint(unauthorizedHandler).and()
                 .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS).and().authorizeRequests()
                 .antMatchers("/auth/login").permitAll()
-//                .antMatchers("**").permitAll()
-                .antMatchers("/user/**").access("hasRole('ROLE_ADMIN')").and()
+                .antMatchers("/user/**").access("hasRole('ROLE_ADMIN')")
+                .antMatchers("/department/**").access("hasRole('ROLE_ADMIN')")
+                .and()
                 .addFilterBefore(jwtAuthenticationFilter(), UsernamePasswordAuthenticationFilter.class)
                 .exceptionHandling().accessDeniedHandler(accessDeniedHandler);
     }

@@ -40,11 +40,17 @@ public class DepartmentServiceImpl implements DepartmentService {
 
     @Override
     public Department getModel(DepartmentDto dto) {
+        if (dto == null) {
+            return null;
+        }
         return getModelMapper().map(dto, Department.class);
     }
 
     @Override
     public DepartmentDto getDto(Department model) {
+        if (model == null) {
+            return null;
+        }
         return getModelMapper().map(model, DepartmentDto.class);
     }
 }

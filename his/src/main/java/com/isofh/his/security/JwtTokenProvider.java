@@ -10,6 +10,7 @@ import org.springframework.stereotype.Component;
 
 import java.util.Date;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Component
 public class JwtTokenProvider {
@@ -57,9 +58,13 @@ public class JwtTokenProvider {
                 .parseClaimsJws(token)
                 .getBody();
 
-        UserDto userDto = new UserDto(Long.parseLong(claims.getSubject()));
-        userDto.setDepartmentIds((List<Long>) claims.get("departmentIds"));
-        userDto.setRoleIds((List<Long>) claims.get("roleIds"));
+        UserDto userDto = new UserDto();
+        userDto.setId(Long.parseLong(claims.getSubject()));
+        List<Integer> departmentIds = (List<Integer>) claims.get("departmentIds");
+        List<Integer> roleIds = (List<Integer>) claims.get("roleIds");
+
+        userDto.setDepartmentIds(departmentIds.stream().map(Long::valueOf).collect(Collectors.toList()));
+        userDto.setRoleIds(roleIds.stream().map(Long::valueOf).collect(Collectors.toList()));
 
         return userDto;
     }

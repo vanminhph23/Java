@@ -16,7 +16,7 @@ import java.util.Date;
 @MappedSuperclass
 @EntityListeners(AuditingEntityListener.class)
 @JsonIgnoreProperties(
-        value = {"createdAt", "updatedAt"},
+        value = {"createdAt", "updatedAt", "createdBy", "updatedBy"},
         allowGetters = true
 )
 

@@ -6,8 +6,7 @@ public abstract class Base2Dto extends BaseDto {
 
     private String name;
 
-    public Base2Dto(Long id) {
-        super(id);
+    public Base2Dto() {
     }
 
     public String getValue() {

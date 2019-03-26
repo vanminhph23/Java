@@ -12,7 +12,6 @@ public class PrivilegeDto extends BaseDto {
 
     private List<RoleDto> roles;
 
-    public PrivilegeDto(Long id) {
-        super(id);
+    public PrivilegeDto() {
     }
 }
