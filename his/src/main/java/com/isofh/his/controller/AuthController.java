@@ -46,8 +46,9 @@ public class AuthController extends BaseController {
         UserPrincipal userPrincipal = (UserPrincipal) authentication.getPrincipal();
 
         if (userPrincipal != null) {
-            map.put("roleIds", userPrincipal.getRoleIds());
-            map.put("departmentIds", userPrincipal.getDepartmentIds());
+            map.put("roles", userPrincipal.getRoles());
+            map.put("departments", userPrincipal.getDepartments());
+            map.put("department", userPrincipal.getDepartment());
         }
 
         return response(map);

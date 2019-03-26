@@ -41,19 +41,22 @@ public class UserPrincipal implements UserDetails {
 
     private boolean isEnabled;
 
-    private Collection<? extends GrantedAuthority> authorities;
+    private Collection<SimpleGrantedAuthority> authorities;
 
 
-    public UserPrincipal(Long id, String username, String email, String password, boolean isEnabled, Long departmentId, List<Long> departmentIds, List<Long> roleIds, Collection<? extends GrantedAuthority> authorities) {
+    public UserPrincipal(Long id, String username, String email, String password, boolean isEnabled, Long departmentId) {
         this.id = id;
         this.username = username;
         this.email = email;
         this.password = password;
         this.isEnabled = isEnabled;
-        this.authorities = authorities;
         this.departmentId = departmentId;
-        this.roleIds = roleIds;
-        this.departmentIds = departmentIds;
+
+        this.roleIds = new ArrayList<>();
+        this.departmentIds = new ArrayList<>();
+        this.roles = new ArrayList<>();
+        this.departments = new ArrayList<>();
+        this.authorities = new ArrayList<>();
     }
 
     public static UserPrincipal get(User user) {
@@ -62,37 +65,47 @@ public class UserPrincipal implements UserDetails {
 
     public static UserPrincipal get(User user, List<Long> roleIds, List<Long> departmentIds) {
 
+        UserPrincipal userPrincipal = new UserPrincipal(user.getId(), user.getName(), user.getEmail(), user.getPassword(), user.isEnabled(), user.getDepartmentId());
+
+        userPrincipal.setDepartment(user.getDepartment());
+
         List<Role> roles = user.getRoles();
-        List<Long> finalRoleIds = new ArrayList<>();
-        List<GrantedAuthority> authorities = new ArrayList<>();
 
         for (Role r : roles) {
-            validId(roleIds, finalRoleIds, r.getId());
+            if (roleIds != null && roleIds.size() > 0 && !roleIds.contains(r.getId())) {
+                continue;
+            }
 
+            userPrincipal.roleIds.add(r.getId());
+            userPrincipal.roles.add(r);
             List<Privilege> privileges = r.getPrivileges();
             for (Privilege pr : privileges) {
-                authorities.add(new SimpleGrantedAuthority(pr.getValue()));
+                userPrincipal.authorities.add(new SimpleGrantedAuthority(pr.getValue()));
             }
         }
 
         List<Department> departments = user.getDepartments();
-        List<Long> finalDepartmentIds = new ArrayList<>();
         for (Department d : departments) {
-            validId(departmentIds, finalDepartmentIds, d.getId());
+           if (departmentIds != null && departmentIds.size() > 0 && !departmentIds.contains(d.getId())) {
+               continue;
+           }
+
+           userPrincipal.departmentIds.add(d.getId());
+           userPrincipal.departments.add(d);
         }
 
-        return new UserPrincipal(user.getId(), user.getName(), user.getEmail(), user.getPassword(), user.isEnabled(), user.getDepartmentId(), finalDepartmentIds, finalRoleIds, authorities);
+        return userPrincipal;
     }
 
-    private static void validId(List<Long> departmentIds, List<Long> finalDepartmentIds, Long id) {
-        if (departmentIds != null && departmentIds.size() > 0) {
+    private static void validId(List<Long> ids, List<Long> finalIds, Long id) {
+        if (ids != null && ids.size() > 0) {
 
-            if (!departmentIds.contains(id)) {
+            if (!ids.contains(id)) {
                 return;
             }
         }
 
-        finalDepartmentIds.add(id);
+        finalIds.add(id);
     }
 
     public Long getId() {
