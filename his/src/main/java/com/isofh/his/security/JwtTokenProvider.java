@@ -1,5 +1,6 @@
 package com.isofh.his.security;
 
+import com.isofh.his.Util;
 import com.isofh.his.dto.UserDto;
 import io.jsonwebtoken.*;
 import org.slf4j.Logger;
@@ -8,6 +9,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Component;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -27,16 +29,22 @@ public class JwtTokenProvider {
         return generateToken(authentication, null, null);
     }
 
-    public String generateToken(Authentication authentication, List<Long> roleIds, List<Long> departmentIds) {
+    public String generateToken(Authentication authentication, Long roleId, Long departmentId) {
 
         UserPrincipal userPrincipal = (UserPrincipal) authentication.getPrincipal();
 
-        if (roleIds == null || roleIds.isEmpty()) {
+        List<Long> roleIds = new ArrayList<>();
+        if (roleId == null || roleId <= 0) {
             roleIds = userPrincipal.getRoleIds();
+        } else {
+            roleIds.add(roleId);
         }
 
-        if (departmentIds == null || departmentIds.isEmpty()) {
+        List<Long> departmentIds = new ArrayList<>();
+        if (departmentId == null || departmentId <= 0) {
             departmentIds = userPrincipal.getDepartmentIds();
+        } else {
+            departmentIds.add(departmentId);
         }
 
         Date now = new Date();
@@ -60,11 +68,9 @@ public class JwtTokenProvider {
 
         UserDto userDto = new UserDto();
         userDto.setId(Long.parseLong(claims.getSubject()));
-        List<Integer> departmentIds = (List<Integer>) claims.get("departmentIds");
-        List<Integer> roleIds = (List<Integer>) claims.get("roleIds");
 
-        userDto.setDepartmentIds(departmentIds.stream().map(Long::valueOf).collect(Collectors.toList()));
-        userDto.setRoleIds(roleIds.stream().map(Long::valueOf).collect(Collectors.toList()));
+        userDto.setDepartmentIds(Util.convertIntToLong((List<Integer>) claims.get("departmentIds")));
+        userDto.setRoleIds(Util.convertIntToLong((List<Integer>) claims.get("roleIds")));
 
         return userDto;
     }

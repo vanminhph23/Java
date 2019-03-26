@@ -1,9 +1,6 @@
 package com.isofh.his.controller;
 
-import com.isofh.his.dto.ChooseRoleRequest;
-import com.isofh.his.dto.JwtAuthenticationResponse;
-import com.isofh.his.dto.LoginRequest;
-import com.isofh.his.dto.ResponseMsg;
+import com.isofh.his.dto.*;
 import com.isofh.his.security.JwtTokenProvider;
 import com.isofh.his.security.UserPrincipal;
 import com.isofh.his.service.user.DepartmentService;
@@ -21,6 +18,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import javax.validation.Valid;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 @RestController
@@ -54,17 +52,32 @@ public class AuthController extends BaseController {
         UserPrincipal userPrincipal = (UserPrincipal) authentication.getPrincipal();
 
         if (userPrincipal != null) {
-            map.put("roles", userPrincipal.getRoles().stream().map(r -> roleService.getDto(r)));
-            map.put("departments", userPrincipal.getDepartments().stream().map(d -> departmentService.getDto(d)));
+            addRoleAndDepartment(map, userPrincipal);
             map.put("department", departmentService.getDto(userPrincipal.getDepartment()));
         }
 
         return response(map);
     }
 
-    @RequestMapping(value = "/chooseRole", method = RequestMethod.POST)
+    @RequestMapping(value = "/choose-role", method = RequestMethod.POST)
     public ResponseEntity<ResponseMsg> chooseRole(@Valid @RequestBody ChooseRoleRequest chooseRoleRequest) {
 
-        return null;
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+
+        Map<String, Object> map = new HashMap<>();
+        map.put("authentication", new JwtAuthenticationResponse(tokenProvider.generateToken(authentication, chooseRoleRequest.getDepartmentId(), chooseRoleRequest.getRoleId())));
+
+        UserPrincipal userPrincipal = (UserPrincipal) authentication.getPrincipal();
+
+        if (userPrincipal != null) {
+            addRoleAndDepartment(map, userPrincipal);
+        }
+
+        return response(map);
+    }
+
+    private void addRoleAndDepartment(Map<String, Object> map, UserPrincipal userPrincipal) {
+        map.put("roles", userPrincipal.getRoles().stream().map(r -> roleService.getDto(r)));
+        map.put("departments", userPrincipal.getDepartments().stream().map(d -> departmentService.getDto(d)));
     }
 }

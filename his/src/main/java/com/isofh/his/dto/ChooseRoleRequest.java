@@ -1,29 +1,27 @@
 package com.isofh.his.dto;
 
-import java.util.List;
-
 public class ChooseRoleRequest {
 
-    List<Long> departmentIds;
+    Long departmentId;
 
-    List<Long> roleIds;
+    Long roleId;
 
     public ChooseRoleRequest() {
     }
 
-    public List<Long> getDepartmentIds() {
-        return departmentIds;
+    public Long getDepartmentId() {
+        return departmentId;
     }
 
-    public void setDepartmentIds(List<Long> departmentIds) {
-        this.departmentIds = departmentIds;
+    public void setDepartmentId(Long departmentId) {
+        this.departmentId = departmentId;
     }
 
-    public List<Long> getRoleIds() {
-        return roleIds;
+    public Long getRoleId() {
+        return roleId;
     }
 
-    public void setRoleIds(List<Long> roleIds) {
-        this.roleIds = roleIds;
+    public void setRoleId(Long roleId) {
+        this.roleId = roleId;
     }
 }
