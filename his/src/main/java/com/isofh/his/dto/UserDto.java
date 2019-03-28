@@ -8,6 +8,8 @@ public class UserDto extends BaseDto {
 
     private String username;
 
+    private String value;
+
     private String password;
 
     private String firstName;
@@ -127,5 +129,13 @@ public class UserDto extends BaseDto {
 
     public void setDepartmentId(Long departmentId) {
         this.departmentId = departmentId;
+    }
+
+    public String getValue() {
+        return value;
+    }
+
+    public void setValue(String value) {
+        this.value = value;
     }
 }

@@ -6,10 +6,5 @@ import com.isofh.his.service.base.BaseService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 
 public interface UserService extends BaseService<User, UserDto> {
-
-    public User create(User user);
-
-    public User get(Long id);
-
     public User getByName(String name) throws UsernameNotFoundException;
 }

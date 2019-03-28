@@ -1,6 +1,7 @@
 package com.isofh.his.controller;
 
 import com.isofh.his.dto.ResponseMsg;
+import com.isofh.his.dto.UserDto;
 import com.isofh.his.model.User;
 import com.isofh.his.service.user.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,7 +23,7 @@ public class UserController extends BaseController {
     }
 
     @PostMapping("/create")
-    public ResponseEntity<ResponseMsg> create(@Valid @RequestBody User user) {
-        return response("user", userService.create(user));
+    public ResponseEntity<ResponseMsg> create(@Valid @RequestBody UserDto userDto) {
+        return response("user", userService.create(userService.getModel(userDto)));
     }
 }

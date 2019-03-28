@@ -16,8 +16,8 @@ public class PrivilegeServiceImpl implements PrivilegeService {
     private PrivilegeRepository repository;
 
     @Override
-    public Privilege create(Privilege privilege) {
-        return repository.save(privilege);
+    public Privilege create(Privilege model) {
+        return repository.save(model);
     }
 
     @Override

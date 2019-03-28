@@ -1,30 +1,28 @@
-package com.isofh.his.service.user;
+package com.isofh.his.service.base;
 
 import com.isofh.his.dto.DepartmentDto;
-import com.isofh.his.dto.PrivilegeDto;
-import com.isofh.his.dto.base.BaseDto;
+import com.isofh.his.dto.base.ReferenceListDto;
 import com.isofh.his.model.Department;
-import com.isofh.his.model.Privilege;
-import com.isofh.his.model.base.BaseModel;
+import com.isofh.his.model.base.ReferenceList;
 import com.isofh.his.repository.DepartmentRepository;
-import com.isofh.his.repository.PrivilegeRepository;
+import com.isofh.his.repository.base.ReferenceListRepository;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 @Service
-public class DepartmentServiceImpl implements DepartmentService {
+public class ReferenceListServiceImpl implements ReferenceListService {
 
     @Autowired
-    private DepartmentRepository repository;
+    private ReferenceListRepository repository;
 
     @Override
-    public Department create(Department model) {
+    public ReferenceList create(ReferenceList model) {
         return repository.save(model);
     }
 
     @Override
-    public Department get(Long id) {
+    public ReferenceList get(Long id) {
         return repository.findById(id).orElse(null);
     }
 
@@ -39,18 +37,18 @@ public class DepartmentServiceImpl implements DepartmentService {
     }
 
     @Override
-    public Department getModel(DepartmentDto dto) {
+    public ReferenceList getModel(ReferenceListDto dto) {
         if (dto == null) {
             return null;
         }
-        return getModelMapper().map(dto, Department.class);
+        return getModelMapper().map(dto, ReferenceList.class);
     }
 
     @Override
-    public DepartmentDto getDto(Department model) {
+    public ReferenceListDto getDto(ReferenceList model) {
         if (model == null) {
             return null;
         }
-        return getModelMapper().map(model, DepartmentDto.class);
+        return getModelMapper().map(model, ReferenceListDto.class);
     }
 }

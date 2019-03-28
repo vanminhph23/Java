@@ -97,7 +97,7 @@ public class User extends Base2Model {
 
     @Column(name = "id_no", unique = true)
     @Audited
-    private String id_no;
+    private String idNo;
 
     @Column(name = "account_number", unique = true)
     @Audited
@@ -330,12 +330,12 @@ public class User extends Base2Model {
         this.birthday = birthday;
     }
 
-    public String getId_no() {
-        return id_no;
+    public String getIdNo() {
+        return idNo;
     }
 
-    public void setId_no(String id_no) {
-        this.id_no = id_no;
+    public void setIdNo(String idNo) {
+        this.idNo = idNo;
     }
 
     public String getAccountNumber() {
