@@ -1,6 +1,7 @@
 package com.isofh.his.model;
 
 import com.isofh.his.model.base.Base2Model;
+import com.isofh.his.model.base.Reference;
 import org.hibernate.envers.Audited;
 
 import javax.persistence.*;
@@ -27,11 +28,67 @@ public class Room extends Base2Model {
         this.id = id;
     }
 
-    @Column(name = "department_id")
+    @Column(name = "department_id", nullable = false)
     @Audited
     private Long departmentId;
 
     @ManyToOne
     @JoinColumn(name = "department_id", insertable = false, updatable = false)
     private Department department;
+
+    @Column(name = "room_type")
+    @Audited
+    private int roomType;
+
+    @Column(name = "building_id", nullable = false)
+    @Audited
+    private Long buildingId;
+
+    @ManyToOne
+    @JoinColumn(name = "building_id", insertable = false, updatable = false)
+    private Building building;
+
+    @Column(name = "specialist_id")
+    @Audited
+    private Long specialistId;
+
+    @ManyToOne
+    @JoinColumn(name = "specialist_id", insertable = false, updatable = false)
+    private Specialist specialist;
+
+    @Column(name = "inpatient", nullable = false)
+    @Audited
+    private boolean inpatient = false;
+
+    @Column(name = "outpatient", nullable = false)
+    @Audited
+    private boolean outpatient = false;
+
+    @Column(name = "emergency", nullable = false)
+    @Audited
+    private boolean emergency = false;
+
+    @Column(name = "default_room", nullable = false)
+    @Audited
+    private boolean defaultRoom = false;
+
+    @Column(name = "start_no", nullable = false)
+    @Audited
+    private int startNo = 0;
+
+    @Column(name = "speaker_id")
+    @Audited
+    private Long speakerId;
+
+    @ManyToOne
+    @JoinColumn(name = "speaker_id", insertable = false, updatable = false)
+    private Speaker speaker;
+
+    @Column(name = "doctor_user_id", nullable = false)
+    @Audited
+    private Long speakerId;
+
+    @ManyToOne
+    @JoinColumn(name = "doctor_user_id", insertable = false, updatable = false)
+    private Speaker speaker;
 }
