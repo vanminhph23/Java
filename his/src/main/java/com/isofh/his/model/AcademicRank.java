@@ -27,7 +27,7 @@ public class AcademicRank extends Base2Model {
         this.id = id;
     }
 
-    @Column(name = "description", unique = true)
+    @Column(name = "description")
     @Audited
     private String description;
 

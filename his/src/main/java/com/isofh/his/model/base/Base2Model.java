@@ -8,7 +8,7 @@ import javax.persistence.MappedSuperclass;
 @MappedSuperclass
 public abstract class Base2Model extends BaseModel {
 
-    @Column(name = "value", nullable = false, unique = true)
+    @Column(name = "value", nullable = false)
     @Audited
     private String value;
 

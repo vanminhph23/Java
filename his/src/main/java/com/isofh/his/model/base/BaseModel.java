@@ -20,6 +20,9 @@ public abstract class BaseModel extends AuditModel {
     @Audited
     private boolean deleted = false;
 
+    @Column(name = "dev")
+    private String dev;
+
     public boolean isActive() {
         return active;
     }

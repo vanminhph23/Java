@@ -84,11 +84,23 @@ public class Room extends Base2Model {
     @JoinColumn(name = "speaker_id", insertable = false, updatable = false)
     private Speaker speaker;
 
-    @Column(name = "doctor_user_id", nullable = false)
+    @Column(name = "sequence_no", nullable = false)
     @Audited
-    private Long speakerId;
+    private int sequenceNo = 0;
+
+    @Column(name = "parent_room_id", nullable = false)
+    @Audited
+    private Long parentRoomId;
 
     @ManyToOne
-    @JoinColumn(name = "doctor_user_id", insertable = false, updatable = false)
-    private Speaker speaker;
+    @JoinColumn(name = "parent_room_id", insertable = false, updatable = false)
+    private Room parentRoom;
+
+    @Column(name = "note")
+    @Audited
+    private String note;
+
+    @Column(name = "location")
+    @Audited
+    private String location;
 }
