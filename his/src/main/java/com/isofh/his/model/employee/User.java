@@ -32,7 +32,7 @@ public class User extends Base2Model {
     @Audited
     private String lastName;
 
-    @Column(name = "email", unique = true)
+    @Column(name = "email")
     @Audited
     private String email;
 
@@ -52,7 +52,7 @@ public class User extends Base2Model {
     @JoinColumn(name = "building_id", insertable = false, updatable = false)
     private Building building;
 
-    @Column(name = "description", unique = true)
+    @Column(name = "description")
     @Audited
     private String description;
 
@@ -72,7 +72,7 @@ public class User extends Base2Model {
     @JoinColumn(name = "specialist_id", insertable = false, updatable = false)
     private Specialist specialist;
 
-    @Column(name = "phone", unique = true)
+    @Column(name = "phone")
     @Audited
     private String phone;
 
@@ -96,11 +96,11 @@ public class User extends Base2Model {
     @Audited
     private Timestamp birthday;
 
-    @Column(name = "id_no", unique = true)
+    @Column(name = "id_no")
     @Audited
     private String idNo;
 
-    @Column(name = "account_number", unique = true)
+    @Column(name = "account_number")
     @Audited
     private String accountNumber;
 
@@ -112,7 +112,7 @@ public class User extends Base2Model {
     @JoinColumn(name = "position_id", insertable = false, updatable = false)
     private Position position;
 
-    @Column(name = "certificate", unique = true)
+    @Column(name = "certificate")
     @Audited
     private String certificate;
 
@@ -124,11 +124,11 @@ public class User extends Base2Model {
     @JoinColumn(name = "supervisor_id", insertable = false, updatable = false)
     private User supervisor;
 
-    @Column(name = "award", unique = true)
+    @Column(name = "award")
     @Audited
     private String award;
 
-    @Column(name = "note", unique = true)
+    @Column(name = "note")
     @Audited
     private String note;
 
