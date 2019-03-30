@@ -1,6 +1,6 @@
 package com.isofh.his.security;
 
-import com.isofh.his.model.User;
+import com.isofh.his.model.employee.User;
 import com.isofh.his.service.user.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;

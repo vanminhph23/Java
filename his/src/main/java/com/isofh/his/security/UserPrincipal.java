@@ -1,10 +1,10 @@
 package com.isofh.his.security;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.isofh.his.model.Department;
-import com.isofh.his.model.Privilege;
-import com.isofh.his.model.Role;
-import com.isofh.his.model.User;
+import com.isofh.his.model.category.Department;
+import com.isofh.his.model.employee.Privilege;
+import com.isofh.his.model.employee.Role;
+import com.isofh.his.model.employee.User;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;

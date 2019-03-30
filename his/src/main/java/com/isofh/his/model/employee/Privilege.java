@@ -1,7 +1,8 @@
-package com.isofh.his.model;
+package com.isofh.his.model.employee;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.isofh.his.model.base.Base2Model;
+import com.isofh.his.model.employee.Role;
 
 import javax.persistence.*;
 import java.util.List;

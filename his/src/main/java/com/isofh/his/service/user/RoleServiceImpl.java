@@ -1,9 +1,7 @@
 package com.isofh.his.service.user;
 
 import com.isofh.his.dto.RoleDto;
-import com.isofh.his.dto.base.BaseDto;
-import com.isofh.his.model.Role;
-import com.isofh.his.model.base.BaseModel;
+import com.isofh.his.model.employee.Role;
 import com.isofh.his.repository.RoleRepository;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;

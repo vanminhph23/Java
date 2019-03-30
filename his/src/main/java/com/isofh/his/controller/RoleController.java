@@ -1,7 +1,7 @@
 package com.isofh.his.controller;
 
 import com.isofh.his.dto.ResponseMsg;
-import com.isofh.his.model.Role;
+import com.isofh.his.model.employee.Role;
 import com.isofh.his.service.user.RoleService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;

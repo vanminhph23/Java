@@ -1,6 +1,6 @@
 package com.isofh.his.repository.base;
 
-import com.isofh.his.model.User;
+import com.isofh.his.model.employee.User;
 import org.springframework.data.repository.NoRepositoryBean;
 
 import java.util.Optional;

@@ -1,6 +1,6 @@
 package com.isofh.his.model.base;
 
-import com.isofh.his.model.audit.AuditModel;
+import com.isofh.his.model.base.audit.AuditModel;
 import org.hibernate.envers.Audited;
 
 import javax.persistence.Column;

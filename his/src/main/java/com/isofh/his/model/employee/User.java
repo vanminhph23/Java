@@ -1,6 +1,7 @@
-package com.isofh.his.model;
+package com.isofh.his.model.employee;
 
 import com.isofh.his.model.base.Base2Model;
+import com.isofh.his.model.category.*;
 import org.hibernate.envers.Audited;
 
 import javax.persistence.*;

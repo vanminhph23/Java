@@ -1,4 +1,4 @@
-package com.isofh.his.model;
+package com.isofh.his.model.category;
 
 import com.isofh.his.model.base.Base2Model;
 

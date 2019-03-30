@@ -1,17 +1,17 @@
-package com.isofh.his.model;
+package com.isofh.his.model.category;
 
 import com.isofh.his.model.base.Base2Model;
 
 import javax.persistence.*;
 
 @Entity
-@Table(name = "his_building")
-public class Building extends Base2Model {
+@Table(name = "his_nation")
+public class Nation extends Base2Model {
     @Id
-    @GeneratedValue(generator = "building_generator")
+    @GeneratedValue(generator = "nation_generator")
     @SequenceGenerator(
-            name = "building_generator",
-            sequenceName = "building_sq",
+            name = "nation_generator",
+            sequenceName = "nation_sq",
             initialValue = 1000000
     )
     private Long id;

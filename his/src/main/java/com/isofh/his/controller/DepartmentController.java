@@ -2,10 +2,7 @@ package com.isofh.his.controller;
 
 import com.isofh.his.dto.DepartmentDto;
 import com.isofh.his.dto.ResponseMsg;
-import com.isofh.his.model.Department;
-import com.isofh.his.model.User;
 import com.isofh.his.service.user.DepartmentService;
-import com.isofh.his.service.user.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;

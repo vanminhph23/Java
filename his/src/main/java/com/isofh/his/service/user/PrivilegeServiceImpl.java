@@ -1,9 +1,7 @@
 package com.isofh.his.service.user;
 
 import com.isofh.his.dto.PrivilegeDto;
-import com.isofh.his.dto.base.BaseDto;
-import com.isofh.his.model.Privilege;
-import com.isofh.his.model.base.BaseModel;
+import com.isofh.his.model.employee.Privilege;
 import com.isofh.his.repository.PrivilegeRepository;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;

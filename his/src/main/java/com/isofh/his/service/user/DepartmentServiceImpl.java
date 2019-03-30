@@ -1,13 +1,8 @@
 package com.isofh.his.service.user;
 
 import com.isofh.his.dto.DepartmentDto;
-import com.isofh.his.dto.PrivilegeDto;
-import com.isofh.his.dto.base.BaseDto;
-import com.isofh.his.model.Department;
-import com.isofh.his.model.Privilege;
-import com.isofh.his.model.base.BaseModel;
+import com.isofh.his.model.category.Department;
 import com.isofh.his.repository.DepartmentRepository;
-import com.isofh.his.repository.PrivilegeRepository;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

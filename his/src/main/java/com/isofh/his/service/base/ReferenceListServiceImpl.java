@@ -1,10 +1,7 @@
 package com.isofh.his.service.base;
 
-import com.isofh.his.dto.DepartmentDto;
 import com.isofh.his.dto.base.ReferenceListDto;
-import com.isofh.his.model.Department;
-import com.isofh.his.model.base.ReferenceList;
-import com.isofh.his.repository.DepartmentRepository;
+import com.isofh.his.model.core.ReferenceList;
 import com.isofh.his.repository.base.ReferenceListRepository;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;

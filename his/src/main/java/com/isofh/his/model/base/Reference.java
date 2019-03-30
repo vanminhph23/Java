@@ -1,5 +1,6 @@
 package com.isofh.his.model.base;
 
+import com.isofh.his.model.core.ReferenceList;
 import org.hibernate.envers.Audited;
 
 import javax.persistence.*;

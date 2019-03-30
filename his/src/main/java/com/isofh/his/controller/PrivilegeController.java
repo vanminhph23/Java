@@ -1,6 +1,6 @@
 package com.isofh.his.controller;
 
-import com.isofh.his.model.Privilege;
+import com.isofh.his.model.employee.Privilege;
 import com.isofh.his.dto.ResponseMsg;
 import com.isofh.his.service.user.PrivilegeService;
 import org.springframework.beans.factory.annotation.Autowired;
