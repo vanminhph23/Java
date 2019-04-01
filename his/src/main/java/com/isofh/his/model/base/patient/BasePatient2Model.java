@@ -19,4 +19,28 @@ public abstract class BasePatient2Model extends BasePatientModel {
     @Column(name = "inpatient", nullable = false)
     @Audited
     private boolean inpatient = false;
+
+    public String getMedicalRecordNo() {
+        return medicalRecordNo;
+    }
+
+    public void setMedicalRecordNo(String medicalRecordNo) {
+        this.medicalRecordNo = medicalRecordNo;
+    }
+
+    public String getPatientDocument() {
+        return patientDocument;
+    }
+
+    public void setPatientDocument(String patientDocument) {
+        this.patientDocument = patientDocument;
+    }
+
+    public boolean isInpatient() {
+        return inpatient;
+    }
+
+    public void setInpatient(boolean inpatient) {
+        this.inpatient = inpatient;
+    }
 }
