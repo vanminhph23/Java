@@ -1,7 +1,7 @@
 package com.isofh.his.security;
 
 import com.isofh.his.Util.Util;
-import com.isofh.his.dto.UserDto;
+import com.isofh.his.dto.employee.UserDto;
 import io.jsonwebtoken.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

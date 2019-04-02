@@ -15,7 +15,7 @@ import java.util.List;
 public class ExcelUtil {
 
     public static List<List<Object>> readFile(String fileName, int sheetNo, int startLineNo) {
-        if (!fileName.endsWith(".xls")) {
+        if (!fileName.endsWith(".xls") && !fileName.endsWith(".xlsx")) {
             return null;
         }
 
