@@ -19,7 +19,7 @@ public class UserController extends BaseController {
 
     @GetMapping("/{id}")
     public ResponseEntity<ResponseMsg> getById(@PathVariable Long id) {
-        return response("user", userService.get(id));
+        return response("user", userService.getDto(userService.get(id)));
     }
 
     @PostMapping("/create")

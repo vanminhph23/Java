@@ -1,6 +1,6 @@
 package com.isofh.his.exception;
 
-public class BaseException extends Exception {
+public class BaseException extends RuntimeException {
 
     public BaseException(Throwable cause) {
         super(cause);
