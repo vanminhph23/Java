@@ -8,7 +8,11 @@ import com.isofh.his.repository.category.AssuranceCardRepository;
 import com.isofh.his.repository.category.DepartmentRepository;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
+
+import java.io.File;
 
 @Service
 public class AssuranceCardServiceImpl implements AssuranceCardService {
@@ -24,6 +28,12 @@ public class AssuranceCardServiceImpl implements AssuranceCardService {
     @Override
     public AssuranceCard save(AssuranceCard model) {
         return repository.save(model);
+    }
+
+    @Override
+    public ResponseEntity importExcel(MultipartFile file) {
+
+        return null;
     }
 
     ModelMapper modelMapper = null;
