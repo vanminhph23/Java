@@ -1,6 +1,6 @@
 package com.isofh.his.security;
 
-import com.isofh.his.Util;
+import com.isofh.his.Util.Util;
 import com.isofh.his.dto.UserDto;
 import io.jsonwebtoken.*;
 import org.slf4j.Logger;
@@ -12,7 +12,6 @@ import org.springframework.stereotype.Component;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
-import java.util.stream.Collectors;
 
 @Component
 public class JwtTokenProvider {

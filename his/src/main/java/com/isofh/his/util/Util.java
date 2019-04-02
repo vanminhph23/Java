@@ -1,4 +1,4 @@
-package com.isofh.his;
+package com.isofh.his.util;
 
 import java.util.ArrayList;
 import java.util.List;
