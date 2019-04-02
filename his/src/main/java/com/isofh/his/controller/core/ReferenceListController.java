@@ -24,6 +24,6 @@ public class ReferenceListController extends BaseController {
 
     @PostMapping("/create")
     public ResponseEntity<ResponseMsg> create(@Valid @RequestBody ReferenceListDto referenceListDto) {
-        return response("referenceList", referenceListService.create(referenceListService.getModel(referenceListDto)));
+        return response("referenceList", referenceListService.save(referenceListService.getModel(referenceListDto)));
     }
 }

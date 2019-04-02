@@ -24,6 +24,6 @@ public class UserController extends BaseController {
 
     @PostMapping("/create")
     public ResponseEntity<ResponseMsg> create(@Valid @RequestBody UserDto userDto) {
-        return response("user", userService.create(userService.getModel(userDto)));
+        return response("user", userService.save(userService.getModel(userDto)));
     }
 }

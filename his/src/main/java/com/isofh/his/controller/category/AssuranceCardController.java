@@ -24,6 +24,6 @@ public class AssuranceCardController extends BaseController {
 
     @PostMapping("/create")
     public ResponseEntity<ResponseMsg> create(@Valid @RequestBody DepartmentDto model) {
-        return response("assuranceCard", service.getDto(service.create(service.getModel(model))));
+        return response("assuranceCard", service.getDto(service.save(service.getModel(model))));
     }
 }

@@ -24,7 +24,7 @@ public class RoleController extends BaseController {
 
     @PostMapping("/create")
     public ResponseEntity<ResponseMsg> create(@Valid @RequestBody Role role) {
-        return response("role", service.create(role));
+        return response("role", service.save(role));
     }
 
 }

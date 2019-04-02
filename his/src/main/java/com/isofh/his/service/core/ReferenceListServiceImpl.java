@@ -14,7 +14,7 @@ public class ReferenceListServiceImpl implements ReferenceListService {
     private ReferenceListRepository repository;
 
     @Override
-    public ReferenceList create(ReferenceList model) {
+    public ReferenceList save(ReferenceList model) {
         return repository.save(model);
     }
 

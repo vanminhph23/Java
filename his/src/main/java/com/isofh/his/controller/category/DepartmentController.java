@@ -24,6 +24,6 @@ public class DepartmentController extends BaseController {
 
     @PostMapping("/create")
     public ResponseEntity<ResponseMsg> create(@Valid @RequestBody DepartmentDto model) {
-        return response("department", service.getDto(service.create(service.getModel(model))));
+        return response("department", service.getDto(service.save(service.getModel(model))));
     }
 }

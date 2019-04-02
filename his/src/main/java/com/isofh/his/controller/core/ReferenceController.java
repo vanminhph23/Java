@@ -24,6 +24,6 @@ public class ReferenceController extends BaseController {
 
     @PostMapping("/create")
     public ResponseEntity<ResponseMsg> create(@Valid @RequestBody ReferenceDto referenceDto) {
-        return response("user", referenceService.create(referenceService.getModel(referenceDto)));
+        return response("user", referenceService.save(referenceService.getModel(referenceDto)));
     }
 }

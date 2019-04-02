@@ -12,7 +12,7 @@ public interface BaseService<T extends BaseModel, Y extends BaseDto> {
 
     Y getDto(T model);
 
-    T create(T model);
+    T save(T model);
 
     T get(Long id);
 }

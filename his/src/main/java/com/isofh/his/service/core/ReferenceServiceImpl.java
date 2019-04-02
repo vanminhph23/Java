@@ -14,7 +14,7 @@ public class ReferenceServiceImpl implements ReferenceService {
     private ReferenceRepository repository;
 
     @Override
-    public Reference create(Reference model) {
+    public Reference save(Reference model) {
         return repository.save(model);
     }
 
