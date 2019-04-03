@@ -1,8 +1,8 @@
 package com.isofh.his.service.employee;
 
-import com.isofh.his.dto.employee.RoleDto;
 import com.isofh.his.model.employee.Role;
 import com.isofh.his.repository.employee.RoleRepository;
+import com.isofh.his.storage.StorageService;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -12,6 +12,18 @@ public class RoleServiceImpl implements RoleService {
 
     @Autowired
     private RoleRepository repository;
+
+    private final StorageService storageService;
+
+    @Autowired
+    public RoleServiceImpl(StorageService storageService) {
+        this.storageService = storageService;
+    }
+
+    @Override
+    public StorageService getStorageService() {
+        return storageService;
+    }
 
     @Override
     public Role save(Role model) {
@@ -31,15 +43,5 @@ public class RoleServiceImpl implements RoleService {
         }
 
         return modelMapper;
-    }
-
-    @Override
-    public Role getModel(RoleDto dto) {
-        return getModelMapper().map(dto, Role.class);
-    }
-
-    @Override
-    public RoleDto getDto(Role model) {
-        return getModelMapper().map(model, RoleDto.class);
     }
 }

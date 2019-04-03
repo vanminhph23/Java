@@ -3,6 +3,7 @@ package com.isofh.his.service.employee;
 import com.isofh.his.dto.employee.UserDto;
 import com.isofh.his.model.employee.User;
 import com.isofh.his.repository.employee.UserRepository;
+import com.isofh.his.storage.StorageService;
 import org.modelmapper.ModelMapper;
 import org.modelmapper.PropertyMap;
 import org.modelmapper.convention.MatchingStrategies;
@@ -16,6 +17,18 @@ public class UserServiceImpl implements UserService {
 
     @Autowired
     private UserRepository repository;
+
+    private final StorageService storageService;
+
+    @Autowired
+    public UserServiceImpl(StorageService storageService) {
+        this.storageService = storageService;
+    }
+
+    @Override
+    public StorageService getStorageService() {
+        return storageService;
+    }
 
     @Override
     public User getByName(String name) {
@@ -52,15 +65,5 @@ public class UserServiceImpl implements UserService {
         }
 
         return modelMapper;
-    }
-
-    @Override
-    public User getModel(UserDto dto) {
-        return getModelMapper().map(dto, User.class);
-    }
-
-    @Override
-    public UserDto getDto(User model) {
-        return getModelMapper().map(model, UserDto.class);
     }
 }

@@ -31,6 +31,6 @@ public class AssuranceCardController extends BaseController {
 
     @PostMapping("/import-excel")
     public ResponseEntity<InputStreamResource> importExcel(@RequestParam("file") MultipartFile file) {
-        return response(service.importExcel(file));
+        return response(service.importExcel(file, 1, 1));
     }
 }

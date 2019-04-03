@@ -24,10 +24,11 @@ public class BaseController {
 
     protected ResponseEntity response(String fileName) {
         try {
+            File file = new File(fileName);
             HttpHeaders headers = new HttpHeaders();
-            headers.add("Content-Disposition", "attachment; filename=" + fileName);
+            headers.add("Content-Disposition", "attachment; filename=" + file.getName());
 
-            return new ResponseEntity(new InputStreamResource(new ByteArrayInputStream(FileUtils.readFileToByteArray(new File(fileName)))), headers, HttpStatus.OK);
+            return new ResponseEntity(new InputStreamResource(new ByteArrayInputStream(FileUtils.readFileToByteArray(file))), headers, HttpStatus.OK);
         } catch (IOException e) {
             throw new StorageFileNotFoundException("Could not read file: " + fileName);
         }

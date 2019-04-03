@@ -3,6 +3,7 @@ package com.isofh.his.service.core;
 import com.isofh.his.dto.core.ReferenceListDto;
 import com.isofh.his.model.core.ReferenceList;
 import com.isofh.his.repository.core.ReferenceListRepository;
+import com.isofh.his.storage.StorageService;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -12,6 +13,18 @@ public class ReferenceListServiceImpl implements ReferenceListService {
 
     @Autowired
     private ReferenceListRepository repository;
+
+    private final StorageService storageService;
+
+    @Autowired
+    public ReferenceListServiceImpl(StorageService storageService) {
+        this.storageService = storageService;
+    }
+
+    @Override
+    public StorageService getStorageService() {
+        return storageService;
+    }
 
     @Override
     public ReferenceList save(ReferenceList model) {
@@ -31,21 +44,5 @@ public class ReferenceListServiceImpl implements ReferenceListService {
         }
 
         return modelMapper;
-    }
-
-    @Override
-    public ReferenceList getModel(ReferenceListDto dto) {
-        if (dto == null) {
-            return null;
-        }
-        return getModelMapper().map(dto, ReferenceList.class);
-    }
-
-    @Override
-    public ReferenceListDto getDto(ReferenceList model) {
-        if (model == null) {
-            return null;
-        }
-        return getModelMapper().map(model, ReferenceListDto.class);
     }
 }

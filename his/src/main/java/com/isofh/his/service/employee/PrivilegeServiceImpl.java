@@ -3,6 +3,7 @@ package com.isofh.his.service.employee;
 import com.isofh.his.dto.employee.PrivilegeDto;
 import com.isofh.his.model.employee.Privilege;
 import com.isofh.his.repository.employee.PrivilegeRepository;
+import com.isofh.his.storage.StorageService;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -12,6 +13,18 @@ public class PrivilegeServiceImpl implements PrivilegeService {
 
     @Autowired
     private PrivilegeRepository repository;
+
+    private final StorageService storageService;
+
+    @Autowired
+    public PrivilegeServiceImpl(StorageService storageService) {
+        this.storageService = storageService;
+    }
+
+    @Override
+    public StorageService getStorageService() {
+        return storageService;
+    }
 
     @Override
     public Privilege save(Privilege model) {
@@ -31,15 +44,5 @@ public class PrivilegeServiceImpl implements PrivilegeService {
         }
 
         return modelMapper;
-    }
-
-    @Override
-    public Privilege getModel(PrivilegeDto dto) {
-        return getModelMapper().map(dto, Privilege.class);
-    }
-
-    @Override
-    public PrivilegeDto getDto(Privilege model) {
-        return getModelMapper().map(model, PrivilegeDto.class);
     }
 }
