@@ -31,30 +31,34 @@ public class FileSystemStorageService implements StorageService {
     }
 
     @Override
-    public void store(MultipartFile file) {
-        String filename = UUID.randomUUID().toString() + StringUtils.cleanPath(file.getOriginalFilename());
+    public String store(MultipartFile file) {
+        String fileName = UUID.randomUUID().toString() + "_" + StringUtils.cleanPath(file.getOriginalFilename());
         try {
             if (file.isEmpty()) {
-                throw new StorageException("Failed to store empty file " + filename);
+                throw new StorageException("Failed to store empty file " + fileName);
             }
-            if (filename.contains("..")) {
+            if (fileName.contains("..")) {
                 // This is a security check
-                throw new StorageException("Cannot store file with relative path outside current directory " + filename);
+                throw new StorageException("Cannot store file with relative path outside current directory " + fileName);
             }
+
+            Path filePath = rootLocation.resolve(fileName);
+
             try (InputStream inputStream = file.getInputStream()) {
-                Files.copy(inputStream, this.rootLocation.resolve(filename), StandardCopyOption.REPLACE_EXISTING);
+                Files.copy(inputStream, filePath, StandardCopyOption.REPLACE_EXISTING);
+                return filePath.toAbsolutePath().toString();
             }
         } catch (IOException e) {
-            throw new StorageException("Failed to store file " + filename, e);
+            throw new StorageException("Failed to store file " + fileName, e);
         }
     }
 
     @Override
     public Stream<Path> loadAll() {
         try {
-            return Files.walk(this.rootLocation, 1)
-                    .filter(path -> !path.equals(this.rootLocation))
-                    .map(this.rootLocation::relativize);
+            return Files.walk(rootLocation, 1)
+                    .filter(path -> !path.equals(rootLocation))
+                    .map(rootLocation::relativize);
         } catch (IOException e) {
             throw new StorageException("Failed to read stored files", e);
         }
@@ -67,18 +71,17 @@ public class FileSystemStorageService implements StorageService {
     }
 
     @Override
-    public Resource loadAsResource(String filename) {
+    public Resource loadAsResource(String fileName) {
         try {
-            Path file = load(filename);
+            Path file = load(fileName);
             Resource resource = new UrlResource(file.toUri());
             if (resource.exists() || resource.isReadable()) {
                 return resource;
             } else {
-                throw new StorageFileNotFoundException("Could not read file: " + filename);
-
+                throw new StorageFileNotFoundException("Could not read file: " + fileName);
             }
         } catch (MalformedURLException e) {
-            throw new StorageFileNotFoundException("Could not read file: " + filename, e);
+            throw new StorageFileNotFoundException("Could not read file: " + fileName, e);
         }
     }
 

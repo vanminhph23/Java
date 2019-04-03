@@ -1,21 +1,78 @@
 package com.isofh.his.util;
 
+import com.isofh.his.exception.StorageException;
 import org.apache.poi.hssf.usermodel.HSSFSheet;
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 import org.apache.poi.ss.usermodel.*;
 
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Iterator;
-import java.util.List;
+import java.util.*;
 
 public class ExcelUtil {
 
-    public static List<List<Object>> readFile(String fileName, int sheetNo, int startLineNo) {
-        if (!fileName.endsWith(".xls") && !fileName.endsWith(".xlsx")) {
+    public static String appendLog(String fileName, int sheetNo, int startLineNo, List<String> data) {
+        if (!fileName.endsWith(".xls")) {
+            return null;
+        }
+
+        FileInputStream inputStream = null;
+        HSSFWorkbook workbook = null;
+        FileOutputStream outputStream = null;
+        HSSFSheet sheet;
+        try {
+            inputStream = new FileInputStream(new File(fileName));
+            workbook = new HSSFWorkbook(inputStream);
+
+            sheet = workbook.getSheetAt(sheetNo - 1);
+
+            Iterator<Row> rowIterator = sheet.iterator();
+
+            int columnCount = sheet.getRow(0).getPhysicalNumberOfCells();
+            int rowCount = 0;
+            while (rowIterator.hasNext()) {
+                Row row = rowIterator.next();
+
+                if (row.getRowNum() < startLineNo) {
+                    continue;
+                }
+
+                Cell cell = row.createCell(columnCount);
+                cell.setCellValue(data.get(rowCount));
+                rowCount++;
+            }
+
+            String logFile = fileName.substring(0, fileName.length() - 4)+ "_log.xls";
+
+            outputStream = new FileOutputStream(logFile);
+            workbook.write(outputStream);
+
+            return logFile;
+        } catch (IOException e) {
+            throw new StorageException("Failed to store file " + fileName, e);
+        } finally {
+            try {
+                if (outputStream != null) {
+                    outputStream.close();
+                }
+
+                if (workbook != null)
+                    workbook.close();
+
+                if (inputStream != null) {
+                    inputStream.close();
+                }
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
+    public static List<Map<String, Object>> readFile(String fileName, int sheetNo, int startLineNo) {
+        if (!fileName.endsWith(".xls")) {
             return null;
         }
 
@@ -23,19 +80,17 @@ public class ExcelUtil {
 
         FileInputStream inputStream = null;
         HSSFWorkbook workbook = null;
-        HSSFSheet sheet = null;
-
-        int maxColumn = 0;
         try {
             inputStream = new FileInputStream(new File(fileName));
             workbook = new HSSFWorkbook(inputStream);
-            sheet = workbook.getSheetAt(sheetNo - 1);
+
+            HSSFSheet sheet = workbook.getSheetAt(sheetNo - 1);
 
             Iterator<Row> rowIterator = sheet.iterator();
             while (rowIterator.hasNext()) {
                 Row row = rowIterator.next();
 
-                if(row.getRowNum() < startLineNo - 1) {
+                if (row.getRowNum() < startLineNo - 1) {
                     continue;
                 }
 
@@ -76,35 +131,49 @@ public class ExcelUtil {
                 }
 
                 for (Object obj : rowObject) {
-                    if(obj != null) {
+                    if (obj != null) {
                         result.add(rowObject);
                         break;
                     }
                 }
-
-                if(maxColumn < rowObject.size()) {
-                    maxColumn = rowObject.size();
-                }
             }
 
+            List<Object> header = result.get(0);
+            int column = header.size();
 
             for (List<Object> rowObject : result) {
-                for (int i = rowObject.size(); i < maxColumn; i++) {
+                for (int i = rowObject.size(); i < column; i++) {
                     rowObject.add(null);
                 }
             }
 
-        } catch (Exception e) {
-            e.printStackTrace();
+            int objCount = result.size();
+            List<Map<String, Object>> objects = new ArrayList<>();
+            for (int i = 1; i < objCount; i++) {
+                List<Object> row = result.get(1);
+                Map<String, Object> obj = new HashMap<>();
+
+                for (int j = 0; j < column; j++) {
+                    obj.put((String) header.get(j), row.get(j));
+                }
+
+                objects.add(obj);
+            }
+
+            return objects;
+        } catch (IOException e) {
+            throw new StorageException("Failed to store file " + fileName, e);
         } finally {
             try {
                 if (workbook != null)
                     workbook.close();
+
+                if (inputStream != null) {
+                    inputStream.close();
+                }
             } catch (IOException e) {
                 e.printStackTrace();
             }
         }
-
-        return result;
     }
 }

@@ -46,7 +46,6 @@ public class UserServiceImpl implements UserService {
                 @Override
                 protected void configure() {
                     map().setName(source.getUsername());
-                    map().setPassword(new BCryptPasswordEncoder().encode(source.getPassword()));
                 }
             });
 

@@ -28,7 +28,7 @@ public class PatientHistory extends BasePatient2Model {
     @Audited
     private Timestamp timeGoIn;
 
-    @Column(name = "timeGoOut")
+    @Column(name = "time_go_out")
     @Audited
     private Timestamp timeGoOut;
 
@@ -120,12 +120,12 @@ public class PatientHistory extends BasePatient2Model {
     @JoinColumn(name = "job_id", insertable = false, updatable = false)
     private Job job;
 
-    @Column(name = "medical_record_type_ID")
+    @Column(name = "medical_record_type_id")
     @Audited
     private Long medicalRecordTypeId;
 
     @ManyToOne
-    @JoinColumn(name = "medical_record_type_ID", insertable = false, updatable = false)
+    @JoinColumn(name = "medical_record_type_id", insertable = false, updatable = false)
     private MedicalRecordType medicalRecordType;
 
     @Column(name = "nationality_id")

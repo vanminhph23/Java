@@ -4,8 +4,8 @@ import com.isofh.his.controller.base.BaseController;
 import com.isofh.his.dto.base.ResponseMsg;
 import com.isofh.his.dto.category.AssuranceCardDto;
 import com.isofh.his.service.category.AssuranceCardService;
-import com.isofh.his.storage.StorageService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.io.InputStreamResource;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
@@ -19,13 +19,6 @@ public class AssuranceCardController extends BaseController {
     @Autowired
     private AssuranceCardService service;
 
-    private final StorageService storageService;
-
-    @Autowired
-    public AssuranceCardController(StorageService storageService) {
-        this.storageService = storageService;
-    }
-
     @GetMapping("/{id}")
     public ResponseEntity<ResponseMsg> getById(@PathVariable Long id) {
         return response("assuranceCard", service.getDto(service.get(id)));
@@ -37,9 +30,7 @@ public class AssuranceCardController extends BaseController {
     }
 
     @PostMapping("/import-excel")
-    public ResponseEntity<ResponseMsg> importExcel(@RequestParam("file") MultipartFile file) {
-        storageService.store(file);
-
-        return service.importExcel(file);
+    public ResponseEntity<InputStreamResource> importExcel(@RequestParam("file") MultipartFile file) {
+        return response(service.importExcel(file));
     }
 }

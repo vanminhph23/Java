@@ -6,7 +6,9 @@ import com.isofh.his.service.base.BaseService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.io.IOException;
+
 public interface AssuranceCardService extends BaseService<AssuranceCard, AssuranceCardDto> {
 
-    ResponseEntity importExcel(MultipartFile file);
+    String importExcel(MultipartFile file);
 }
