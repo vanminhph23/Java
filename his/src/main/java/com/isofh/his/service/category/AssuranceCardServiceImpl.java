@@ -5,6 +5,7 @@ import com.isofh.his.repository.category.AssuranceCardRepository;
 import com.isofh.his.storage.StorageService;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 @Service

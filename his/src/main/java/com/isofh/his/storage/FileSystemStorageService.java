@@ -3,6 +3,7 @@ package com.isofh.his.storage;
 import com.isofh.his.exception.StorageException;
 import com.isofh.his.exception.StorageFileNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.io.Resource;
 import org.springframework.core.io.UrlResource;
 import org.springframework.stereotype.Service;
@@ -26,8 +27,8 @@ public class FileSystemStorageService implements StorageService {
     private final Path rootLocation;
 
     @Autowired
-    public FileSystemStorageService(StorageProperties properties) {
-        this.rootLocation = Paths.get(properties.getLocation());
+    public FileSystemStorageService(@Value("${storage.location}") final String rootLocationStr) {
+        this.rootLocation = Paths.get(rootLocationStr);
     }
 
     @Override
