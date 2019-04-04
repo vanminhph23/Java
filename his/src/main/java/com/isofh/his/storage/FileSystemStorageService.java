@@ -28,7 +28,7 @@ public class FileSystemStorageService implements StorageService {
 
     @Autowired
     public FileSystemStorageService(@Value("${storage.location}") final String rootLocationStr) {
-        this.rootLocation = Paths.get(rootLocationStr);
+        rootLocation = Paths.get(rootLocationStr);
     }
 
     @Override
