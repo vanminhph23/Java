@@ -1,6 +1,6 @@
 package com.isofh.his.model.employee;
 
-import com.isofh.his.model.base.Base2Model;
+import com.isofh.his.model.base.BaseCategoryModel;
 import com.isofh.his.model.category.*;
 import org.hibernate.envers.Audited;
 
@@ -10,7 +10,7 @@ import java.util.List;
 
 @Entity
 @Table(name = "his_user")
-public class User extends Base2Model {
+public class User extends BaseCategoryModel {
     @Id
     @GeneratedValue(generator = "user_generator")
     @SequenceGenerator(

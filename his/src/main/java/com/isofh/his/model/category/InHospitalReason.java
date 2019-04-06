@@ -1,12 +1,12 @@
 package com.isofh.his.model.category;
 
-import com.isofh.his.model.base.Base2Model;
+import com.isofh.his.model.base.BaseCategoryModel;
 
 import javax.persistence.*;
 
 @Entity
 @Table(name = "his_in_hospital_reason")
-public class InHospitalReason extends Base2Model {
+public class InHospitalReason extends BaseCategoryModel {
     @Id
     @GeneratedValue(generator = "in_hospital_reason_generator")
     @SequenceGenerator(

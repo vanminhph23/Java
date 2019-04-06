@@ -1,13 +1,13 @@
 package com.isofh.his.model.category.service;
 
-import com.isofh.his.model.base.Base2Model;
+import com.isofh.his.model.base.BaseCategoryModel;
 import org.hibernate.envers.Audited;
 
 import javax.persistence.*;
 
 @Entity
 @Table(name = "his_service_group_level1")
-public class ServiceGroupLevel1 extends Base2Model {
+public class ServiceGroupLevel1 extends BaseCategoryModel {
     @Id
     @GeneratedValue(generator = "service_group_level1_generator")
     @SequenceGenerator(

@@ -1,14 +1,12 @@
 package com.isofh.his.model.patient;
 
-import com.isofh.his.model.base.patient.BasePatient2Model;
-import org.hibernate.envers.Audited;
+import com.isofh.his.model.base.patient.BasePatientServiceModel;
 
 import javax.persistence.*;
-import java.sql.Timestamp;
 
 @Entity
 @Table(name = "his_ph_collection")
-public class PHCollection extends BasePatient2Model {
+public class PHCollection extends BasePatientServiceModel {
     @Id
     @GeneratedValue(generator = "ph_collection_generator")
     @SequenceGenerator(

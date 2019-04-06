@@ -1,13 +1,13 @@
 package com.isofh.his.model.category;
 
-import com.isofh.his.model.base.Base2Model;
+import com.isofh.his.model.base.BaseCategoryModel;
 import org.hibernate.envers.Audited;
 
 import javax.persistence.*;
 
 @Entity
 @Table(name = "his_room")
-public class Room extends Base2Model {
+public class Room extends BaseCategoryModel {
     @Id
     @GeneratedValue(generator = "room_generator")
     @SequenceGenerator(

@@ -1,13 +1,13 @@
 package com.isofh.his.model.employee;
 
-import com.isofh.his.model.base.Base2Model;
+import com.isofh.his.model.base.BaseCategoryModel;
 import org.hibernate.envers.Audited;
 
 import javax.persistence.*;
 
 @Entity
 @Table(name = "his_academic_rank")
-public class AcademicRank extends Base2Model {
+public class AcademicRank extends BaseCategoryModel {
     @Id
     @GeneratedValue(generator = "academic_rank_generator")
     @SequenceGenerator(

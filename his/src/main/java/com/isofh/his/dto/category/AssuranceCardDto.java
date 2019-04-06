@@ -1,8 +1,8 @@
 package com.isofh.his.dto.category;
 
-import com.isofh.his.dto.base.Base2Dto;
+import com.isofh.his.dto.base.BaseCategoryDto;
 
-public class AssuranceCardDto extends Base2Dto {
+public class AssuranceCardDto extends BaseCategoryDto {
 
     public AssuranceCardDto() {
     }

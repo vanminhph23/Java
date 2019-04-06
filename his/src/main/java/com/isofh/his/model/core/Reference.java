@@ -1,6 +1,6 @@
-package com.isofh.his.model.base;
+package com.isofh.his.model.core;
 
-import com.isofh.his.model.core.ReferenceList;
+import com.isofh.his.model.base.BaseCategoryModel;
 import org.hibernate.envers.Audited;
 
 import javax.persistence.*;
@@ -8,7 +8,7 @@ import java.util.List;
 
 @Entity
 @Table(name = "his_reference")
-public class Reference extends Base2Model {
+public class Reference extends BaseCategoryModel {
     @Id
     @GeneratedValue(generator = "reference_generator")
     @SequenceGenerator(

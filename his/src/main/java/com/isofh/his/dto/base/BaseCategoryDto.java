@@ -1,12 +1,12 @@
 package com.isofh.his.dto.base;
 
-public abstract class Base2Dto extends BaseDto {
+public abstract class BaseCategoryDto extends BaseDto {
 
     private String value;
 
     private String name;
 
-    public Base2Dto() {
+    public BaseCategoryDto() {
     }
 
     public String getValue() {

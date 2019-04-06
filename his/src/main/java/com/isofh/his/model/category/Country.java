@@ -1,14 +1,14 @@
 package com.isofh.his.model.category;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.isofh.his.model.base.Base2Model;
+import com.isofh.his.model.base.BaseCategoryModel;
 
 import javax.persistence.*;
 import java.util.List;
 
 @Entity
 @Table(name = "his_country")
-public class Country extends Base2Model {
+public class Country extends BaseCategoryModel {
     @Id
     @GeneratedValue(generator = "country_generator")
     @SequenceGenerator(

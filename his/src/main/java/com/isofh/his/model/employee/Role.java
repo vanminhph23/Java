@@ -1,14 +1,14 @@
 package com.isofh.his.model.employee;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.isofh.his.model.base.Base2Model;
+import com.isofh.his.model.base.BaseCategoryModel;
 
 import javax.persistence.*;
 import java.util.List;
 
 @Entity
 @Table(name = "his_role")
-public class Role extends Base2Model {
+public class Role extends BaseCategoryModel {
     @Id
     @GeneratedValue(generator = "role_generator")
     @SequenceGenerator(

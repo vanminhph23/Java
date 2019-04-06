@@ -1,6 +1,6 @@
 package com.isofh.his.model.category.service;
 
-import com.isofh.his.model.base.Base2Model;
+import com.isofh.his.model.base.BaseCategoryModel;
 import com.isofh.his.model.category.Department;
 import com.isofh.his.model.category.Room;
 import com.isofh.his.model.category.UOM;
@@ -11,7 +11,7 @@ import java.sql.Timestamp;
 
 @Entity
 @Table(name = "his_service")
-public class Service extends Base2Model {
+public class Service extends BaseCategoryModel {
     @Id
     @GeneratedValue(generator = "service_generator")
     @SequenceGenerator(

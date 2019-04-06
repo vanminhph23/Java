@@ -1,7 +1,7 @@
 package com.isofh.his.repository.core;
 
-import com.isofh.his.model.base.Reference;
-import com.isofh.his.repository.base.Base2Repository;
+import com.isofh.his.model.core.Reference;
+import com.isofh.his.repository.base.BaseCategoryRepository;
 
-public interface ReferenceRepository extends Base2Repository<Reference, Long> {
+public interface ReferenceRepository extends BaseCategoryRepository<Reference, Long> {
 }

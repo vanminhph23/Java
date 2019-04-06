@@ -1,8 +1,7 @@
 package com.isofh.his.model.employee;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.isofh.his.model.base.Base2Model;
-import com.isofh.his.model.employee.Role;
+import com.isofh.his.model.base.BaseCategoryModel;
 
 import javax.persistence.*;
 import java.util.List;
@@ -10,7 +9,7 @@ import java.util.List;
 
 @Entity
 @Table(name = "his_privilege")
-public class Privilege extends Base2Model {
+public class Privilege extends BaseCategoryModel {
 
     @Id
     @GeneratedValue(generator = "privilege_generator")

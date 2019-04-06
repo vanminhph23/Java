@@ -1,7 +1,7 @@
 package com.isofh.his.model.category;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.isofh.his.model.base.Base2Model;
+import com.isofh.his.model.base.BaseCategoryModel;
 import org.hibernate.envers.Audited;
 
 import javax.persistence.*;
@@ -9,7 +9,7 @@ import java.util.List;
 
 @Entity
 @Table(name = "his_district")
-public class District extends Base2Model {
+public class District extends BaseCategoryModel {
     @Id
     @GeneratedValue(generator = "district_generator")
     @SequenceGenerator(

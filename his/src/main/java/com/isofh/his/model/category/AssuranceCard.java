@@ -1,13 +1,13 @@
 package com.isofh.his.model.category;
 
-import com.isofh.his.model.base.Base2Model;
+import com.isofh.his.model.base.BaseCategoryModel;
 import org.hibernate.envers.Audited;
 
 import javax.persistence.*;
 
 @Entity
 @Table(name = "his_assurance_card")
-public class AssuranceCard extends Base2Model {
+public class AssuranceCard extends BaseCategoryModel {
     @Id
     @GeneratedValue(generator = "assurance_card_generator")
     @SequenceGenerator(

@@ -6,7 +6,7 @@ import javax.persistence.Column;
 import javax.persistence.MappedSuperclass;
 
 @MappedSuperclass
-public abstract class Base2Model extends BaseModel {
+public abstract class BaseCategoryModel extends BaseModel {
 
     @Column(name = "value", nullable = false)
     @Audited
