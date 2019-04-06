@@ -18,16 +18,14 @@ public class UserServiceImpl implements UserService {
     @Autowired
     private UserRepository repository;
 
-    private final StorageService storageService;
-
-    @Autowired
-    public UserServiceImpl(StorageService storageService) {
-        this.storageService = storageService;
+    @Override
+    public Class<User> getModelClass() {
+        return User.class;
     }
 
     @Override
-    public StorageService getStorageService() {
-        return storageService;
+    public Class<UserDto> getDtoClass() {
+        return UserDto.class;
     }
 
     @Override

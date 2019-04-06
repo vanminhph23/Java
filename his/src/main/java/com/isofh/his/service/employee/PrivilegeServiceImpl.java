@@ -14,16 +14,14 @@ public class PrivilegeServiceImpl implements PrivilegeService {
     @Autowired
     private PrivilegeRepository repository;
 
-    private final StorageService storageService;
-
-    @Autowired
-    public PrivilegeServiceImpl(StorageService storageService) {
-        this.storageService = storageService;
+    @Override
+    public Class<Privilege> getModelClass() {
+        return Privilege.class;
     }
 
     @Override
-    public StorageService getStorageService() {
-        return storageService;
+    public Class<PrivilegeDto> getDtoClass() {
+        return PrivilegeDto.class;
     }
 
     @Override

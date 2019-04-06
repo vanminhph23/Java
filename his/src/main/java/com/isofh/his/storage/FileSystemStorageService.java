@@ -21,13 +21,13 @@ import java.nio.file.StandardCopyOption;
 import java.util.UUID;
 import java.util.stream.Stream;
 
-@Service
 public class FileSystemStorageService implements StorageService {
 
+    @Value("${storage.location}")
+    private String rootLocationStr = "/home/vanminh/Downloads";
     private final Path rootLocation;
 
-    @Autowired
-    public FileSystemStorageService(@Value("${storage.location}") final String rootLocationStr) {
+    public FileSystemStorageService() {
         rootLocation = Paths.get(rootLocationStr);
     }
 

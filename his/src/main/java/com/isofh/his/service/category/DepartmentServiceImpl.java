@@ -14,16 +14,14 @@ public class DepartmentServiceImpl implements DepartmentService {
     @Autowired
     private DepartmentRepository repository;
 
-    private final StorageService storageService;
-
-    @Autowired
-    public DepartmentServiceImpl(StorageService storageService) {
-        this.storageService = storageService;
+    @Override
+    public Class<Department> getModelClass() {
+        return Department.class;
     }
 
     @Override
-    public StorageService getStorageService() {
-        return storageService;
+    public Class<DepartmentDto> getDtoClass() {
+        return DepartmentDto.class;
     }
 
     @Override

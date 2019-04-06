@@ -1,5 +1,6 @@
 package com.isofh.his.service.employee;
 
+import com.isofh.his.dto.employee.RoleDto;
 import com.isofh.his.model.employee.Role;
 import com.isofh.his.repository.employee.RoleRepository;
 import com.isofh.his.storage.StorageService;
@@ -13,16 +14,14 @@ public class RoleServiceImpl implements RoleService {
     @Autowired
     private RoleRepository repository;
 
-    private final StorageService storageService;
-
-    @Autowired
-    public RoleServiceImpl(StorageService storageService) {
-        this.storageService = storageService;
+    @Override
+    public Class<Role> getModelClass() {
+        return Role.class;
     }
 
     @Override
-    public StorageService getStorageService() {
-        return storageService;
+    public Class<RoleDto> getDtoClass() {
+        return RoleDto.class;
     }
 
     @Override

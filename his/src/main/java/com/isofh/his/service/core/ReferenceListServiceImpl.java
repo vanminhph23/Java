@@ -14,16 +14,14 @@ public class ReferenceListServiceImpl implements ReferenceListService {
     @Autowired
     private ReferenceListRepository repository;
 
-    private final StorageService storageService;
-
-    @Autowired
-    public ReferenceListServiceImpl(StorageService storageService) {
-        this.storageService = storageService;
+    @Override
+    public Class<ReferenceList> getModelClass() {
+        return ReferenceList.class;
     }
 
     @Override
-    public StorageService getStorageService() {
-        return storageService;
+    public Class<ReferenceListDto> getDtoClass() {
+        return ReferenceListDto.class;
     }
 
     @Override

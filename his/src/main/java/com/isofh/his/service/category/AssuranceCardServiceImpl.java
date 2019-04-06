@@ -1,7 +1,9 @@
 package com.isofh.his.service.category;
 
+import com.isofh.his.dto.category.AssuranceCardDto;
 import com.isofh.his.model.category.AssuranceCard;
 import com.isofh.his.repository.category.AssuranceCardRepository;
+import com.isofh.his.storage.FileSystemStorageService;
 import com.isofh.his.storage.StorageService;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,16 +16,14 @@ public class AssuranceCardServiceImpl implements AssuranceCardService {
     @Autowired
     private AssuranceCardRepository repository;
 
-    private final StorageService storageService;
-
-    @Autowired
-    public AssuranceCardServiceImpl(StorageService storageService) {
-        this.storageService = storageService;
+    @Override
+    public Class<AssuranceCard> getModelClass() {
+        return AssuranceCard.class;
     }
 
     @Override
-    public StorageService getStorageService() {
-        return storageService;
+    public Class<AssuranceCardDto> getDtoClass() {
+        return AssuranceCardDto.class;
     }
 
     ModelMapper modelMapper = null;
