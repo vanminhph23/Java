@@ -3,16 +3,24 @@ package com.isofh.his.service.employee;
 import com.isofh.his.dto.employee.PrivilegeDto;
 import com.isofh.his.model.employee.Privilege;
 import com.isofh.his.repository.employee.PrivilegeRepository;
-import com.isofh.his.storage.StorageService;
 import org.modelmapper.ModelMapper;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 @Service
 public class PrivilegeServiceImpl implements PrivilegeService {
 
+    private final static Logger logger = LoggerFactory.getLogger(PrivilegeServiceImpl.class);
+
     @Autowired
     private PrivilegeRepository repository;
+
+    @Override
+    public PrivilegeRepository getRepository() {
+        return repository;
+    }
 
     @Override
     public Class<Privilege> getModelClass() {

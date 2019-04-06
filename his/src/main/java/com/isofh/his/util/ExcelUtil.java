@@ -1,9 +1,12 @@
 package com.isofh.his.util;
 
 import com.isofh.his.exception.StorageException;
+import com.isofh.his.storage.FileSystemStorageService;
 import org.apache.poi.hssf.usermodel.HSSFSheet;
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 import org.apache.poi.ss.usermodel.*;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -13,6 +16,8 @@ import java.text.SimpleDateFormat;
 import java.util.*;
 
 public class ExcelUtil {
+
+    private final static Logger logger = LoggerFactory.getLogger(ExcelUtil.class);
 
     public static String appendLog(String fileName, int sheetNo, int startLineNo, List<String> data) {
         if (!fileName.endsWith(".xls")) {

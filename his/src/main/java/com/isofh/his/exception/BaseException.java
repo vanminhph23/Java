@@ -2,9 +2,11 @@ package com.isofh.his.exception;
 
 public class BaseException extends RuntimeException {
 
+    private final static int ERROR_CODE = 500;
+
     public BaseException(Throwable cause) {
         super(cause);
-        this.code = 500;
+        this.code = ERROR_CODE;
     }
 
     public BaseException(int code, Throwable cause) {
@@ -24,7 +26,7 @@ public class BaseException extends RuntimeException {
 
     public BaseException(String message) {
         super(message);
-        this.code = 500;
+        this.code = ERROR_CODE;
     }
 
     private int code;

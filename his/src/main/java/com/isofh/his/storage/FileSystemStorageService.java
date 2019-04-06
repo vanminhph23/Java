@@ -2,11 +2,11 @@ package com.isofh.his.storage;
 
 import com.isofh.his.exception.StorageException;
 import com.isofh.his.exception.StorageFileNotFoundException;
-import org.springframework.beans.factory.annotation.Autowired;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.io.Resource;
 import org.springframework.core.io.UrlResource;
-import org.springframework.stereotype.Service;
 import org.springframework.util.FileSystemUtils;
 import org.springframework.util.StringUtils;
 import org.springframework.web.multipart.MultipartFile;
@@ -26,6 +26,8 @@ public class FileSystemStorageService implements StorageService {
     @Value("${storage.location}")
     private String rootLocationStr = "/home/vanminh/Downloads";
     private final Path rootLocation;
+
+    private final static Logger logger = LoggerFactory.getLogger(FileSystemStorageService.class);
 
     public FileSystemStorageService() {
         rootLocation = Paths.get(rootLocationStr);

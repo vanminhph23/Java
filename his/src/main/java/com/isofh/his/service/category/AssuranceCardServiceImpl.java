@@ -3,18 +3,24 @@ package com.isofh.his.service.category;
 import com.isofh.his.dto.category.AssuranceCardDto;
 import com.isofh.his.model.category.AssuranceCard;
 import com.isofh.his.repository.category.AssuranceCardRepository;
-import com.isofh.his.storage.FileSystemStorageService;
-import com.isofh.his.storage.StorageService;
 import org.modelmapper.ModelMapper;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 @Service
 public class AssuranceCardServiceImpl implements AssuranceCardService {
 
+    private final static Logger logger = LoggerFactory.getLogger(AssuranceCardServiceImpl.class);
+
     @Autowired
     private AssuranceCardRepository repository;
+
+    @Override
+    public AssuranceCardRepository getRepository() {
+        return repository;
+    }
 
     @Override
     public Class<AssuranceCard> getModelClass() {
@@ -43,6 +49,6 @@ public class AssuranceCardServiceImpl implements AssuranceCardService {
 
     @Override
     public AssuranceCard save(AssuranceCard model) {
-        return repository.save(model);
+        return AssuranceCardService.super.save(model);
     }
 }

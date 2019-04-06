@@ -1,7 +1,9 @@
 package com.isofh.his.service.base;
 
 import com.isofh.his.dto.base.BaseDto;
+import com.isofh.his.exception.BaseException;
 import com.isofh.his.model.base.BaseModel;
+import com.isofh.his.repository.base.BaseRepository;
 import com.isofh.his.storage.FileSystemStorageService;
 import com.isofh.his.storage.StorageService;
 import com.isofh.his.util.ExcelUtil;
@@ -13,27 +15,29 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
-public interface BaseService<T extends BaseModel, Y extends BaseDto> {
+public interface BaseService<X extends BaseModel, Y extends BaseDto, Z extends BaseRepository> {
 
     StorageService storageService = new FileSystemStorageService();
 
     ModelMapper getModelMapper();
 
-    T save(T model);
+    Z getRepository();
 
-    T get(Long id);
+    X save(X model);
 
-    Class<T> getModelClass();
+    X get(Long id);
+
+    Class<X> getModelClass();
     Class<Y> getDtoClass();
 
-    default T getModel(Y dto) {
+    default X getModel(Y dto) {
         if (dto == null) {
             return null;
         }
         return getModelMapper().map(dto, getModelClass());
     }
 
-    default Y getDto(T model) {
+    default Y getDto(X model) {
         if (model == null) {
             return null;
         }
@@ -50,10 +54,10 @@ public interface BaseService<T extends BaseModel, Y extends BaseDto> {
         List<String> mes = new ArrayList<>();
         for (Y dto : dtos) {
             try {
-                T model = save(getModel(dto));
-                mes.add("OK: " + model.getId());
-            } catch (Exception e) {
-                mes.add("Fail: " + e.getMessage());
+                X model = save(getModel(dto));
+                mes.add(String.valueOf(model.getId()));
+            } catch (BaseException e) {
+                mes.add("Error " + e.getCode() + ": " + e.getMessage());
             }
         }
 

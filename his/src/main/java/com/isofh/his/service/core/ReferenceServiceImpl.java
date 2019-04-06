@@ -4,14 +4,23 @@ import com.isofh.his.dto.core.ReferenceDto;
 import com.isofh.his.model.core.Reference;
 import com.isofh.his.repository.core.ReferenceRepository;
 import org.modelmapper.ModelMapper;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 @Service
 public class ReferenceServiceImpl implements ReferenceService {
 
+    private final static Logger logger = LoggerFactory.getLogger(ReferenceServiceImpl.class);
+
     @Autowired
     private ReferenceRepository repository;
+
+    @Override
+    public ReferenceRepository getRepository() {
+        return repository;
+    }
 
     @Override
     public Class<Reference> getModelClass() {

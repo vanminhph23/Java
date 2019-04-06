@@ -3,20 +3,27 @@ package com.isofh.his.service.employee;
 import com.isofh.his.dto.employee.UserDto;
 import com.isofh.his.model.employee.User;
 import com.isofh.his.repository.employee.UserRepository;
-import com.isofh.his.storage.StorageService;
 import org.modelmapper.ModelMapper;
 import org.modelmapper.PropertyMap;
 import org.modelmapper.convention.MatchingStrategies;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 @Service
 public class UserServiceImpl implements UserService {
 
+    private final static Logger logger = LoggerFactory.getLogger(UserServiceImpl.class);
+
     @Autowired
     private UserRepository repository;
+
+    @Override
+    public UserRepository getRepository() {
+        return repository;
+    }
 
     @Override
     public Class<User> getModelClass() {
