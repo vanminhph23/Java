@@ -143,8 +143,21 @@ public class ExcelUtil {
                 }
             }
 
-            List<Object> header = result.get(0);
-            int column = header.size();
+            List<Object> headers = result.get(0);
+            int column = headers.size();
+            for (int i = 0; i < column; i++) {
+                String header = (String) headers.get(i);
+                header = header.toLowerCase();
+                String[] strs = header.split("_");
+
+                int size = strs.length;
+                header = strs[0];
+                for (int j = 1; j < size; j++) {
+                    header += strs[0].substring(0, 1).toUpperCase() + strs[0].substring(1);
+                }
+
+                headers.set(i, header);
+            }
 
             for (List<Object> rowObject : result) {
                 for (int i = rowObject.size(); i < column; i++) {
@@ -155,11 +168,11 @@ public class ExcelUtil {
             int objCount = result.size();
             List<Map<String, Object>> objects = new ArrayList<>();
             for (int i = 1; i < objCount; i++) {
-                List<Object> row = result.get(1);
+                List<Object> row = result.get(i);
                 Map<String, Object> obj = new HashMap<>();
 
                 for (int j = 0; j < column; j++) {
-                    obj.put((String) header.get(j), row.get(j));
+                    obj.put((String) headers.get(j), row.get(j));
                 }
 
                 objects.add(obj);
