@@ -17,6 +17,9 @@ public class AssuranceCardServiceImpl implements AssuranceCardService {
     @Autowired
     private AssuranceCardRepository repository;
 
+    @Autowired
+    private JobService jobService;
+
     @Override
     public AssuranceCardRepository getRepository() {
         return repository;
@@ -50,5 +53,14 @@ public class AssuranceCardServiceImpl implements AssuranceCardService {
     @Override
     public AssuranceCard save(AssuranceCard model) {
         return AssuranceCardService.super.save(model);
+    }
+
+    @Override
+    public Long convert(String header, String value) {
+        if ("jobId[value]".equals(header)) {
+            return jobService.getI
+        }
+
+        return Long.valueOf(0);
     }
 }

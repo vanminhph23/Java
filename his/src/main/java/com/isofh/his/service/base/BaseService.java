@@ -25,6 +25,18 @@ public interface BaseService<X extends BaseModel, Y extends BaseDto, Z extends B
 
     X save(X model);
 
+    default X save(Y dto) {
+        return save(getModel(dto));
+    }
+
+    default Y saveAndTransfer(X model) {
+        return getDto(save(model));
+    }
+
+    default Y saveAndTransfer(Y dto) {
+        return saveAndTransfer(getModel(dto));
+    }
+
     X get(Long id);
 
     Class<X> getModelClass();
@@ -44,17 +56,21 @@ public interface BaseService<X extends BaseModel, Y extends BaseDto, Z extends B
         return getModelMapper().map(model, getDtoClass());
     }
 
+    default Long convert(String header, String value) {
+        return Long.valueOf(0);
+    }
+
     default String importExcel(MultipartFile file, int sheetNo, int startLineNo) {
         String fileName = storageService.store(file);
 
-        List<Map<String, Object>> result = ExcelUtil.readFile(fileName, sheetNo, startLineNo);
+        List<Map<String, Object>> result = ExcelUtil.readFile(fileName, sheetNo, startLineNo, this);
 
         List<Y> dtos = Util.convertValues(result, getDtoClass());
 
         List<String> mes = new ArrayList<>();
         for (Y dto : dtos) {
             try {
-                X model = save(getModel(dto));
+                X model = save(dto);
                 mes.add(String.valueOf(model.getId()));
             } catch (BaseException e) {
                 mes.add("Error " + e.getCode() + ": " + e.getMessage());

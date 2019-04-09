@@ -1,7 +1,7 @@
 package com.isofh.his.util;
 
 import com.isofh.his.exception.StorageException;
-import com.isofh.his.storage.FileSystemStorageService;
+import com.isofh.his.service.base.BaseService;
 import org.apache.poi.hssf.usermodel.HSSFSheet;
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 import org.apache.poi.ss.usermodel.*;
@@ -76,7 +76,7 @@ public class ExcelUtil {
         }
     }
 
-    public static List<Map<String, Object>> readFile(String fileName, int sheetNo, int startLineNo) {
+    public static List<Map<String, Object>> readFile(String fileName, int sheetNo, int startLineNo, BaseService service) {
         if (!fileName.endsWith(".xls")) {
             return null;
         }
@@ -143,28 +143,21 @@ public class ExcelUtil {
                 }
             }
 
+            // Correct header to field name of object
             List<Object> headers = result.get(0);
             int column = headers.size();
             for (int i = 0; i < column; i++) {
-                String header = (String) headers.get(i);
-                header = header.toLowerCase();
-                String[] strs = header.split("_");
-
-                int size = strs.length;
-                header = strs[0];
-                for (int j = 1; j < size; j++) {
-                    header += strs[0].substring(0, 1).toUpperCase() + strs[0].substring(1);
-                }
-
-                headers.set(i, header);
+                headers.set(i, correctHeader((String) headers.get(i)));
             }
 
+            // Add null property to object if not exists in excel
             for (List<Object> rowObject : result) {
                 for (int i = rowObject.size(); i < column; i++) {
                     rowObject.add(null);
                 }
             }
 
+            // Convert matrix to hash map object
             int objCount = result.size();
             List<Map<String, Object>> objects = new ArrayList<>();
             for (int i = 1; i < objCount; i++) {
@@ -172,6 +165,7 @@ public class ExcelUtil {
                 Map<String, Object> obj = new HashMap<>();
 
                 for (int j = 0; j < column; j++) {
+
                     obj.put((String) headers.get(j), row.get(j));
                 }
 
@@ -193,5 +187,26 @@ public class ExcelUtil {
                 e.printStackTrace();
             }
         }
+    }
+
+    private static String correctHeader(String header) {
+        if (!header.contains("[")) {
+            return correctFieldName(header);
+        }
+
+        String[] strs = header.trim().toLowerCase().replace("]", "").split("\\[");
+        return correctFieldName(strs[0]) + "[" + correctFieldName(strs[1]) + "]";
+    }
+
+    private static String correctFieldName(String fieldName) {
+        fieldName = fieldName.trim().toLowerCase();
+        String[] strs = fieldName.split("_");
+
+        int size = strs.length;
+        fieldName = strs[0];
+        for (int j = 1; j < size; j++) {
+            fieldName += strs[j].substring(0, 1).toUpperCase() + strs[j].substring(1);
+        }
+        return fieldName;
     }
 }
