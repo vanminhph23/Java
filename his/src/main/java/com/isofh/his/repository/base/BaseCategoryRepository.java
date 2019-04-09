@@ -1,17 +1,40 @@
 package com.isofh.his.repository.base;
 
 import com.isofh.his.model.base.BaseCategoryModel;
+import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.NoRepositoryBean;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Optional;
 
 @NoRepositoryBean
-public interface BaseCategoryRepository<T extends BaseCategoryModel, ID> extends BaseRepository<T, ID> {
-    Optional<T> findByName(String username);
+public interface BaseCategoryRepository<T extends BaseCategoryModel, ID extends Long> extends BaseRepository<T, ID> {
 
+    @Transactional(readOnly = true)
+    @Query("select e from #{#entityName} e where e.deleted = false and e.name = ?1")
+    Optional<T> findByName(String name);
+
+    @Transactional(readOnly = true)
+    @Query("select e from #{#entityName} e where e.deleted = false and e.value = ?1")
     Optional<T> findByValue(String value);
 
-    boolean existsByValue(String value);
+    @Transactional(readOnly = true)
+    @Query("select e.id from #{#entityName} e where e.deleted = false and e.name = ?1")
+    Optional<T> findIdByName(String name);
+
+    @Transactional(readOnly = true)
+    @Query("select e.id from #{#entityName} e where e.deleted = false and e.value = ?1")
+    Optional<T> findIdByValue(String value);
+
+    @Transactional(readOnly = true)
+    default boolean existsByValue(String value) {
+        return findByValue(value).isPresent();
+    }
+
+    @Transactional(readOnly = true)
+    default boolean existsByName(String name) {
+        return findByName(name).isPresent();
+    }
 
     @Override
     <S extends T> S save(S entity);

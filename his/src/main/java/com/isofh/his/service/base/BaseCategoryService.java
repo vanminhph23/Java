@@ -13,9 +13,25 @@ public interface BaseCategoryService<X extends BaseCategoryModel, Y extends Base
     @Override
     default X save(X model) {
         if (getRepository().existsByValue(model.getValue())) {
-            throw new DuplicateValueException("value: " + model.getValue() + ", name: " + model.getName() + ", id: " + model.getId());
+            throw new DuplicateValueException("Duplicate value, value: " + model.getValue() + ", name: " + model.getName() + ", id: " + model.getId());
         }
 
         return (X) getRepository().save(model);
+    }
+
+    default X findByValue(String value) {
+        return (X) getRepository().findByValue(value).orElse(null);
+    }
+
+    default X findByName(String name) {
+        return (X) getRepository().findByName(name).orElse(null);
+    }
+
+    default X findIdByValue(String value) {
+        return (X) getRepository().findIdByValue(value).orElse(null);
+    }
+
+    default X findIdByName(String name) {
+        return (X) getRepository().findIdByName(name).orElse(null);
     }
 }

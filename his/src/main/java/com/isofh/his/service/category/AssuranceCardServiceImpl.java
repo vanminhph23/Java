@@ -4,6 +4,7 @@ import com.isofh.his.dto.category.AssuranceCardDto;
 import com.isofh.his.model.category.AssuranceCard;
 import com.isofh.his.repository.category.AssuranceCardRepository;
 import org.modelmapper.ModelMapper;
+import org.modelmapper.convention.MatchingStrategies;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -42,6 +43,8 @@ public class AssuranceCardServiceImpl implements AssuranceCardService {
             modelMapper = new ModelMapper();
         }
 
+        modelMapper.getConfiguration().setMatchingStrategy(MatchingStrategies.STRICT);
+
         return modelMapper;
     }
 
@@ -57,10 +60,16 @@ public class AssuranceCardServiceImpl implements AssuranceCardService {
 
     @Override
     public Long convert(String header, String value) {
-        if ("jobId[value]".equals(header)) {
-            return jobService.getI
+        if (value == null) {
+            return null;
         }
 
-        return Long.valueOf(0);
+        if ("jobId[value]".equals(header)) {
+            return jobService.findByValue(value).getId();
+        } else if ("jobId[name]".equals(header)) {
+            return jobService.findByName(value).getId();
+        }
+
+        return null;
     }
 }

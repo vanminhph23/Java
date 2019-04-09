@@ -57,7 +57,7 @@ public interface BaseService<X extends BaseModel, Y extends BaseDto, Z extends B
     }
 
     default Long convert(String header, String value) {
-        return Long.valueOf(0);
+        return null;
     }
 
     default String importExcel(MultipartFile file, int sheetNo, int startLineNo) {

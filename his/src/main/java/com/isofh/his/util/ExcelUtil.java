@@ -165,8 +165,14 @@ public class ExcelUtil {
                 Map<String, Object> obj = new HashMap<>();
 
                 for (int j = 0; j < column; j++) {
+                    String header = (String) headers.get(j);
+                    Object data = row.get(j);
+                    if (header.contains("[")) {
+                        data = service.convert(header, (String) data);
+                        header = header.split("\\[")[0];
+                    }
 
-                    obj.put((String) headers.get(j), row.get(j));
+                    obj.put(header, data);
                 }
 
                 objects.add(obj);
