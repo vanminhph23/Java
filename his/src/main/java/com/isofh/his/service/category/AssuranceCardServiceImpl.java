@@ -65,9 +65,9 @@ public class AssuranceCardServiceImpl implements AssuranceCardService {
         }
 
         if ("jobId[value]".equals(header)) {
-            return jobService.findByValue(value).getId();
+            return jobService.findIdByValue(value);
         } else if ("jobId[name]".equals(header)) {
-            return jobService.findByName(value).getId();
+            return jobService.findIdByName(value);
         }
 
         return null;

@@ -27,11 +27,11 @@ public interface BaseCategoryService<X extends BaseCategoryModel, Y extends Base
         return (X) getRepository().findByName(name).orElse(null);
     }
 
-    default X findIdByValue(String value) {
-        return (X) getRepository().findIdByValue(value).orElse(null);
+    default Long findIdByValue(String value) {
+        return (Long) getRepository().findIdByValue(value).orElse(null);
     }
 
-    default X findIdByName(String name) {
-        return (X) getRepository().findIdByName(name).orElse(null);
+    default Long findIdByName(String name) {
+        return (Long) getRepository().findIdByName(name).orElse(null);
     }
 }

@@ -20,20 +20,20 @@ public interface BaseCategoryRepository<T extends BaseCategoryModel, ID extends 
 
     @Transactional(readOnly = true)
     @Query("select e.id from #{#entityName} e where e.deleted = false and e.name = ?1")
-    Optional<T> findIdByName(String name);
+    Optional<Long> findIdByName(String name);
 
     @Transactional(readOnly = true)
     @Query("select e.id from #{#entityName} e where e.deleted = false and e.value = ?1")
-    Optional<T> findIdByValue(String value);
+    Optional<Long> findIdByValue(String value);
 
     @Transactional(readOnly = true)
     default boolean existsByValue(String value) {
-        return findByValue(value).isPresent();
+        return findIdByValue(value).orElse(Long.valueOf(0)) > 0;
     }
 
     @Transactional(readOnly = true)
     default boolean existsByName(String name) {
-        return findByName(name).isPresent();
+        return findIdByName(name).orElse(Long.valueOf(0)) > 0;
     }
 
     @Override
