@@ -13,23 +13,27 @@ import org.springframework.web.multipart.MultipartFile;
 import javax.validation.Valid;
 
 @RestController
-@RequestMapping("/job")
 public class JobController extends BaseController {
 
     @Autowired
     private JobService service;
 
-    @GetMapping("/{id}")
+    @GetMapping("/jobs/{id}")
     public ResponseEntity<ResponseMsg> getById(@PathVariable Long id) {
-        return response("assuranceCard", service.getDto(service.get(id)));
+        return response("job", service.getDto(service.get(id)));
     }
 
-    @PostMapping("/create")
+    @PostMapping("/jobs")
     public ResponseEntity<ResponseMsg> create(@Valid @RequestBody JobDto model) {
-        return response("assuranceCard", service.getDto(service.save(service.getModel(model))));
+        return response("job", service.getDto(service.save(service.getModel(model))));
     }
 
-    @PostMapping("/import-excel")
+    @PutMapping("/jobs")
+    public ResponseEntity<ResponseMsg> update(@Valid @RequestBody JobDto model) {
+        return response("job", service.getDto(service.save(service.getModel(model))));
+    }
+
+    @PostMapping("/jobs/excel")
     public ResponseEntity<InputStreamResource> importExcel(@RequestParam("file") MultipartFile file) {
         return response(service.importExcel(file, 1, 1));
     }

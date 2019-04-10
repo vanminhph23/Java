@@ -2,12 +2,14 @@ package com.isofh.his.model.category;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.isofh.his.model.base.BaseCategoryModel;
+import org.hibernate.envers.Audited;
 
 import javax.persistence.*;
 import java.util.List;
 
 @Entity
 @Table(name = "his_country")
+@Audited
 public class Country extends BaseCategoryModel {
     @Id
     @GeneratedValue(generator = "country_generator")

@@ -11,19 +11,23 @@ import org.springframework.web.bind.annotation.*;
 import javax.validation.Valid;
 
 @RestController
-@RequestMapping("/reference-list")
 public class ReferenceListController extends BaseController {
 
     @Autowired
-    private ReferenceListService referenceListService;
+    private ReferenceListService service;
 
-    @GetMapping("/{id}")
+    @GetMapping("/reference-lists/{id}")
     public ResponseEntity<ResponseMsg> getById(@PathVariable Long id) {
-        return response("referenceList", referenceListService.get(id));
+        return response("referenceList", service.get(id));
     }
 
-    @PostMapping("/create")
+    @PostMapping("/reference-lists")
     public ResponseEntity<ResponseMsg> create(@Valid @RequestBody ReferenceListDto referenceListDto) {
-        return response("referenceList", referenceListService.save(referenceListService.getModel(referenceListDto)));
+        return response("referenceList", service.save(service.getModel(referenceListDto)));
+    }
+
+    @PutMapping("/reference-lists")
+    public ResponseEntity<ResponseMsg> update(@Valid @RequestBody ReferenceListDto referenceListDto) {
+        return response("referenceList", service.save(service.getModel(referenceListDto)));
     }
 }

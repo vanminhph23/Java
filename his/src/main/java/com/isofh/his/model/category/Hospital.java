@@ -36,14 +36,18 @@ public class Hospital extends BaseCategoryModel {
     private Province province;
 
     @Column(name = "level")
+    @Audited
     private int level;
 
     @Column(name = "rank")
+    @Audited
     private int rank;
 
     @Column(name = "address")
+    @Audited
     private int address;
 
     @Column(name = "note")
+    @Audited
     private int note;
 }

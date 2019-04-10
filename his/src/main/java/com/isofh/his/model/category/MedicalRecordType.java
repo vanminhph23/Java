@@ -1,11 +1,13 @@
 package com.isofh.his.model.category;
 
 import com.isofh.his.model.base.BaseCategoryModel;
+import org.hibernate.envers.Audited;
 
 import javax.persistence.*;
 
 @Entity
 @Table(name = "his_medical_record_type")
+@Audited
 public class MedicalRecordType extends BaseCategoryModel {
     @Id
     @GeneratedValue(generator = "medical_record_type_generator")

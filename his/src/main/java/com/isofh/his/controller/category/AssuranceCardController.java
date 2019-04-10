@@ -19,17 +19,22 @@ public class AssuranceCardController extends BaseController {
     @Autowired
     private AssuranceCardService service;
 
-    @GetMapping("/{id}")
+    @GetMapping("/assurance-cards/{id}")
     public ResponseEntity<ResponseMsg> getById(@PathVariable Long id) {
         return response("assuranceCard", service.getDto(service.get(id)));
     }
 
-    @PostMapping("/create")
+    @PostMapping("/assurance-cards")
     public ResponseEntity<ResponseMsg> create(@Valid @RequestBody AssuranceCardDto model) {
         return response("assuranceCard", service.getDto(service.save(service.getModel(model))));
     }
 
-    @PostMapping("/import-excel")
+    @PutMapping("/assurance-cards")
+    public ResponseEntity<ResponseMsg> update(@Valid @RequestBody AssuranceCardDto model) {
+        return response("assuranceCard", service.getDto(service.save(service.getModel(model))));
+    }
+
+    @PostMapping("/assurance-cards/excel")
     public ResponseEntity<InputStreamResource> importExcel(@RequestParam("file") MultipartFile file) {
         return response(service.importExcel(file, 1, 1));
     }
