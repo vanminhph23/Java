@@ -18,16 +18,16 @@ public class ReferenceController extends BaseController {
 
     @GetMapping("/references/{id}")
     public ResponseEntity<ResponseMsg> getById(@PathVariable Long id) {
-        return response("user", service.get(id));
+        return response("user", service.getAndTransfer(id));
     }
 
     @PostMapping("/references")
-    public ResponseEntity<ResponseMsg> create(@Valid @RequestBody ReferenceDto referenceDto) {
-        return response("user", service.save(service.getModel(referenceDto)));
+    public ResponseEntity<ResponseMsg> create(@Valid @RequestBody ReferenceDto dto) {
+        return response("user", service.saveAndTransfer(dto));
     }
 
     @PutMapping("/references")
-    public ResponseEntity<ResponseMsg> update(@Valid @RequestBody ReferenceDto referenceDto) {
-        return response("user", service.save(service.getModel(referenceDto)));
+    public ResponseEntity<ResponseMsg> update(@Valid @RequestBody ReferenceDto dto) {
+        return response("user", service.saveAndTransfer(dto));
     }
 }

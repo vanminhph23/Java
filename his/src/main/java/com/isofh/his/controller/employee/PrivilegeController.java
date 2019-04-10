@@ -1,6 +1,7 @@
 package com.isofh.his.controller.employee;
 
 import com.isofh.his.controller.base.BaseController;
+import com.isofh.his.dto.employee.PrivilegeDto;
 import com.isofh.his.model.employee.Privilege;
 import com.isofh.his.dto.base.ResponseMsg;
 import com.isofh.his.service.employee.PrivilegeService;
@@ -18,16 +19,16 @@ public class PrivilegeController extends BaseController {
 
     @GetMapping("/privileges/{id}")
     public ResponseEntity<ResponseMsg> getById(@PathVariable Long id) {
-        return response("privilege", service.get(id));
+        return response("privilege", service.getAndTransfer(id));
     }
 
     @PostMapping("/privileges")
-    public ResponseEntity<ResponseMsg> create(@Valid @RequestBody Privilege privilege) {
-        return response("privilege", service.save(privilege));
+    public ResponseEntity<ResponseMsg> create(@Valid @RequestBody PrivilegeDto dto) {
+        return response("privilege", service.saveAndTransfer(dto));
     }
 
     @PutMapping("/privileges")
-    public ResponseEntity<ResponseMsg> update(@Valid @RequestBody Privilege privilege) {
-        return response("privilege", service.save(privilege));
+    public ResponseEntity<ResponseMsg> update(@Valid @RequestBody PrivilegeDto dto) {
+        return response("privilege", service.saveAndTransfer(dto));
     }
 }

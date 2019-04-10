@@ -41,10 +41,10 @@ public class AuthController extends BaseController {
     DepartmentService departmentService;
 
     @RequestMapping(value = "/login", method = RequestMethod.POST)
-    public ResponseEntity<ResponseMsg> login(@Valid @RequestBody LoginRequest loginRequest) {
+    public ResponseEntity<ResponseMsg> login(@Valid @RequestBody LoginRequest request) {
 
         Authentication authentication = authenticationManager.authenticate(
-                new UsernamePasswordAuthenticationToken(loginRequest.getUsernameOrEmail(), loginRequest.getPassword())
+                new UsernamePasswordAuthenticationToken(request.getUsernameOrEmail(), request.getPassword())
         );
 
         SecurityContextHolder.getContext().setAuthentication(authentication);
@@ -63,12 +63,12 @@ public class AuthController extends BaseController {
     }
 
     @RequestMapping(value = "/roles", method = RequestMethod.POST)
-    public ResponseEntity<ResponseMsg> chooseRole(@Valid @RequestBody ChooseRoleRequest chooseRoleRequest) {
+    public ResponseEntity<ResponseMsg> chooseRole(@Valid @RequestBody ChooseRoleRequest request) {
 
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
 
         Map<String, Object> map = new HashMap<>();
-        map.put("authentication", new JwtAuthenticationResponse(tokenProvider.generateToken(authentication, chooseRoleRequest.getDepartmentId(), chooseRoleRequest.getRoleId())));
+        map.put("authentication", new JwtAuthenticationResponse(tokenProvider.generateToken(authentication, request.getDepartmentId(), request.getRoleId())));
 
         UserPrincipal userPrincipal = (UserPrincipal) authentication.getPrincipal();
 

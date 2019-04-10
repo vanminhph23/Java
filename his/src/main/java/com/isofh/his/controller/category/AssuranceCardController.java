@@ -21,17 +21,17 @@ public class AssuranceCardController extends BaseController {
 
     @GetMapping("/assurance-cards/{id}")
     public ResponseEntity<ResponseMsg> getById(@PathVariable Long id) {
-        return response("assuranceCard", service.getDto(service.get(id)));
+        return response("assuranceCard", service.getAndTransfer(id));
     }
 
     @PostMapping("/assurance-cards")
-    public ResponseEntity<ResponseMsg> create(@Valid @RequestBody AssuranceCardDto model) {
-        return response("assuranceCard", service.getDto(service.save(service.getModel(model))));
+    public ResponseEntity<ResponseMsg> create(@Valid @RequestBody AssuranceCardDto dto) {
+        return response("assuranceCard", service.saveAndTransfer(dto));
     }
 
     @PutMapping("/assurance-cards")
-    public ResponseEntity<ResponseMsg> update(@Valid @RequestBody AssuranceCardDto model) {
-        return response("assuranceCard", service.getDto(service.save(service.getModel(model))));
+    public ResponseEntity<ResponseMsg> update(@Valid @RequestBody AssuranceCardDto dto) {
+        return response("assuranceCard", service.saveAndTransfer(dto));
     }
 
     @PostMapping("/assurance-cards/excel")

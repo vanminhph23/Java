@@ -39,6 +39,10 @@ public interface BaseService<X extends BaseModel, Y extends BaseDto, Z extends B
 
     X get(Long id);
 
+    default Y getAndTransfer(Long id) {
+        return getDto(get(id));
+    }
+
     Class<X> getModelClass();
     Class<Y> getDtoClass();
 
