@@ -11,20 +11,23 @@ import org.springframework.web.bind.annotation.*;
 import javax.validation.Valid;
 
 @RestController
-@RequestMapping("/role")
 public class RoleController extends BaseController {
 
     @Autowired
     private RoleService service;
 
-    @GetMapping("/{id}")
+    @GetMapping("/roles/{id}")
     public ResponseEntity<ResponseMsg> getById(@PathVariable Long id) {
         return response("role", service.get(id));
     }
 
-    @PostMapping("/create")
+    @PostMapping("/roles")
     public ResponseEntity<ResponseMsg> create(@Valid @RequestBody Role role) {
         return response("role", service.save(role));
     }
 
+    @PutMapping("/roles")
+    public ResponseEntity<ResponseMsg> update(@Valid @RequestBody Role role) {
+        return response("role", service.save(role));
+    }
 }

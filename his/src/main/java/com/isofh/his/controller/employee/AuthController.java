@@ -62,7 +62,7 @@ public class AuthController extends BaseController {
         return response(map);
     }
 
-    @RequestMapping(value = "/choose-role", method = RequestMethod.POST)
+    @RequestMapping(value = "/roles", method = RequestMethod.POST)
     public ResponseEntity<ResponseMsg> chooseRole(@Valid @RequestBody ChooseRoleRequest chooseRoleRequest) {
 
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();

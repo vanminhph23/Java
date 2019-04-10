@@ -11,20 +11,23 @@ import org.springframework.web.bind.annotation.*;
 import javax.validation.Valid;
 
 @RestController
-@RequestMapping("/privilege")
 public class PrivilegeController extends BaseController {
 
     @Autowired
     private PrivilegeService service;
 
-    @GetMapping("/{id}")
+    @GetMapping("/privileges/{id}")
     public ResponseEntity<ResponseMsg> getById(@PathVariable Long id) {
         return response("privilege", service.get(id));
     }
 
-    @PostMapping("/create")
+    @PostMapping("/privileges")
     public ResponseEntity<ResponseMsg> create(@Valid @RequestBody Privilege privilege) {
         return response("privilege", service.save(privilege));
     }
 
+    @PutMapping("/privileges")
+    public ResponseEntity<ResponseMsg> update(@Valid @RequestBody Privilege privilege) {
+        return response("privilege", service.save(privilege));
+    }
 }
