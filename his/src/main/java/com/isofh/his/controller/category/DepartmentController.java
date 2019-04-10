@@ -1,9 +1,11 @@
 package com.isofh.his.controller.category;
 
 import com.isofh.his.controller.base.BaseController;
-import com.isofh.his.dto.category.DepartmentDto;
 import com.isofh.his.dto.base.ResponseMsg;
+import com.isofh.his.dto.category.DepartmentDto;
 import com.isofh.his.service.category.DepartmentService;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.InputStreamResource;
 import org.springframework.http.ResponseEntity;
@@ -14,6 +16,8 @@ import javax.validation.Valid;
 
 @RestController
 public class DepartmentController extends BaseController {
+
+    private final static Logger logger = LoggerFactory.getLogger(DepartmentController.class);
 
     @Autowired
     private DepartmentService service;

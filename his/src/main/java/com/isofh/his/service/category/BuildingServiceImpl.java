@@ -1,9 +1,7 @@
 package com.isofh.his.service.category;
 
 import com.isofh.his.dto.category.BuildingDto;
-import com.isofh.his.dto.category.JobDto;
 import com.isofh.his.model.category.Building;
-import com.isofh.his.model.category.Job;
 import com.isofh.his.repository.category.BuildingRepository;
 import org.modelmapper.ModelMapper;
 import org.slf4j.Logger;

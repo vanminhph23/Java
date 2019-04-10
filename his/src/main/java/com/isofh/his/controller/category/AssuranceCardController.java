@@ -4,6 +4,8 @@ import com.isofh.his.controller.base.BaseController;
 import com.isofh.his.dto.base.ResponseMsg;
 import com.isofh.his.dto.category.AssuranceCardDto;
 import com.isofh.his.service.category.AssuranceCardService;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.InputStreamResource;
 import org.springframework.http.ResponseEntity;
@@ -15,6 +17,8 @@ import javax.validation.Valid;
 @RestController
 @RequestMapping("/assurance-card")
 public class AssuranceCardController extends BaseController {
+
+    private final static Logger logger = LoggerFactory.getLogger(AssuranceCardController.class);
 
     @Autowired
     private AssuranceCardService service;

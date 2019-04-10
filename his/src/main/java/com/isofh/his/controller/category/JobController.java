@@ -4,6 +4,8 @@ import com.isofh.his.controller.base.BaseController;
 import com.isofh.his.dto.base.ResponseMsg;
 import com.isofh.his.dto.category.JobDto;
 import com.isofh.his.service.category.JobService;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.InputStreamResource;
 import org.springframework.http.ResponseEntity;
@@ -14,6 +16,8 @@ import javax.validation.Valid;
 
 @RestController
 public class JobController extends BaseController {
+
+    private final static Logger logger = LoggerFactory.getLogger(JobController.class);
 
     @Autowired
     private JobService service;
