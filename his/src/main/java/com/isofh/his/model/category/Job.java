@@ -1,11 +1,13 @@
 package com.isofh.his.model.category;
 
 import com.isofh.his.model.base.BaseCategoryModel;
+import org.hibernate.envers.Audited;
 
 import javax.persistence.*;
 
 @Entity
 @Table(name = "his_job")
+@Audited
 public class Job extends BaseCategoryModel {
     @Id
     @GeneratedValue(generator = "job_generator")
