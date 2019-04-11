@@ -59,14 +59,6 @@ public class UserServiceImpl implements UserService {
             modelMapper = new ModelMapper();
 
             modelMapper.getConfiguration().setMatchingStrategy(MatchingStrategies.STRICT);
-
-            modelMapper.addMappings(new PropertyMap<UserDto, User>() {
-                @Override
-                protected void configure() {
-                    map().setName(source.getUsername());
-                }
-            });
-
         }
 
         return modelMapper;

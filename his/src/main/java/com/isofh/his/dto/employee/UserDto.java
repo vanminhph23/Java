@@ -1,15 +1,11 @@
 package com.isofh.his.dto.employee;
 
+import com.isofh.his.dto.base.BaseCategoryDto;
 import com.isofh.his.dto.category.DepartmentDto;
-import com.isofh.his.dto.base.BaseDto;
 
 import java.util.List;
 
-public class UserDto extends BaseDto {
-
-    private String username;
-
-    private String value;
+public class UserDto extends BaseCategoryDto {
 
     private String password;
 
@@ -34,14 +30,6 @@ public class UserDto extends BaseDto {
     private Long departmentId;
 
     public UserDto() {
-    }
-
-    public String getUsername() {
-        return username;
-    }
-
-    public void setUsername(String username) {
-        this.username = username;
     }
 
     public String getPassword() {
@@ -130,13 +118,5 @@ public class UserDto extends BaseDto {
 
     public void setDepartmentId(Long departmentId) {
         this.departmentId = departmentId;
-    }
-
-    public String getValue() {
-        return value;
-    }
-
-    public void setValue(String value) {
-        this.value = value;
     }
 }

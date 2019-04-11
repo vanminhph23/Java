@@ -142,7 +142,7 @@ public class PatientHistory extends BasePatientServiceModel {
 
     @ManyToOne
     @JoinColumn(name = "nation_id", insertable = false, updatable = false)
-    private Nation nation;
+    private Ethnicity nation;
 
     @Column(name = "patient_type")
     @Audited

@@ -1,4 +1,4 @@
-package com.isofh.his.model.category;
+package com.isofh.his.model.employee;
 
 import com.isofh.his.model.base.BaseCategoryModel;
 import org.hibernate.envers.Audited;
@@ -6,14 +6,14 @@ import org.hibernate.envers.Audited;
 import javax.persistence.*;
 
 @Entity
-@Table(name = "his_nation")
+@Table(name = "his_qualification")
 @Audited
-public class Nation extends BaseCategoryModel {
+public class Qualification extends BaseCategoryModel {
     @Id
-    @GeneratedValue(generator = "nation_generator")
+    @GeneratedValue(generator = "qualification_generator")
     @SequenceGenerator(
-            name = "nation_generator",
-            sequenceName = "nation_sq",
+            name = "qualification_generator",
+            sequenceName = "qualification_sq",
             initialValue = 1000000
     )
     private Long id;

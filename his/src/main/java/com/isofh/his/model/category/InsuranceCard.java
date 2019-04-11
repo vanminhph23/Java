@@ -7,7 +7,7 @@ import javax.persistence.*;
 
 @Entity
 @Table(name = "his_assurance_card")
-public class AssuranceCard extends BaseCategoryModel {
+public class InsuranceCard extends BaseCategoryModel {
     @Id
     @GeneratedValue(generator = "assurance_card_generator")
     @SequenceGenerator(

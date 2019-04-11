@@ -1,8 +1,8 @@
 package com.isofh.his.service.category;
 
-import com.isofh.his.dto.category.AssuranceCardDto;
-import com.isofh.his.model.category.AssuranceCard;
-import com.isofh.his.repository.category.AssuranceCardRepository;
+import com.isofh.his.dto.category.InsuranceCardDto;
+import com.isofh.his.model.category.InsuranceCard;
+import com.isofh.his.repository.category.InsuranceCardRepository;
 import org.modelmapper.ModelMapper;
 import org.modelmapper.convention.MatchingStrategies;
 import org.slf4j.Logger;
@@ -11,29 +11,29 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 @Service
-public class AssuranceCardServiceImpl implements AssuranceCardService {
+public class InsuranceCardServiceImpl implements InsuranceCardService {
 
-    private final static Logger logger = LoggerFactory.getLogger(AssuranceCardServiceImpl.class);
+    private final static Logger logger = LoggerFactory.getLogger(InsuranceCardServiceImpl.class);
 
     @Autowired
-    private AssuranceCardRepository repository;
+    private InsuranceCardRepository repository;
 
     @Autowired
     private JobService jobService;
 
     @Override
-    public AssuranceCardRepository getRepository() {
+    public InsuranceCardRepository getRepository() {
         return repository;
     }
 
     @Override
-    public Class<AssuranceCard> getModelClass() {
-        return AssuranceCard.class;
+    public Class<InsuranceCard> getModelClass() {
+        return InsuranceCard.class;
     }
 
     @Override
-    public Class<AssuranceCardDto> getDtoClass() {
-        return AssuranceCardDto.class;
+    public Class<InsuranceCardDto> getDtoClass() {
+        return InsuranceCardDto.class;
     }
 
     ModelMapper modelMapper = null;
@@ -49,13 +49,13 @@ public class AssuranceCardServiceImpl implements AssuranceCardService {
     }
 
     @Override
-    public AssuranceCard get(Long id) {
+    public InsuranceCard get(Long id) {
         return repository.findById(id).orElse(null);
     }
 
     @Override
-    public AssuranceCard save(AssuranceCard model) {
-        return AssuranceCardService.super.save(model);
+    public InsuranceCard save(InsuranceCard model) {
+        return InsuranceCardService.super.save(model);
     }
 
     @Override

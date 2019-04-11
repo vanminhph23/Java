@@ -2,8 +2,8 @@ package com.isofh.his.controller.category;
 
 import com.isofh.his.controller.base.BaseController;
 import com.isofh.his.dto.base.ResponseMsg;
-import com.isofh.his.dto.category.AssuranceCardDto;
-import com.isofh.his.service.category.AssuranceCardService;
+import com.isofh.his.dto.category.InsuranceCardDto;
+import com.isofh.his.service.category.InsuranceCardService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,26 +15,25 @@ import org.springframework.web.multipart.MultipartFile;
 import javax.validation.Valid;
 
 @RestController
-@RequestMapping("/assurance-card")
-public class AssuranceCardController extends BaseController {
+public class InsuranceCardController extends BaseController {
 
-    private final static Logger logger = LoggerFactory.getLogger(AssuranceCardController.class);
+    private final static Logger logger = LoggerFactory.getLogger(InsuranceCardController.class);
 
     @Autowired
-    private AssuranceCardService service;
+    private InsuranceCardService service;
 
-    @GetMapping("/assurance-cards/{id}")
+    @GetMapping("/insurance-cards/{id}")
     public ResponseEntity<ResponseMsg> getById(@PathVariable Long id) {
         return response("assuranceCard", service.getAndTransfer(id));
     }
 
-    @PostMapping("/assurance-cards")
-    public ResponseEntity<ResponseMsg> create(@Valid @RequestBody AssuranceCardDto dto) {
+    @PostMapping("/insurance-cards")
+    public ResponseEntity<ResponseMsg> create(@Valid @RequestBody InsuranceCardDto dto) {
         return response("assuranceCard", service.saveAndTransfer(dto));
     }
 
-    @PutMapping("/assurance-cards")
-    public ResponseEntity<ResponseMsg> update(@Valid @RequestBody AssuranceCardDto dto) {
+    @PutMapping("/insurance-cards")
+    public ResponseEntity<ResponseMsg> update(@Valid @RequestBody InsuranceCardDto dto) {
         return response("assuranceCard", service.saveAndTransfer(dto));
     }
 

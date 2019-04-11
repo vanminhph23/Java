@@ -2,9 +2,9 @@ package com.isofh.his.dto.category;
 
 import com.isofh.his.dto.base.BaseCategoryDto;
 
-public class AssuranceCardDto extends BaseCategoryDto {
+public class InsuranceCardDto extends BaseCategoryDto {
 
-    public AssuranceCardDto() {
+    public InsuranceCardDto() {
     }
 
     private int assurancePercent;
