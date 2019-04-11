@@ -1,11 +1,8 @@
 package com.isofh.his.service.employee;
 
 import com.isofh.his.dto.employee.AcademicRankDto;
-import com.isofh.his.dto.employee.CertificateDto;
 import com.isofh.his.model.employee.AcademicRank;
-import com.isofh.his.model.employee.Qualification;
 import com.isofh.his.repository.employee.AcademicRankRepository;
-import com.isofh.his.repository.employee.CertificateRepository;
 import org.modelmapper.ModelMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

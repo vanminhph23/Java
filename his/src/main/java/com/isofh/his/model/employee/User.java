@@ -56,13 +56,13 @@ public class User extends BaseCategoryModel {
     @Audited
     private String description;
 
-    @Column(name = "qualification_id")
+    @Column(name = "certificate_id")
     @Audited
-    private Long qualificationId;
+    private Long certificateId;
 
     @ManyToOne
-    @JoinColumn(name = "qualification_id", insertable = false, updatable = false)
-    private Qualification qualification;
+    @JoinColumn(name = "certificate_id", insertable = false, updatable = false)
+    private Certificate certificate;
 
     @Column(name = "specialist_id")
     @Audited
@@ -112,9 +112,9 @@ public class User extends BaseCategoryModel {
     @JoinColumn(name = "position_id", insertable = false, updatable = false)
     private Position position;
 
-    @Column(name = "certificate")
+    @Column(name = "certificate_code")
     @Audited
-    private String certificate;
+    private String certificateCode;
 
     @Column(name = "supervisor_id")
     @Audited
@@ -259,22 +259,6 @@ public class User extends BaseCategoryModel {
         this.description = description;
     }
 
-    public Long getQualificationId() {
-        return qualificationId;
-    }
-
-    public void setQualificationId(Long qualificationId) {
-        this.qualificationId = qualificationId;
-    }
-
-    public Qualification getQualification() {
-        return qualification;
-    }
-
-    public void setQualification(Qualification qualification) {
-        this.qualification = qualification;
-    }
-
     public Long getSpecialistId() {
         return specialistId;
     }
@@ -363,14 +347,6 @@ public class User extends BaseCategoryModel {
         this.position = position;
     }
 
-    public String getCertificate() {
-        return certificate;
-    }
-
-    public void setCertificate(String certificate) {
-        this.certificate = certificate;
-    }
-
     public Long getSupervisorId() {
         return supervisorId;
     }
@@ -401,5 +377,37 @@ public class User extends BaseCategoryModel {
 
     public void setNote(String note) {
         this.note = note;
+    }
+
+    public Long getCertificateId() {
+        return certificateId;
+    }
+
+    public void setCertificateId(Long certificateId) {
+        this.certificateId = certificateId;
+    }
+
+    public Certificate getCertificate() {
+        return certificate;
+    }
+
+    public void setCertificate(Certificate certificate) {
+        this.certificate = certificate;
+    }
+
+    public String getCertificateCode() {
+        return certificateCode;
+    }
+
+    public void setCertificateCode(String certificateCode) {
+        this.certificateCode = certificateCode;
+    }
+
+    public List<Room> getRooms() {
+        return rooms;
+    }
+
+    public void setRooms(List<Room> rooms) {
+        this.rooms = rooms;
     }
 }

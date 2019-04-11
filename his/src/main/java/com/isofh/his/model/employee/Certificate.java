@@ -8,7 +8,7 @@ import javax.persistence.*;
 @Entity
 @Table(name = "his_qualification")
 @Audited
-public class Qualification extends BaseCategoryModel {
+public class Certificate extends BaseCategoryModel {
     @Id
     @GeneratedValue(generator = "qualification_generator")
     @SequenceGenerator(
