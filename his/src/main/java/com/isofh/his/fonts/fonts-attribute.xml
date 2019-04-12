@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<fontfamilies>
+  <fontFamily name="Arial">
+     <normal>Arial.ttf</normal>
+     <bold>Arial_Bold.ttf</bold>
+     <italic>Arial_Italic.ttf</italic>
+     <bolditalic>Arial_Bold_Italic.ttf</bolditalic>
+     <pdfembedded>true</pdfembedded>
+     <pdfEncoding>Identity-H</pdfEncoding>
+  </fontFamily>
+  <fontFamily name="Comic Sans Test">
+     <normal>Comic_Sans_MS.ttf</normal>
+     <bold>Comic_Sans_MS_Bold.ttf</bold>
+     <pdfembedded>true</pdfembedded>
+     <pdfEncoding>Identity-H</pdfEncoding>
+  </fontFamily>
+  <fontFamily name="Courier New">
+     <normal>Courier_New.ttf</normal>
+     <bold>Courier_New_Bold.ttf</bold>
+     <italic>Courier_New_Italic.ttf</italic>
+     <bolditalic>Courier_New_Bold_Italic.ttf</bolditalic>
+     <pdfembedded>true</pdfembedded>
+     <pdfEncoding>Identity-H</pdfEncoding>
+  </fontFamily>
+  <fontFamily name="Georgia">
+     <normal>Georgia.ttf</normal>
+     <bold>Georgia_Bold.ttf</bold>
+     <italic>Georgia_Italic.ttf</italic>
+     <bolditalic>Georgia_Bold_Italic.ttf</bolditalic>
+     <pdfembedded>true</pdfembedded>
+     <pdfEncoding>Identity-H</pdfEncoding>
+  </fontFamily>
+  <fontFamily name="Monospaced">
+     <normal>LiberationMono-Regular.ttf</normal>
+     <bold>LiberationMono-Bold.ttf</bold>
+     <italic>LiberationMono-Italic.ttf</italic>
+     <bolditalic>LiberationMono-BoldItalic.ttf</bolditalic>
+     <pdfembedded>true</pdfembedded>
+     <pdfEncoding>Identity-H</pdfEncoding>
+  </fontFamily>
+  <fontFamily name="Times New Roman">
+     <normal>Times_New_Roman.ttf</normal>
+     <bold>Times_New_Roman_Bold.ttf</bold>
+     <italic>Times_New_Roman_Italic.ttf</italic>
+     <bolditalic>Times_New_Roman_Bold_Italic.ttf</bolditalic>
+     <pdfembedded>true</pdfembedded>
+     <pdfEncoding>Identity-H</pdfEncoding>
+  </fontFamily>
+  <fontFamily name="Verdana">
+     <normal>Verdana.ttf</normal>
+     <bold>Verdana_Bold.ttf</bold>
+     <italic>Verdana_Italic.ttf</italic>
+     <bolditalic>Verdana_Bold_Italic.ttf</bolditalic>
+     <pdfembedded>true</pdfembedded>
+     <pdfEncoding>Identity-H</pdfEncoding>
+  </fontFamily>
+</fontfamilies>
