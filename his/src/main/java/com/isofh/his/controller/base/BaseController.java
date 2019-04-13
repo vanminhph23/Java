@@ -43,7 +43,7 @@ public class BaseController {
     }
 
     protected ResponseEntity response(Exception ex) {
-        return new ResponseEntity(ResponseMsg.get(ex), HttpStatus.OK);
+        return new ResponseEntity(new ResponseMsg(ex), HttpStatus.OK);
     }
 
     protected ResponseEntity response(int code, String message, List<String> keys, List<Object> values) throws BaseException {

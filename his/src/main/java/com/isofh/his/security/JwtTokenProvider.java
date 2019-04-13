@@ -1,6 +1,7 @@
 package com.isofh.his.security;
 
 import com.isofh.his.dto.employee.UserDto;
+import com.isofh.his.exception.JWTTokenException;
 import com.isofh.his.util.Util;
 import io.jsonwebtoken.*;
 import org.slf4j.Logger;
@@ -79,16 +80,15 @@ public class JwtTokenProvider {
             Jwts.parser().setSigningKey(jwtSecret).parseClaimsJws(authToken);
             return true;
         } catch (SignatureException ex) {
-            logger.error("Invalid JWT signature");
+            throw new JWTTokenException("Invalid JWT signature: " + authToken);
         } catch (MalformedJwtException ex) {
-            logger.error("Invalid JWT token");
+            throw new JWTTokenException("Invalid JWT token: " + authToken);
         } catch (ExpiredJwtException ex) {
-            logger.error("Expired JWT token");
+            throw new JWTTokenException("Expired JWT token: " + authToken);
         } catch (UnsupportedJwtException ex) {
-            logger.error("Unsupported JWT token");
+            throw new JWTTokenException("Unsupported JWT token: " + authToken);
         } catch (IllegalArgumentException ex) {
-            logger.error("JWT claims string is empty.");
+            throw new JWTTokenException("JWT claims string is empty: " + authToken);
         }
-        return false;
     }
 }

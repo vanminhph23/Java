@@ -1,5 +1,7 @@
 package com.isofh.his.security;
 
+import com.isofh.his.dto.base.ResponseMsg;
+import com.isofh.his.util.ResponseUtil;
 import org.springframework.security.access.AccessDeniedException;
 import org.springframework.security.web.access.AccessDeniedHandler;
 import org.springframework.stereotype.Component;
@@ -14,8 +16,6 @@ public class AccessDeniedHandlerImpl implements AccessDeniedHandler {
 
     @Override
     public void handle(HttpServletRequest request, HttpServletResponse response, AccessDeniedException exc) throws IOException, ServletException {
-        response.setContentType("application/json;charset=UTF-8");
-        response.setStatus(HttpServletResponse.SC_OK);
-        response.getWriter().write("{\"code\": 403,\"message\": \"Access Denied!\",\"data\": null}");
+        ResponseUtil.writeResponse(response, new ResponseMsg(403, "Access Denied!"));
     }
 }

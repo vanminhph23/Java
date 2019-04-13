@@ -62,11 +62,16 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http.csrf().disable()
-                .antMatcher("**").httpBasic().authenticationEntryPoint(unauthorizedHandler).and()
-                .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS).and().authorizeRequests()
+                .antMatcher("**").httpBasic().authenticationEntryPoint(unauthorizedHandler)
+                .and()
+                .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
+                .and()
+                .authorizeRequests()
                 .antMatchers("/auth/login").permitAll()
-                .antMatchers("/user/**").access("hasRole('ROLE_ADMIN')")
-                .antMatchers("/department/**").access("hasRole('ROLE_ADMIN')")
+                .and()
+                .authorizeRequests()
+                .anyRequest()
+                .authenticated()
                 .and()
                 .addFilterBefore(jwtAuthenticationFilter(), UsernamePasswordAuthenticationFilter.class)
                 .exceptionHandling().accessDeniedHandler(accessDeniedHandler);

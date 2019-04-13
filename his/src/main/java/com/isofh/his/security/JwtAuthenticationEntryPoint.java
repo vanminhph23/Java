@@ -1,5 +1,7 @@
 package com.isofh.his.security;
 
+import com.isofh.his.dto.base.ResponseMsg;
+import com.isofh.his.util.ResponseUtil;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.web.AuthenticationEntryPoint;
 import org.springframework.stereotype.Component;
@@ -14,8 +16,6 @@ public final class JwtAuthenticationEntryPoint implements AuthenticationEntryPoi
 
     @Override
     public void commence(HttpServletRequest request, HttpServletResponse response, AuthenticationException authException) throws IOException, ServletException {
-        response.setContentType("application/json;charset=UTF-8");
-        response.setStatus(HttpServletResponse.SC_OK);
-        response.getWriter().write("{\"code\": 401,\"message\": \"Unauthorized\",\"data\": null}");
+        ResponseUtil.writeResponse(response, new ResponseMsg(401, "Unauthorized!"));
     }
 }

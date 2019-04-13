@@ -18,19 +18,28 @@ public class ResponseMsg {
         this.data = data;
     }
 
-    public static ResponseMsg get(Exception ex) {
-        int code = 500;
-        String message = ex.getMessage() + "(" + ex.getCause().getMessage() + ")";
-        Object data = null;
+    public ResponseMsg(Integer code, String message) {
+        this(code, message, null);
+    }
+
+    public ResponseMsg(Exception ex) {
+        this();
+
+        message = ex.getMessage();
+
+        Throwable cause = ex.getCause();
+        if (cause != null) {
+            message += "(" + cause.getMessage() + ")";
+        }
+
         if (ex instanceof BaseException) {
             BaseException baseException = (BaseException) ex;
             data = baseException.getData();
             code = baseException.getCode();
         } else {
+            code = 500;
             message = "Internal Server Error: " + message;
         }
-
-        return new ResponseMsg(code, message, data);
     }
 
     public Integer getCode() {

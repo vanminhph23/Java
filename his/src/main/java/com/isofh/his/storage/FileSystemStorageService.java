@@ -23,11 +23,22 @@ import java.util.stream.Stream;
 
 public class FileSystemStorageService implements StorageService {
 
-    private static final Path rootLocation = Paths.get("/home/vanminh/Downloads");
+    @Value("${app.storage.location}")
+    private String locationStr;
+
+    private static Path rootLocation;
 
     private final static Logger logger = LoggerFactory.getLogger(FileSystemStorageService.class);
 
     public FileSystemStorageService() {
+    }
+
+    public Path getRootLocation() {
+        if (rootLocation == null) {
+            rootLocation = Paths.get(locationStr);
+        }
+
+        return rootLocation;
     }
 
     @Override
@@ -42,7 +53,7 @@ public class FileSystemStorageService implements StorageService {
                 throw new StorageException("Cannot store file with relative path outside current directory " + fileName);
             }
 
-            Path filePath = rootLocation.resolve(fileName);
+            Path filePath = getRootLocation().resolve(fileName);
 
             try (InputStream inputStream = file.getInputStream()) {
                 Files.copy(inputStream, filePath, StandardCopyOption.REPLACE_EXISTING);
@@ -56,9 +67,9 @@ public class FileSystemStorageService implements StorageService {
     @Override
     public Stream<Path> loadAll() {
         try {
-            return Files.walk(rootLocation, 1)
-                    .filter(path -> !path.equals(rootLocation))
-                    .map(rootLocation::relativize);
+            return Files.walk(getRootLocation(), 1)
+                    .filter(path -> !path.equals(getRootLocation()))
+                    .map(getRootLocation()::relativize);
         } catch (IOException e) {
             throw new StorageException("Failed to read stored files", e);
         }
@@ -67,7 +78,7 @@ public class FileSystemStorageService implements StorageService {
 
     @Override
     public Path load(String filename) {
-        return rootLocation.resolve(filename);
+        return getRootLocation().resolve(filename);
     }
 
     @Override
@@ -87,13 +98,13 @@ public class FileSystemStorageService implements StorageService {
 
     @Override
     public void deleteAll() {
-        FileSystemUtils.deleteRecursively(rootLocation.toFile());
+        FileSystemUtils.deleteRecursively(getRootLocation().toFile());
     }
 
     @Override
     public void init() {
         try {
-            Files.createDirectories(rootLocation);
+            Files.createDirectories(getRootLocation());
         } catch (IOException e) {
             throw new StorageException("Could not initialize storage", e);
         }
