@@ -112,7 +112,7 @@
         <appender-ref ref="Console" />
     </logger>
 
-    <logger name="org.hibernate.SQ" level="debug" additivity="false">
+    <logger name="org.hibernate.SQL" level="debug" additivity="false">
         <appender-ref ref="HibernateFile" />
         <appender-ref ref="Console" />
     </logger>
