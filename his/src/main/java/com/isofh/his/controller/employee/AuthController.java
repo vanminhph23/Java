@@ -67,8 +67,6 @@ public class AuthController extends BaseController {
             map.put("department", departmentService.getDto(userPrincipal.getDepartment()));
         }
 
-        reportService.getPhieuHuongDan();
-
         return response(map);
     }
 

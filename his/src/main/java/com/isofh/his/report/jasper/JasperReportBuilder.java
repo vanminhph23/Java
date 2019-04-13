@@ -1,6 +1,7 @@
 package com.isofh.his.report.jasper;
 
 import com.isofh.his.exception.JasperException;
+import com.isofh.his.report.ReportBuilder;
 import net.sf.jasperreports.engine.*;
 import net.sf.jasperreports.engine.export.JRPdfExporter;
 import net.sf.jasperreports.engine.export.JRXlsExporter;
@@ -15,13 +16,14 @@ import org.springframework.jdbc.datasource.DataSourceUtils;
 import org.springframework.stereotype.Service;
 
 import javax.sql.DataSource;
+import javax.xml.crypto.Data;
 import java.io.File;
 import java.sql.Connection;
 import java.util.Map;
 import java.util.UUID;
 
 @Service
-public class JasperReportBuilder {
+public class JasperReportBuilder implements ReportBuilder {
 
     private final static Logger logger = LoggerFactory.getLogger(JasperReportBuilder.class);
 
@@ -37,13 +39,13 @@ public class JasperReportBuilder {
 
     @Qualifier("secondDatasource")
     @Autowired
-    DataSource dataSource;
+    DataSource secondDatasource;
 
-
-    public File buildPdf(String name, Map<String, Object> parameters) {
+    @Override
+    public File buildPdf(String name, Map<String, Object> parameters, boolean isFirstDatasource) {
         logger.info("Start build pdf: {}, {}", name, parameters);
         try {
-            File f = exportToPdf(compileAndFillReport(name, parameters));
+            File f = exportToPdf(compileAndFillReport(name, parameters, isFirstDatasource));
             logger.info("Finish build pdf: {}, {}", name, parameters);
             return f;
         } catch (Exception e) {
@@ -51,10 +53,11 @@ public class JasperReportBuilder {
         }
     }
 
-    public File buildExcel(String name, Map<String, Object> parameters) {
+    @Override
+    public File buildExcel(String name, Map<String, Object> parameters, boolean isFirstDatasource) {
         logger.info("Start build excel: {}, {}", name, parameters);
         try {
-            File f = exportToExcel(compileAndFillReport(name, parameters));
+            File f = exportToExcel(compileAndFillReport(name, parameters, isFirstDatasource));
             logger.info("Finish build excel: {}, {}", name, parameters);
             return f;
         } catch (Exception e) {
@@ -62,9 +65,9 @@ public class JasperReportBuilder {
         }
     }
 
-    private JasperPrint compileAndFillReport(String jrxmlFile, Map<String, Object> paras) throws JRException {
+    private JasperPrint compileAndFillReport(String jrxmlFile, Map<String, Object> paras, boolean isFirstDatasource) throws JRException {
         ReportFile file = new ReportFile(BASE_DIR, jrxmlFile);
-        return fillReport(paras, file.compile());
+        return fillReport(paras, file.compile(), isFirstDatasource);
     }
 
     private File exportToPdf(JasperPrint print) throws JRException {
@@ -96,7 +99,7 @@ public class JasperReportBuilder {
     }
 
     private File exportToExcel(JasperPrint print) throws JRException {
-        logger.info("Start build excel: {}", print.getName() + ".pdf");
+        logger.info("Start build excel: {}", print.getName() + ".xls");
         JRXlsExporter exporter = new JRXlsExporter();
 
         exporter.setExporterInput(new SimpleExporterInput(print));
@@ -119,10 +122,16 @@ public class JasperReportBuilder {
         return file;
     }
 
-    private JasperPrint fillReport(Map<String, Object> parametros, JasperReport report) throws JRException {
+    private JasperPrint fillReport(Map<String, Object> paras, JasperReport report, boolean isFirstDatasource) throws JRException {
+        logger.info("Start fill report: {}, {}, {}", report.getName(), paras, isFirstDatasource);
         Connection connection = null;
+        DataSource dataSource = secondDatasource;
+        if (isFirstDatasource) {
+            dataSource = firstDatasource;
+        }
+
         try {
-            connection = getConnection();
+            connection = DataSourceUtils.getConnection(dataSource);
 
             LocalJasperReportsContext context = new LocalJasperReportsContext(DefaultJasperReportsContext.getInstance());
             context.setClassLoader(JasperReport.class.getClassLoader());
@@ -139,17 +148,14 @@ public class JasperReportBuilder {
                 return new File(BASE_DIR, fileName);
             });
 
-            return JasperFillManager.getInstance(context).fill(report, parametros, connection);
-        } finally {
-            DataSourceUtils.releaseConnection(connection, dataSource);
-        }
-    }
-
-    private Connection getConnection() {
-        try {
-            return DataSourceUtils.getConnection(dataSource);
+            JasperPrint print = JasperFillManager.getInstance(context).fill(report, paras, connection);
+            logger.info("Finish fill report: {}, {}, {}", report.getName(), paras, isFirstDatasource);
+            return  print;
         } catch (Exception e) {
             throw new JasperException("Cannot get connection", e);
+        } finally {
+            logger.info("Release connection: {}", connection);
+            DataSourceUtils.releaseConnection(connection, dataSource);
         }
     }
 }

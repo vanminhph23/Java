@@ -103,22 +103,19 @@ public class ExcelUtil {
                 List<Object> rowObject = new ArrayList<>();
                 while (cellIterator.hasNext()) {
                     Cell cell = cellIterator.next();
-                    CellType cellType = cell.getCellType();
+                    int cellType = cell.getCellType();
                     switch (cellType) {
-                        case _NONE:
+                        case Cell.CELL_TYPE_BLANK:
                             rowObject.add(null);
                             break;
-                        case BOOLEAN:
+                        case Cell.CELL_TYPE_BOOLEAN:
                             rowObject.add(cell.getBooleanCellValue());
                             break;
-                        case BLANK:
-                            rowObject.add(null);
-                            break;
-                        case FORMULA:
+                        case Cell.CELL_TYPE_FORMULA:
                             FormulaEvaluator evaluator = workbook.getCreationHelper().createFormulaEvaluator();
                             rowObject.add(evaluator.evaluate(cell).getNumberValue());
                             break;
-                        case NUMERIC:
+                        case Cell.CELL_TYPE_NUMERIC:
                             if (DateUtil.isCellDateFormatted(cell)) {
                                 SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy");
                                 rowObject.add(dateFormat.format(cell.getDateCellValue()));
@@ -126,10 +123,10 @@ public class ExcelUtil {
                                 rowObject.add(new Double(cell.getNumericCellValue()));
                             }
                             break;
-                        case STRING:
+                        case Cell.CELL_TYPE_STRING:
                             rowObject.add(cell.getStringCellValue());
                             break;
-                        case ERROR:
+                        case Cell.CELL_TYPE_ERROR:
                             rowObject.add(null);
                             break;
                     }
