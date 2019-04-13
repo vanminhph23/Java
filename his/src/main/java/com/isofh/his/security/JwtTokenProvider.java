@@ -75,10 +75,10 @@ public class JwtTokenProvider {
         return userDto;
     }
 
-    public boolean validateToken(String authToken) {
+    public void validateToken(String authToken) {
         try {
             Jwts.parser().setSigningKey(jwtSecret).parseClaimsJws(authToken);
-            return true;
+            return;
         } catch (SignatureException ex) {
             throw new JWTTokenException("Invalid JWT signature: " + authToken);
         } catch (MalformedJwtException ex) {
