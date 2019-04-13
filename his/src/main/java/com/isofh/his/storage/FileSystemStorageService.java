@@ -23,14 +23,11 @@ import java.util.stream.Stream;
 
 public class FileSystemStorageService implements StorageService {
 
-    @Value("${storage.location}")
-    private String rootLocationStr = "/home/vanminh/Downloads";
-    private final Path rootLocation;
+    private static final Path rootLocation = Paths.get("/home/vanminh/Downloads");
 
     private final static Logger logger = LoggerFactory.getLogger(FileSystemStorageService.class);
 
     public FileSystemStorageService() {
-        rootLocation = Paths.get(rootLocationStr);
     }
 
     @Override

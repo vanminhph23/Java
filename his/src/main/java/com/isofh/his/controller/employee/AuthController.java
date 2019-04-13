@@ -5,7 +5,6 @@ import com.isofh.his.dto.base.ResponseMsg;
 import com.isofh.his.dto.employee.ChooseRoleRequest;
 import com.isofh.his.dto.employee.JwtAuthenticationResponse;
 import com.isofh.his.dto.employee.LoginRequest;
-import com.isofh.his.jasper.JasperReportBuilder;
 import com.isofh.his.security.JwtTokenProvider;
 import com.isofh.his.security.UserPrincipal;
 import com.isofh.his.service.category.DepartmentService;
@@ -24,7 +23,6 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.validation.Valid;
-import java.io.File;
 import java.util.HashMap;
 import java.util.Map;
 

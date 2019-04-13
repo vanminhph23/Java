@@ -3,8 +3,6 @@ package com.isofh.his.jasper;
 import com.isofh.his.exception.JasperException;
 import net.sf.jasperreports.engine.*;
 import net.sf.jasperreports.engine.export.JRPdfExporter;
-import net.sf.jasperreports.engine.util.FileResolver;
-import net.sf.jasperreports.engine.util.JRElementsVisitor;
 import net.sf.jasperreports.engine.util.LocalJasperReportsContext;
 import net.sf.jasperreports.export.SimpleExporterInput;
 import net.sf.jasperreports.export.SimpleOutputStreamExporterOutput;
@@ -12,15 +10,13 @@ import net.sf.jasperreports.export.SimplePdfExporterConfiguration;
 import net.sf.jasperreports.export.SimplePdfReportConfiguration;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.jdbc.datasource.DataSourceUtils;
 
 import javax.sql.DataSource;
 import java.io.File;
 import java.sql.Connection;
-import java.sql.DriverManager;
-import java.util.HashMap;
 import java.util.Map;
-import java.util.Properties;
 import java.util.UUID;
 
 public class JasperReportBuilder {
@@ -29,7 +25,12 @@ public class JasperReportBuilder {
 
     private final DataSource dataSource;
 
-    private static String BASE_DIR = "/mnt/workspace/workspace/his-refactor/198/vn.isofh.jr.design/";
+    @Value("${report.jrxml}")
+    private static String BASE_DIR;
+
+    @Value("${report.exportFile}")
+    private static String EXPORT_DIR;
+
 
     public JasperReportBuilder(DataSource dataSource) {
         this.dataSource = dataSource;
@@ -53,11 +54,12 @@ public class JasperReportBuilder {
     }
 
     private File exportToPdf(JasperPrint print) throws JRException {
+        logger.info("Start build export pdf: " + print.getName() + ".pdf");
         JRPdfExporter exporter = new JRPdfExporter();
 
         exporter.setExporterInput(new SimpleExporterInput(print));
 
-        File file = new File(UUID.randomUUID() + "_" + print.getName() + ".pdf");
+        File file = new File(EXPORT_DIR, UUID.randomUUID() + "_" + print.getName() + ".pdf");
 
         exporter.setExporterOutput(new SimpleOutputStreamExporterOutput(file));
 
@@ -73,6 +75,8 @@ public class JasperReportBuilder {
         exporter.setConfiguration(exportConfig);
 
         exporter.exportReport();
+
+        logger.info("Finish build export pdf: " + print.getName() + ".pdf");
 
         return file;
     }
@@ -105,13 +109,7 @@ public class JasperReportBuilder {
 
     private Connection getConnection() {
         try {
-//            return DataSourceUtils.getConnection(dataSource);
-
-            String url = "jdbc:postgresql://10.0.0.85:5432/198_test_201904121059";
-            Properties props = new Properties();
-            props.setProperty("user","adempiere");
-            props.setProperty("password","1");
-            return DriverManager.getConnection(url, props);
+            return DataSourceUtils.getConnection(dataSource);
         } catch (Exception e) {
             throw new JasperException("Cannot get connection", e);
         }

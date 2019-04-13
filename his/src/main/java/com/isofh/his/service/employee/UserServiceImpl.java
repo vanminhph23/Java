@@ -4,7 +4,6 @@ import com.isofh.his.dto.employee.UserDto;
 import com.isofh.his.model.employee.User;
 import com.isofh.his.repository.employee.UserRepository;
 import org.modelmapper.ModelMapper;
-import org.modelmapper.PropertyMap;
 import org.modelmapper.convention.MatchingStrategies;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
