@@ -1,7 +1,6 @@
 package com.isofh.his.service.report;
 
-import com.isofh.his.jasper.JasperReportBuilder;
-import org.modelmapper.ModelMapper;
+import com.isofh.his.report.jasper.JasperReportBuilder;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,7 +21,7 @@ public class JasperReportServiceImpl extends BaseReportService {
     public File getPhieuHuongDan() {
         Map<String, Object> map = new HashMap<>();
         map.put("TableName", "HIS_PatientHistory");
-        map.put("RECORD_ID", 1131250);
-        return builder.build("PhieuHuongDanMain.jrxml", map);
+        map.put("RECORD_ID", 1131249);
+        return builder.buildExcel("PhieuHuongDanMain.jrxml", map);
     }
 }

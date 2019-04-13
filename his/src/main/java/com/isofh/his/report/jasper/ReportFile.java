@@ -1,4 +1,4 @@
-package com.isofh.his.jasper;
+package com.isofh.his.report.jasper;
 
 import com.isofh.his.exception.JasperException;
 import net.sf.jasperreports.engine.JRException;
@@ -66,9 +66,9 @@ public class ReportFile {
     public File compileSub() {
         try {
             if (shouldCompile()) {
-                logger.warn("Start compile report file: " + getJRXmlFilePath());
+                logger.warn("Start compile report file: {}", getJRXmlFilePath());
                 JasperCompileManager.compileReportToFile(getJRXmlFilePath(), getJRJasperFilePath());
-                logger.warn("Finish compile sub report file: " + getJRXmlFilePath());
+                logger.warn("Finish compile sub report file: {}", getJRXmlFilePath());
             }
         } catch (JRException e) {
             throw new JasperException("Cannot compile sub report file: " + getJRJasperFilePath(), e);
@@ -79,10 +79,10 @@ public class ReportFile {
     public JasperReport compile() {
         try {
             if (shouldCompile()) {
-                logger.warn("Start compile report file: " + getJRXmlFilePath());
+                logger.warn("Start compile report file: {}", getJRXmlFilePath());
                 JasperReport jasperReport = JasperCompileManager.compileReport(getJRXmlFilePath());
                 JRSaver.saveObject(jasperReport, getJRJasperFilePath());
-                logger.warn("Finish compile report file: " + getJRXmlFilePath());
+                logger.warn("Finish compile report file: {}", getJRXmlFilePath());
                 return jasperReport;
             } else {
                 return (JasperReport) JRLoader.loadObject(compiledFile);
