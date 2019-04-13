@@ -6,6 +6,7 @@ import com.isofh.his.model.category.Specialist;
 import com.isofh.his.model.category.Zone;
 import com.isofh.his.repository.category.SpecialistRepository;
 import com.isofh.his.repository.category.ZoneRepository;
+import com.isofh.his.storage.StorageService;
 import org.modelmapper.ModelMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -23,6 +24,14 @@ public class SpecialistServiceImpl implements SpecialistService {
     @Override
     public SpecialistRepository getRepository() {
         return repository;
+    }
+
+    @Autowired
+    private StorageService storageService;
+
+    @Override
+    public StorageService getStorageService() {
+        return storageService;
     }
 
     @Override

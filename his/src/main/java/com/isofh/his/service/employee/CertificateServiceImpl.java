@@ -3,6 +3,7 @@ package com.isofh.his.service.employee;
 import com.isofh.his.dto.employee.CertificateDto;
 import com.isofh.his.model.employee.Certificate;
 import com.isofh.his.repository.employee.CertificateRepository;
+import com.isofh.his.storage.StorageService;
 import org.modelmapper.ModelMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -20,6 +21,14 @@ public class CertificateServiceImpl implements CertificateService {
     @Override
     public CertificateRepository getRepository() {
         return repository;
+    }
+
+    @Autowired
+    private StorageService storageService;
+
+    @Override
+    public StorageService getStorageService() {
+        return storageService;
     }
 
     @Override

@@ -17,7 +17,7 @@ import java.util.Map;
 
 public interface BaseService<X extends BaseModel, Y extends BaseDto, Z extends BaseRepository> {
 
-    StorageService storageService = new FileSystemStorageService();
+    StorageService getStorageService();
 
     ModelMapper getModelMapper();
 
@@ -65,7 +65,7 @@ public interface BaseService<X extends BaseModel, Y extends BaseDto, Z extends B
     }
 
     default String importExcel(MultipartFile file, int sheetNo, int startLineNo) {
-        String fileName = storageService.store(file);
+        String fileName = getStorageService().store(file);
 
         List<Map<String, Object>> result = ExcelUtil.readFile(fileName, sheetNo, startLineNo, this);
 

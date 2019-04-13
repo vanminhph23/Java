@@ -6,6 +6,7 @@ import com.isofh.his.model.category.District;
 import com.isofh.his.model.category.Province;
 import com.isofh.his.repository.category.DistrictRepository;
 import com.isofh.his.repository.category.ProvinceRepository;
+import com.isofh.his.storage.StorageService;
 import org.modelmapper.ModelMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -23,6 +24,14 @@ public class DistrictServiceImpl implements DistrictService {
     @Override
     public DistrictRepository getRepository() {
         return repository;
+    }
+
+    @Autowired
+    private StorageService storageService;
+
+    @Override
+    public StorageService getStorageService() {
+        return storageService;
     }
 
     @Override

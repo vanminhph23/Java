@@ -6,6 +6,7 @@ import com.isofh.his.model.category.Room;
 import com.isofh.his.model.category.Zone;
 import com.isofh.his.repository.category.RoomRepository;
 import com.isofh.his.repository.category.ZoneRepository;
+import com.isofh.his.storage.StorageService;
 import org.modelmapper.ModelMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -23,6 +24,14 @@ public class RoomServiceImpl implements RoomService {
     @Override
     public RoomRepository getRepository() {
         return repository;
+    }
+
+    @Autowired
+    private StorageService storageService;
+
+    @Override
+    public StorageService getStorageService() {
+        return storageService;
     }
 
     @Override

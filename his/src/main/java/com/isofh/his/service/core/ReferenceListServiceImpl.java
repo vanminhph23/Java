@@ -3,6 +3,7 @@ package com.isofh.his.service.core;
 import com.isofh.his.dto.core.ReferenceListDto;
 import com.isofh.his.model.core.ReferenceList;
 import com.isofh.his.repository.core.ReferenceListRepository;
+import com.isofh.his.storage.StorageService;
 import org.modelmapper.ModelMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -20,6 +21,14 @@ public class ReferenceListServiceImpl implements ReferenceListService {
     @Override
     public ReferenceListRepository getRepository() {
         return repository;
+    }
+
+    @Autowired
+    private StorageService storageService;
+
+    @Override
+    public StorageService getStorageService() {
+        return storageService;
     }
 
     @Override

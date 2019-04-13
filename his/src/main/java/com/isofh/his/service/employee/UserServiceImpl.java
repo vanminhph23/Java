@@ -3,6 +3,7 @@ package com.isofh.his.service.employee;
 import com.isofh.his.dto.employee.UserDto;
 import com.isofh.his.model.employee.User;
 import com.isofh.his.repository.employee.UserRepository;
+import com.isofh.his.storage.StorageService;
 import org.modelmapper.ModelMapper;
 import org.modelmapper.convention.MatchingStrategies;
 import org.slf4j.Logger;
@@ -22,6 +23,14 @@ public class UserServiceImpl implements UserService {
     @Override
     public UserRepository getRepository() {
         return repository;
+    }
+
+    @Autowired
+    private StorageService storageService;
+
+    @Override
+    public StorageService getStorageService() {
+        return storageService;
     }
 
     @Override

@@ -6,6 +6,7 @@ import com.isofh.his.model.category.service.ServiceGroupLevel1;
 import com.isofh.his.model.category.service.ServiceGroupLevel2;
 import com.isofh.his.repository.category.service.ServiceGroupLevel1Repository;
 import com.isofh.his.repository.category.service.ServiceGroupLevel2Repository;
+import com.isofh.his.storage.StorageService;
 import org.modelmapper.ModelMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -23,6 +24,14 @@ public class ServiceGroupLevel2ServiceImpl implements ServiceGroupLevel2Service 
     @Override
     public ServiceGroupLevel2Repository getRepository() {
         return repository;
+    }
+
+    @Autowired
+    private StorageService storageService;
+
+    @Override
+    public StorageService getStorageService() {
+        return storageService;
     }
 
     @Override

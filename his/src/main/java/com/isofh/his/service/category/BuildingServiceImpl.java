@@ -3,6 +3,7 @@ package com.isofh.his.service.category;
 import com.isofh.his.dto.category.BuildingDto;
 import com.isofh.his.model.category.Building;
 import com.isofh.his.repository.category.BuildingRepository;
+import com.isofh.his.storage.StorageService;
 import org.modelmapper.ModelMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -20,6 +21,14 @@ public class BuildingServiceImpl implements BuildingService {
     @Override
     public BuildingRepository getRepository() {
         return repository;
+    }
+
+    @Autowired
+    private StorageService storageService;
+
+    @Override
+    public StorageService getStorageService() {
+        return storageService;
     }
 
     @Override

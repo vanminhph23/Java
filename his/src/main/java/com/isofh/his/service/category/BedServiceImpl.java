@@ -6,6 +6,7 @@ import com.isofh.his.model.category.Bed;
 import com.isofh.his.model.category.Job;
 import com.isofh.his.repository.category.BedRepository;
 import com.isofh.his.repository.category.JobRepository;
+import com.isofh.his.storage.StorageService;
 import org.modelmapper.ModelMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -25,6 +26,14 @@ public class BedServiceImpl implements BedService {
         return repository;
     }
 
+    @Autowired
+    private StorageService storageService;
+
+    @Override
+    public StorageService getStorageService() {
+        return storageService;
+    }
+
     @Override
     public Class<Bed> getModelClass() {
         return Bed.class;
@@ -36,6 +45,7 @@ public class BedServiceImpl implements BedService {
     }
 
     ModelMapper modelMapper = null;
+
     @Override
     public ModelMapper getModelMapper() {
         if (modelMapper == null) {

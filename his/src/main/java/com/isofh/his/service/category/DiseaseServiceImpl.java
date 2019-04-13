@@ -3,6 +3,7 @@ package com.isofh.his.service.category;
 import com.isofh.his.dto.category.DiseaseDto;
 import com.isofh.his.model.category.Disease;
 import com.isofh.his.repository.category.DiseaseRepository;
+import com.isofh.his.storage.StorageService;
 import org.modelmapper.ModelMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -20,6 +21,14 @@ public class DiseaseServiceImpl implements DiseaseService {
     @Override
     public DiseaseRepository getRepository() {
         return repository;
+    }
+
+    @Autowired
+    private StorageService storageService;
+
+    @Override
+    public StorageService getStorageService() {
+        return storageService;
     }
 
     @Override

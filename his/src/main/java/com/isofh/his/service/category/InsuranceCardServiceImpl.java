@@ -3,6 +3,7 @@ package com.isofh.his.service.category;
 import com.isofh.his.dto.category.InsuranceCardDto;
 import com.isofh.his.model.category.InsuranceCard;
 import com.isofh.his.repository.category.InsuranceCardRepository;
+import com.isofh.his.storage.StorageService;
 import org.modelmapper.ModelMapper;
 import org.modelmapper.convention.MatchingStrategies;
 import org.slf4j.Logger;
@@ -24,6 +25,14 @@ public class InsuranceCardServiceImpl implements InsuranceCardService {
     @Override
     public InsuranceCardRepository getRepository() {
         return repository;
+    }
+
+    @Autowired
+    private StorageService storageService;
+
+    @Override
+    public StorageService getStorageService() {
+        return storageService;
     }
 
     @Override

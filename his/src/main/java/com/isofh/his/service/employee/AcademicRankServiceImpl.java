@@ -3,6 +3,7 @@ package com.isofh.his.service.employee;
 import com.isofh.his.dto.employee.AcademicRankDto;
 import com.isofh.his.model.employee.AcademicRank;
 import com.isofh.his.repository.employee.AcademicRankRepository;
+import com.isofh.his.storage.StorageService;
 import org.modelmapper.ModelMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -20,6 +21,14 @@ public class AcademicRankServiceImpl implements AcademicRankService {
     @Override
     public AcademicRankRepository getRepository() {
         return repository;
+    }
+
+    @Autowired
+    private StorageService storageService;
+
+    @Override
+    public StorageService getStorageService() {
+        return storageService;
     }
 
     @Override
