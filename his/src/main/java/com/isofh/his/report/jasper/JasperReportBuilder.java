@@ -10,8 +10,11 @@ import net.sf.jasperreports.export.SimplePdfExporterConfiguration;
 import net.sf.jasperreports.export.SimplePdfReportConfiguration;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.jdbc.datasource.DataSourceUtils;
+import org.springframework.stereotype.Service;
 
 import javax.sql.DataSource;
 import java.io.File;
@@ -19,29 +22,32 @@ import java.sql.Connection;
 import java.util.Map;
 import java.util.UUID;
 
+@Service
 public class JasperReportBuilder {
 
     private final static Logger logger = LoggerFactory.getLogger(JasperReportBuilder.class);
 
-    private final DataSource dataSource;
+    @Value("${app.report.jrxml}")
+    private String BASE_DIR;
 
-    @Value("${report.jrxml}")
-    private static String BASE_DIR;
+    @Value("${app.report.exportFile}")
+    private String EXPORT_DIR;
 
-    @Value("${report.exportFile}")
-    private static String EXPORT_DIR;
+    @Qualifier("firstDatasource")
+    @Autowired
+    DataSource firstDatasource;
 
+    @Qualifier("secondDatasource")
+    @Autowired
+    DataSource dataSource;
 
-    public JasperReportBuilder(DataSource dataSource) {
-        this.dataSource = dataSource;
-    }
 
     public File build(String jrxmlFile, Map<String, Object> parameters) {
-        logger.info("Start build report: " + jrxmlFile);
+        logger.info("Start build report: {}, {}", jrxmlFile, parameters);
         try {
             JasperPrint print = compileAndFillReport(jrxmlFile, parameters);
             File f = exportToPdf(print);
-            logger.info("Finish build report: " + jrxmlFile);
+            logger.info("Finish build report: {}, {}", jrxmlFile, parameters);
             return f;
         } catch (Exception e) {
             throw new JasperException("Cannot build report", e);
@@ -54,7 +60,7 @@ public class JasperReportBuilder {
     }
 
     private File exportToPdf(JasperPrint print) throws JRException {
-        logger.info("Start build export pdf: " + print.getName() + ".pdf");
+        logger.info("Start build export pdf: {}", print.getName() + ".pdf");
         JRPdfExporter exporter = new JRPdfExporter();
 
         exporter.setExporterInput(new SimpleExporterInput(print));
@@ -76,7 +82,7 @@ public class JasperReportBuilder {
 
         exporter.exportReport();
 
-        logger.info("Finish build export pdf: " + print.getName() + ".pdf");
+        logger.info("Finish build export pdf: {}", print.getName() + ".pdf");
 
         return file;
     }

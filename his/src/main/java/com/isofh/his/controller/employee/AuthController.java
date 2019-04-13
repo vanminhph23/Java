@@ -9,6 +9,7 @@ import com.isofh.his.security.JwtTokenProvider;
 import com.isofh.his.security.UserPrincipal;
 import com.isofh.his.service.category.DepartmentService;
 import com.isofh.his.service.employee.RoleService;
+import com.isofh.his.service.report.JasperReportServiceImpl;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -44,6 +45,9 @@ public class AuthController extends BaseController {
     @Autowired
     DepartmentService departmentService;
 
+    @Autowired
+    JasperReportServiceImpl reportService;
+
     @RequestMapping(value = "/login", method = RequestMethod.POST)
     public ResponseEntity<ResponseMsg> login(@Valid @RequestBody LoginRequest request) {
 
@@ -62,6 +66,8 @@ public class AuthController extends BaseController {
             addRoleAndDepartment(map, userPrincipal);
             map.put("department", departmentService.getDto(userPrincipal.getDepartment()));
         }
+
+        reportService.getPhieuHuongDan();
 
         return response(map);
     }

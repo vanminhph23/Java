@@ -20,7 +20,7 @@ public class ResponseMsg {
 
     public static ResponseMsg get(Exception ex) {
         int code = 500;
-        String message = ex.getMessage();
+        String message = ex.getMessage() + "(" + ex.getCause().getMessage() + ")";
         Object data = null;
         if (ex instanceof BaseException) {
             BaseException baseException = (BaseException) ex;
