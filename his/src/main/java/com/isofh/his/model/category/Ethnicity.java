@@ -6,14 +6,14 @@ import org.hibernate.envers.Audited;
 import javax.persistence.*;
 
 @Entity
-@Table(name = "his_ethnic")
+@Table(name = "his_ethnicity")
 @Audited
 public class Ethnicity extends BaseCategoryModel {
     @Id
-    @GeneratedValue(generator = "ethnic_generator")
+    @GeneratedValue(generator = "ethnicity_generator")
     @SequenceGenerator(
-            name = "ethnic_generator",
-            sequenceName = "ethnic_sq",
+            name = "ethnicity_generator",
+            sequenceName = "ethnicity_sq",
             initialValue = 1000000
     )
     private Long id;

@@ -1,6 +1,6 @@
 package com.isofh.his.model.patient;
 
-import com.isofh.his.model.base.patient.BasePatientServiceModel;
+import com.isofh.his.model.base.patient.BasePatientModel;
 import com.isofh.his.model.category.*;
 import org.hibernate.envers.Audited;
 
@@ -9,7 +9,7 @@ import java.sql.Timestamp;
 
 @Entity
 @Table(name = "his_patient_history")
-public class PatientHistory extends BasePatientServiceModel {
+public class PatientHistory extends BasePatientModel {
     @Id
     @GeneratedValue(generator = "patient_history_generator")
     @SequenceGenerator(
@@ -18,6 +18,18 @@ public class PatientHistory extends BasePatientServiceModel {
             initialValue = 1000000
     )
     private Long id;
+
+    @Column(name = "medical_record_no", nullable = false, length = 7, unique = true)
+    @Audited
+    private String medicalRecordNo;
+
+    @Column(name = "patient_document", nullable = false, length = 10, unique = true)
+    @Audited
+    private String patientDocument;
+
+    @Column(name = "inpatient", nullable = false)
+    @Audited
+    private boolean inpatient = false;
 
     // common info
     @Column(name = "reg_date")
@@ -64,53 +76,29 @@ public class PatientHistory extends BasePatientServiceModel {
     @JoinColumn(name = "department_id", insertable = false, updatable = false)
     private Department department;
 
-    @Column(name = "country_id")
-    @Audited
-    private Long countryId;
-
-    @ManyToOne
-    @JoinColumn(name = "country_id", insertable = false, updatable = false)
-    private Country country;
-
-    @Column(name = "province_id")
-    @Audited
-    private Long provinceId;
-
-    @ManyToOne
-    @JoinColumn(name = "province_id", insertable = false, updatable = false)
-    private Province province;
-
-    @Column(name = "district_id")
-    @Audited
-    private Long districtId;
-
-    @ManyToOne
-    @JoinColumn(name = "district_id", insertable = false, updatable = false)
-    private District district;
-
-    @Column(name = "zone_id")
-    @Audited
-    private Long zoneId;
-
-    @ManyToOne
-    @JoinColumn(name = "zone_id", insertable = false, updatable = false)
-    private Zone zone;
-
-    @Column(name = "detail_address")
-    @Audited
-    private String detailAddress;
-
     @Column(name = "address")
     @Audited
     private String address;
 
-    @Column(name = "guardian_id")
+    @Column(name = "patient_guardian_id", unique = true)
     @Audited
-    private Long guardianId;
+    private Long patientGuardianId;
+
+    @OneToOne
+    @JoinColumn(name = "patient_guardian_id", insertable = false, updatable = false)
+    private PatientGuardian patientGuardian;
+
+    @OneToOne
+    @JoinColumn(name = "patient_address_id", insertable = false, updatable = false)
+    private PatientAddress patientAddress;
+
+    @Column(name = "patient_address_id")
+    @Audited
+    private Long patientAddressId;
 
     @ManyToOne
     @JoinColumn(name = "guardian_id", insertable = false, updatable = false)
-    private Guardian guardian;
+    private PatientGuardian guardian;
 
     @Column(name = "job_id")
     @Audited
@@ -136,23 +124,27 @@ public class PatientHistory extends BasePatientServiceModel {
     @JoinColumn(name = "nationality_id", insertable = false, updatable = false)
     private Country nationality;
 
-    @Column(name = "nation_id")
+    @Column(name = "ethnicity_id")
     @Audited
-    private Long nationId;
+    private Long ethnicityId;
 
     @ManyToOne
-    @JoinColumn(name = "nation_id", insertable = false, updatable = false)
-    private Ethnicity nation;
-
-    @Column(name = "patient_type")
-    @Audited
-    private int patientType;
+    @JoinColumn(name = "ethnicity_id", insertable = false, updatable = false)
+    private Ethnicity ethnicity;
 
     @Column(name = "advance_payment")
     @Audited
     private boolean advancePayment;
 
-    // disease
+    @Column(name = "patient_vital_sign_id", unique = true)
+    @Audited
+    private Long patientVitalSignId;
+
+    @OneToOne
+    @JoinColumn(name = "patient_vital_sign_id", insertable = false, updatable = false)
+    private PatientVitalSign patientVitalSign;
+
+    // common info
     @Column(name = "height")
     @Audited
     private int height;
@@ -160,26 +152,6 @@ public class PatientHistory extends BasePatientServiceModel {
     @Column(name = "weight")
     @Audited
     private int weight;
-
-    @Column(name = "blood_pressure")
-    @Audited
-    private int bloodPressure;
-
-    @Column(name = "temperature")
-    @Audited
-    private int temperature;
-
-    @Column(name = "spo2")
-    @Audited
-    private int spo2;
-
-    @Column(name = "pulse")
-    @Audited
-    private int pulse;
-
-    @Column(name = "check_up_breath")
-    @Audited
-    private int checkUpBreath;
 
     @Column(name = "blood_type")
     @Audited
@@ -193,6 +165,42 @@ public class PatientHistory extends BasePatientServiceModel {
     @Audited
     private String anamnesisFamily;
 
+    @Column(name = "hospital_record")
+    @Audited
+    private int hospitalRecord;
+
+    // patient type
+    @Column(name = "patient_type")
+    @Audited
+    private int patientType;
+
+    // insurance info
+    @Column(name = "patient_insurance_id", unique = true)
+    @Audited
+    private Long patientInsuranceId;
+
+    @OneToOne
+    @JoinColumn(name = "patient_insurance_id", insertable = false, updatable = false)
+    private PatientInsurance patientInsurance;
+
+    // in hospital disease
+    @Column(name = "first_diagnostic")
+    @Audited
+    private String firstDiagnostic;
+
+    @Column(name = "in_hospital_diag_disease")
+    @Audited
+    private String inHospitalDiagDisease;
+
+    @Column(name = "prev_diagnostic")
+    @Audited
+    private String prevDiagnostic;
+
+    //Out hospital
+    @Column(name = "discharge_type")
+    @Audited
+    private int discharge_type;
+
     @Column(name = "treatment_details")
     @Audited
     private String treatmentDetails;
@@ -205,25 +213,9 @@ public class PatientHistory extends BasePatientServiceModel {
     @Audited
     private int treatmentResult;
 
-    @Column(name = "hospital_record")
-    @Audited
-    private int hospitalRecord;
-
-    @Column(name = "first_diagnostic")
-    @Audited
-    private String firstDiagnostic;
-
     @Column(name = "discharge_diagnostic")
     @Audited
     private String dischargeDiagnostic;
-
-    @Column(name = "in_hospital_diag_disease")
-    @Audited
-    private String inHospitalDiagDisease;
-
-    @Column(name = "patient_state")
-    @Audited
-    private int patientState;
 
     // ICD, separate ID by ','
     @Column(name = "discharge_diag_disease")
@@ -234,91 +226,9 @@ public class PatientHistory extends BasePatientServiceModel {
     @Audited
     private String otherDischargeDiagDisease;
 
-    @Column(name = "prev_diagnostic")
+    @Column(name = "patient_state")
     @Audited
-    private String prevDiagnostic;
-
-    // assurance info
-    @Column(name = "assurance_address")
-    @Audited
-    private String assuranceAddress;
-
-    @Column(name = "assurance_from_date")
-    @Audited
-    private Timestamp assuranceFromDate;
-
-    @Column(name = "assurance_to_date")
-    @Audited
-    private Timestamp assuranceToDate;
-
-    @Column(name = "assurance_number", length = 15)
-    @Audited
-    private String assuranceNumber;
-
-    @Column(name = "assurance_percent")
-    @Audited
-    private int assurancePercent;
-
-    @Column(name = "assurance_reg_at_hospital_id")
-    @Audited
-    private int assuranceRegAtHospitalId;
-
-    @ManyToOne
-    @JoinColumn(name = "assurance_reg_at_hospital_id", insertable = false, updatable = false)
-    private Hospital assuranceRegAtHospital;
-
-    @Column(name = "patient_from_hospital_id")
-    @Audited
-    private int patientFromHospitalId;
-
-    @ManyToOne
-    @JoinColumn(name = "patient_from_hospital_id", insertable = false, updatable = false)
-    private Hospital patientFromHospital;
-
-    @Column(name = "emergency")
-    @Audited
-    private boolean emergency;
-
-    @Column(name = "appointment")
-    @Audited
-    private boolean appointment;
-
-    @Column(name = "extra")
-    @Audited
-    private boolean extra;
-
-    @Column(name = "referral")
-    @Audited
-    private boolean referral;
-
-    @Column(name = "time_continuity_5year")
-    @Audited
-    private Timestamp timeContinuity5Year;
-
-    @Column(name = "continuity_5year")
-    @Audited
-    private boolean continuity5Year;
-
-    @Column(name = "hundred_percent_high_tech")
-    @Audited
-    private boolean hundredPercentHightech;
-
-    @Column(name = "not_copayment")
-    @Audited
-    private boolean notCopayment;
-
-    @Column(name = "not_copayment_date")
-    @Audited
-    private Timestamp notCopaymentDate;
-
-    @Column(name = "region_value")
-    @Audited
-    private int regionValue;
-
-    //Out hospital
-    @Column(name = "discharge_type")
-    @Audited
-    private int discharge_type;
+    private int patientState;
 
     @Column(name = "transfer_from_department_id")
     @Audited

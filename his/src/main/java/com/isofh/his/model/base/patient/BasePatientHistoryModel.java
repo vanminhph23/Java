@@ -6,7 +6,7 @@ import javax.persistence.Column;
 import javax.persistence.MappedSuperclass;
 
 @MappedSuperclass
-public abstract class BasePatientServiceModel extends BasePatientModel {
+public abstract class BasePatientHistoryModel extends BasePatientModel {
 
     @Column(name = "medical_record_no", nullable = false, length = 7)
     @Audited
