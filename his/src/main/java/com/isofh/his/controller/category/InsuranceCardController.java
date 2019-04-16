@@ -37,7 +37,7 @@ public class InsuranceCardController extends BaseController {
         return response("assuranceCard", service.saveAndTransfer(dto));
     }
 
-    @PostMapping("/assurance-cards/excel")
+    @PostMapping("/insurance-cards/excel")
     public ResponseEntity<InputStreamResource> importExcel(@RequestParam("file") MultipartFile file) {
         return response(service.importExcel(file, 1, 1));
     }

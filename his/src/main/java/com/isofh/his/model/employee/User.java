@@ -86,7 +86,7 @@ public class User extends BaseCategoryModel {
 
     @Column(name = "time_keeping", nullable = false)
     @Audited
-    private boolean timeKeeping = true;
+    private boolean timeKeeping = false;
 
     @Column(name = "enabled", nullable = false)
     @Audited
