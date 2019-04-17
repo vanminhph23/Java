@@ -27,7 +27,7 @@ public class Zone extends BaseCategoryModel {
         this.id = id;
     }
 
-    @Column(name = "district_id")
+    @Column(name = "district_id", nullable = false)
     @Audited
     private Long districtId;
 
@@ -38,4 +38,28 @@ public class Zone extends BaseCategoryModel {
     @Column(name = "acronym")
     @Audited
     private String acronym;
+
+    public Long getDistrictId() {
+        return districtId;
+    }
+
+    public void setDistrictId(Long districtId) {
+        this.districtId = districtId;
+    }
+
+    public District getDistrict() {
+        return district;
+    }
+
+    public void setDistrict(District district) {
+        this.district = district;
+    }
+
+    public String getAcronym() {
+        return acronym;
+    }
+
+    public void setAcronym(String acronym) {
+        this.acronym = acronym;
+    }
 }

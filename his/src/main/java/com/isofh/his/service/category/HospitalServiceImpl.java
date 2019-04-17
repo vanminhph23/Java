@@ -1,8 +1,11 @@
 package com.isofh.his.service.category;
 
-import com.isofh.his.dto.category.ProvinceDto;
-import com.isofh.his.model.category.Province;
-import com.isofh.his.repository.category.ProvinceRepository;
+import com.isofh.his.dto.category.HospitalDto;
+import com.isofh.his.dto.category.ZoneDto;
+import com.isofh.his.model.category.Hospital;
+import com.isofh.his.model.category.Zone;
+import com.isofh.his.repository.category.HospitalRepository;
+import com.isofh.his.repository.category.ZoneRepository;
 import com.isofh.his.storage.StorageService;
 import org.modelmapper.ModelMapper;
 import org.modelmapper.convention.MatchingStrategies;
@@ -12,15 +15,15 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 @Service
-public class ProvinceServiceImpl implements ProvinceService {
+public class HospitalServiceImpl implements HospitalService {
 
-    private final static Logger logger = LoggerFactory.getLogger(ProvinceServiceImpl.class);
+    private final static Logger logger = LoggerFactory.getLogger(HospitalServiceImpl.class);
 
     @Autowired
-    private ProvinceRepository repository;
+    private HospitalRepository repository;
 
     @Override
-    public ProvinceRepository getRepository() {
+    public HospitalRepository getRepository() {
         return repository;
     }
 
@@ -28,7 +31,7 @@ public class ProvinceServiceImpl implements ProvinceService {
     private StorageService storageService;
 
     @Autowired
-    private CountryService countryService;
+    private ProvinceService provinceService;
 
     @Override
     public StorageService getStorageService() {
@@ -36,13 +39,13 @@ public class ProvinceServiceImpl implements ProvinceService {
     }
 
     @Override
-    public Class<Province> getModelClass() {
-        return Province.class;
+    public Class<Hospital> getModelClass() {
+        return Hospital.class;
     }
 
     @Override
-    public Class<ProvinceDto> getDtoClass() {
-        return ProvinceDto.class;
+    public Class<HospitalDto> getDtoClass() {
+        return HospitalDto.class;
     }
 
     ModelMapper modelMapper = null;
@@ -57,13 +60,13 @@ public class ProvinceServiceImpl implements ProvinceService {
     }
 
     @Override
-    public Province get(Long id) {
+    public Hospital get(Long id) {
         return repository.findById(id).orElse(null);
     }
 
     @Override
-    public Province save(Province model) {
-        return ProvinceService.super.save(model);
+    public Hospital save(Hospital model) {
+        return HospitalService.super.save(model);
     }
 
     @Override
@@ -72,10 +75,10 @@ public class ProvinceServiceImpl implements ProvinceService {
             return null;
         }
 
-        if ("countryId[value]".equals(header)) {
-            return countryService.findIdByValue(value);
-        } else if ("countryId[name]".equals(header)) {
-            return countryService.findIdByName(value);
+        if ("provinceId[value]".equals(header)) {
+            return provinceService.findIdByValue(value);
+        } else if ("provinceId[name]".equals(header)) {
+            return provinceService.findIdByName(value);
         }
 
         return null;

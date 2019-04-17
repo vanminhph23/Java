@@ -3,7 +3,9 @@ package com.isofh.his.controller.category;
 import com.isofh.his.controller.base.BaseController;
 import com.isofh.his.dto.base.ResponseMsg;
 import com.isofh.his.dto.category.ProvinceDto;
+import com.isofh.his.dto.category.ZoneDto;
 import com.isofh.his.service.category.ProvinceService;
+import com.isofh.his.service.category.ZoneService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,7 +22,7 @@ public class ZoneController extends BaseController {
     private final static Logger logger = LoggerFactory.getLogger(ZoneController.class);
 
     @Autowired
-    private ProvinceService service;
+    private ZoneService service;
 
     @GetMapping("/zones/{id}")
     public ResponseEntity<ResponseMsg> getById(@PathVariable Long id) {
@@ -28,12 +30,12 @@ public class ZoneController extends BaseController {
     }
 
     @PostMapping("/zones")
-    public ResponseEntity<ResponseMsg> create(@Valid @RequestBody ProvinceDto dto) {
+    public ResponseEntity<ResponseMsg> create(@Valid @RequestBody ZoneDto dto) {
         return response("zone", service.saveAndTransfer(dto));
     }
 
     @PutMapping("/zones")
-    public ResponseEntity<ResponseMsg> update(@Valid @RequestBody ProvinceDto dto) {
+    public ResponseEntity<ResponseMsg> update(@Valid @RequestBody ZoneDto dto) {
         return response("zone", service.saveAndTransfer(dto));
     }
 

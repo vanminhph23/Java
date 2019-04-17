@@ -1,13 +1,11 @@
 package com.isofh.his.service.category;
 
 import com.isofh.his.dto.category.DistrictDto;
-import com.isofh.his.dto.category.ProvinceDto;
 import com.isofh.his.model.category.District;
-import com.isofh.his.model.category.Province;
 import com.isofh.his.repository.category.DistrictRepository;
-import com.isofh.his.repository.category.ProvinceRepository;
 import com.isofh.his.storage.StorageService;
 import org.modelmapper.ModelMapper;
+import org.modelmapper.convention.MatchingStrategies;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,6 +27,9 @@ public class DistrictServiceImpl implements DistrictService {
     @Autowired
     private StorageService storageService;
 
+    @Autowired
+    private ProvinceService provinceService;
+
     @Override
     public StorageService getStorageService() {
         return storageService;
@@ -49,6 +50,7 @@ public class DistrictServiceImpl implements DistrictService {
     public ModelMapper getModelMapper() {
         if (modelMapper == null) {
             modelMapper = new ModelMapper();
+            modelMapper.getConfiguration().setMatchingStrategy(MatchingStrategies.STRICT);
         }
 
         return modelMapper;
@@ -62,5 +64,20 @@ public class DistrictServiceImpl implements DistrictService {
     @Override
     public District save(District model) {
         return DistrictService.super.save(model);
+    }
+
+    @Override
+    public Long convert(String header, String value) {
+        if (value == null) {
+            return null;
+        }
+
+        if ("provinceId[value]".equals(header)) {
+            return provinceService.findIdByValue(value);
+        } else if ("provinceId[name]".equals(header)) {
+            return provinceService.findIdByName(value);
+        }
+
+        return null;
     }
 }

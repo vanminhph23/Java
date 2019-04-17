@@ -91,27 +91,25 @@ public class ExcelUtil {
 
             HSSFSheet sheet = workbook.getSheetAt(sheetNo - 1);
 
-            Iterator<Row> rowIterator = sheet.iterator();
-            while (rowIterator.hasNext()) {
-                Row row = rowIterator.next();
-
-                if (row.getRowNum() < startLineNo - 1) {
+            int rowNo = sheet.getPhysicalNumberOfRows();
+            int columnNo = sheet.getRow(startLineNo).getPhysicalNumberOfCells();
+            for (int i = 0; i < rowNo; i++) {
+                if (i < startLineNo - 1) {
                     continue;
                 }
 
-                Iterator<Cell> cellIterator = row.cellIterator();
+                Row row = sheet.getRow(i);
+
                 List<String> rowObject = new ArrayList<>();
-                while (cellIterator.hasNext()) {
-                    Cell cell = cellIterator.next();
+
+                for (int j = 0; j < columnNo; j++) {
+                    Cell cell = row.getCell(j, Row.CREATE_NULL_AS_BLANK);
                     int cellType = cell.getCellType();
                     switch (cellType) {
-                        case Cell.CELL_TYPE_BLANK:
-                            rowObject.add(null);
-                            break;
                         case Cell.CELL_TYPE_STRING:
                             rowObject.add(cell.getStringCellValue().trim());
                             break;
-                        case Cell.CELL_TYPE_ERROR:
+                        default:
                             rowObject.add(null);
                             break;
                     }
@@ -161,9 +159,9 @@ public class ExcelUtil {
                     Object value = null;
 
                     if (header.contains("[")) {
-                        value = service.convert(header, data);
+                        value = data == null ? null : service.convert(header, data);
                         header = header.split("\\[")[0];
-                    } else {
+                    } else if (data != null) {
                         String dateType = dataTypes.get(j);
 
                         if (dateType == null || dateType.equals("text")) {

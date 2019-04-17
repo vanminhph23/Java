@@ -5,6 +5,7 @@ import com.isofh.his.model.category.Zone;
 import com.isofh.his.repository.category.ZoneRepository;
 import com.isofh.his.storage.StorageService;
 import org.modelmapper.ModelMapper;
+import org.modelmapper.convention.MatchingStrategies;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,6 +27,9 @@ public class ZoneServiceImpl implements ZoneService {
     @Autowired
     private StorageService storageService;
 
+    @Autowired
+    private DistrictService districtService;
+
     @Override
     public StorageService getStorageService() {
         return storageService;
@@ -46,6 +50,7 @@ public class ZoneServiceImpl implements ZoneService {
     public ModelMapper getModelMapper() {
         if (modelMapper == null) {
             modelMapper = new ModelMapper();
+            modelMapper.getConfiguration().setMatchingStrategy(MatchingStrategies.STRICT);
         }
 
         return modelMapper;
@@ -59,5 +64,20 @@ public class ZoneServiceImpl implements ZoneService {
     @Override
     public Zone save(Zone model) {
         return ZoneService.super.save(model);
+    }
+
+    @Override
+    public Long convert(String header, String value) {
+        if (value == null) {
+            return null;
+        }
+
+        if ("districtId[value]".equals(header)) {
+            return districtService.findIdByValue(value);
+        } else if ("districtId[name]".equals(header)) {
+            return districtService.findIdByName(value);
+        }
+
+        return null;
     }
 }

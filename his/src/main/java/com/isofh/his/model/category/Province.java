@@ -29,7 +29,7 @@ public class Province extends BaseCategoryModel {
         this.id = id;
     }
 
-    @Column(name = "country_id")
+    @Column(name = "country_id", nullable = false)
     @Audited
     private Long countryId;
 
@@ -44,4 +44,36 @@ public class Province extends BaseCategoryModel {
     @JsonIgnore
     @OneToMany(mappedBy = "province")
     private List<District> districts;
+
+    public Long getCountryId() {
+        return countryId;
+    }
+
+    public void setCountryId(Long countryId) {
+        this.countryId = countryId;
+    }
+
+    public Country getCountry() {
+        return country;
+    }
+
+    public void setCountry(Country country) {
+        this.country = country;
+    }
+
+    public String getAcronym() {
+        return acronym;
+    }
+
+    public void setAcronym(String acronym) {
+        this.acronym = acronym;
+    }
+
+    public List<District> getDistricts() {
+        return districts;
+    }
+
+    public void setDistricts(List<District> districts) {
+        this.districts = districts;
+    }
 }

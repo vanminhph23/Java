@@ -39,6 +39,7 @@ public class ResponseMsg {
         } else {
             code = 500;
             message = "Internal Server Error: " + message;
+            ex.printStackTrace();
         }
     }
 

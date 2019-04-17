@@ -33,4 +33,12 @@ public class Country extends BaseCategoryModel {
     @JsonIgnore
     @OneToMany(mappedBy = "country")
     private List<Province> provinces;
+
+    public List<Province> getProvinces() {
+        return provinces;
+    }
+
+    public void setProvinces(List<Province> provinces) {
+        this.provinces = provinces;
+    }
 }

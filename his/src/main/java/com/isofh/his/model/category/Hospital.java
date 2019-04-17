@@ -17,16 +17,6 @@ public class Hospital extends BaseCategoryModel {
     )
     private Long id;
 
-    @Override
-    public Long getId() {
-        return this.id;
-    }
-
-    @Override
-    public void setId(Long id) {
-        this.id = id;
-    }
-
     @Column(name = "province_id")
     @Audited
     private Long provinceId;
@@ -41,13 +31,71 @@ public class Hospital extends BaseCategoryModel {
 
     @Column(name = "rank")
     @Audited
-    private int rank;
+    private String rank;
 
     @Column(name = "address")
     @Audited
-    private int address;
+    private String address;
 
     @Column(name = "note")
     @Audited
     private int note;
+
+    @Override
+    public Long getId() {
+        return this.id;
+    }
+
+    @Override
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public Long getProvinceId() {
+        return provinceId;
+    }
+
+    public void setProvinceId(Long provinceId) {
+        this.provinceId = provinceId;
+    }
+
+    public Province getProvince() {
+        return province;
+    }
+
+    public void setProvince(Province province) {
+        this.province = province;
+    }
+
+    public int getLevel() {
+        return level;
+    }
+
+    public void setLevel(int level) {
+        this.level = level;
+    }
+
+    public String getRank() {
+        return rank;
+    }
+
+    public void setRank(String rank) {
+        this.rank = rank;
+    }
+
+    public String getAddress() {
+        return address;
+    }
+
+    public void setAddress(String address) {
+        this.address = address;
+    }
+
+    public int getNote() {
+        return note;
+    }
+
+    public void setNote(int note) {
+        this.note = note;
+    }
 }
