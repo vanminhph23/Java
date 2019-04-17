@@ -9,6 +9,7 @@ import com.isofh.his.storage.StorageService;
 import com.isofh.his.util.ExcelUtil;
 import com.isofh.his.util.Util;
 import org.modelmapper.ModelMapper;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.util.ArrayList;
@@ -64,6 +65,7 @@ public interface BaseService<X extends BaseModel, Y extends BaseDto, Z extends B
         return null;
     }
 
+    @Transactional
     default String importExcel(MultipartFile file, int sheetNo, int startLineNo) {
         String fileName = getStorageService().store(file);
 
@@ -81,6 +83,6 @@ public interface BaseService<X extends BaseModel, Y extends BaseDto, Z extends B
             }
         }
 
-        return ExcelUtil.appendLog(fileName, sheetNo, startLineNo, mes);
+        return ExcelUtil.appendLog(fileName, sheetNo, startLineNo + 2, mes);
     }
 }

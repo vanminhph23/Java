@@ -12,7 +12,7 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
-import java.text.SimpleDateFormat;
+import java.text.ParseException;
 import java.util.*;
 
 public class ExcelUtil {
@@ -41,7 +41,7 @@ public class ExcelUtil {
             while (rowIterator.hasNext()) {
                 Row row = rowIterator.next();
 
-                if (row.getRowNum() < startLineNo) {
+                if (row.getRowNum() < startLineNo - 1) {
                     continue;
                 }
 
@@ -81,7 +81,7 @@ public class ExcelUtil {
             return null;
         }
 
-        List<List<Object>> result = new ArrayList<>();
+        List<List<String>> result = new ArrayList<>();
 
         FileInputStream inputStream = null;
         HSSFWorkbook workbook = null;
@@ -100,7 +100,7 @@ public class ExcelUtil {
                 }
 
                 Iterator<Cell> cellIterator = row.cellIterator();
-                List<Object> rowObject = new ArrayList<>();
+                List<String> rowObject = new ArrayList<>();
                 while (cellIterator.hasNext()) {
                     Cell cell = cellIterator.next();
                     int cellType = cell.getCellType();
@@ -108,23 +108,8 @@ public class ExcelUtil {
                         case Cell.CELL_TYPE_BLANK:
                             rowObject.add(null);
                             break;
-                        case Cell.CELL_TYPE_BOOLEAN:
-                            rowObject.add(cell.getBooleanCellValue());
-                            break;
-                        case Cell.CELL_TYPE_FORMULA:
-                            FormulaEvaluator evaluator = workbook.getCreationHelper().createFormulaEvaluator();
-                            rowObject.add(evaluator.evaluate(cell).getNumberValue());
-                            break;
-                        case Cell.CELL_TYPE_NUMERIC:
-                            if (DateUtil.isCellDateFormatted(cell)) {
-                                SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy");
-                                rowObject.add(dateFormat.format(cell.getDateCellValue()));
-                            } else {
-                                rowObject.add(new Double(cell.getNumericCellValue()));
-                            }
-                            break;
                         case Cell.CELL_TYPE_STRING:
-                            rowObject.add(cell.getStringCellValue());
+                            rowObject.add(cell.getStringCellValue().trim());
                             break;
                         case Cell.CELL_TYPE_ERROR:
                             rowObject.add(null);
@@ -132,7 +117,7 @@ public class ExcelUtil {
                     }
                 }
 
-                for (Object obj : rowObject) {
+                for (String obj : rowObject) {
                     if (obj != null) {
                         result.add(rowObject);
                         break;
@@ -140,15 +125,23 @@ public class ExcelUtil {
                 }
             }
 
-            // Correct header to field name of object
-            List<Object> headers = result.get(0);
-            int column = headers.size();
+
+            // Data type
+            List<String> dataTypes = result.get(0);
+            int column = dataTypes.size();
             for (int i = 0; i < column; i++) {
-                headers.set(i, correctHeader((String) headers.get(i)));
+                String dataType = dataTypes.get(i);
+                dataTypes.set(i, dataType == null ? null : dataType.toLowerCase());
+            }
+
+            // Correct header to field name of object
+            List<String> headers = result.get(1);
+            for (int i = 0; i < column; i++) {
+                headers.set(i, correctHeader(headers.get(i)));
             }
 
             // Add null property to object if not exists in excel
-            for (List<Object> rowObject : result) {
+            for (List<String> rowObject : result) {
                 for (int i = rowObject.size(); i < column; i++) {
                     rowObject.add(null);
                 }
@@ -157,26 +150,46 @@ public class ExcelUtil {
             // Convert matrix to hash map object
             int objCount = result.size();
             List<Map<String, Object>> objects = new ArrayList<>();
-            for (int i = 1; i < objCount; i++) {
-                List<Object> row = result.get(i);
+            for (int i = 2; i < objCount; i++) {
+                List<String> row = result.get(i);
                 Map<String, Object> obj = new HashMap<>();
 
                 for (int j = 0; j < column; j++) {
-                    String header = (String) headers.get(j);
-                    Object data = row.get(j);
+                    String header = headers.get(j);
+                    String data = row.get(j);
+
+                    Object value = null;
+
                     if (header.contains("[")) {
-                        data = service.convert(header, (String) data);
+                        value = service.convert(header, data);
                         header = header.split("\\[")[0];
+                    } else {
+                        String dateType = dataTypes.get(j);
+
+                        if (dateType == null || dateType.equals("text")) {
+                            value = data;
+                        } else if (dateType.equals("number")) {
+                            value = Double.valueOf(data);
+                        } else if (dateType.equals("boolean")) {
+                            value = "true".equalsIgnoreCase(data) || "t".equalsIgnoreCase(data) || "yes".equalsIgnoreCase(data) || "y".equalsIgnoreCase(data);
+                        } else if (dateType.startsWith("date")) {
+                            String format = null;
+                            if (!dateType.contains("[")) {
+                                format = dateType.replace("]", "").split("\\[")[1];
+                            }
+
+                            value = DateUtil.parseValidDate(data, format);
+                        }
                     }
 
-                    obj.put(header, data);
+                    obj.put(header, value);
                 }
 
                 objects.add(obj);
             }
 
             return objects;
-        } catch (IOException e) {
+        } catch (IOException | ParseException e) {
             throw new StorageException("Failed to store file " + fileName, e);
         } finally {
             try {
@@ -193,16 +206,18 @@ public class ExcelUtil {
     }
 
     private static String correctHeader(String header) {
+        header = header.toLowerCase();
+
         if (!header.contains("[")) {
             return correctFieldName(header);
         }
 
-        String[] strs = header.trim().toLowerCase().replace("]", "").split("\\[");
+        String[] strs = header.replace("]", "").split("\\[");
         return correctFieldName(strs[0]) + "[" + correctFieldName(strs[1]) + "]";
     }
 
     private static String correctFieldName(String fieldName) {
-        fieldName = fieldName.trim().toLowerCase();
+        fieldName = fieldName.trim();
         String[] strs = fieldName.split("_");
 
         int size = strs.length;

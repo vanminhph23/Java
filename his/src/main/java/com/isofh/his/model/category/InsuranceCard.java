@@ -6,13 +6,13 @@ import org.hibernate.envers.Audited;
 import javax.persistence.*;
 
 @Entity
-@Table(name = "his_assurance_card")
+@Table(name = "his_insurance_card")
 public class InsuranceCard extends BaseCategoryModel {
     @Id
-    @GeneratedValue(generator = "assurance_card_generator")
+    @GeneratedValue(generator = "insurance_card_generator")
     @SequenceGenerator(
-            name = "assurance_card_generator",
-            sequenceName = "assurance_card_sq",
+            name = "insurance_card_generator",
+            sequenceName = "insurance_card_sq",
             initialValue = 1000000
     )
     private Long id;
@@ -45,5 +45,45 @@ public class InsuranceCard extends BaseCategoryModel {
     @Override
     public void setId(Long id) {
         this.id = id;
+    }
+
+    public int getPercent() {
+        return percent;
+    }
+
+    public void setPercent(int percent) {
+        this.percent = percent;
+    }
+
+    public Long getJobId() {
+        return jobId;
+    }
+
+    public void setJobId(Long jobId) {
+        this.jobId = jobId;
+    }
+
+    public Job getJob() {
+        return job;
+    }
+
+    public void setJob(Job job) {
+        this.job = job;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public boolean isCheckIgnore() {
+        return checkIgnore;
+    }
+
+    public void setCheckIgnore(boolean checkIgnore) {
+        this.checkIgnore = checkIgnore;
     }
 }
