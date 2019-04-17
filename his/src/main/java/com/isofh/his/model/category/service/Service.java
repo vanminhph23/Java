@@ -85,9 +85,9 @@ public class Service extends BaseCategoryModel {
     @Audited
     private Double unitPriceService;
 
-    @Column(name = "unit_price_assurance")
+    @Column(name = "unit_price_insurance")
     @Audited
-    private Double unitPriceAssurance;
+    private Double unitPriceInsurance;
 
     @Column(name = "unit_price_difference")
     @Audited

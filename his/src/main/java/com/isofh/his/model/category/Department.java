@@ -20,13 +20,13 @@ public class Department extends BaseCategoryModel {
     )
     private Long id;
 
-    @Column(name = "assurance_value")
+    @Column(name = "insurance_value")
     @Audited
-    private String assuranceValue;
+    private String insuranceValue;
 
-    @Column(name = "assurance_name")
+    @Column(name = "insurance_name")
     @Audited
-    private String assuranceName;
+    private String insuranceName;
 
     @Column(name = "emergency")
     @Audited
@@ -72,15 +72,19 @@ public class Department extends BaseCategoryModel {
     @Audited
     private Long timeKeepPatient;
 
-    @Column(name = "ceiling_assurance_amount")
+    @Column(name = "insurance_ceiling_amount")
     @Audited
-    private Long ceilingAssuranceAmount;
+    private Long insuranceCeilingAmount;
 
-    @Column(name = "advance_assurance_amount")
+    @Column(name = "advance_amount")
     @Audited
-    private Long advanceAssuranceAmount;
+    private Long advanceAmount;
 
-    @Column(name = "advance_service_amount")
+    @Column(name = "insurance_advance_amount")
+    @Audited
+    private Long insuranceAdvanceAmount;
+
+    @Column(name = "service_advance_amount")
     @Audited
     private Long advanceServiceAmount;
 

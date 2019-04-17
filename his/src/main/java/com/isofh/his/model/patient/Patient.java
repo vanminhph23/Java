@@ -38,9 +38,9 @@ public class Patient extends BaseModel {
     @Audited
     private String address;
 
-    @Column(name = "assurance_number")
+    @Column(name = "insurance_number")
     @Audited
-    private String assuranceNumber;
+    private String insuranceNumber;
 
     @Column(name = "birthday")
     @Audited

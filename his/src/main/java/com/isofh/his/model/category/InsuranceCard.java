@@ -17,9 +17,9 @@ public class InsuranceCard extends BaseCategoryModel {
     )
     private Long id;
 
-    @Column(name = "assurance_percent")
+    @Column(name = "percent")
     @Audited
-    private int assurancePercent;
+    private int percent;
 
     @Column(name = "job_id")
     @Audited
@@ -45,45 +45,5 @@ public class InsuranceCard extends BaseCategoryModel {
     @Override
     public void setId(Long id) {
         this.id = id;
-    }
-
-    public int getAssurancePercent() {
-        return assurancePercent;
-    }
-
-    public void setAssurancePercent(int assurancePercent) {
-        this.assurancePercent = assurancePercent;
-    }
-
-    public Long getJobId() {
-        return jobId;
-    }
-
-    public void setJobId(Long jobId) {
-        this.jobId = jobId;
-    }
-
-    public Job getJob() {
-        return job;
-    }
-
-    public void setJob(Job job) {
-        this.job = job;
-    }
-
-    public String getDescription() {
-        return description;
-    }
-
-    public void setDescription(String description) {
-        this.description = description;
-    }
-
-    public boolean isCheckIgnore() {
-        return checkIgnore;
-    }
-
-    public void setCheckIgnore(boolean checkIgnore) {
-        this.checkIgnore = checkIgnore;
     }
 }
