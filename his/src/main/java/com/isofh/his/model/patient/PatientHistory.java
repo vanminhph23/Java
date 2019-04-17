@@ -1,6 +1,6 @@
 package com.isofh.his.model.patient;
 
-import com.isofh.his.model.base.patient.BasePatientModel;
+import com.isofh.his.model.base.BaseModel;
 import com.isofh.his.model.category.*;
 import org.hibernate.envers.Audited;
 
@@ -9,7 +9,7 @@ import java.sql.Timestamp;
 
 @Entity
 @Table(name = "his_patient_history")
-public class PatientHistory extends BasePatientModel {
+public class PatientHistory extends BaseModel {
     @Id
     @GeneratedValue(generator = "patient_history_generator")
     @SequenceGenerator(
@@ -18,6 +18,14 @@ public class PatientHistory extends BasePatientModel {
             initialValue = 1000000
     )
     private Long id;
+
+    @Column(name = "patient_value", nullable = false, unique = true)
+    @Audited
+    private String patientValue;
+
+    @Column(name = "patient_name", nullable = false)
+    @Audited
+    private String patientName;
 
     @Column(name = "medical_record_no", nullable = false, length = 7, unique = true)
     @Audited

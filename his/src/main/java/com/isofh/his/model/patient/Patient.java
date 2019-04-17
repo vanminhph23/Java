@@ -1,6 +1,6 @@
 package com.isofh.his.model.patient;
 
-import com.isofh.his.model.base.patient.BasePatientModel;
+import com.isofh.his.model.base.BaseModel;
 import org.hibernate.envers.Audited;
 
 import javax.persistence.*;
@@ -8,7 +8,7 @@ import java.sql.Timestamp;
 
 @Entity
 @Table(name = "his_patient")
-public class Patient extends BasePatientModel {
+public class Patient extends BaseModel {
     @Id
     @GeneratedValue(generator = "patient_generator")
     @SequenceGenerator(
@@ -18,7 +18,15 @@ public class Patient extends BasePatientModel {
     )
     private Long id;
 
-    @Column(name = "id_no", unique = true)
+    @Column(name = "patient_value", nullable = false, unique = true)
+    @Audited
+    private String patientValue;
+
+    @Column(name = "patient_name", nullable = false)
+    @Audited
+    private String patientName;
+
+    @Column(name = "id_no")
     @Audited
     private String idNo;
 

@@ -1,6 +1,6 @@
 package com.isofh.his.model.patient;
 
-import com.isofh.his.model.base.patient.BasePatientHistoryModel;
+import com.isofh.his.model.base.patient.BasePatientModel;
 import com.isofh.his.model.category.Country;
 import com.isofh.his.model.category.District;
 import com.isofh.his.model.category.Province;
@@ -11,7 +11,7 @@ import javax.persistence.*;
 
 @Entity
 @Table(name = "his_patient_address")
-public class PatientAddress extends BasePatientHistoryModel {
+public class PatientAddress extends BasePatientModel {
 
     @Id
     @GeneratedValue(generator = "patient_address_generator")

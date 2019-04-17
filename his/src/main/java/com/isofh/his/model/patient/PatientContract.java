@@ -1,13 +1,13 @@
 package com.isofh.his.model.patient;
 
-import com.isofh.his.model.base.patient.BasePatientHistoryModel;
+import com.isofh.his.model.base.patient.BasePatientModel;
 import org.hibernate.envers.Audited;
 
 import javax.persistence.*;
 
 @Entity
 @Table(name = "his_patient_contract")
-public class PatientContract extends BasePatientHistoryModel {
+public class PatientContract extends BasePatientModel {
 
     @Id
     @GeneratedValue(generator = "patient_contract_generator")

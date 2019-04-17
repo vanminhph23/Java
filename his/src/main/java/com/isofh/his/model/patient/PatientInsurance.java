@@ -1,6 +1,6 @@
 package com.isofh.his.model.patient;
 
-import com.isofh.his.model.base.patient.BasePatientHistoryModel;
+import com.isofh.his.model.base.patient.BasePatientModel;
 import com.isofh.his.model.category.Hospital;
 import org.hibernate.envers.Audited;
 
@@ -9,7 +9,7 @@ import java.sql.Timestamp;
 
 @Entity
 @Table(name = "his_patient_insurance")
-public class PatientInsurance extends BasePatientHistoryModel {
+public class PatientInsurance extends BasePatientModel {
 
     @Id
     @GeneratedValue(generator = "patient_insurance_generator")
