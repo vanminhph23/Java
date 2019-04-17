@@ -44,10 +44,6 @@ public class PatientHistory extends BasePatientModel {
     @Audited
     private Timestamp timeGoOut;
 
-    @Column(name = "age")
-    @Audited
-    private int age;
-
     @Column(name = "birthday")
     @Audited
     private Timestamp birthday;
@@ -80,14 +76,6 @@ public class PatientHistory extends BasePatientModel {
     @Audited
     private String address;
 
-    @Column(name = "patient_guardian_id", unique = true)
-    @Audited
-    private Long patientGuardianId;
-
-    @OneToOne
-    @JoinColumn(name = "patient_guardian_id", insertable = false, updatable = false)
-    private PatientGuardian patientGuardian;
-
     @OneToOne
     @JoinColumn(name = "patient_address_id", insertable = false, updatable = false)
     private PatientAddress patientAddress;
@@ -96,9 +84,13 @@ public class PatientHistory extends BasePatientModel {
     @Audited
     private Long patientAddressId;
 
+    @Column(name = "patient_guardian_id", unique = true)
+    @Audited
+    private Long patientGuardianId;
+
     @ManyToOne
-    @JoinColumn(name = "guardian_id", insertable = false, updatable = false)
-    private PatientGuardian guardian;
+    @JoinColumn(name = "patient_guardian_id", insertable = false, updatable = false)
+    private PatientGuardian patientGuardian;
 
     @Column(name = "job_id")
     @Audited
@@ -157,17 +149,13 @@ public class PatientHistory extends BasePatientModel {
     @Audited
     private int bloodType;
 
-    @Column(name = "anamnesis")
+    @Column(name = "patient_medical_history_id", unique = true)
     @Audited
-    private String anamnesis;
+    private Long medicalHistoryId;
 
-    @Column(name = "anamnesis_family")
-    @Audited
-    private String anamnesisFamily;
-
-    @Column(name = "hospital_record")
-    @Audited
-    private int hospitalRecord;
+    @OneToOne
+    @JoinColumn(name = "patient_medical_history_id", insertable = false, updatable = false)
+    private PatientMedicalHistory medicalHistory;
 
     // patient type
     @Column(name = "patient_type")
@@ -183,18 +171,22 @@ public class PatientHistory extends BasePatientModel {
     @JoinColumn(name = "patient_insurance_id", insertable = false, updatable = false)
     private PatientInsurance patientInsurance;
 
-    // in hospital disease
-    @Column(name = "first_diagnostic")
+    // disease
+    @Column(name = "in_hospital_disease_diagnostic")
     @Audited
-    private String firstDiagnostic;
-
-    @Column(name = "in_hospital_diag_disease")
-    @Audited
-    private String inHospitalDiagDisease;
+    private String inHospitalDiseaseDiagnostic;
 
     @Column(name = "prev_diagnostic")
     @Audited
     private String prevDiagnostic;
+
+    @Column(name = "patient_diagnostic_id", unique = true)
+    @Audited
+    private Long patientDiagnosticId;
+
+    @OneToOne
+    @JoinColumn(name = "patient_diagnostic_id", insertable = false, updatable = false)
+    private PatientDiagnostic patientDiagnostic;
 
     //Out hospital
     @Column(name = "discharge_type")
@@ -212,19 +204,6 @@ public class PatientHistory extends BasePatientModel {
     @Column(name = "treatment_result")
     @Audited
     private int treatmentResult;
-
-    @Column(name = "discharge_diagnostic")
-    @Audited
-    private String dischargeDiagnostic;
-
-    // ICD, separate ID by ','
-    @Column(name = "discharge_diag_disease")
-    @Audited
-    private String dischargeDiagDisease;
-
-    @Column(name = "other_discharge_diag_disease")
-    @Audited
-    private String otherDischargeDiagDisease;
 
     @Column(name = "patient_state")
     @Audited
@@ -255,14 +234,22 @@ public class PatientHistory extends BasePatientModel {
     private PHCollection phCollection;
 
     // KSK
-    @Column(name = "contract")
+    @Column(name = "patient_contract_id")
     @Audited
-    private boolean contract;
+    private Long patientContractId;
+
+    @ManyToOne
+    @JoinColumn(name = "patient_contract_id", insertable = false, updatable = false)
+    private PatientContract patientContract;
 
     // iSofHCare
-    @Column(name = "account_online")
+    @Column(name = "patient_online_id")
     @Audited
-    private String accountOnline;
+    private Long patientOnlineId;
+
+    @ManyToOne
+    @JoinColumn(name = "patient_online_id", insertable = false, updatable = false)
+    private PatientOnline patientOnline;
 
     @Override
     public Long getId() {
