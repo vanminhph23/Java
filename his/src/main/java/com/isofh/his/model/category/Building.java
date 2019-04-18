@@ -18,6 +18,8 @@ public class Building extends BaseCategoryModel {
     )
     private Long id;
 
+    String description;
+
     @Override
     public Long getId() {
         return this.id;
@@ -26,5 +28,13 @@ public class Building extends BaseCategoryModel {
     @Override
     public void setId(Long id) {
         this.id = id;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
     }
 }
