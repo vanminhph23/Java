@@ -41,11 +41,6 @@ public class ReferenceListServiceImpl implements ReferenceListService {
         return ReferenceListDto.class;
     }
 
-    @Override
-    public ReferenceList save(ReferenceList model) {
-        return repository.save(model);
-    }
-
     ModelMapper modelMapper = null;
     @Override
     public ModelMapper getModelMapper() {

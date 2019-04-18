@@ -32,9 +32,17 @@ public class Reference extends BaseCategoryModel {
     @JoinColumn(name = "reference_id")
     private List<ReferenceList> referenceLists;
 
-    @Column(name = "description", unique = true)
+    @Column(name = "description")
     @Audited
     private String description;
+
+    public List<ReferenceList> getReferenceLists() {
+        return referenceLists;
+    }
+
+    public void setReferenceLists(List<ReferenceList> referenceLists) {
+        this.referenceLists = referenceLists;
+    }
 
     public String getDescription() {
         return description;

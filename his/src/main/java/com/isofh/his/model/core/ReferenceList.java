@@ -27,15 +27,11 @@ public class ReferenceList extends BaseCategoryModel {
         this.id = id;
     }
 
-    @Column(name = "reference_id", nullable = false)
-    @Audited
-    private Long referenceId;
-
     @ManyToOne
-    @JoinColumn(name = "reference_id", insertable = false, updatable = false)
+    @JoinColumn(name = "reference_id")
     private Reference reference;
 
-    @Column(name = "description", unique = true)
+    @Column(name = "description")
     @Audited
     private String description;
 
@@ -45,5 +41,13 @@ public class ReferenceList extends BaseCategoryModel {
 
     public void setDescription(String description) {
         this.description = description;
+    }
+
+    public Reference getReference() {
+        return reference;
+    }
+
+    public void setReference(Reference reference) {
+        this.reference = reference;
     }
 }
