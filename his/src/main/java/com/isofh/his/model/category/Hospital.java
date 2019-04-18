@@ -6,7 +6,7 @@ import org.hibernate.envers.Audited;
 import javax.persistence.*;
 
 @Entity
-@Table(name = "his_hospital", indexes = {@Index(name = "hospital_idx_value", columnList = "value")})
+@Table(name = "his_hospital", uniqueConstraints={@UniqueConstraint(columnNames = {"value", "deleted"})})
 public class Hospital extends BaseCategoryModel {
     @Id
     @GeneratedValue(generator = "hospital_generator")

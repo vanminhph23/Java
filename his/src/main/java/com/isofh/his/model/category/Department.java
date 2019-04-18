@@ -9,7 +9,7 @@ import javax.persistence.*;
 import java.util.List;
 
 @Entity
-@Table(name = "his_department", indexes = {@Index(name = "department_idx_value", columnList = "value")})
+@Table(name = "his_department", uniqueConstraints={@UniqueConstraint(columnNames = {"value", "deleted"})})
 public class Department extends BaseCategoryModel {
     @Id
     @GeneratedValue(generator = "department_generator")

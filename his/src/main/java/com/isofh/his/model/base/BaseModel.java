@@ -18,7 +18,7 @@ public abstract class BaseModel extends AuditModel {
 
     @Column(name = "deleted", nullable = false)
     @Audited
-    private boolean deleted = false;
+    private Long deleted = Long.valueOf(0);
 
     @Column(name = "dev")
     private String dev;
@@ -31,11 +31,11 @@ public abstract class BaseModel extends AuditModel {
         this.active = active;
     }
 
-    public boolean isDeleted() {
+    public Long getDeleted() {
         return deleted;
     }
 
-    public void setDeleted(boolean deleted) {
+    public void setDeleted(Long deleted) {
         this.deleted = deleted;
     }
 }

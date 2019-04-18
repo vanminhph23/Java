@@ -6,7 +6,7 @@ import org.hibernate.envers.Audited;
 import javax.persistence.*;
 
 @Entity
-@Table(name = "his_speaker", indexes = {@Index(name = "speaker_idx_value", columnList = "value")})
+@Table(name = "his_speaker", uniqueConstraints={@UniqueConstraint(columnNames = {"value", "deleted"})})
 @Audited
 public class Speaker extends BaseCategoryModel {
     @Id

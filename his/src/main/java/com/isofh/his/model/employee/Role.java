@@ -8,7 +8,7 @@ import javax.persistence.*;
 import java.util.List;
 
 @Entity
-@Table(name = "his_role", indexes = {@Index(name = "role_idx_value", columnList = "value")})
+@Table(name = "his_role", uniqueConstraints={@UniqueConstraint(columnNames = {"value", "deleted"})})
 @Audited
 public class Role extends BaseCategoryModel {
     @Id

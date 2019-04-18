@@ -6,7 +6,7 @@ import org.hibernate.envers.Audited;
 import javax.persistence.*;
 
 @Entity
-@Table(name = "his_academic_rank", indexes = {@Index(name = "academic_rank_idx_value", columnList = "value")})
+@Table(name = "his_academic_rank", uniqueConstraints={@UniqueConstraint(columnNames = {"value", "deleted"})})
 public class AcademicRank extends BaseCategoryModel {
     @Id
     @GeneratedValue(generator = "academic_rank_generator")

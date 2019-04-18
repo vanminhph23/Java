@@ -8,7 +8,7 @@ import javax.persistence.*;
 import java.util.List;
 
 @Entity
-@Table(name = "his_district", indexes = {@Index(name = "district_idx_value", columnList = "value")})
+@Table(name = "his_district", uniqueConstraints={@UniqueConstraint(columnNames = {"value", "deleted"})})
 public class District extends BaseCategoryModel {
     @Id
     @GeneratedValue(generator = "district_generator")

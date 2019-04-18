@@ -6,7 +6,7 @@ import org.hibernate.envers.Audited;
 import javax.persistence.*;
 
 @Entity
-@Table(name = "his_certificate", indexes = {@Index(name = "certificate_idx_value", columnList = "value")})
+@Table(name = "his_certificate", uniqueConstraints={@UniqueConstraint(columnNames = {"value", "deleted"})})
 @Audited
 public class Certificate extends BaseCategoryModel {
     @Id

@@ -9,7 +9,7 @@ import java.util.List;
 
 
 @Entity
-@Table(name = "his_privilege", indexes = {@Index(name = "privilege_idx_value", columnList = "value")})
+@Table(name = "his_privilege", uniqueConstraints={@UniqueConstraint(columnNames = {"value", "deleted"})})
 @Audited
 public class Privilege extends BaseCategoryModel {
 

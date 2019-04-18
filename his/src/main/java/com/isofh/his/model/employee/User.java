@@ -9,8 +9,7 @@ import java.sql.Timestamp;
 import java.util.List;
 
 @Entity
-@Table(name = "his_user", indexes = {@Index(name = "user_idx_value", columnList = "value"),
-        @Index(name = "user_idx_name", columnList = "name")})
+@Table(name = "his_user", uniqueConstraints={@UniqueConstraint(columnNames = {"value", "deleted"}), @UniqueConstraint(columnNames = {"name", "deleted"})})
 public class User extends BaseCategoryModel {
     @Id
     @GeneratedValue(generator = "user_generator")

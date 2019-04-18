@@ -11,19 +11,19 @@ import java.util.Optional;
 public interface BaseCategoryRepository<T extends BaseCategoryModel, ID extends Long> extends BaseRepository<T, ID> {
 
     @Transactional(readOnly = true)
-    @Query("select e from #{#entityName} e where e.deleted = false and e.name = ?1")
+    @Query("select e from #{#entityName} e where e.deleted = 0 and e.name = ?1")
     Optional<T> findByName(String name);
 
     @Transactional(readOnly = true)
-    @Query("select e from #{#entityName} e where e.deleted = false and e.value = ?1")
+    @Query("select e from #{#entityName} e where e.deleted = 0 and e.value = ?1")
     Optional<T> findByValue(String value);
 
     @Transactional(readOnly = true)
-    @Query("select e.id from #{#entityName} e where e.deleted = false and e.name = ?1 and e.id <> ?2")
+    @Query("select e.id from #{#entityName} e where e.deleted = 0 and e.name = ?1 and e.id <> ?2")
     Optional<Long> findIdByName(String name, ID id);
 
     @Transactional(readOnly = true)
-    @Query("select e.id from #{#entityName} e where e.deleted = false and e.value = ?1 and e.id <> ?2")
+    @Query("select e.id from #{#entityName} e where e.deleted = 0 and e.value = ?1 and e.id <> ?2")
     Optional<Long> findIdByValue(String value, ID id);
 
     @Transactional(readOnly = true)
