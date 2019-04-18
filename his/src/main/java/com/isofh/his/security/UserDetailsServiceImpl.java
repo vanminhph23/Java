@@ -27,7 +27,7 @@ public class UserDetailsServiceImpl implements UserDetailsService {
 
     @Transactional
     public UserDetails loadUserById(Long id, List<Long> roleIds, List<Long> departmentIds) {
-        User user = userService.get(id);
+        User user = userService.findById(id);
 
         return UserPrincipal.get(user, roleIds, departmentIds);
     }

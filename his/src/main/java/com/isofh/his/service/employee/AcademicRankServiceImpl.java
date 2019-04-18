@@ -50,14 +50,4 @@ public class AcademicRankServiceImpl implements AcademicRankService {
 
         return modelMapper;
     }
-
-    @Override
-    public AcademicRank get(Long id) {
-        return repository.findById(id).orElse(null);
-    }
-
-    @Override
-    public AcademicRank save(AcademicRank model) {
-        return AcademicRankService.super.save(model);
-    }
 }

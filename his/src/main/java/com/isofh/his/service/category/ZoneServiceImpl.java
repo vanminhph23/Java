@@ -57,16 +57,6 @@ public class ZoneServiceImpl implements ZoneService {
     }
 
     @Override
-    public Zone get(Long id) {
-        return repository.findById(id).orElse(null);
-    }
-
-    @Override
-    public Zone save(Zone model) {
-        return ZoneService.super.save(model);
-    }
-
-    @Override
     public Long convert(String header, String value) {
         if (value == null) {
             return null;

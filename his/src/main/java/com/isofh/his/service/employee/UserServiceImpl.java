@@ -51,18 +51,11 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public User save(User model) {
-        Long id = (Long) getRepository().findIdByName(model.getName()).orElse(Long.valueOf(0));
-        if (id > 0) {
+    public void validateDuplicateName(User model) {
+        Long id = findIdByName(model.getName(), model.getId());
+        if (id != null && id > 0) {
             throw new DuplicateNameException("Duplicate name, value: " + model.getValue() + ", name: " + model.getName() + ", id: " + id);
         }
-
-        return UserService.super.save(model);
-    }
-
-    @Override
-    public User get(Long id) {
-        return repository.findById(id).orElse(null);
     }
 
     private static ModelMapper modelMapper = null;

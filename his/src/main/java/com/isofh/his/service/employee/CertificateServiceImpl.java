@@ -50,14 +50,4 @@ public class CertificateServiceImpl implements CertificateService {
 
         return modelMapper;
     }
-
-    @Override
-    public Certificate get(Long id) {
-        return repository.findById(id).orElse(null);
-    }
-
-    @Override
-    public Certificate save(Certificate model) {
-        return CertificateService.super.save(model);
-    }
 }

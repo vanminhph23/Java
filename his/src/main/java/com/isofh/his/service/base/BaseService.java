@@ -4,7 +4,6 @@ import com.isofh.his.dto.base.BaseDto;
 import com.isofh.his.exception.BaseException;
 import com.isofh.his.model.base.BaseModel;
 import com.isofh.his.repository.base.BaseRepository;
-import com.isofh.his.storage.FileSystemStorageService;
 import com.isofh.his.storage.StorageService;
 import com.isofh.his.util.ExcelUtil;
 import com.isofh.his.util.Util;
@@ -38,10 +37,12 @@ public interface BaseService<X extends BaseModel, Y extends BaseDto, Z extends B
         return saveAndTransfer(getModel(dto));
     }
 
-    X get(Long id);
+    default X findById(Long id) {
+        return (X) getRepository().findById(id).orElse(null);
+    }
 
     default Y getAndTransfer(Long id) {
-        return getDto(get(id));
+        return getDto(findById(id));
     }
 
     Class<X> getModelClass();

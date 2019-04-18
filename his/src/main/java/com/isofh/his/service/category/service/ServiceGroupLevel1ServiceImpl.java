@@ -1,12 +1,8 @@
 package com.isofh.his.service.category.service;
 
-import com.isofh.his.dto.category.BedDto;
 import com.isofh.his.dto.category.service.ServiceGroupLevel1Dto;
-import com.isofh.his.model.category.Bed;
 import com.isofh.his.model.category.service.ServiceGroupLevel1;
-import com.isofh.his.repository.category.BedRepository;
 import com.isofh.his.repository.category.service.ServiceGroupLevel1Repository;
-import com.isofh.his.service.category.BedService;
 import com.isofh.his.storage.StorageService;
 import org.modelmapper.ModelMapper;
 import org.slf4j.Logger;
@@ -53,15 +49,5 @@ public class ServiceGroupLevel1ServiceImpl implements ServiceGroupLevel1Service 
         }
 
         return modelMapper;
-    }
-
-    @Override
-    public ServiceGroupLevel1 get(Long id) {
-        return repository.findById(id).orElse(null);
-    }
-
-    @Override
-    public ServiceGroupLevel1 save(ServiceGroupLevel1 model) {
-        return ServiceGroupLevel1Service.super.save(model);
     }
 }

@@ -2,9 +2,7 @@ package com.isofh.his.controller.employee;
 
 import com.isofh.his.controller.base.BaseController;
 import com.isofh.his.dto.base.ResponseMsg;
-import com.isofh.his.dto.category.ProvinceDto;
 import com.isofh.his.dto.employee.AcademicRankDto;
-import com.isofh.his.service.category.ProvinceService;
 import com.isofh.his.service.employee.AcademicRankService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

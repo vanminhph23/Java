@@ -1,13 +1,6 @@
 package com.isofh.his.dto.category;
 
 import com.isofh.his.dto.base.BaseCategoryDto;
-import com.isofh.his.model.category.District;
-import com.isofh.his.model.category.Province;
-import org.hibernate.envers.Audited;
-
-import javax.persistence.Column;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
 
 public class HospitalDto extends BaseCategoryDto {
 

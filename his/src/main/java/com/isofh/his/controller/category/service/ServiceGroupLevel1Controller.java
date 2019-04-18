@@ -2,9 +2,7 @@ package com.isofh.his.controller.category.service;
 
 import com.isofh.his.controller.base.BaseController;
 import com.isofh.his.dto.base.ResponseMsg;
-import com.isofh.his.dto.category.BedDto;
 import com.isofh.his.dto.category.service.ServiceGroupLevel1Dto;
-import com.isofh.his.service.category.BedService;
 import com.isofh.his.service.category.service.ServiceGroupLevel1Service;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

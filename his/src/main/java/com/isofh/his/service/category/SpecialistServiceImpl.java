@@ -1,11 +1,8 @@
 package com.isofh.his.service.category;
 
 import com.isofh.his.dto.category.SpecialistDto;
-import com.isofh.his.dto.category.ZoneDto;
 import com.isofh.his.model.category.Specialist;
-import com.isofh.his.model.category.Zone;
 import com.isofh.his.repository.category.SpecialistRepository;
-import com.isofh.his.repository.category.ZoneRepository;
 import com.isofh.his.storage.StorageService;
 import org.modelmapper.ModelMapper;
 import org.slf4j.Logger;
@@ -52,15 +49,5 @@ public class SpecialistServiceImpl implements SpecialistService {
         }
 
         return modelMapper;
-    }
-
-    @Override
-    public Specialist get(Long id) {
-        return repository.findById(id).orElse(null);
-    }
-
-    @Override
-    public Specialist save(Specialist model) {
-        return SpecialistService.super.save(model);
     }
 }

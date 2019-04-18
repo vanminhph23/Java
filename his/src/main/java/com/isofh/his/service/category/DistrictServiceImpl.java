@@ -57,16 +57,6 @@ public class DistrictServiceImpl implements DistrictService {
     }
 
     @Override
-    public District get(Long id) {
-        return repository.findById(id).orElse(null);
-    }
-
-    @Override
-    public District save(District model) {
-        return DistrictService.super.save(model);
-    }
-
-    @Override
     public Long convert(String header, String value) {
         if (value == null) {
             return null;

@@ -1,11 +1,8 @@
 package com.isofh.his.service.category;
 
 import com.isofh.his.dto.category.HospitalDto;
-import com.isofh.his.dto.category.ZoneDto;
 import com.isofh.his.model.category.Hospital;
-import com.isofh.his.model.category.Zone;
 import com.isofh.his.repository.category.HospitalRepository;
-import com.isofh.his.repository.category.ZoneRepository;
 import com.isofh.his.storage.StorageService;
 import org.modelmapper.ModelMapper;
 import org.modelmapper.convention.MatchingStrategies;
@@ -57,16 +54,6 @@ public class HospitalServiceImpl implements HospitalService {
         }
 
         return modelMapper;
-    }
-
-    @Override
-    public Hospital get(Long id) {
-        return repository.findById(id).orElse(null);
-    }
-
-    @Override
-    public Hospital save(Hospital model) {
-        return HospitalService.super.save(model);
     }
 
     @Override

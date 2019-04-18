@@ -57,16 +57,6 @@ public class ProvinceServiceImpl implements ProvinceService {
     }
 
     @Override
-    public Province get(Long id) {
-        return repository.findById(id).orElse(null);
-    }
-
-    @Override
-    public Province save(Province model) {
-        return ProvinceService.super.save(model);
-    }
-
-    @Override
     public Long convert(String header, String value) {
         if (value == null) {
             return null;

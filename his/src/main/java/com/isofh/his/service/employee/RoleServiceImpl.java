@@ -41,16 +41,6 @@ public class RoleServiceImpl implements RoleService {
         return RoleDto.class;
     }
 
-    @Override
-    public Role save(Role model) {
-        return repository.save(model);
-    }
-
-    @Override
-    public Role get(Long id) {
-        return repository.findById(id).orElse(null);
-    }
-
     ModelMapper modelMapper = null;
     @Override
     public ModelMapper getModelMapper() {

@@ -46,11 +46,6 @@ public class ReferenceListServiceImpl implements ReferenceListService {
         return repository.save(model);
     }
 
-    @Override
-    public ReferenceList get(Long id) {
-        return repository.findById(id).orElse(null);
-    }
-
     ModelMapper modelMapper = null;
     @Override
     public ModelMapper getModelMapper() {

@@ -50,14 +50,4 @@ public class JobServiceImpl implements JobService {
 
         return modelMapper;
     }
-
-    @Override
-    public Job get(Long id) {
-        return repository.findById(id).orElse(null);
-    }
-
-    @Override
-    public Job save(Job model) {
-        return JobService.super.save(model);
-    }
 }

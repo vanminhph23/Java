@@ -41,16 +41,6 @@ public class ReferenceServiceImpl implements ReferenceService {
         return ReferenceDto.class;
     }
 
-    @Override
-    public Reference save(Reference model) {
-        return repository.save(model);
-    }
-
-    @Override
-    public Reference get(Long id) {
-        return repository.findById(id).orElse(null);
-    }
-
     ModelMapper modelMapper = null;
     @Override
     public ModelMapper getModelMapper() {

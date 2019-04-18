@@ -50,14 +50,4 @@ public class BuildingServiceImpl implements BuildingService {
 
         return modelMapper;
     }
-
-    @Override
-    public Building get(Long id) {
-        return repository.findById(id).orElse(null);
-    }
-
-    @Override
-    public Building save(Building model) {
-        return BuildingService.super.save(model);
-    }
 }

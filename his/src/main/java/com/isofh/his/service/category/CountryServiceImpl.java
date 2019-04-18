@@ -2,7 +2,6 @@ package com.isofh.his.service.category;
 
 import com.isofh.his.dto.category.CountryDto;
 import com.isofh.his.model.category.Country;
-import com.isofh.his.model.category.Job;
 import com.isofh.his.repository.category.CountryRepository;
 import com.isofh.his.storage.StorageService;
 import org.modelmapper.ModelMapper;
@@ -50,15 +49,5 @@ public class CountryServiceImpl implements CountryService {
         }
 
         return modelMapper;
-    }
-
-    @Override
-    public Country get(Long id) {
-        return repository.findById(id).orElse(null);
-    }
-
-    @Override
-    public Country save(Country model) {
-        return CountryService.super.save(model);
     }
 }

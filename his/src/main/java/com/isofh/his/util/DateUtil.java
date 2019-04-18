@@ -2,9 +2,7 @@ package com.isofh.his.util;
 
 import org.apache.commons.lang3.time.DateUtils;
 
-import java.sql.Timestamp;
 import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;

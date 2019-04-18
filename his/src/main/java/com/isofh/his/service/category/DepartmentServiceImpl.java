@@ -41,16 +41,6 @@ public class DepartmentServiceImpl implements DepartmentService {
         return DepartmentDto.class;
     }
 
-    @Override
-    public Department save(Department model) {
-        return repository.save(model);
-    }
-
-    @Override
-    public Department get(Long id) {
-        return repository.findById(id).orElse(null);
-    }
-
     ModelMapper modelMapper = null;
     @Override
     public ModelMapper getModelMapper() {

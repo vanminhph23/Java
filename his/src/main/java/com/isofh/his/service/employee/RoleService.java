@@ -4,7 +4,6 @@ import com.isofh.his.dto.employee.RoleDto;
 import com.isofh.his.model.employee.Role;
 import com.isofh.his.repository.employee.RoleRepository;
 import com.isofh.his.service.base.BaseCategoryService;
-import com.isofh.his.service.base.BaseService;
 
 public interface RoleService extends BaseCategoryService<Role, RoleDto, RoleRepository> {
 }

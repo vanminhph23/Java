@@ -50,14 +50,4 @@ public class EthnicityServiceImpl implements EthnicityService {
 
         return modelMapper;
     }
-
-    @Override
-    public Ethnicity get(Long id) {
-        return repository.findById(id).orElse(null);
-    }
-
-    @Override
-    public Ethnicity save(Ethnicity model) {
-        return EthnicityService.super.save(model);
-    }
 }

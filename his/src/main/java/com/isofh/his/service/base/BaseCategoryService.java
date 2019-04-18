@@ -12,12 +12,32 @@ public interface BaseCategoryService<X extends BaseCategoryModel, Y extends Base
 
     @Override
     default X save(X model) {
-        Long id = (Long) getRepository().findIdByValue(model.getValue()).orElse(Long.valueOf(0));
-        if (id > 0) {
-            throw new DuplicateValueException("Duplicate value, value: " + model.getValue() + ", name: " + model.getName() + ", id: " + id);
-        }
+        validateFields(model);
+
+        autoFillFields(model);
+
+        validateDuplicateValue(model);
+
+        validateDuplicateName(model);
 
         return (X) getRepository().save(model);
+    }
+
+    default void validateDuplicateValue(X model) {
+        Long id = findIdByValue(model.getValue(), model.getId());
+
+        if (id != null && id > 0) {
+            throw new DuplicateValueException("Duplicate value, value: " + model.getValue() + ", name: " + model.getName() + ", id: " + id);
+        }
+    }
+
+    default void autoFillFields(X model) {
+    }
+
+    default void validateDuplicateName(X model) {
+    }
+
+    default void validateFields(X model) {
     }
 
     default X findByValue(String value) {
@@ -29,10 +49,18 @@ public interface BaseCategoryService<X extends BaseCategoryModel, Y extends Base
     }
 
     default Long findIdByValue(String value) {
-        return (Long) getRepository().findIdByValue(value).orElse(null);
+        return findIdByValue(value, Long.valueOf(0));
+    }
+
+    default Long findIdByValue(String value, Long id) {
+        return (Long) getRepository().findIdByValue(value, Long.valueOf(id)).orElse(null);
+    }
+
+    default Long findIdByName(String name, Long id) {
+        return (Long) getRepository().findIdByName(name, id).orElse(null);
     }
 
     default Long findIdByName(String name) {
-        return (Long) getRepository().findIdByName(name).orElse(null);
+        return findIdByName(name, Long.valueOf(0));
     }
 }

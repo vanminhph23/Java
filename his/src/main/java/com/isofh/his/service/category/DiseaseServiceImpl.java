@@ -50,14 +50,4 @@ public class DiseaseServiceImpl implements DiseaseService {
 
         return modelMapper;
     }
-
-    @Override
-    public Disease get(Long id) {
-        return repository.findById(id).orElse(null);
-    }
-
-    @Override
-    public Disease save(Disease model) {
-        return DiseaseService.super.save(model);
-    }
 }

@@ -1,10 +1,7 @@
 package com.isofh.his.service.category.service;
 
-import com.isofh.his.dto.category.service.ServiceGroupLevel1Dto;
 import com.isofh.his.dto.category.service.ServiceGroupLevel2Dto;
-import com.isofh.his.model.category.service.ServiceGroupLevel1;
 import com.isofh.his.model.category.service.ServiceGroupLevel2;
-import com.isofh.his.repository.category.service.ServiceGroupLevel1Repository;
 import com.isofh.his.repository.category.service.ServiceGroupLevel2Repository;
 import com.isofh.his.storage.StorageService;
 import org.modelmapper.ModelMapper;
@@ -52,15 +49,5 @@ public class ServiceGroupLevel2ServiceImpl implements ServiceGroupLevel2Service 
         }
 
         return modelMapper;
-    }
-
-    @Override
-    public ServiceGroupLevel2 get(Long id) {
-        return repository.findById(id).orElse(null);
-    }
-
-    @Override
-    public ServiceGroupLevel2 save(ServiceGroupLevel2 model) {
-        return ServiceGroupLevel2Service.super.save(model);
     }
 }

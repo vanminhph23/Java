@@ -1,11 +1,8 @@
 package com.isofh.his.service.category;
 
 import com.isofh.his.dto.category.BedDto;
-import com.isofh.his.dto.category.JobDto;
 import com.isofh.his.model.category.Bed;
-import com.isofh.his.model.category.Job;
 import com.isofh.his.repository.category.BedRepository;
-import com.isofh.his.repository.category.JobRepository;
 import com.isofh.his.storage.StorageService;
 import org.modelmapper.ModelMapper;
 import org.slf4j.Logger;
@@ -53,15 +50,5 @@ public class BedServiceImpl implements BedService {
         }
 
         return modelMapper;
-    }
-
-    @Override
-    public Bed get(Long id) {
-        return repository.findById(id).orElse(null);
-    }
-
-    @Override
-    public Bed save(Bed model) {
-        return BedService.super.save(model);
     }
 }

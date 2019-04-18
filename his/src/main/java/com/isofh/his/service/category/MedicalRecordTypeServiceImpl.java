@@ -50,14 +50,4 @@ public class MedicalRecordTypeServiceImpl implements MedicalRecordTypeService {
 
         return modelMapper;
     }
-
-    @Override
-    public MedicalRecordType get(Long id) {
-        return repository.findById(id).orElse(null);
-    }
-
-    @Override
-    public MedicalRecordType save(MedicalRecordType model) {
-        return MedicalRecordTypeService.super.save(model);
-    }
 }

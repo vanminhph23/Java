@@ -41,16 +41,6 @@ public class PrivilegeServiceImpl implements PrivilegeService {
         return PrivilegeDto.class;
     }
 
-    @Override
-    public Privilege save(Privilege model) {
-        return repository.save(model);
-    }
-
-    @Override
-    public Privilege get(Long id) {
-        return repository.findById(id).orElse(null);
-    }
-
     ModelMapper modelMapper = null;
     @Override
     public ModelMapper getModelMapper() {

@@ -58,16 +58,6 @@ public class InsuranceCardServiceImpl implements InsuranceCardService {
     }
 
     @Override
-    public InsuranceCard get(Long id) {
-        return repository.findById(id).orElse(null);
-    }
-
-    @Override
-    public InsuranceCard save(InsuranceCard model) {
-        return InsuranceCardService.super.save(model);
-    }
-
-    @Override
     public Long convert(String header, String value) {
         if (value == null) {
             return null;

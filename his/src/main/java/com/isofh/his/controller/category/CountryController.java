@@ -3,7 +3,6 @@ package com.isofh.his.controller.category;
 import com.isofh.his.controller.base.BaseController;
 import com.isofh.his.dto.base.ResponseMsg;
 import com.isofh.his.dto.category.CountryDto;
-import com.isofh.his.dto.category.JobDto;
 import com.isofh.his.service.category.CountryService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
