@@ -46,6 +46,14 @@ public class PatientVitalSign extends BasePatientModel {
     @Audited
     private int breath;
 
+    @Column(name = "height")
+    @Audited
+    private int height;
+
+    @Column(name = "weight")
+    @Audited
+    private int weight;
+
     @Override
     public Long getId() {
         return id;

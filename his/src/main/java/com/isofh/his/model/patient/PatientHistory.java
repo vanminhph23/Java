@@ -145,14 +145,6 @@ public class PatientHistory extends BaseModel {
     private PatientVitalSign patientVitalSign;
 
     // common info
-    @Column(name = "height")
-    @Audited
-    private int height;
-
-    @Column(name = "weight")
-    @Audited
-    private int weight;
-
     @Column(name = "blood_type")
     @Audited
     private int bloodType;
