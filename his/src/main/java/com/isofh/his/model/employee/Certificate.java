@@ -6,14 +6,14 @@ import org.hibernate.envers.Audited;
 import javax.persistence.*;
 
 @Entity
-@Table(name = "his_qualification")
+@Table(name = "his_certificate", indexes = {@Index(name = "certificate_idx_value", columnList = "value")})
 @Audited
 public class Certificate extends BaseCategoryModel {
     @Id
-    @GeneratedValue(generator = "qualification_generator")
+    @GeneratedValue(generator = "certificate_generator")
     @SequenceGenerator(
-            name = "qualification_generator",
-            sequenceName = "qualification_sq",
+            name = "certificate_generator",
+            sequenceName = "certificate_sq",
             initialValue = 1000000
     )
     private Long id;

@@ -8,7 +8,7 @@ import javax.persistence.*;
 import java.util.List;
 
 @Entity
-@Table(name = "his_role")
+@Table(name = "his_role", indexes = {@Index(name = "role_idx_value", columnList = "value")})
 @Audited
 public class Role extends BaseCategoryModel {
     @Id

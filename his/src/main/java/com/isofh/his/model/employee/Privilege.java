@@ -9,7 +9,7 @@ import java.util.List;
 
 
 @Entity
-@Table(name = "his_privilege")
+@Table(name = "his_privilege", indexes = {@Index(name = "privilege_idx_value", columnList = "value")})
 @Audited
 public class Privilege extends BaseCategoryModel {
 

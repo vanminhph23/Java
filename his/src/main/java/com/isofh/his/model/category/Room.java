@@ -6,7 +6,7 @@ import org.hibernate.envers.Audited;
 import javax.persistence.*;
 
 @Entity
-@Table(name = "his_room")
+@Table(name = "his_room", indexes = {@Index(name = "room_idx_value", columnList = "value")})
 public class Room extends BaseCategoryModel {
     @Id
     @GeneratedValue(generator = "room_generator")

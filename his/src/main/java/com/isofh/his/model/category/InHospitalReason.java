@@ -6,7 +6,7 @@ import org.hibernate.envers.Audited;
 import javax.persistence.*;
 
 @Entity
-@Table(name = "his_in_hospital_reason")
+@Table(name = "his_in_hospital_reason", indexes = {@Index(name = "in_hospital_reason_idx_value", columnList = "value")})
 @Audited
 public class InHospitalReason extends BaseCategoryModel {
     @Id
