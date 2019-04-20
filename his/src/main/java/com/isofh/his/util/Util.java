@@ -27,6 +27,10 @@ public class Util {
         return mapper.convertValue(fromValue, toValueType);
     }
 
+    public static Map<String, Object> convertValue(Object fromValue) {
+        return mapper.convertValue(fromValue, Map.class);
+    }
+
     public static String writeValueAsString(Object fromValue) throws JsonProcessingException {
         return mapper.writeValueAsString(fromValue);
     }
@@ -35,6 +39,15 @@ public class Util {
         List<T> toList = new ArrayList<>();
         for (Map<String, Object> map : fromValue) {
             toList.add(convertValue(map, toValueType));
+        }
+
+        return toList;
+    }
+
+    public static List<Map<String, Object>> convertValues(List<Object> fromValue) {
+        List<Map<String, Object>> toList = new ArrayList<>();
+        for (Object obj : fromValue) {
+            toList.add(convertValue(obj));
         }
 
         return toList;

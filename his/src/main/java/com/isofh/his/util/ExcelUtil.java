@@ -1,7 +1,6 @@
 package com.isofh.his.util;
 
 import com.isofh.his.exception.StorageException;
-import com.isofh.his.service.base.BaseService;
 import org.apache.poi.hssf.usermodel.HSSFSheet;
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 import org.apache.poi.ss.usermodel.Cell;
@@ -13,8 +12,9 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
-import java.text.ParseException;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.List;
 
 public class ExcelUtil {
 
@@ -77,7 +77,7 @@ public class ExcelUtil {
         }
     }
 
-    public static List<Map<String, Object>> readFile(String fileName, int sheetNo, int startLineNo, BaseService service) {
+    public static List<List<String>> readFile(String fileName, int sheetNo, int startLineNo) {
         if (!fileName.endsWith(".xls")) {
             return null;
         }
@@ -124,71 +124,20 @@ public class ExcelUtil {
                 }
             }
 
-
-            // Data type
-            List<String> dataTypes = result.get(0);
-            int column = dataTypes.size();
-            for (int i = 0; i < column; i++) {
-                String dataType = dataTypes.get(i);
-                dataTypes.set(i, dataType == null ? null : dataType.toLowerCase());
-            }
-
-            // Correct header to field name of object
-            List<String> headers = result.get(1);
-            for (int i = 0; i < column; i++) {
-                headers.set(i, correctHeader(headers.get(i)));
+            if (result.size() <= 0) {
+                return new ArrayList<>();
             }
 
             // Add null property to object if not exists in excel
+            int column = result.get(0).size();
             for (List<String> rowObject : result) {
                 for (int i = rowObject.size(); i < column; i++) {
                     rowObject.add(null);
                 }
             }
 
-            // Convert matrix to hash map object
-            int objCount = result.size();
-            List<Map<String, Object>> objects = new ArrayList<>();
-            for (int i = 2; i < objCount; i++) {
-                List<String> row = result.get(i);
-                Map<String, Object> obj = new HashMap<>();
-
-                for (int j = 0; j < column; j++) {
-                    String header = headers.get(j);
-                    String data = row.get(j);
-
-                    Object value = null;
-
-                    if (header.contains("[")) {
-                        value = data == null ? null : service.convert(header, data);
-                        header = header.split("\\[")[0];
-                    } else if (data != null) {
-                        String dateType = dataTypes.get(j);
-
-                        if (dateType == null || dateType.equals("text")) {
-                            value = data;
-                        } else if (dateType.equals("number")) {
-                            value = Double.valueOf(data);
-                        } else if (dateType.equals("boolean")) {
-                            value = "true".equalsIgnoreCase(data) || "t".equalsIgnoreCase(data) || "yes".equalsIgnoreCase(data) || "y".equalsIgnoreCase(data);
-                        } else if (dateType.startsWith("date")) {
-                            String format = null;
-                            if (!dateType.contains("[")) {
-                                format = dateType.replace("]", "").split("\\[")[1];
-                            }
-
-                            value = DateUtil.parseValidDate(data, format);
-                        }
-                    }
-
-                    obj.put(header, value);
-                }
-
-                objects.add(obj);
-            }
-
-            return objects;
-        } catch (IOException | ParseException e) {
+            return result;
+        } catch (IOException e) {
             throw new StorageException("Failed to store file " + fileName, e);
         } finally {
             try {
@@ -202,28 +151,5 @@ public class ExcelUtil {
                 e.printStackTrace();
             }
         }
-    }
-
-    private static String correctHeader(String header) {
-        header = header.toLowerCase();
-
-        if (!header.contains("[")) {
-            return correctFieldName(header);
-        }
-
-        String[] strs = header.replace("]", "").split("\\[");
-        return correctFieldName(strs[0]) + "[" + correctFieldName(strs[1]) + "]";
-    }
-
-    private static String correctFieldName(String fieldName) {
-        fieldName = fieldName.trim();
-        String[] strs = fieldName.split("_");
-
-        int size = strs.length;
-        fieldName = strs[0];
-        for (int j = 1; j < size; j++) {
-            fieldName += strs[j].substring(0, 1).toUpperCase() + strs[j].substring(1);
-        }
-        return fieldName;
     }
 }

@@ -4,6 +4,7 @@ import com.isofh.his.model.base.BaseCategoryModel;
 import org.hibernate.envers.Audited;
 
 import javax.persistence.*;
+import java.util.List;
 
 @Entity
 @Table(name = "his_reference_list")
@@ -35,6 +36,14 @@ public class ReferenceList extends BaseCategoryModel {
     @Audited
     private String description;
 
+    @Column(name = "strict_access")
+    @Audited
+    private boolean strictAccess;
+
+    @OneToMany
+    @JoinColumn(name = "reference_list_id")
+    private List<ReferenceListAccess> referenceListAccesses;
+
     public String getDescription() {
         return description;
     }
@@ -49,5 +58,21 @@ public class ReferenceList extends BaseCategoryModel {
 
     public void setReference(Reference reference) {
         this.reference = reference;
+    }
+
+    public boolean isStrictAccess() {
+        return strictAccess;
+    }
+
+    public void setStrictAccess(boolean strictAccess) {
+        this.strictAccess = strictAccess;
+    }
+
+    public List<ReferenceListAccess> getReferenceListAccesses() {
+        return referenceListAccesses;
+    }
+
+    public void setReferenceListAccesses(List<ReferenceListAccess> referenceListAccesses) {
+        this.referenceListAccesses = referenceListAccesses;
     }
 }

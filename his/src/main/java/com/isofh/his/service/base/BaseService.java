@@ -6,6 +6,7 @@ import com.isofh.his.model.base.BaseModel;
 import com.isofh.his.repository.base.BaseRepository;
 import com.isofh.his.storage.StorageService;
 import com.isofh.his.util.ExcelUtil;
+import com.isofh.his.util.ImportUtil;
 import com.isofh.his.util.Util;
 import org.modelmapper.ModelMapper;
 import org.springframework.transaction.annotation.Transactional;
@@ -70,9 +71,10 @@ public interface BaseService<X extends BaseModel, Y extends BaseDto, Z extends B
     default String importExcel(MultipartFile file, int sheetNo, int startLineNo) {
         String fileName = getStorageService().store(file);
 
-        List<Map<String, Object>> result = ExcelUtil.readFile(fileName, sheetNo, startLineNo, this);
+        List<List<String>> result = ExcelUtil.readFile(fileName, sheetNo, startLineNo);
+        List<Map<String, Object>> objs = ImportUtil.convertValue(result, this);
 
-        List<Y> dtos = Util.convertValues(result, getDtoClass());
+        List<Y> dtos = Util.convertValues(objs, getDtoClass());
 
         List<String> mes = new ArrayList<>();
         for (Y dto : dtos) {
