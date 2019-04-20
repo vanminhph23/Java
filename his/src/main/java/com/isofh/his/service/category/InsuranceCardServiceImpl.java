@@ -4,6 +4,7 @@ import com.isofh.his.dto.category.InsuranceCardDto;
 import com.isofh.his.model.category.InsuranceCard;
 import com.isofh.his.repository.category.InsuranceCardRepository;
 import com.isofh.his.storage.StorageService;
+import com.isofh.his.importdata.Header;
 import org.modelmapper.ModelMapper;
 import org.modelmapper.convention.MatchingStrategies;
 import org.slf4j.Logger;
@@ -58,15 +59,17 @@ public class InsuranceCardServiceImpl implements InsuranceCardService {
     }
 
     @Override
-    public Long convert(String header, String value) {
+    public Long convert(Header header, String value) {
         if (value == null) {
             return null;
         }
 
-        if ("jobId[value]".equals(header)) {
-            return jobService.findIdByValue(value);
-        } else if ("jobId[name]".equals(header)) {
-            return jobService.findIdByName(value);
+        if ("jobId".equals(header.getColumnName())) {
+            if ("value".equals(header.getLinkColumnName())) {
+                return jobService.findIdByValue(value);
+            } else if ("name".equals(header.getLinkColumnName())) {
+                return jobService.findIdByName(value);
+            }
         }
 
         return null;

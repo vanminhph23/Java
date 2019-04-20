@@ -20,7 +20,7 @@ public abstract class BaseModel extends AuditModel {
     @Audited
     private Long deleted = Long.valueOf(0);
 
-    @Column(name = "dev")
+    @Column(name = "dev", updatable = false)
     private String dev;
 
     public boolean isActive() {

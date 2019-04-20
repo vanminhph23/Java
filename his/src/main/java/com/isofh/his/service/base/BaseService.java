@@ -6,7 +6,8 @@ import com.isofh.his.model.base.BaseModel;
 import com.isofh.his.repository.base.BaseRepository;
 import com.isofh.his.storage.StorageService;
 import com.isofh.his.util.ExcelUtil;
-import com.isofh.his.util.ImportUtil;
+import com.isofh.his.importdata.Header;
+import com.isofh.his.importdata.ImportUtil;
 import com.isofh.his.util.Util;
 import org.modelmapper.ModelMapper;
 import org.springframework.transaction.annotation.Transactional;
@@ -63,7 +64,17 @@ public interface BaseService<X extends BaseModel, Y extends BaseDto, Z extends B
         return getModelMapper().map(model, getDtoClass());
     }
 
-    default Long convert(String header, String value) {
+    default Long convert(Header header, String value) {
+        return null;
+    }
+
+    default Map<String, Object> getOld(Map<String, Object> newObj, Map<String, Object> keys) {
+        for (String key : keys.keySet()) {
+            if ("id".equals(key)) {
+                Y dto = getDto(findById(Long.valueOf((String) keys.get("id"))));
+                return Util.convertValue(dto);
+            }
+        }
         return null;
     }
 

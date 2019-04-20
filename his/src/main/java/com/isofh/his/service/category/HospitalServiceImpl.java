@@ -4,6 +4,7 @@ import com.isofh.his.dto.category.HospitalDto;
 import com.isofh.his.model.category.Hospital;
 import com.isofh.his.repository.category.HospitalRepository;
 import com.isofh.his.storage.StorageService;
+import com.isofh.his.importdata.Header;
 import org.modelmapper.ModelMapper;
 import org.modelmapper.convention.MatchingStrategies;
 import org.slf4j.Logger;
@@ -57,15 +58,17 @@ public class HospitalServiceImpl implements HospitalService {
     }
 
     @Override
-    public Long convert(String header, String value) {
+    public Long convert(Header header, String value) {
         if (value == null) {
             return null;
         }
 
-        if ("provinceId[value]".equals(header)) {
-            return provinceService.findIdByValue(value);
-        } else if ("provinceId[name]".equals(header)) {
-            return provinceService.findIdByName(value);
+        if ("provinceId".equals(header.getColumnName())) {
+            if ("value".equals(header.getLinkColumnName())) {
+                return provinceService.findIdByValue(value);
+            } else if ("name".equals(header.getLinkColumnName())) {
+                return provinceService.findIdByName(value);
+            }
         }
 
         return null;

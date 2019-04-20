@@ -4,6 +4,7 @@ import com.isofh.his.dto.category.ProvinceDto;
 import com.isofh.his.model.category.Province;
 import com.isofh.his.repository.category.ProvinceRepository;
 import com.isofh.his.storage.StorageService;
+import com.isofh.his.importdata.Header;
 import org.modelmapper.ModelMapper;
 import org.modelmapper.convention.MatchingStrategies;
 import org.slf4j.Logger;
@@ -57,15 +58,17 @@ public class ProvinceServiceImpl implements ProvinceService {
     }
 
     @Override
-    public Long convert(String header, String value) {
+    public Long convert(Header header, String value) {
         if (value == null) {
             return null;
         }
 
-        if ("countryId[value]".equals(header)) {
-            return countryService.findIdByValue(value);
-        } else if ("countryId[name]".equals(header)) {
-            return countryService.findIdByName(value);
+        if ("countryId".equals(header.getColumnName())) {
+            if ("value".equals(header.getLinkColumnName())) {
+                return countryService.findIdByValue(value);
+            } else if ("name".equals(header.getLinkColumnName())) {
+                return countryService.findIdByName(value);
+            }
         }
 
         return null;

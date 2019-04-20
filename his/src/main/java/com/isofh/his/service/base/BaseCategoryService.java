@@ -4,6 +4,9 @@ import com.isofh.his.dto.base.BaseCategoryDto;
 import com.isofh.his.exception.DuplicateValueException;
 import com.isofh.his.model.base.BaseCategoryModel;
 import com.isofh.his.repository.base.BaseCategoryRepository;
+import com.isofh.his.util.Util;
+
+import java.util.Map;
 
 public interface BaseCategoryService<X extends BaseCategoryModel, Y extends BaseCategoryDto, Z extends BaseCategoryRepository> extends BaseService<X, Y, Z> {
 
@@ -68,5 +71,21 @@ public interface BaseCategoryService<X extends BaseCategoryModel, Y extends Base
 
     default Long findIdByName(String name) {
         return findIdByName(name, Long.valueOf(0));
+    }
+
+    @Override
+    default Map<String, Object> getOld(Map<String, Object> newObj, Map<String, Object> keys) {
+        Map<String, Object> oldObj = BaseService.super.getOld(newObj, keys);
+        if (oldObj != null) {
+            return oldObj;
+        }
+
+        for (String key : keys.keySet()) {
+            if ("value".equals(key)) {
+                Y dto = getDto(findByValue((String) keys.get("value")));
+                return Util.convertValue(dto);
+            }
+        }
+        return newObj;
     }
 }

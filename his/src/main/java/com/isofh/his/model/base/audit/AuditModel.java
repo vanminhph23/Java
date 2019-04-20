@@ -30,7 +30,7 @@ public abstract class AuditModel implements Serializable {
     private Date updatedAt;
 
     @CreatedBy
-    @Column(name = "created_by")
+    @Column(name = "created_by", updatable = false)
     private Long createdBy;
 
     @LastModifiedBy
