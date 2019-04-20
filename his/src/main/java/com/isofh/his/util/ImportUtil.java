@@ -72,7 +72,7 @@ public class ImportUtil {
             objects.add(obj);
         }
 
-        return null;
+        return objects;
     }
 
     private static String correctHeader(String header) {
