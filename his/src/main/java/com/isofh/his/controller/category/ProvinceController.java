@@ -24,17 +24,17 @@ public class ProvinceController extends BaseController {
 
     @GetMapping("/provinces/{id}")
     public ResponseEntity<ResponseMsg> getById(@PathVariable Long id) {
-        return response("province", service.getAndTransfer(id));
+        return response("province", service.findDtoById(id));
     }
 
     @PostMapping("/provinces")
     public ResponseEntity<ResponseMsg> create(@Valid @RequestBody ProvinceDto dto) {
-        return response("province", service.saveAndTransfer(dto));
+        return response("province", service.saveDto(dto));
     }
 
     @PutMapping("/provinces")
     public ResponseEntity<ResponseMsg> update(@Valid @RequestBody ProvinceDto dto) {
-        return response("province", service.saveAndTransfer(dto));
+        return response("province", service.saveDto(dto));
     }
 
     @PostMapping("/provinces/excel")

@@ -24,17 +24,17 @@ public class DistrictController extends BaseController {
 
     @GetMapping("/districts/{id}")
     public ResponseEntity<ResponseMsg> getById(@PathVariable Long id) {
-        return response("district", service.getAndTransfer(id));
+        return response("district", service.findDtoById(id));
     }
 
     @PostMapping("/districts")
     public ResponseEntity<ResponseMsg> create(@Valid @RequestBody DistrictDto dto) {
-        return response("district", service.saveAndTransfer(dto));
+        return response("district", service.saveDto(dto));
     }
 
     @PutMapping("/districts")
     public ResponseEntity<ResponseMsg> update(@Valid @RequestBody DistrictDto dto) {
-        return response("district", service.saveAndTransfer(dto));
+        return response("district", service.saveDto(dto));
     }
 
     @PostMapping("/districts/excel")

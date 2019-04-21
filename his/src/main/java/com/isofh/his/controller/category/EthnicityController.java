@@ -24,17 +24,17 @@ public class EthnicityController extends BaseController {
 
     @GetMapping("/ethnicities/{id}")
     public ResponseEntity<ResponseMsg> getById(@PathVariable Long id) {
-        return response("zone", service.getAndTransfer(id));
+        return response("zone", service.findDtoById(id));
     }
 
     @PostMapping("/ethnicities")
     public ResponseEntity<ResponseMsg> create(@Valid @RequestBody EthnicityDto dto) {
-        return response("zone", service.saveAndTransfer(dto));
+        return response("zone", service.saveDto(dto));
     }
 
     @PutMapping("/ethnicities")
     public ResponseEntity<ResponseMsg> update(@Valid @RequestBody EthnicityDto dto) {
-        return response("zone", service.saveAndTransfer(dto));
+        return response("zone", service.saveDto(dto));
     }
 
     @PostMapping("/ethnicities/excel")

@@ -24,17 +24,17 @@ public class ServiceGroupLevel3Controller extends BaseController {
 
     @GetMapping("/service-group-level3s/{id}")
     public ResponseEntity<ResponseMsg> getById(@PathVariable Long id) {
-        return response("serviceGroupLevel1", service.getAndTransfer(id));
+        return response("serviceGroupLevel1", service.findDtoById(id));
     }
 
     @PostMapping("/service-group-level3s")
     public ResponseEntity<ResponseMsg> create(@Valid @RequestBody ServiceGroupLevel3Dto dto) {
-        return response("serviceGroupLevel1", service.saveAndTransfer(dto));
+        return response("serviceGroupLevel1", service.saveDto(dto));
     }
 
     @PutMapping("/service-group-level3s")
     public ResponseEntity<ResponseMsg> update(@Valid @RequestBody ServiceGroupLevel3Dto dto) {
-        return response("serviceGroupLevel1", service.saveAndTransfer(dto));
+        return response("serviceGroupLevel1", service.saveDto(dto));
     }
 
     @PostMapping("/service-group-level3s/excel")

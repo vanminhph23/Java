@@ -24,17 +24,17 @@ public class BedController extends BaseController {
 
     @GetMapping("/beds/{id}")
     public ResponseEntity<ResponseMsg> getById(@PathVariable Long id) {
-        return response("bed", service.getAndTransfer(id));
+        return response("bed", service.findDtoById(id));
     }
 
     @PostMapping("/beds")
     public ResponseEntity<ResponseMsg> create(@Valid @RequestBody BedDto dto) {
-        return response("bed", service.saveAndTransfer(dto));
+        return response("bed", service.saveDto(dto));
     }
 
     @PutMapping("/beds")
     public ResponseEntity<ResponseMsg> update(@Valid @RequestBody BedDto dto) {
-        return response("bed", service.saveAndTransfer(dto));
+        return response("bed", service.saveDto(dto));
     }
 
     @PostMapping("/beds/excel")

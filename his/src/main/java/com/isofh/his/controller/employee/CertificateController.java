@@ -24,17 +24,17 @@ public class CertificateController extends BaseController {
 
     @GetMapping("/certificates/{id}")
     public ResponseEntity<ResponseMsg> getById(@PathVariable Long id) {
-        return response("certificate", service.getAndTransfer(id));
+        return response("certificate", service.findDtoById(id));
     }
 
     @PostMapping("/certificates")
     public ResponseEntity<ResponseMsg> create(@Valid @RequestBody CertificateDto dto) {
-        return response("certificate", service.saveAndTransfer(dto));
+        return response("certificate", service.saveDto(dto));
     }
 
     @PutMapping("/certificates")
     public ResponseEntity<ResponseMsg> update(@Valid @RequestBody CertificateDto dto) {
-        return response("certificate", service.saveAndTransfer(dto));
+        return response("certificate", service.saveDto(dto));
     }
 
     @PostMapping("/certificates/excel")

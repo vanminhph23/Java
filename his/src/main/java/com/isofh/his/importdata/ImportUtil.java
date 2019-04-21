@@ -1,5 +1,6 @@
 package com.isofh.his.importdata;
 
+import com.isofh.his.exception.DateTypeException;
 import com.isofh.his.exception.ParseValueException;
 import com.isofh.his.service.base.BaseService;
 import com.isofh.his.util.DateUtil;
@@ -67,6 +68,8 @@ public class ImportUtil {
                             } catch (ParseException e) {
                                 throw new ParseValueException("Cannot parse data: " + data + "header: " + header, e);
                             }
+                        } else if (dateType != null) {
+                            throw new DateTypeException("Invalid data type: " + dateType );
                         }
                     }
 

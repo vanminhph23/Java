@@ -24,17 +24,17 @@ public class DiseaseController extends BaseController {
 
     @GetMapping("/diseases/{id}")
     public ResponseEntity<ResponseMsg> getById(@PathVariable Long id) {
-        return response("disease", service.getAndTransfer(id));
+        return response("disease", service.findDtoById(id));
     }
 
     @PostMapping("/diseases")
     public ResponseEntity<ResponseMsg> create(@Valid @RequestBody DiseaseDto dto) {
-        return response("disease", service.saveAndTransfer(dto));
+        return response("disease", service.saveDto(dto));
     }
 
     @PutMapping("/diseases")
     public ResponseEntity<ResponseMsg> update(@Valid @RequestBody DiseaseDto dto) {
-        return response("disease", service.saveAndTransfer(dto));
+        return response("disease", service.saveDto(dto));
     }
 
     @PostMapping("/diseases/excel")

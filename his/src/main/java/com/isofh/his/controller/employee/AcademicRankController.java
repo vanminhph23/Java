@@ -24,17 +24,17 @@ public class AcademicRankController extends BaseController {
 
     @GetMapping("/academic-ranks/{id}")
     public ResponseEntity<ResponseMsg> getById(@PathVariable Long id) {
-        return response("academicRank", service.getAndTransfer(id));
+        return response("academicRank", service.findDtoById(id));
     }
 
     @PostMapping("/academic-ranks")
     public ResponseEntity<ResponseMsg> create(@Valid @RequestBody AcademicRankDto dto) {
-        return response("academicRank", service.saveAndTransfer(dto));
+        return response("academicRank", service.saveDto(dto));
     }
 
     @PutMapping("/academic-ranks")
     public ResponseEntity<ResponseMsg> update(@Valid @RequestBody AcademicRankDto dto) {
-        return response("academicRank", service.saveAndTransfer(dto));
+        return response("academicRank", service.saveDto(dto));
     }
 
     @PostMapping("/academic-ranks/excel")

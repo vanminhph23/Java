@@ -24,17 +24,17 @@ public class JobController extends BaseController {
 
     @GetMapping("/jobs/{id}")
     public ResponseEntity<ResponseMsg> getById(@PathVariable Long id) {
-        return response("job", service.getAndTransfer(id));
+        return response("job", service.findDtoById(id));
     }
 
     @PostMapping("/jobs")
     public ResponseEntity<ResponseMsg> create(@Valid @RequestBody JobDto dto) {
-        return response("job", service.saveAndTransfer(dto));
+        return response("job", service.saveDto(dto));
     }
 
     @PutMapping("/jobs")
     public ResponseEntity<ResponseMsg> update(@Valid @RequestBody JobDto dto) {
-        return response("job", service.saveAndTransfer(dto));
+        return response("job", service.saveDto(dto));
     }
 
     @PostMapping("/jobs/excel")

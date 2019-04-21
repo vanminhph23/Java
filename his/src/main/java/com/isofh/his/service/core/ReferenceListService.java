@@ -6,5 +6,5 @@ import com.isofh.his.repository.core.ReferenceListRepository;
 import com.isofh.his.service.base.BaseCategoryService;
 import com.isofh.his.service.base.BaseService;
 
-public interface ReferenceListService extends BaseCategoryService<ReferenceList, ReferenceListDto, ReferenceListRepository> {
+public interface ReferenceListService extends BaseService<ReferenceList, ReferenceListDto, ReferenceListRepository> {
 }

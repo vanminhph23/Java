@@ -1,6 +1,6 @@
 package com.isofh.his.model.core;
 
-import com.isofh.his.model.base.BaseCategoryModel;
+import com.isofh.his.model.base.BaseModel;
 import org.hibernate.envers.Audited;
 
 import javax.persistence.*;
@@ -8,7 +8,7 @@ import java.util.List;
 
 @Entity
 @Table(name = "his_reference_list")
-public class ReferenceList extends BaseCategoryModel {
+public class ReferenceList extends BaseModel {
     @Id
     @GeneratedValue(generator = "reference_list_generator")
     @SequenceGenerator(
@@ -18,15 +18,13 @@ public class ReferenceList extends BaseCategoryModel {
     )
     private Long id;
 
-    @Override
-    public Long getId() {
-        return this.id;
-    }
+    @Column(name = "value", nullable = false)
+    @Audited
+    private int value;
 
-    @Override
-    public void setId(Long id) {
-        this.id = id;
-    }
+    @Column(name = "name", nullable = false)
+    @Audited
+    private String name;
 
     @ManyToOne
     @JoinColumn(name = "reference_id")
@@ -43,6 +41,32 @@ public class ReferenceList extends BaseCategoryModel {
     @OneToMany
     @JoinColumn(name = "reference_list_id")
     private List<ReferenceListAccess> referenceListAccesses;
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public int getValue() {
+        return value;
+    }
+
+    public void setValue(int value) {
+        this.value = value;
+    }
+
+    @Override
+    public Long getId() {
+        return this.id;
+    }
+
+    @Override
+    public void setId(Long id) {
+        this.id = id;
+    }
 
     public String getDescription() {
         return description;

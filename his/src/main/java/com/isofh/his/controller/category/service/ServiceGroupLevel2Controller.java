@@ -24,17 +24,17 @@ public class ServiceGroupLevel2Controller extends BaseController {
 
     @GetMapping("/service-group-level2s/{id}")
     public ResponseEntity<ResponseMsg> getById(@PathVariable Long id) {
-        return response("serviceGroupLevel1", service.getAndTransfer(id));
+        return response("serviceGroupLevel1", service.findDtoById(id));
     }
 
     @PostMapping("/service-group-level2s")
     public ResponseEntity<ResponseMsg> create(@Valid @RequestBody ServiceGroupLevel2Dto dto) {
-        return response("serviceGroupLevel1", service.saveAndTransfer(dto));
+        return response("serviceGroupLevel1", service.saveDto(dto));
     }
 
     @PutMapping("/service-group-level2s")
     public ResponseEntity<ResponseMsg> update(@Valid @RequestBody ServiceGroupLevel2Dto dto) {
-        return response("serviceGroupLevel1", service.saveAndTransfer(dto));
+        return response("serviceGroupLevel1", service.saveDto(dto));
     }
 
     @PostMapping("/service-group-level2s/excel")

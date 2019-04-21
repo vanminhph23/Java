@@ -24,17 +24,17 @@ public class DepartmentController extends BaseController {
 
     @GetMapping("/departments/{id}")
     public ResponseEntity<ResponseMsg> getById(@PathVariable Long id) {
-        return response("department", service.getAndTransfer(id));
+        return response("department", service.findDtoById(id));
     }
 
     @PostMapping("/departments")
     public ResponseEntity<ResponseMsg> create(@Valid @RequestBody DepartmentDto dto) {
-        return response("department", service.saveAndTransfer(dto));
+        return response("department", service.saveDto(dto));
     }
 
     @PutMapping("/departments")
     public ResponseEntity<ResponseMsg> update(@Valid @RequestBody DepartmentDto dto) {
-        return response("department", service.saveAndTransfer(dto));
+        return response("department", service.saveDto(dto));
     }
 
     @PostMapping("/departments/excel")

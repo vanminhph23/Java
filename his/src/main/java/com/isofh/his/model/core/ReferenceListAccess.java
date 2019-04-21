@@ -1,13 +1,14 @@
 package com.isofh.his.model.core;
 
-import com.isofh.his.model.base.BaseCategoryModel;
+import com.isofh.his.model.base.BaseModel;
+import com.isofh.his.model.employee.Privilege;
 import org.hibernate.envers.Audited;
 
 import javax.persistence.*;
 
 @Entity
 @Table(name = "his_reference_list_access")
-public class ReferenceListAccess extends BaseCategoryModel {
+public class ReferenceListAccess extends BaseModel {
     @Id
     @GeneratedValue(generator = "reference_list_access_generator")
     @SequenceGenerator(
@@ -30,6 +31,10 @@ public class ReferenceListAccess extends BaseCategoryModel {
     @ManyToOne
     @JoinColumn(name = "reference_list_id")
     private ReferenceList referenceList;
+
+    @ManyToOne
+    @JoinColumn(name = "privilege_id")
+    private Privilege privilege;
 
     @Column(name = "description")
     @Audited
@@ -61,5 +66,13 @@ public class ReferenceListAccess extends BaseCategoryModel {
 
     public void setAccess(boolean access) {
         this.access = access;
+    }
+
+    public Privilege getPrivilege() {
+        return privilege;
+    }
+
+    public void setPrivilege(Privilege privilege) {
+        this.privilege = privilege;
     }
 }

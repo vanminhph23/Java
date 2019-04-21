@@ -22,16 +22,16 @@ public class PrivilegeController extends BaseController {
 
     @GetMapping("/privileges/{id}")
     public ResponseEntity<ResponseMsg> getById(@PathVariable Long id) {
-        return response("privilege", service.getAndTransfer(id));
+        return response("privilege", service.findDtoById(id));
     }
 
     @PostMapping("/privileges")
     public ResponseEntity<ResponseMsg> create(@Valid @RequestBody PrivilegeDto dto) {
-        return response("privilege", service.saveAndTransfer(dto));
+        return response("privilege", service.saveDto(dto));
     }
 
     @PutMapping("/privileges")
     public ResponseEntity<ResponseMsg> update(@Valid @RequestBody PrivilegeDto dto) {
-        return response("privilege", service.saveAndTransfer(dto));
+        return response("privilege", service.saveDto(dto));
     }
 }

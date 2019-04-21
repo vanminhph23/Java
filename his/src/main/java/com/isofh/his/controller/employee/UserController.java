@@ -22,16 +22,16 @@ public class UserController extends BaseController {
 
     @GetMapping("/users/{id}")
     public ResponseEntity<ResponseMsg> getById(@PathVariable Long id) {
-        return response("user", userService.getAndTransfer(id));
+        return response("user", userService.findDtoById(id));
     }
 
     @PostMapping("/users")
     public ResponseEntity<ResponseMsg> create(@Valid @RequestBody UserDto dto) {
-        return response("user", userService.saveAndTransfer(dto));
+        return response("user", userService.saveDto(dto));
     }
 
     @PutMapping("/users")
     public ResponseEntity<ResponseMsg> update(@Valid @RequestBody UserDto dto) {
-        return response("user", userService.saveAndTransfer(dto));
+        return response("user", userService.saveDto(dto));
     }
 }

@@ -24,17 +24,17 @@ public class HospitalController extends BaseController {
 
     @GetMapping("/hospitals/{id}")
     public ResponseEntity<ResponseMsg> getById(@PathVariable Long id) {
-        return response("hospital", service.getAndTransfer(id));
+        return response("hospital", service.findDtoById(id));
     }
 
     @PostMapping("/hospitals")
     public ResponseEntity<ResponseMsg> create(@Valid @RequestBody HospitalDto dto) {
-        return response("hospital", service.saveAndTransfer(dto));
+        return response("hospital", service.saveDto(dto));
     }
 
     @PutMapping("/hospitals")
     public ResponseEntity<ResponseMsg> update(@Valid @RequestBody HospitalDto dto) {
-        return response("hospital", service.saveAndTransfer(dto));
+        return response("hospital", service.saveDto(dto));
     }
 
     @PostMapping("/hospitals/excel")

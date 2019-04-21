@@ -22,16 +22,16 @@ public class ReferenceListController extends BaseController {
 
     @GetMapping("/reference-lists/{id}")
     public ResponseEntity<ResponseMsg> getById(@PathVariable Long id) {
-        return response("referenceList", service.getAndTransfer(id));
+        return response("referenceList", service.findDtoById(id));
     }
 
     @PostMapping("/reference-lists")
     public ResponseEntity<ResponseMsg> create(@Valid @RequestBody ReferenceListDto dto) {
-        return response("referenceList", service.saveAndTransfer(dto));
+        return response("referenceList", service.saveDto(dto));
     }
 
     @PutMapping("/reference-lists")
     public ResponseEntity<ResponseMsg> update(@Valid @RequestBody ReferenceListDto dto) {
-        return response("referenceList", service.saveAndTransfer(dto));
+        return response("referenceList", service.saveDto(dto));
     }
 }

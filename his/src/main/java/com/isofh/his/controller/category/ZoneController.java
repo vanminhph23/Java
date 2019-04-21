@@ -24,17 +24,17 @@ public class ZoneController extends BaseController {
 
     @GetMapping("/zones/{id}")
     public ResponseEntity<ResponseMsg> getById(@PathVariable Long id) {
-        return response("zone", service.getAndTransfer(id));
+        return response("zone", service.findDtoById(id));
     }
 
     @PostMapping("/zones")
     public ResponseEntity<ResponseMsg> create(@Valid @RequestBody ZoneDto dto) {
-        return response("zone", service.saveAndTransfer(dto));
+        return response("zone", service.saveDto(dto));
     }
 
     @PutMapping("/zones")
     public ResponseEntity<ResponseMsg> update(@Valid @RequestBody ZoneDto dto) {
-        return response("zone", service.saveAndTransfer(dto));
+        return response("zone", service.saveDto(dto));
     }
 
     @PostMapping("/zones/excel")

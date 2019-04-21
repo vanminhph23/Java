@@ -24,17 +24,17 @@ public class RoomController extends BaseController {
 
     @GetMapping("/rooms/{id}")
     public ResponseEntity<ResponseMsg> getById(@PathVariable Long id) {
-        return response("room", service.getAndTransfer(id));
+        return response("room", service.findDtoById(id));
     }
 
     @PostMapping("/rooms")
     public ResponseEntity<ResponseMsg> create(@Valid @RequestBody RoomDto dto) {
-        return response("room", service.saveAndTransfer(dto));
+        return response("room", service.saveDto(dto));
     }
 
     @PutMapping("/rooms")
     public ResponseEntity<ResponseMsg> update(@Valid @RequestBody RoomDto dto) {
-        return response("room", service.saveAndTransfer(dto));
+        return response("room", service.saveDto(dto));
     }
 
     @PostMapping("/rooms/excel")

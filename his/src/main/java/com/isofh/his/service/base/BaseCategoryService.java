@@ -14,7 +14,7 @@ public interface BaseCategoryService<X extends BaseCategoryModel, Y extends Base
     Z getRepository();
 
     @Override
-    default X save(X model) {
+    default void beforeSave(X model) {
         validateFields(model);
 
         autoFillFields(model);
@@ -22,8 +22,6 @@ public interface BaseCategoryService<X extends BaseCategoryModel, Y extends Base
         validateDuplicateValue(model);
 
         validateDuplicateName(model);
-
-        return (X) getRepository().save(model);
     }
 
     default void validateDuplicateValue(X model) {
@@ -49,6 +47,14 @@ public interface BaseCategoryService<X extends BaseCategoryModel, Y extends Base
 
     default X findByName(String name) {
         return (X) getRepository().findByName(name).orElse(null);
+    }
+
+    default Y findDtoByValue(String value) {
+        return getDto(findByValue(value));
+    }
+
+    default Y findDtoByName(String name) {
+        return getDto(findByName(name));
     }
 
     default Long findIdByValue(String value) {

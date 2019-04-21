@@ -25,25 +25,31 @@ public interface BaseService<X extends BaseModel, Y extends BaseDto, Z extends B
 
     Z getRepository();
 
-    X save(X model);
+    default X save(X model) {
+        beforeSave(model);
+        return (X) getRepository().save(model);
+    }
+
+    default void beforeSave(X model) {
+    }
 
     default X save(Y dto) {
         return save(getModel(dto));
     }
 
-    default Y saveAndTransfer(X model) {
+    default Y saveDto(X model) {
         return getDto(save(model));
     }
 
-    default Y saveAndTransfer(Y dto) {
-        return saveAndTransfer(getModel(dto));
+    default Y saveDto(Y dto) {
+        return saveDto(getModel(dto));
     }
 
     default X findById(Long id) {
         return (X) getRepository().findById(id).orElse(null);
     }
 
-    default Y getAndTransfer(Long id) {
+    default Y findDtoById(Long id) {
         return getDto(findById(id));
     }
 

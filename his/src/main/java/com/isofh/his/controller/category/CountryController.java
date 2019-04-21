@@ -24,17 +24,17 @@ public class CountryController extends BaseController {
 
     @GetMapping("/countries/{id}")
     public ResponseEntity<ResponseMsg> getById(@PathVariable Long id) {
-        return response("country", service.getAndTransfer(id));
+        return response("country", service.findDtoById(id));
     }
 
     @PostMapping("/countries")
     public ResponseEntity<ResponseMsg> create(@Valid @RequestBody CountryDto dto) {
-        return response("country", service.saveAndTransfer(dto));
+        return response("country", service.saveDto(dto));
     }
 
     @PutMapping("/countries")
     public ResponseEntity<ResponseMsg> update(@Valid @RequestBody CountryDto dto) {
-        return response("country", service.saveAndTransfer(dto));
+        return response("country", service.saveDto(dto));
     }
 
     @PostMapping("/countries/excel")

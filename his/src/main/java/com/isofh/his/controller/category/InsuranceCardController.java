@@ -24,17 +24,17 @@ public class InsuranceCardController extends BaseController {
 
     @GetMapping("/insurance-cards/{id}")
     public ResponseEntity<ResponseMsg> getById(@PathVariable Long id) {
-        return response("assuranceCard", service.getAndTransfer(id));
+        return response("assuranceCard", service.findDtoById(id));
     }
 
     @PostMapping("/insurance-cards")
     public ResponseEntity<ResponseMsg> create(@Valid @RequestBody InsuranceCardDto dto) {
-        return response("assuranceCard", service.saveAndTransfer(dto));
+        return response("assuranceCard", service.saveDto(dto));
     }
 
     @PutMapping("/insurance-cards")
     public ResponseEntity<ResponseMsg> update(@Valid @RequestBody InsuranceCardDto dto) {
-        return response("assuranceCard", service.saveAndTransfer(dto));
+        return response("assuranceCard", service.saveDto(dto));
     }
 
     @PostMapping("/insurance-cards/excel")

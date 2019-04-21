@@ -24,17 +24,17 @@ public class SpecialistController extends BaseController {
 
     @GetMapping("/specialists/{id}")
     public ResponseEntity<ResponseMsg> getById(@PathVariable Long id) {
-        return response("specialist", service.getAndTransfer(id));
+        return response("specialist", service.findDtoById(id));
     }
 
     @PostMapping("/specialists")
     public ResponseEntity<ResponseMsg> create(@Valid @RequestBody SpecialistDto dto) {
-        return response("specialist", service.saveAndTransfer(dto));
+        return response("specialist", service.saveDto(dto));
     }
 
     @PutMapping("/specialists")
     public ResponseEntity<ResponseMsg> update(@Valid @RequestBody SpecialistDto dto) {
-        return response("specialist", service.saveAndTransfer(dto));
+        return response("specialist", service.saveDto(dto));
     }
 
     @PostMapping("/specialists/excel")

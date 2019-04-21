@@ -22,16 +22,16 @@ public class RoleController extends BaseController {
 
     @GetMapping("/roles/{id}")
     public ResponseEntity<ResponseMsg> getById(@PathVariable Long id) {
-        return response("role", service.getAndTransfer(id));
+        return response("role", service.findDtoById(id));
     }
 
     @PostMapping("/roles")
     public ResponseEntity<ResponseMsg> create(@Valid @RequestBody RoleDto dto) {
-        return response("role", service.saveAndTransfer(dto));
+        return response("role", service.saveDto(dto));
     }
 
     @PutMapping("/roles")
     public ResponseEntity<ResponseMsg> update(@Valid @RequestBody RoleDto dto) {
-        return response("role", service.saveAndTransfer(dto));
+        return response("role", service.saveDto(dto));
     }
 }

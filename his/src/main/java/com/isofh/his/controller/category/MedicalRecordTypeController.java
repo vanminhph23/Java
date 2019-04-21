@@ -24,17 +24,17 @@ public class MedicalRecordTypeController extends BaseController {
 
     @GetMapping("/medical-record-types/{id}")
     public ResponseEntity<ResponseMsg> getById(@PathVariable Long id) {
-        return response("medicalRecordType", service.getAndTransfer(id));
+        return response("medicalRecordType", service.findDtoById(id));
     }
 
     @PostMapping("/medical-record-types")
     public ResponseEntity<ResponseMsg> create(@Valid @RequestBody MedicalRecordTypeDto dto) {
-        return response("medicalRecordType", service.saveAndTransfer(dto));
+        return response("medicalRecordType", service.saveDto(dto));
     }
 
     @PutMapping("/medical-record-types")
     public ResponseEntity<ResponseMsg> update(@Valid @RequestBody MedicalRecordTypeDto dto) {
-        return response("medicalRecordType", service.saveAndTransfer(dto));
+        return response("medicalRecordType", service.saveDto(dto));
     }
 
     @PostMapping("/medical-record-types/excel")
