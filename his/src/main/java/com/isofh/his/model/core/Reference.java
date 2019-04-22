@@ -7,7 +7,7 @@ import javax.persistence.*;
 import java.util.List;
 
 @Entity
-@Table(name = "his_reference")
+@Table(name = "his_reference", uniqueConstraints={@UniqueConstraint(columnNames = {"value", "deleted"})})
 public class Reference extends BaseCategoryModel {
     @Id
     @GeneratedValue(generator = "reference_generator")

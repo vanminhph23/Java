@@ -1,9 +1,6 @@
 package com.isofh.his.dto.core;
 
 import com.isofh.his.dto.base.BaseDto;
-import com.isofh.his.model.core.ReferenceListAccess;
-
-import java.util.List;
 
 public class ReferenceListDto extends BaseDto {
 
@@ -14,15 +11,11 @@ public class ReferenceListDto extends BaseDto {
 
     private String name;
 
-    private ReferenceDto referenceDto;
-
     private Long referenceId;
 
     private String description;
 
     private boolean strictAccess;
-
-    private List<ReferenceListAccess> referenceListAccesses;
 
     public int getValue() {
         return value;
@@ -38,14 +31,6 @@ public class ReferenceListDto extends BaseDto {
 
     public void setName(String name) {
         this.name = name;
-    }
-
-    public ReferenceDto getReferenceDto() {
-        return referenceDto;
-    }
-
-    public void setReferenceDto(ReferenceDto referenceDto) {
-        this.referenceDto = referenceDto;
     }
 
     public Long getReferenceId() {
@@ -70,13 +55,5 @@ public class ReferenceListDto extends BaseDto {
 
     public void setStrictAccess(boolean strictAccess) {
         this.strictAccess = strictAccess;
-    }
-
-    public List<ReferenceListAccess> getReferenceListAccesses() {
-        return referenceListAccesses;
-    }
-
-    public void setReferenceListAccesses(List<ReferenceListAccess> referenceListAccesses) {
-        this.referenceListAccesses = referenceListAccesses;
     }
 }

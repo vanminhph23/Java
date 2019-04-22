@@ -7,7 +7,7 @@ import javax.persistence.*;
 import java.util.List;
 
 @Entity
-@Table(name = "his_reference_list")
+@Table(name = "his_reference_list", uniqueConstraints={@UniqueConstraint(columnNames = {"reference_id", "value", "deleted"})})
 public class ReferenceList extends BaseModel {
     @Id
     @GeneratedValue(generator = "reference_list_generator")

@@ -9,16 +9,16 @@ public class ReferenceDto extends BaseCategoryDto {
     public ReferenceDto() {
     }
 
-    private List<ReferenceListDto> referenceListDtos;
+    private List<ReferenceListDto> referenceLists;
 
     private String description;
 
-    public List<ReferenceListDto> getReferenceListDtos() {
-        return referenceListDtos;
+    public List<ReferenceListDto> getReferenceLists() {
+        return referenceLists;
     }
 
-    public void setReferenceListDtos(List<ReferenceListDto> referenceListDtos) {
-        this.referenceListDtos = referenceListDtos;
+    public void setReferenceLists(List<ReferenceListDto> referenceLists) {
+        this.referenceLists = referenceLists;
     }
 
     public String getDescription() {

@@ -27,8 +27,8 @@ public class ReferenceController extends BaseController {
         return response("reference", service.findDtoById(id));
     }
 
-    @GetMapping("/references/{value}")
-    public ResponseEntity<ResponseMsg> getById(@PathVariable String value) {
+    @GetMapping("/references")
+    public ResponseEntity<ResponseMsg> getByValue(@RequestParam String value) {
         return response("reference", service.findDtoByValue(value));
     }
 
