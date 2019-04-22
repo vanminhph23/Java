@@ -1,6 +1,7 @@
 package com.isofh.his.service.core;
 
 import com.isofh.his.dto.core.ReferenceListDto;
+import com.isofh.his.importdata.Header;
 import com.isofh.his.model.core.ReferenceList;
 import com.isofh.his.repository.core.ReferenceListRepository;
 import com.isofh.his.storage.StorageService;
@@ -26,6 +27,9 @@ public class ReferenceListServiceImpl implements ReferenceListService {
     @Autowired
     private StorageService storageService;
 
+    @Autowired
+    private ReferenceService referenceService;
+
     @Override
     public StorageService getStorageService() {
         return storageService;
@@ -49,5 +53,18 @@ public class ReferenceListServiceImpl implements ReferenceListService {
         }
 
         return modelMapper;
+    }
+
+    @Override
+    public Long getReferenceId(Header header, String value) {
+        if ("referenceId".equals(header.getColumnName())) {
+            if ("value".equals(header.getLinkColumnName())) {
+                return referenceService.findIdByValue(value);
+            } else if ("value".equals(header.getLinkColumnName())) {
+                return referenceService.findIdByName(value);
+            }
+        }
+
+        return null;
     }
 }

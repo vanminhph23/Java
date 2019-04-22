@@ -58,7 +58,7 @@ public class ZoneServiceImpl implements ZoneService {
     }
 
     @Override
-    public Long convert(Header header, String value) {
+    public Long getReferenceId(Header header, String value) {
         if (value == null) {
             return null;
         }

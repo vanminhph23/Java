@@ -47,7 +47,7 @@ public class ImportUtil {
                 Object value = null;
                 if (data != null) {
                     if (header.getLinkColumnName() != null) {
-                        value = service.convert(header, data);
+                        value = service.getReferenceId(header, data);
                     } else {
                         String dateType = dataTypes.get(j);
 

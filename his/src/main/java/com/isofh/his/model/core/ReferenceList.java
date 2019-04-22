@@ -27,14 +27,14 @@ public class ReferenceList extends BaseModel {
     private String name;
 
     @ManyToOne
-    @JoinColumn(name = "reference_id")
+    @JoinColumn(name = "reference_id", nullable = false)
     private Reference reference;
 
     @Column(name = "description")
     @Audited
     private String description;
 
-    @Column(name = "strict_access")
+    @Column(name = "strict_access", nullable = false)
     @Audited
     private boolean strictAccess;
 
