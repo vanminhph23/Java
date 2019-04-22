@@ -56,6 +56,16 @@ public class ReferenceListServiceImpl implements ReferenceListService {
     }
 
     @Override
+    public ReferenceList findByReferenceValueAndValue(String referenceValue, int value) {
+        return repository.findByReferenceValueAndValue(referenceValue, value);
+    }
+
+    @Override
+    public ReferenceListDto findDtoByReferenceValueAndValue(String referenceValue, int value) {
+        return getDto(findByReferenceValueAndValue(referenceValue, value));
+    }
+
+    @Override
     public Long getReferenceId(Header header, String value) {
         if ("referenceId".equals(header.getColumnName())) {
             if ("value".equals(header.getLinkColumnName())) {

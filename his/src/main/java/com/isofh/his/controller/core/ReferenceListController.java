@@ -27,6 +27,11 @@ public class ReferenceListController extends BaseController {
         return response("referenceList", service.findDtoById(id));
     }
 
+    @GetMapping("/reference-lists")
+    public ResponseEntity<ResponseMsg> getByValue(@RequestParam String referenceValue, @RequestParam int value) {
+        return response("referenceList", service.findDtoByReferenceValueAndValue(referenceValue, value));
+    }
+
     @PostMapping("/reference-lists")
     public ResponseEntity<ResponseMsg> create(@Valid @RequestBody ReferenceListDto dto) {
         return response("referenceList", service.saveDto(dto));

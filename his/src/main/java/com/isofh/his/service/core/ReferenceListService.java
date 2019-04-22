@@ -7,4 +7,7 @@ import com.isofh.his.service.base.BaseCategoryService;
 import com.isofh.his.service.base.BaseService;
 
 public interface ReferenceListService extends BaseService<ReferenceList, ReferenceListDto, ReferenceListRepository> {
+    ReferenceList findByReferenceValueAndValue(String referenceValue, int value);
+
+    ReferenceListDto findDtoByReferenceValueAndValue(String referenceValue, int value);
 }
