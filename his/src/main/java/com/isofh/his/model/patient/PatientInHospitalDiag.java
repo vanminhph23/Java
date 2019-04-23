@@ -6,14 +6,14 @@ import org.hibernate.envers.Audited;
 import javax.persistence.*;
 
 @Entity
-@Table(name = "his_patient_diagnostic")
-public class PatientDiagnostic extends BasePatientModel {
+@Table(name = "his_patient_in_hospital_diag")
+public class PatientInHospitalDiag extends BasePatientModel {
 
     @Id
-    @GeneratedValue(generator = "patient_diagnostic_generator")
+    @GeneratedValue(generator = "patient_in_hospital_diag_generator")
     @SequenceGenerator(
-            name = "patient_diagnostic_generator",
-            sequenceName = "patient_diagnostic_sq",
+            name = "patient_in_hospital_diag_generator",
+            sequenceName = "patient_in_hospital_diag_sq",
             initialValue = 1000000
     )
     private Long id;
@@ -26,22 +26,17 @@ public class PatientDiagnostic extends BasePatientModel {
     @JoinColumn(name = "patient_history_id", insertable = false, updatable = false)
     private PatientHistory patientHistory;
 
-    @Column(name = "first_diagnostic")
+    @Column(name = "in_hospital_disease_diagnostic")
     @Audited
-    private String firstDiagnostic;
+    private String inHospitalDiseaseDiagnostic;
 
-    @Column(name = "diagnostic")
+    @Column(name = "prev_diagnostic")
     @Audited
-    private String diagnostic;
+    private String prevDiagnostic;
 
-    // ICD, separate ID by ','
-    @Column(name = "disease_diagnostic")
+    @Column(name = "examination_reason")
     @Audited
-    private String diseaseDiagnostic;
-
-    @Column(name = "other_disease_diagnostic")
-    @Audited
-    private String otherDiseaseDiagnostic;
+    private String examinationReason;
 
     @Override
     public Long getId() {

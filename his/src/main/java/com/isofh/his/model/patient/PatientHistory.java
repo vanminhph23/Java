@@ -172,21 +172,25 @@ public class PatientHistory extends BaseModel {
     private PatientInsurance patientInsurance;
 
     // disease
-    @Column(name = "in_hospital_disease_diagnostic")
+    @Column(name = "patient_in_hospital_diag_id", unique = true)
     @Audited
-    private String inHospitalDiseaseDiagnostic;
+    private PatientInHospitalDiag patientInHospitalDiagId;
 
-    @Column(name = "prev_diagnostic")
-    @Audited
-    private String prevDiagnostic;
-
-    @Column(name = "patient_diagnostic_id", unique = true)
+    @Column(name = "patient_in_hospital_diag_id", insertable = false, updatable = false)
     @Audited
     private Long patientDiagnosticId;
 
     @OneToOne
+    @JoinColumn(name = "patient_diag_id", insertable = false, updatable = false)
+    private PatientDiag patientDiag;
+
+    @Column(name = "patient_diag_id", unique = true)
+    @Audited
+    private Long patientDiagId;
+
+    @OneToOne
     @JoinColumn(name = "patient_diagnostic_id", insertable = false, updatable = false)
-    private PatientDiagnostic patientDiagnostic;
+    private PatientDiag patientDiagnostic;
 
     //Out hospital
     @Column(name = "discharge_type")
