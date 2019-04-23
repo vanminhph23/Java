@@ -27,7 +27,7 @@ public class PatientHistory extends BaseModel {
     @Audited
     private String patientName;
 
-    @Column(name = "medical_record_no", nullable = false, length = 7, unique = true)
+    @Column(name = "medical_record_no", length = 7, unique = true)
     @Audited
     private String medicalRecordNo;
 
@@ -84,20 +84,12 @@ public class PatientHistory extends BaseModel {
     @Audited
     private String address;
 
-    @OneToOne
-    @JoinColumn(name = "patient_address_id")
+    @OneToOne(cascade = {CascadeType.ALL})
+    @JoinColumn(name = "patient_address_id", unique = true)
     private PatientAddress patientAddress;
 
-    @Column(name = "patient_address_id", unique = true, insertable = false, updatable = false)
-    @Audited
-    private Long patientAddressId;
-
-    @Column(name = "patient_guardian_id", unique = true, insertable = false, updatable = false)
-    @Audited
-    private Long patientGuardianId;
-
     @ManyToOne
-    @JoinColumn(name = "patient_guardian_id")
+    @JoinColumn(name = "patient_guardian_id", unique = true)
     private PatientGuardian patientGuardian;
 
     @Column(name = "job_id")
@@ -163,12 +155,7 @@ public class PatientHistory extends BaseModel {
     private int patientType;
 
     // insurance info
-    @Column(name = "patient_insurance_id", unique = true, insertable = false, updatable = false)
-    @Audited
-    private Long patientInsuranceId;
-
-    @OneToOne
-    @JoinColumn(name = "patient_insurance_id")
+    @JoinColumn(name = "patient_insurance_id", unique = true)
     private PatientInsurance patientInsurance;
 
     // disease
@@ -397,22 +384,6 @@ public class PatientHistory extends BaseModel {
         this.patientAddress = patientAddress;
     }
 
-    public Long getPatientAddressId() {
-        return patientAddressId;
-    }
-
-    public void setPatientAddressId(Long patientAddressId) {
-        this.patientAddressId = patientAddressId;
-    }
-
-    public Long getPatientGuardianId() {
-        return patientGuardianId;
-    }
-
-    public void setPatientGuardianId(Long patientGuardianId) {
-        this.patientGuardianId = patientGuardianId;
-    }
-
     public PatientGuardian getPatientGuardian() {
         return patientGuardian;
     }
@@ -539,14 +510,6 @@ public class PatientHistory extends BaseModel {
 
     public void setPatientType(int patientType) {
         this.patientType = patientType;
-    }
-
-    public Long getPatientInsuranceId() {
-        return patientInsuranceId;
-    }
-
-    public void setPatientInsuranceId(Long patientInsuranceId) {
-        this.patientInsuranceId = patientInsuranceId;
     }
 
     public PatientInsurance getPatientInsurance() {

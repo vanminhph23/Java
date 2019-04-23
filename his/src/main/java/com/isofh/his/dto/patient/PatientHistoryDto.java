@@ -39,15 +39,15 @@ public class PatientHistoryDto extends BaseDto {
 
     private String address;
 
-    private Long patientAddressCountryId;
+    private Long countryId;
 
-    private Long patientAddressProvinceId;
+    private Long provinceId;
 
-    private Long patientAddressDistrictId;
+    private Long districtId;
 
-    private Long patientAddressZoneId;
+    private Long zoneId;
 
-    private String patientAddressDetailAddress;
+    private String detail;
 
     private String guardianPhone;
 
@@ -285,44 +285,44 @@ public class PatientHistoryDto extends BaseDto {
         this.address = address;
     }
 
-    public Long getPatientAddressCountryId() {
-        return patientAddressCountryId;
+    public Long getCountryId() {
+        return countryId;
     }
 
-    public void setPatientAddressCountryId(Long patientAddressCountryId) {
-        this.patientAddressCountryId = patientAddressCountryId;
+    public void setCountryId(Long countryId) {
+        this.countryId = countryId;
     }
 
-    public Long getPatientAddressProvinceId() {
-        return patientAddressProvinceId;
+    public Long getProvinceId() {
+        return provinceId;
     }
 
-    public void setPatientAddressProvinceId(Long patientAddressProvinceId) {
-        this.patientAddressProvinceId = patientAddressProvinceId;
+    public void setProvinceId(Long provinceId) {
+        this.provinceId = provinceId;
     }
 
-    public Long getPatientAddressDistrictId() {
-        return patientAddressDistrictId;
+    public Long getDistrictId() {
+        return districtId;
     }
 
-    public void setPatientAddressDistrictId(Long patientAddressDistrictId) {
-        this.patientAddressDistrictId = patientAddressDistrictId;
+    public void setDistrictId(Long districtId) {
+        this.districtId = districtId;
     }
 
-    public Long getPatientAddressZoneId() {
-        return patientAddressZoneId;
+    public Long getZoneId() {
+        return zoneId;
     }
 
-    public void setPatientAddressZoneId(Long patientAddressZoneId) {
-        this.patientAddressZoneId = patientAddressZoneId;
+    public void setZoneId(Long zoneId) {
+        this.zoneId = zoneId;
     }
 
-    public String getPatientAddressDetailAddress() {
-        return patientAddressDetailAddress;
+    public String getDetail() {
+        return detail;
     }
 
-    public void setPatientAddressDetailAddress(String patientAddressDetailAddress) {
-        this.patientAddressDetailAddress = patientAddressDetailAddress;
+    public void setDetail(String detail) {
+        this.detail = detail;
     }
 
     public String getGuardianPhone() {

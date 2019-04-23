@@ -22,14 +22,6 @@ public class PatientAddress extends BasePatientModel {
     )
     private Long id;
 
-    @Column(name = "patient_history_id", unique = true)
-    @Audited
-    private Long patientHistoryId;
-
-    @OneToOne
-    @JoinColumn(name = "patient_history_id", insertable = false, updatable = false)
-    private PatientHistory patientHistory;
-
     @Column(name = "country_id")
     @Audited
     private Long countryId;
@@ -62,9 +54,9 @@ public class PatientAddress extends BasePatientModel {
     @JoinColumn(name = "zone_id", insertable = false, updatable = false)
     private Zone zone;
 
-    @Column(name = "detail_address")
+    @Column(name = "detail")
     @Audited
-    private String detailAddress;
+    private String detail;
 
     @Override
     public Long getId() {
@@ -74,5 +66,77 @@ public class PatientAddress extends BasePatientModel {
     @Override
     public void setId(Long id) {
         this.id = id;
+    }
+
+    public Long getCountryId() {
+        return countryId;
+    }
+
+    public void setCountryId(Long countryId) {
+        this.countryId = countryId;
+    }
+
+    public Country getCountry() {
+        return country;
+    }
+
+    public void setCountry(Country country) {
+        this.country = country;
+    }
+
+    public Long getProvinceId() {
+        return provinceId;
+    }
+
+    public void setProvinceId(Long provinceId) {
+        this.provinceId = provinceId;
+    }
+
+    public Province getProvince() {
+        return province;
+    }
+
+    public void setProvince(Province province) {
+        this.province = province;
+    }
+
+    public Long getDistrictId() {
+        return districtId;
+    }
+
+    public void setDistrictId(Long districtId) {
+        this.districtId = districtId;
+    }
+
+    public District getDistrict() {
+        return district;
+    }
+
+    public void setDistrict(District district) {
+        this.district = district;
+    }
+
+    public Long getZoneId() {
+        return zoneId;
+    }
+
+    public void setZoneId(Long zoneId) {
+        this.zoneId = zoneId;
+    }
+
+    public Zone getZone() {
+        return zone;
+    }
+
+    public void setZone(Zone zone) {
+        this.zone = zone;
+    }
+
+    public String getDetail() {
+        return detail;
+    }
+
+    public void setDetail(String detail) {
+        this.detail = detail;
     }
 }

@@ -20,14 +20,6 @@ public class PatientInsurance extends BasePatientModel {
     )
     private Long id;
 
-    @Column(name = "patient_history_id", unique = true)
-    @Audited
-    private Long patientHistoryId;
-
-    @OneToOne
-    @JoinColumn(name = "patient_history_id", insertable = false, updatable = false)
-    private PatientHistory patientHistory;
-
     @Column(name = "insurance_address")
     @Audited
     private String insuranceAddress;
@@ -106,11 +98,163 @@ public class PatientInsurance extends BasePatientModel {
 
     @Override
     public Long getId() {
-        return null;
+        return id;
     }
 
     @Override
     public void setId(Long id) {
+        this.id = id;
+    }
 
+    public String getInsuranceAddress() {
+        return insuranceAddress;
+    }
+
+    public void setInsuranceAddress(String insuranceAddress) {
+        this.insuranceAddress = insuranceAddress;
+    }
+
+    public Timestamp getInsuranceFromDate() {
+        return insuranceFromDate;
+    }
+
+    public void setInsuranceFromDate(Timestamp insuranceFromDate) {
+        this.insuranceFromDate = insuranceFromDate;
+    }
+
+    public Timestamp getInsuranceToDate() {
+        return insuranceToDate;
+    }
+
+    public void setInsuranceToDate(Timestamp insuranceToDate) {
+        this.insuranceToDate = insuranceToDate;
+    }
+
+    public String getInsuranceNumber() {
+        return insuranceNumber;
+    }
+
+    public void setInsuranceNumber(String insuranceNumber) {
+        this.insuranceNumber = insuranceNumber;
+    }
+
+    public int getInsurancePercent() {
+        return insurancePercent;
+    }
+
+    public void setInsurancePercent(int insurancePercent) {
+        this.insurancePercent = insurancePercent;
+    }
+
+    public int getInsuranceRegAtHospitalId() {
+        return insuranceRegAtHospitalId;
+    }
+
+    public void setInsuranceRegAtHospitalId(int insuranceRegAtHospitalId) {
+        this.insuranceRegAtHospitalId = insuranceRegAtHospitalId;
+    }
+
+    public Hospital getInsuranceRegAtHospital() {
+        return insuranceRegAtHospital;
+    }
+
+    public void setInsuranceRegAtHospital(Hospital insuranceRegAtHospital) {
+        this.insuranceRegAtHospital = insuranceRegAtHospital;
+    }
+
+    public int getPatientFromHospitalId() {
+        return patientFromHospitalId;
+    }
+
+    public void setPatientFromHospitalId(int patientFromHospitalId) {
+        this.patientFromHospitalId = patientFromHospitalId;
+    }
+
+    public Hospital getPatientFromHospital() {
+        return patientFromHospital;
+    }
+
+    public void setPatientFromHospital(Hospital patientFromHospital) {
+        this.patientFromHospital = patientFromHospital;
+    }
+
+    public boolean isEmergency() {
+        return emergency;
+    }
+
+    public void setEmergency(boolean emergency) {
+        this.emergency = emergency;
+    }
+
+    public boolean isAppointment() {
+        return appointment;
+    }
+
+    public void setAppointment(boolean appointment) {
+        this.appointment = appointment;
+    }
+
+    public boolean isExtra() {
+        return extra;
+    }
+
+    public void setExtra(boolean extra) {
+        this.extra = extra;
+    }
+
+    public boolean isReferral() {
+        return referral;
+    }
+
+    public void setReferral(boolean referral) {
+        this.referral = referral;
+    }
+
+    public Timestamp getTimeContinuity5Year() {
+        return timeContinuity5Year;
+    }
+
+    public void setTimeContinuity5Year(Timestamp timeContinuity5Year) {
+        this.timeContinuity5Year = timeContinuity5Year;
+    }
+
+    public boolean isContinuity5Year() {
+        return continuity5Year;
+    }
+
+    public void setContinuity5Year(boolean continuity5Year) {
+        this.continuity5Year = continuity5Year;
+    }
+
+    public boolean isHundredPercentHightech() {
+        return hundredPercentHightech;
+    }
+
+    public void setHundredPercentHightech(boolean hundredPercentHightech) {
+        this.hundredPercentHightech = hundredPercentHightech;
+    }
+
+    public boolean isNotCopayment() {
+        return notCopayment;
+    }
+
+    public void setNotCopayment(boolean notCopayment) {
+        this.notCopayment = notCopayment;
+    }
+
+    public Timestamp getNotCopaymentDate() {
+        return notCopaymentDate;
+    }
+
+    public void setNotCopaymentDate(Timestamp notCopaymentDate) {
+        this.notCopaymentDate = notCopaymentDate;
+    }
+
+    public int getRegionValue() {
+        return regionValue;
+    }
+
+    public void setRegionValue(int regionValue) {
+        this.regionValue = regionValue;
     }
 }
