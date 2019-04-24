@@ -27,10 +27,10 @@ public class PatientHistoryServiceImpl implements PatientHistoryService {
     private PatientInsuranceRepository insuranceRepository;
 
     @Autowired
-    private PatientAddressRepository addressRepository;
+    private PatientAddressService addressService;
 
     @Autowired
-    private PatientVitalSignRepository vitalSignRepository;
+    private PatientVitalSignService vitalSignService;
 
     @Autowired
     private PatientHistoryRepository repository;
@@ -82,6 +82,10 @@ public class PatientHistoryServiceImpl implements PatientHistoryService {
 
     @Override
     public void beforeSave(PatientHistory model) {
+        if (model.getPatientAddress() != null) {
+            addressService.save(model.getPatientAddress());
+        }
+
         model.getPatientAddress().setPatientHistory(model);
     }
 }

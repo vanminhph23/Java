@@ -8,7 +8,7 @@ import java.sql.Timestamp;
 
 @Entity
 @Table(name = "his_patient_type", indexes = {@Index(name = "pt_patient_history_id", columnList = "patient_history_id")})
-public class PaientType extends BasePatientModel {
+public class PatientType extends BasePatientModel {
 
     @Id
     @GeneratedValue(generator = "patient_type_generator")

@@ -25,6 +25,7 @@ public interface BaseService<X extends BaseModel, Y extends BaseDto, Z extends B
 
     Z getRepository();
 
+    @Transactional
     default X save(X model) {
         beforeSave(model);
         return (X) getRepository().save(model);

@@ -1,0 +1,56 @@
+package com.isofh.his.service.patient;
+
+import com.isofh.his.dto.patient.PatientGuardianDto;
+import com.isofh.his.dto.patient.PatientInHospitalDiagDto;
+import com.isofh.his.model.patient.PatientGuardian;
+import com.isofh.his.model.patient.PatientInHospitalDiag;
+import com.isofh.his.repository.patient.PatientGuardianRepository;
+import com.isofh.his.repository.patient.PatientInHospitalDiagRepository;
+import com.isofh.his.storage.StorageService;
+import org.modelmapper.ModelMapper;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+@Service
+public class PatientInHospitalDiagServiceImpl implements PatientInHospitalDiagService {
+
+    private final static Logger logger = LoggerFactory.getLogger(PatientInHospitalDiagServiceImpl.class);
+
+    @Autowired
+    private PatientInHospitalDiagRepository repository;
+
+    @Override
+    public PatientInHospitalDiagRepository getRepository() {
+        return repository;
+    }
+
+    @Autowired
+    private StorageService storageService;
+
+    @Override
+    public StorageService getStorageService() {
+        return storageService;
+    }
+
+    @Override
+    public Class<PatientInHospitalDiag> getModelClass() {
+        return PatientInHospitalDiag.class;
+    }
+
+    @Override
+    public Class<PatientInHospitalDiagDto> getDtoClass() {
+        return PatientInHospitalDiagDto.class;
+    }
+
+    ModelMapper modelMapper = null;
+    @Override
+    public ModelMapper getModelMapper() {
+        if (modelMapper == null) {
+            modelMapper = new ModelMapper();
+        }
+
+        return modelMapper;
+    }
+}
