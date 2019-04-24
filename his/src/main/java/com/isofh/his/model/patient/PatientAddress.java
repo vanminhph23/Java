@@ -22,6 +22,10 @@ public class PatientAddress extends BasePatientModel {
     )
     private Long id;
 
+    @OneToOne
+    @JoinColumn(name = "patient_history_id", unique = true, nullable = false)
+    private PatientHistory patientHistory;
+
     @Column(name = "country_id")
     @Audited
     private Long countryId;
@@ -66,6 +70,14 @@ public class PatientAddress extends BasePatientModel {
     @Override
     public void setId(Long id) {
         this.id = id;
+    }
+
+    public PatientHistory getPatientHistory() {
+        return patientHistory;
+    }
+
+    public void setPatientHistory(PatientHistory patientHistory) {
+        this.patientHistory = patientHistory;
     }
 
     public Long getCountryId() {

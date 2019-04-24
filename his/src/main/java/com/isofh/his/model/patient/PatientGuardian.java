@@ -17,12 +17,8 @@ public class PatientGuardian extends BasePatientModel {
     )
     private Long id;
 
-    @Column(name = "patient_history_id", unique = true)
-    @Audited
-    private Long patientHistoryId;
-
     @OneToOne
-    @JoinColumn(name = "patient_history_id", insertable = false, updatable = false)
+    @JoinColumn(name = "patient_history_id", unique = true)
     private PatientHistory patientHistory;
 
     @Column(name = "phone")

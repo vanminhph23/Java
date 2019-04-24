@@ -84,13 +84,11 @@ public class PatientHistory extends BaseModel {
     @Audited
     private String address;
 
-    @OneToOne(cascade = {CascadeType.ALL})
-    @JoinColumn(name = "patient_address_id", unique = true)
+    @OneToOne(mappedBy = "patientHistory")
     private PatientAddress patientAddress;
 
-    @ManyToOne
-    @JoinColumn(name = "patient_guardian_id", unique = true)
-    private PatientGuardian patientGuardian;
+//    @OneToOne(mappedBy = "patientHistory", cascade = {CascadeType.ALL})
+//    private PatientGuardian patientGuardian;
 
     @Column(name = "job_id")
     @Audited
@@ -128,26 +126,16 @@ public class PatientHistory extends BaseModel {
     @Audited
     private boolean advancePayment;
 
-    @Column(name = "patient_vital_sign_id", unique = true, insertable = false, updatable = false)
-    @Audited
-    private Long patientVitalSignId;
-
-    @OneToOne
-    @JoinColumn(name = "patient_vital_sign_id")
-    private PatientVitalSign patientVitalSign;
+//    @OneToOne(mappedBy = "patientHistory", cascade = {CascadeType.ALL})
+//    private PatientVitalSign patientVitalSign;
 
     // common info
     @Column(name = "blood_type")
     @Audited
     private int bloodType;
 
-    @Column(name = "patient_medical_history_id", unique = true, insertable = false, updatable = false)
-    @Audited
-    private Long medicalHistoryId;
-
-    @OneToOne
-    @JoinColumn(name = "patient_medical_history_id")
-    private PatientMedicalHistory medicalHistory;
+//    @OneToOne(mappedBy = "patientHistory", cascade = {CascadeType.ALL})
+//    private PatientMedicalHistory medicalHistory;
 
     // patient type
     @Column(name = "patient_type")
@@ -155,25 +143,16 @@ public class PatientHistory extends BaseModel {
     private int patientType;
 
     // insurance info
-    @JoinColumn(name = "patient_insurance_id", unique = true)
-    private PatientInsurance patientInsurance;
+//    @OneToOne( optional = false, orphanRemoval = true, fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+//    @JoinColumn(name = "patient_insurance_id")
+//    private PatientInsurance patientInsurance;
 
     // disease
-    @Column(name = "patient_in_hospital_diag_id", unique = true, insertable = false, updatable = false)
-    @Audited
-    private PatientInHospitalDiag patientInHospitalDiagId;
+//    @OneToOne(mappedBy = "patientHistory", cascade = {CascadeType.ALL})
+//    private PatientInHospitalDiag patientInHospitalDiagId;
 
-    @Column(name = "patient_in_hospital_diag_id")
-    @Audited
-    private Long patientDiagnosticId;
-
-    @Column(name = "patient_diag_id", unique = true, insertable = false, updatable = false)
-    @Audited
-    private Long patientDiagId;
-
-    @OneToOne
-    @JoinColumn(name = "patient_diag_id")
-    private PatientDiag patientDiag;
+//    @OneToOne(mappedBy = "patientHistory", cascade = {CascadeType.ALL})
+//    private PatientDiag patientDiag;
 
     //Out hospital
     @Column(name = "discharge_type")
@@ -384,14 +363,6 @@ public class PatientHistory extends BaseModel {
         this.patientAddress = patientAddress;
     }
 
-    public PatientGuardian getPatientGuardian() {
-        return patientGuardian;
-    }
-
-    public void setPatientGuardian(PatientGuardian patientGuardian) {
-        this.patientGuardian = patientGuardian;
-    }
-
     public Long getJobId() {
         return jobId;
     }
@@ -464,22 +435,6 @@ public class PatientHistory extends BaseModel {
         this.advancePayment = advancePayment;
     }
 
-    public Long getPatientVitalSignId() {
-        return patientVitalSignId;
-    }
-
-    public void setPatientVitalSignId(Long patientVitalSignId) {
-        this.patientVitalSignId = patientVitalSignId;
-    }
-
-    public PatientVitalSign getPatientVitalSign() {
-        return patientVitalSign;
-    }
-
-    public void setPatientVitalSign(PatientVitalSign patientVitalSign) {
-        this.patientVitalSign = patientVitalSign;
-    }
-
     public int getBloodType() {
         return bloodType;
     }
@@ -488,68 +443,12 @@ public class PatientHistory extends BaseModel {
         this.bloodType = bloodType;
     }
 
-    public Long getMedicalHistoryId() {
-        return medicalHistoryId;
-    }
-
-    public void setMedicalHistoryId(Long medicalHistoryId) {
-        this.medicalHistoryId = medicalHistoryId;
-    }
-
-    public PatientMedicalHistory getMedicalHistory() {
-        return medicalHistory;
-    }
-
-    public void setMedicalHistory(PatientMedicalHistory medicalHistory) {
-        this.medicalHistory = medicalHistory;
-    }
-
     public int getPatientType() {
         return patientType;
     }
 
     public void setPatientType(int patientType) {
         this.patientType = patientType;
-    }
-
-    public PatientInsurance getPatientInsurance() {
-        return patientInsurance;
-    }
-
-    public void setPatientInsurance(PatientInsurance patientInsurance) {
-        this.patientInsurance = patientInsurance;
-    }
-
-    public PatientInHospitalDiag getPatientInHospitalDiagId() {
-        return patientInHospitalDiagId;
-    }
-
-    public void setPatientInHospitalDiagId(PatientInHospitalDiag patientInHospitalDiagId) {
-        this.patientInHospitalDiagId = patientInHospitalDiagId;
-    }
-
-    public Long getPatientDiagnosticId() {
-        return patientDiagnosticId;
-    }
-
-    public void setPatientDiagnosticId(Long patientDiagnosticId) {
-        this.patientDiagnosticId = patientDiagnosticId;
-    }
-
-    public PatientDiag getPatientDiag() {
-        return patientDiag;
-    }
-
-    public void setPatientDiag(PatientDiag patientDiag) {
-        this.patientDiag = patientDiag;
-    }
-
-    public Long getPatientDiagId() {
-        return patientDiagId;
-    }
-
-    public void setPatientDiagId(Long patientDiagId) {
-        this.patientDiagId = patientDiagId;
     }
 
     public int getDischarge_type() {

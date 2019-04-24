@@ -1,7 +1,7 @@
 package com.isofh.his.repository.patient;
 
-import com.isofh.his.model.employee.User;
-import com.isofh.his.repository.base.BaseCategoryRepository;
+import com.isofh.his.model.patient.PatientHistory;
+import com.isofh.his.repository.base.BaseRepository;
 
-public interface PatientHistoryRepository extends BaseCategoryRepository<User, Long> {
+public interface PatientHistoryRepository extends BaseRepository<PatientHistory, Long> {
 }
