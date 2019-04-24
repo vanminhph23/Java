@@ -20,6 +20,9 @@ public class PatientInsurance extends BasePatientModel {
     )
     private Long id;
 
+    @OneToOne(mappedBy = "patientInsurance")
+    private PatientHistory patientHistory;
+
     @Column(name = "insurance_address")
     @Audited
     private String insuranceAddress;
@@ -42,7 +45,7 @@ public class PatientInsurance extends BasePatientModel {
 
     @Column(name = "insurance_reg_at_hospital_id")
     @Audited
-    private int insuranceRegAtHospitalId;
+    private Long insuranceRegAtHospitalId;
 
     @ManyToOne
     @JoinColumn(name = "insurance_reg_at_hospital_id", insertable = false, updatable = false)
@@ -50,7 +53,7 @@ public class PatientInsurance extends BasePatientModel {
 
     @Column(name = "patient_from_hospital_id")
     @Audited
-    private int patientFromHospitalId;
+    private Long patientFromHospitalId;
 
     @ManyToOne
     @JoinColumn(name = "patient_from_hospital_id", insertable = false, updatable = false)
@@ -146,11 +149,11 @@ public class PatientInsurance extends BasePatientModel {
         this.insurancePercent = insurancePercent;
     }
 
-    public int getInsuranceRegAtHospitalId() {
+    public Long getInsuranceRegAtHospitalId() {
         return insuranceRegAtHospitalId;
     }
 
-    public void setInsuranceRegAtHospitalId(int insuranceRegAtHospitalId) {
+    public void setInsuranceRegAtHospitalId(Long insuranceRegAtHospitalId) {
         this.insuranceRegAtHospitalId = insuranceRegAtHospitalId;
     }
 
@@ -162,11 +165,11 @@ public class PatientInsurance extends BasePatientModel {
         this.insuranceRegAtHospital = insuranceRegAtHospital;
     }
 
-    public int getPatientFromHospitalId() {
+    public Long getPatientFromHospitalId() {
         return patientFromHospitalId;
     }
 
-    public void setPatientFromHospitalId(int patientFromHospitalId) {
+    public void setPatientFromHospitalId(Long patientFromHospitalId) {
         this.patientFromHospitalId = patientFromHospitalId;
     }
 

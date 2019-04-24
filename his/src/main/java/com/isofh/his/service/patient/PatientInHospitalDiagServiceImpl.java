@@ -1,10 +1,7 @@
 package com.isofh.his.service.patient;
 
-import com.isofh.his.dto.patient.PatientGuardianDto;
 import com.isofh.his.dto.patient.PatientInHospitalDiagDto;
-import com.isofh.his.model.patient.PatientGuardian;
 import com.isofh.his.model.patient.PatientInHospitalDiag;
-import com.isofh.his.repository.patient.PatientGuardianRepository;
 import com.isofh.his.repository.patient.PatientInHospitalDiagRepository;
 import com.isofh.his.storage.StorageService;
 import org.modelmapper.ModelMapper;

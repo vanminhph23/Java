@@ -2,9 +2,7 @@ package com.isofh.his.controller.patient;
 
 import com.isofh.his.controller.base.BaseController;
 import com.isofh.his.dto.base.ResponseMsg;
-import com.isofh.his.dto.core.ReferenceListDto;
 import com.isofh.his.dto.patient.PatientHistoryDto;
-import com.isofh.his.service.core.ReferenceListService;
 import com.isofh.his.service.patient.PatientHistoryService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

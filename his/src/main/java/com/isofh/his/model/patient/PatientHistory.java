@@ -76,7 +76,7 @@ public class PatientHistory extends BaseModel {
     @Audited
     private Long departmentId;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "department_id", insertable = false, updatable = false)
     private Department department;
 
@@ -84,17 +84,19 @@ public class PatientHistory extends BaseModel {
     @Audited
     private String address;
 
-    @OneToOne(mappedBy = "patientHistory")
+    @OneToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "patient_address_id", unique = true, updatable = false)
     private PatientAddress patientAddress;
 
-//    @OneToOne(mappedBy = "patientHistory", cascade = {CascadeType.ALL})
-//    private PatientGuardian patientGuardian;
+    @OneToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "patient_guardian_id", unique = true, updatable = false)
+    private PatientGuardian patientGuardian;
 
     @Column(name = "job_id")
     @Audited
     private Long jobId;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "job_id", insertable = false, updatable = false)
     private Job job;
 
@@ -102,7 +104,7 @@ public class PatientHistory extends BaseModel {
     @Audited
     private Long medicalRecordTypeId;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "medical_record_type_id", insertable = false, updatable = false)
     private MedicalRecordType medicalRecordType;
 
@@ -110,7 +112,7 @@ public class PatientHistory extends BaseModel {
     @Audited
     private Long nationalityId;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "nationality_id", insertable = false, updatable = false)
     private Country nationality;
 
@@ -118,7 +120,7 @@ public class PatientHistory extends BaseModel {
     @Audited
     private Long ethnicityId;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "ethnicity_id", insertable = false, updatable = false)
     private Ethnicity ethnicity;
 
@@ -126,16 +128,18 @@ public class PatientHistory extends BaseModel {
     @Audited
     private boolean advancePayment;
 
-//    @OneToOne(mappedBy = "patientHistory", cascade = {CascadeType.ALL})
-//    private PatientVitalSign patientVitalSign;
+    @OneToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "patient_vital_sign_id", unique = true, updatable = false)
+    private PatientVitalSign patientVitalSign;
 
     // common info
     @Column(name = "blood_type")
     @Audited
     private int bloodType;
 
-//    @OneToOne(mappedBy = "patientHistory", cascade = {CascadeType.ALL})
-//    private PatientMedicalHistory medicalHistory;
+    @OneToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "patient_medical_history_id", unique = true, updatable = false)
+    private PatientMedicalHistory medicalHistory;
 
     // patient type
     @Column(name = "patient_type")
@@ -143,16 +147,18 @@ public class PatientHistory extends BaseModel {
     private int patientType;
 
     // insurance info
-//    @OneToOne( optional = false, orphanRemoval = true, fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-//    @JoinColumn(name = "patient_insurance_id")
-//    private PatientInsurance patientInsurance;
+    @OneToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "patient_insurance_id", unique = true, updatable = false)
+    private PatientInsurance patientInsurance;
 
     // disease
-//    @OneToOne(mappedBy = "patientHistory", cascade = {CascadeType.ALL})
-//    private PatientInHospitalDiag patientInHospitalDiagId;
+    @OneToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "patient_in_hospital_diag_id", unique = true, updatable = false)
+    private PatientInHospitalDiag patientInHospitalDiag;
 
-//    @OneToOne(mappedBy = "patientHistory", cascade = {CascadeType.ALL})
-//    private PatientDiag patientDiag;
+    @OneToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "patient_diag_id", unique = true, updatable = false)
+    private PatientDiag patientDiag;
 
     //Out hospital
     @Column(name = "discharge_type")
@@ -179,7 +185,7 @@ public class PatientHistory extends BaseModel {
     @Audited
     private Long transferFromDepartmentId;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "transfer_from_department_id", insertable = false, updatable = false)
     private Department transferFromDepartment;
 
@@ -187,7 +193,7 @@ public class PatientHistory extends BaseModel {
     @Audited
     private Long transferToDepartmentId;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "transfer_to_department_id", insertable = false, updatable = false)
     private Department transferToDepartment;
 
@@ -195,26 +201,16 @@ public class PatientHistory extends BaseModel {
     @Audited
     private Long phCollectionId;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "ph_collection_id")
     private PHCollection phCollection;
 
     // KSK
-    @Column(name = "patient_contract_id", unique = true, insertable = false, updatable = false)
-    @Audited
-    private Long patientContractId;
-
-    @ManyToOne
-    @JoinColumn(name = "patient_contract_id")
+    @OneToOne(mappedBy = "patientHistory", fetch = FetchType.LAZY)
     private PatientContract patientContract;
 
     // iSofHCare
-    @Column(name = "patient_online_id", insertable = false, updatable = false)
-    @Audited
-    private Long patientOnlineId;
-
-    @ManyToOne
-    @JoinColumn(name = "patient_online_id")
+    @OneToOne(mappedBy = "patientHistory", fetch = FetchType.LAZY)
     private PatientOnline patientOnline;
 
     @Override
@@ -363,6 +359,14 @@ public class PatientHistory extends BaseModel {
         this.patientAddress = patientAddress;
     }
 
+    public PatientGuardian getPatientGuardian() {
+        return patientGuardian;
+    }
+
+    public void setPatientGuardian(PatientGuardian patientGuardian) {
+        this.patientGuardian = patientGuardian;
+    }
+
     public Long getJobId() {
         return jobId;
     }
@@ -435,6 +439,14 @@ public class PatientHistory extends BaseModel {
         this.advancePayment = advancePayment;
     }
 
+    public PatientVitalSign getPatientVitalSign() {
+        return patientVitalSign;
+    }
+
+    public void setPatientVitalSign(PatientVitalSign patientVitalSign) {
+        this.patientVitalSign = patientVitalSign;
+    }
+
     public int getBloodType() {
         return bloodType;
     }
@@ -443,12 +455,44 @@ public class PatientHistory extends BaseModel {
         this.bloodType = bloodType;
     }
 
+    public PatientMedicalHistory getMedicalHistory() {
+        return medicalHistory;
+    }
+
+    public void setMedicalHistory(PatientMedicalHistory medicalHistory) {
+        this.medicalHistory = medicalHistory;
+    }
+
     public int getPatientType() {
         return patientType;
     }
 
     public void setPatientType(int patientType) {
         this.patientType = patientType;
+    }
+
+    public PatientInsurance getPatientInsurance() {
+        return patientInsurance;
+    }
+
+    public void setPatientInsurance(PatientInsurance patientInsurance) {
+        this.patientInsurance = patientInsurance;
+    }
+
+    public PatientInHospitalDiag getPatientInHospitalDiag() {
+        return patientInHospitalDiag;
+    }
+
+    public void setPatientInHospitalDiag(PatientInHospitalDiag patientInHospitalDiag) {
+        this.patientInHospitalDiag = patientInHospitalDiag;
+    }
+
+    public PatientDiag getPatientDiag() {
+        return patientDiag;
+    }
+
+    public void setPatientDiag(PatientDiag patientDiag) {
+        this.patientDiag = patientDiag;
     }
 
     public int getDischarge_type() {
@@ -539,28 +583,12 @@ public class PatientHistory extends BaseModel {
         this.phCollection = phCollection;
     }
 
-    public Long getPatientContractId() {
-        return patientContractId;
-    }
-
-    public void setPatientContractId(Long patientContractId) {
-        this.patientContractId = patientContractId;
-    }
-
     public PatientContract getPatientContract() {
         return patientContract;
     }
 
     public void setPatientContract(PatientContract patientContract) {
         this.patientContract = patientContract;
-    }
-
-    public Long getPatientOnlineId() {
-        return patientOnlineId;
-    }
-
-    public void setPatientOnlineId(Long patientOnlineId) {
-        this.patientOnlineId = patientOnlineId;
     }
 
     public PatientOnline getPatientOnline() {

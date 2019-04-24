@@ -103,9 +103,9 @@ public class PatientHistoryDto extends BaseDto {
 
     private int insurancePercent;
 
-    private int insuranceRegAtHospitalId;
+    private Long insuranceRegAtHospitalId;
 
-    private int patientFromHospitalId;
+    private Long patientFromHospitalId;
 
     private boolean emergency;
 
@@ -541,19 +541,19 @@ public class PatientHistoryDto extends BaseDto {
         this.insurancePercent = insurancePercent;
     }
 
-    public int getInsuranceRegAtHospitalId() {
+    public Long getInsuranceRegAtHospitalId() {
         return insuranceRegAtHospitalId;
     }
 
-    public void setInsuranceRegAtHospitalId(int insuranceRegAtHospitalId) {
+    public void setInsuranceRegAtHospitalId(Long insuranceRegAtHospitalId) {
         this.insuranceRegAtHospitalId = insuranceRegAtHospitalId;
     }
 
-    public int getPatientFromHospitalId() {
+    public Long getPatientFromHospitalId() {
         return patientFromHospitalId;
     }
 
-    public void setPatientFromHospitalId(int patientFromHospitalId) {
+    public void setPatientFromHospitalId(Long patientFromHospitalId) {
         this.patientFromHospitalId = patientFromHospitalId;
     }
 

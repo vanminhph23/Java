@@ -18,8 +18,7 @@ public class PatientMedicalHistory extends BasePatientModel {
     )
     private Long id;
 
-    @OneToOne
-    @JoinColumn(name = "patient_history_id", unique = true)
+    @OneToOne(mappedBy = "medicalHistory")
     private PatientHistory patientHistory;
 
     @Column(name = "allergy")

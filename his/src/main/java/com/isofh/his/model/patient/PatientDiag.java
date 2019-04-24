@@ -18,8 +18,7 @@ public class PatientDiag extends BasePatientModel {
     )
     private Long id;
 
-    @OneToOne
-    @JoinColumn(name = "patient_history_id", unique = true)
+    @OneToOne(mappedBy = "patientDiag")
     private PatientHistory patientHistory;
 
     @Column(name = "first_diagnostic")

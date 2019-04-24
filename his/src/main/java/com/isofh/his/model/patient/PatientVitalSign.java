@@ -18,8 +18,7 @@ public class PatientVitalSign extends BasePatientModel {
     )
     private Long id;
 
-    @OneToOne
-    @JoinColumn(name = "patient_history_id", unique = true)
+    @OneToOne(mappedBy = "patientVitalSign")
     private PatientHistory patientHistory;
 
     @Column(name = "blood_pressure")

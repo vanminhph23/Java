@@ -22,8 +22,7 @@ public class PatientAddress extends BasePatientModel {
     )
     private Long id;
 
-    @OneToOne
-    @JoinColumn(name = "patient_history_id", unique = true, nullable = false)
+    @OneToOne(mappedBy = "patientAddress")
     private PatientHistory patientHistory;
 
     @Column(name = "country_id")

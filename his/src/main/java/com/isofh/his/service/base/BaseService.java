@@ -2,12 +2,12 @@ package com.isofh.his.service.base;
 
 import com.isofh.his.dto.base.BaseDto;
 import com.isofh.his.exception.BaseException;
+import com.isofh.his.importdata.Header;
+import com.isofh.his.importdata.ImportUtil;
 import com.isofh.his.model.base.BaseModel;
 import com.isofh.his.repository.base.BaseRepository;
 import com.isofh.his.storage.StorageService;
 import com.isofh.his.util.ExcelUtil;
-import com.isofh.his.importdata.Header;
-import com.isofh.his.importdata.ImportUtil;
 import com.isofh.his.util.Util;
 import org.modelmapper.ModelMapper;
 import org.springframework.transaction.annotation.Transactional;
@@ -28,10 +28,15 @@ public interface BaseService<X extends BaseModel, Y extends BaseDto, Z extends B
     @Transactional
     default X save(X model) {
         beforeSave(model);
-        return (X) getRepository().save(model);
+        model = (X) getRepository().save(model);
+        afterSave(model);
+        return model;
     }
 
     default void beforeSave(X model) {
+    }
+
+    default void afterSave(X model) {
     }
 
     default X save(Y dto) {
