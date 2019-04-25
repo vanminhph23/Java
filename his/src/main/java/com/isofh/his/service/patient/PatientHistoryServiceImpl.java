@@ -26,7 +26,7 @@ public class PatientHistoryServiceImpl implements PatientHistoryService {
     private PatientAddressService addressService;
 
     @Autowired
-    private PatientVitalSignService vitalSignService;
+    private PatientGuardianService guardianService;
 
     @Autowired
     private PatientHistoryRepository repository;
@@ -78,6 +78,10 @@ public class PatientHistoryServiceImpl implements PatientHistoryService {
             insuranceService.save(model.getPatientInsurance());
         }
 
+        if (model.getPatientGuardian() != null) {
+            guardianService.save(model.getPatientGuardian());
+        }
+
         return save(model);
     }
 
@@ -88,8 +92,8 @@ public class PatientHistoryServiceImpl implements PatientHistoryService {
             addressService.save(model.getPatientAddress());
         }
 
-        if (model.getPatientInsurance() != null) {
-            insuranceService.save(model.getPatientInsurance());
+        if (model.getPatientGuardian() != null) {
+            guardianService.save(model.getPatientGuardian());
         }
 
         return save(model);

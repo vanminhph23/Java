@@ -116,10 +116,6 @@ public class PatientHistory extends BaseModel {
     @Audited
     private Integer bloodType;
 
-    @Column(name = "patient_type", nullable = false)
-    @Audited
-    private Integer patientType;
-
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "department_id", insertable = false, updatable = false)
     private Department department;
@@ -170,6 +166,10 @@ public class PatientHistory extends BaseModel {
     private PHCollection phCollection;
 
     // insurance info
+    @Column(name = "patient_type", nullable = false)
+    @Audited
+    private Integer patientType;
+
     @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "patient_insurance_id", unique = true, updatable = false)
     private PatientInsurance patientInsurance;
