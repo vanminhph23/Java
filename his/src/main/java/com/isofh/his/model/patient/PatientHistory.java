@@ -19,6 +19,7 @@ public class PatientHistory extends BaseModel {
     )
     private Long id;
 
+    // common info
     @Column(name = "patient_value", nullable = false, unique = true)
     @Audited
     private String patientValue;
@@ -39,7 +40,6 @@ public class PatientHistory extends BaseModel {
     @Audited
     private boolean inpatient = false;
 
-    // common info
     @Column(name = "reg_date")
     @Audited
     private Timestamp regDate;
@@ -75,22 +75,6 @@ public class PatientHistory extends BaseModel {
     @Column(name = "department_id", nullable = false)
     @Audited
     private Long departmentId;
-
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "department_id", insertable = false, updatable = false)
-    private Department department;
-
-    @Column(name = "address")
-    @Audited
-    private String address;
-
-    @OneToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "patient_address_id", unique = true, updatable = false)
-    private PatientAddress patientAddress;
-
-    @OneToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "patient_guardian_id", unique = true, updatable = false)
-    private PatientGuardian patientGuardian;
 
     @Column(name = "job_id")
     @Audited
@@ -128,37 +112,17 @@ public class PatientHistory extends BaseModel {
     @Audited
     private boolean advancePayment;
 
-    @OneToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "patient_vital_sign_id", unique = true, updatable = false)
-    private PatientVitalSign patientVitalSign;
-
-    // common info
     @Column(name = "blood_type")
     @Audited
     private Integer bloodType;
 
-    @OneToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "patient_medical_history_id", unique = true, updatable = false)
-    private PatientMedicalHistory medicalHistory;
-
-    // patient type
     @Column(name = "patient_type", nullable = false)
     @Audited
     private Integer patientType;
 
-    // insurance info
-    @OneToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "patient_insurance_id", unique = true, updatable = false)
-    private PatientInsurance patientInsurance;
-
-    // disease
-    @OneToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "patient_in_hospital_diag_id", unique = true, updatable = false)
-    private PatientInHospitalDiag patientInHospitalDiag;
-
-    @OneToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "patient_diag_id", unique = true, updatable = false)
-    private PatientDiag patientDiag;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "department_id", insertable = false, updatable = false)
+    private Department department;
 
     //Out hospital
     @Column(name = "discharge_type")
@@ -204,6 +168,36 @@ public class PatientHistory extends BaseModel {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "ph_collection_id")
     private PHCollection phCollection;
+
+    // insurance info
+    @OneToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "patient_insurance_id", unique = true, updatable = false)
+    private PatientInsurance patientInsurance;
+
+    @OneToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "patient_address_id", unique = true, updatable = false)
+    private PatientAddress patientAddress;
+
+    @OneToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "patient_guardian_id", unique = true, updatable = false)
+    private PatientGuardian patientGuardian;
+
+    @OneToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "patient_medical_history_id", unique = true, updatable = false)
+    private PatientMedicalHistory medicalHistory;
+
+    @OneToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "patient_vital_sign_id", unique = true, updatable = false)
+    private PatientVitalSign patientVitalSign;
+
+    // disease
+    @OneToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "patient_in_hospital_diag_id", unique = true, updatable = false)
+    private PatientInHospitalDiag patientInHospitalDiag;
+
+    @OneToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "patient_diag_id", unique = true, updatable = false)
+    private PatientDiag patientDiag;
 
     // KSK
     @OneToOne(mappedBy = "patientHistory", fetch = FetchType.LAZY)
@@ -335,38 +329,6 @@ public class PatientHistory extends BaseModel {
         this.departmentId = departmentId;
     }
 
-    public Department getDepartment() {
-        return department;
-    }
-
-    public void setDepartment(Department department) {
-        this.department = department;
-    }
-
-    public String getAddress() {
-        return address;
-    }
-
-    public void setAddress(String address) {
-        this.address = address;
-    }
-
-    public PatientAddress getPatientAddress() {
-        return patientAddress;
-    }
-
-    public void setPatientAddress(PatientAddress patientAddress) {
-        this.patientAddress = patientAddress;
-    }
-
-    public PatientGuardian getPatientGuardian() {
-        return patientGuardian;
-    }
-
-    public void setPatientGuardian(PatientGuardian patientGuardian) {
-        this.patientGuardian = patientGuardian;
-    }
-
     public Long getJobId() {
         return jobId;
     }
@@ -439,28 +401,12 @@ public class PatientHistory extends BaseModel {
         this.advancePayment = advancePayment;
     }
 
-    public PatientVitalSign getPatientVitalSign() {
-        return patientVitalSign;
-    }
-
-    public void setPatientVitalSign(PatientVitalSign patientVitalSign) {
-        this.patientVitalSign = patientVitalSign;
-    }
-
     public Integer getBloodType() {
         return bloodType;
     }
 
     public void setBloodType(Integer bloodType) {
         this.bloodType = bloodType;
-    }
-
-    public PatientMedicalHistory getMedicalHistory() {
-        return medicalHistory;
-    }
-
-    public void setMedicalHistory(PatientMedicalHistory medicalHistory) {
-        this.medicalHistory = medicalHistory;
     }
 
     public Integer getPatientType() {
@@ -471,28 +417,12 @@ public class PatientHistory extends BaseModel {
         this.patientType = patientType;
     }
 
-    public PatientInsurance getPatientInsurance() {
-        return patientInsurance;
+    public Department getDepartment() {
+        return department;
     }
 
-    public void setPatientInsurance(PatientInsurance patientInsurance) {
-        this.patientInsurance = patientInsurance;
-    }
-
-    public PatientInHospitalDiag getPatientInHospitalDiag() {
-        return patientInHospitalDiag;
-    }
-
-    public void setPatientInHospitalDiag(PatientInHospitalDiag patientInHospitalDiag) {
-        this.patientInHospitalDiag = patientInHospitalDiag;
-    }
-
-    public PatientDiag getPatientDiag() {
-        return patientDiag;
-    }
-
-    public void setPatientDiag(PatientDiag patientDiag) {
-        this.patientDiag = patientDiag;
+    public void setDepartment(Department department) {
+        this.department = department;
     }
 
     public Integer getDischarge_type() {
@@ -581,6 +511,62 @@ public class PatientHistory extends BaseModel {
 
     public void setPhCollection(PHCollection phCollection) {
         this.phCollection = phCollection;
+    }
+
+    public PatientInsurance getPatientInsurance() {
+        return patientInsurance;
+    }
+
+    public void setPatientInsurance(PatientInsurance patientInsurance) {
+        this.patientInsurance = patientInsurance;
+    }
+
+    public PatientAddress getPatientAddress() {
+        return patientAddress;
+    }
+
+    public void setPatientAddress(PatientAddress patientAddress) {
+        this.patientAddress = patientAddress;
+    }
+
+    public PatientGuardian getPatientGuardian() {
+        return patientGuardian;
+    }
+
+    public void setPatientGuardian(PatientGuardian patientGuardian) {
+        this.patientGuardian = patientGuardian;
+    }
+
+    public PatientMedicalHistory getMedicalHistory() {
+        return medicalHistory;
+    }
+
+    public void setMedicalHistory(PatientMedicalHistory medicalHistory) {
+        this.medicalHistory = medicalHistory;
+    }
+
+    public PatientVitalSign getPatientVitalSign() {
+        return patientVitalSign;
+    }
+
+    public void setPatientVitalSign(PatientVitalSign patientVitalSign) {
+        this.patientVitalSign = patientVitalSign;
+    }
+
+    public PatientInHospitalDiag getPatientInHospitalDiag() {
+        return patientInHospitalDiag;
+    }
+
+    public void setPatientInHospitalDiag(PatientInHospitalDiag patientInHospitalDiag) {
+        this.patientInHospitalDiag = patientInHospitalDiag;
+    }
+
+    public PatientDiag getPatientDiag() {
+        return patientDiag;
+    }
+
+    public void setPatientDiag(PatientDiag patientDiag) {
+        this.patientDiag = patientDiag;
     }
 
     public PatientContract getPatientContract() {

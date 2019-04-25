@@ -23,33 +23,41 @@ public class PatientInsurance extends BasePatientModel {
     @OneToOne(mappedBy = "patientInsurance")
     private PatientHistory patientHistory;
 
-    @Column(name = "insurance_address")
+    @Column(name = "address")
     @Audited
-    private String insuranceAddress;
+    private String address;
 
-    @Column(name = "insurance_from_date")
+    @Column(name = "from_date")
     @Audited
-    private Timestamp insuranceFromDate;
+    private Timestamp fromDate;
 
-    @Column(name = "insurance_to_date")
+    @Column(name = "to_date")
     @Audited
-    private Timestamp insuranceToDate;
+    private Timestamp toDate;
+
+    @Column(name = "applied_from_date")
+    @Audited
+    private Timestamp appliedFromDate;
+
+    @Column(name = "applied_to_date")
+    @Audited
+    private Timestamp appliedToDate;
 
     @Column(name = "insurance_number", length = 15)
     @Audited
     private String insuranceNumber;
 
-    @Column(name = "insurance_percent")
+    @Column(name = "percent")
     @Audited
-    private int insurancePercent;
+    private Integer percent;
 
-    @Column(name = "insurance_reg_at_hospital_id")
+    @Column(name = "reg_at_hospital_id")
     @Audited
-    private Long insuranceRegAtHospitalId;
+    private Long regAtHospitalId;
 
     @ManyToOne
-    @JoinColumn(name = "insurance_reg_at_hospital_id", insertable = false, updatable = false)
-    private Hospital insuranceRegAtHospital;
+    @JoinColumn(name = "reg_at_hospital_id", insertable = false, updatable = false)
+    private Hospital regAtHospital;
 
     @Column(name = "patient_from_hospital_id")
     @Audited
@@ -97,7 +105,11 @@ public class PatientInsurance extends BasePatientModel {
 
     @Column(name = "region_value")
     @Audited
-    private int regionValue;
+    private Integer regionValue;
+
+    @Column(name = "keeping")
+    @Audited
+    private boolean keeping;
 
     @Override
     public Long getId() {
@@ -109,28 +121,52 @@ public class PatientInsurance extends BasePatientModel {
         this.id = id;
     }
 
-    public String getInsuranceAddress() {
-        return insuranceAddress;
+    public PatientHistory getPatientHistory() {
+        return patientHistory;
     }
 
-    public void setInsuranceAddress(String insuranceAddress) {
-        this.insuranceAddress = insuranceAddress;
+    public void setPatientHistory(PatientHistory patientHistory) {
+        this.patientHistory = patientHistory;
     }
 
-    public Timestamp getInsuranceFromDate() {
-        return insuranceFromDate;
+    public String getAddress() {
+        return address;
     }
 
-    public void setInsuranceFromDate(Timestamp insuranceFromDate) {
-        this.insuranceFromDate = insuranceFromDate;
+    public void setAddress(String address) {
+        this.address = address;
     }
 
-    public Timestamp getInsuranceToDate() {
-        return insuranceToDate;
+    public Timestamp getFromDate() {
+        return fromDate;
     }
 
-    public void setInsuranceToDate(Timestamp insuranceToDate) {
-        this.insuranceToDate = insuranceToDate;
+    public void setFromDate(Timestamp fromDate) {
+        this.fromDate = fromDate;
+    }
+
+    public Timestamp getToDate() {
+        return toDate;
+    }
+
+    public void setToDate(Timestamp toDate) {
+        this.toDate = toDate;
+    }
+
+    public Timestamp getAppliedFromDate() {
+        return appliedFromDate;
+    }
+
+    public void setAppliedFromDate(Timestamp appliedFromDate) {
+        this.appliedFromDate = appliedFromDate;
+    }
+
+    public Timestamp getAppliedToDate() {
+        return appliedToDate;
+    }
+
+    public void setAppliedToDate(Timestamp appliedToDate) {
+        this.appliedToDate = appliedToDate;
     }
 
     public String getInsuranceNumber() {
@@ -141,28 +177,28 @@ public class PatientInsurance extends BasePatientModel {
         this.insuranceNumber = insuranceNumber;
     }
 
-    public int getInsurancePercent() {
-        return insurancePercent;
+    public Integer getPercent() {
+        return percent;
     }
 
-    public void setInsurancePercent(int insurancePercent) {
-        this.insurancePercent = insurancePercent;
+    public void setPercent(Integer percent) {
+        this.percent = percent;
     }
 
-    public Long getInsuranceRegAtHospitalId() {
-        return insuranceRegAtHospitalId;
+    public Long getRegAtHospitalId() {
+        return regAtHospitalId;
     }
 
-    public void setInsuranceRegAtHospitalId(Long insuranceRegAtHospitalId) {
-        this.insuranceRegAtHospitalId = insuranceRegAtHospitalId;
+    public void setRegAtHospitalId(Long regAtHospitalId) {
+        this.regAtHospitalId = regAtHospitalId;
     }
 
-    public Hospital getInsuranceRegAtHospital() {
-        return insuranceRegAtHospital;
+    public Hospital getRegAtHospital() {
+        return regAtHospital;
     }
 
-    public void setInsuranceRegAtHospital(Hospital insuranceRegAtHospital) {
-        this.insuranceRegAtHospital = insuranceRegAtHospital;
+    public void setRegAtHospital(Hospital regAtHospital) {
+        this.regAtHospital = regAtHospital;
     }
 
     public Long getPatientFromHospitalId() {
@@ -253,11 +289,19 @@ public class PatientInsurance extends BasePatientModel {
         this.notCopaymentDate = notCopaymentDate;
     }
 
-    public int getRegionValue() {
+    public Integer getRegionValue() {
         return regionValue;
     }
 
-    public void setRegionValue(int regionValue) {
+    public void setRegionValue(Integer regionValue) {
         this.regionValue = regionValue;
+    }
+
+    public boolean isKeeping() {
+        return keeping;
+    }
+
+    public void setKeeping(boolean keeping) {
+        this.keeping = keeping;
     }
 }

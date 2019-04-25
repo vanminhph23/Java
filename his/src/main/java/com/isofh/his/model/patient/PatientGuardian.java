@@ -41,4 +41,36 @@ public class PatientGuardian extends BasePatientModel {
     public void setId(Long id) {
         this.id = id;
     }
+
+    public PatientHistory getPatientHistory() {
+        return patientHistory;
+    }
+
+    public void setPatientHistory(PatientHistory patientHistory) {
+        this.patientHistory = patientHistory;
+    }
+
+    public String getPhone() {
+        return phone;
+    }
+
+    public void setPhone(String phone) {
+        this.phone = phone;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getIdNo() {
+        return idNo;
+    }
+
+    public void setIdNo(String idNo) {
+        this.idNo = idNo;
+    }
 }

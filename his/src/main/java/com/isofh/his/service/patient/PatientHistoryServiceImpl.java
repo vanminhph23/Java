@@ -1,17 +1,18 @@
 package com.isofh.his.service.patient;
 
 import com.isofh.his.dto.patient.PatientHistoryDto;
+import com.isofh.his.map.PropertyMapPatientHistoryDtoToModel;
+import com.isofh.his.map.PropertyMapPatientHistoryToDto;
 import com.isofh.his.model.patient.PatientHistory;
 import com.isofh.his.repository.patient.PatientHistoryRepository;
-import com.isofh.his.repository.patient.PatientInsuranceRepository;
 import com.isofh.his.storage.StorageService;
 import org.modelmapper.ModelMapper;
-import org.modelmapper.PropertyMap;
 import org.modelmapper.convention.MatchingStrategies;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 @Service
 public class PatientHistoryServiceImpl implements PatientHistoryService {
@@ -19,7 +20,7 @@ public class PatientHistoryServiceImpl implements PatientHistoryService {
     private final static Logger logger = LoggerFactory.getLogger(PatientHistoryServiceImpl.class);
 
     @Autowired
-    private PatientInsuranceRepository insuranceRepository;
+    private PatientInsuranceService insuranceService;
 
     @Autowired
     private PatientAddressService addressService;
@@ -59,41 +60,38 @@ public class PatientHistoryServiceImpl implements PatientHistoryService {
         if (modelMapper == null) {
             modelMapper = new ModelMapper();
             modelMapper.getConfiguration().setMatchingStrategy(MatchingStrategies.STRICT);
-            modelMapper.addMappings(new PropertyMap<PatientHistoryDto, PatientHistory>() {
-
-                @Override
-                protected void configure() {
-                    // address
-                    map().getPatientAddress().setCountryId(source.getCountryId());
-                    map().getPatientAddress().setProvinceId(source.getProvinceId());
-                    map().getPatientAddress().setDistrictId(source.getDistrictId());
-                    map().getPatientAddress().setZoneId(source.getZoneId());
-                    map().getPatientAddress().setDetail(source.getDetail());
-                    // insurance
-                    map().getPatientInsurance().setInsuranceAddress(source.getInsuranceAddress());
-                    map().getPatientInsurance().setInsuranceFromDate(source.getInsuranceFromDate());
-                    map().getPatientInsurance().setInsuranceToDate(source.getInsuranceToDate());
-                    map().getPatientInsurance().setInsuranceNumber(source.getInsuranceNumber());
-                    map().getPatientInsurance().setInsuranceRegAtHospitalId(source.getInsuranceRegAtHospitalId());
-                }
-            });
+            modelMapper.addMappings(new PropertyMapPatientHistoryToDto());
+            modelMapper.addMappings(new PropertyMapPatientHistoryDtoToModel());
         }
 
         return modelMapper;
     }
 
+    @Transactional
     @Override
-    public void beforeSave(PatientHistory model) {
+    public PatientHistory create(PatientHistory model) {
         if (model.getPatientAddress() != null) {
             addressService.save(model.getPatientAddress());
         }
 
         if (model.getPatientInsurance() != null) {
-            insuranceRepository.save(model.getPatientInsurance());
+            insuranceService.save(model.getPatientInsurance());
         }
+
+        return save(model);
     }
 
+    @Transactional
     @Override
-    public void afterSave(PatientHistory model) {
+    public PatientHistory update(PatientHistory model) {
+        if (model.getPatientAddress() != null) {
+            addressService.save(model.getPatientAddress());
+        }
+
+        if (model.getPatientInsurance() != null) {
+            insuranceService.save(model.getPatientInsurance());
+        }
+
+        return save(model);
     }
 }

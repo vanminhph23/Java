@@ -23,31 +23,31 @@ public class PatientVitalSign extends BasePatientModel {
 
     @Column(name = "blood_pressure")
     @Audited
-    private int bloodPressure;
+    private Integer bloodPressure;
 
     @Column(name = "temperature")
     @Audited
-    private int temperature;
+    private Integer temperature;
 
     @Column(name = "spo2")
     @Audited
-    private int spo2;
+    private Integer spo2;
 
     @Column(name = "pulse")
     @Audited
-    private int pulse;
+    private Integer pulse;
 
     @Column(name = "breath")
     @Audited
-    private int breath;
+    private Integer breath;
 
     @Column(name = "height")
     @Audited
-    private int height;
+    private Integer height;
 
     @Column(name = "weight")
     @Audited
-    private int weight;
+    private Integer weight;
 
     @Override
     public Long getId() {
@@ -57,5 +57,69 @@ public class PatientVitalSign extends BasePatientModel {
     @Override
     public void setId(Long id) {
         this.id = id;
+    }
+
+    public PatientHistory getPatientHistory() {
+        return patientHistory;
+    }
+
+    public void setPatientHistory(PatientHistory patientHistory) {
+        this.patientHistory = patientHistory;
+    }
+
+    public Integer getBloodPressure() {
+        return bloodPressure;
+    }
+
+    public void setBloodPressure(Integer bloodPressure) {
+        this.bloodPressure = bloodPressure;
+    }
+
+    public Integer getTemperature() {
+        return temperature;
+    }
+
+    public void setTemperature(Integer temperature) {
+        this.temperature = temperature;
+    }
+
+    public Integer getSpo2() {
+        return spo2;
+    }
+
+    public void setSpo2(Integer spo2) {
+        this.spo2 = spo2;
+    }
+
+    public Integer getPulse() {
+        return pulse;
+    }
+
+    public void setPulse(Integer pulse) {
+        this.pulse = pulse;
+    }
+
+    public Integer getBreath() {
+        return breath;
+    }
+
+    public void setBreath(Integer breath) {
+        this.breath = breath;
+    }
+
+    public Integer getHeight() {
+        return height;
+    }
+
+    public void setHeight(Integer height) {
+        this.height = height;
+    }
+
+    public Integer getWeight() {
+        return weight;
+    }
+
+    public void setWeight(Integer weight) {
+        this.weight = weight;
     }
 }

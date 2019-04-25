@@ -2,6 +2,7 @@ package com.isofh.his.service.base;
 
 import com.isofh.his.dto.base.BaseCategoryDto;
 import com.isofh.his.exception.DuplicateValueException;
+import com.isofh.his.exception.NullValueException;
 import com.isofh.his.model.base.BaseCategoryModel;
 import com.isofh.his.repository.base.BaseCategoryRepository;
 import com.isofh.his.util.Util;
@@ -19,11 +20,28 @@ public interface BaseCategoryService<X extends BaseCategoryModel, Y extends Base
 
         autoFillFields(model);
 
+        validateDuplicateData(model);
+
+        return BaseService.super.save(model);
+    }
+
+    default void validateFields(X model) {
+        if (model.getValue() == null) {
+            throw new NullValueException("Field 'Value' cannot be null");
+        }
+
+        if (model.getName() == null) {
+            throw new NullValueException("Field 'Name' cannot be null");
+        }
+    }
+
+    default void autoFillFields(X model) {
+    }
+
+    default void validateDuplicateData(X model) {
         validateDuplicateValue(model);
 
         validateDuplicateName(model);
-
-        return BaseService.super.save(model);
     }
 
     default void validateDuplicateValue(X model) {
@@ -34,13 +52,7 @@ public interface BaseCategoryService<X extends BaseCategoryModel, Y extends Base
         }
     }
 
-    default void autoFillFields(X model) {
-    }
-
     default void validateDuplicateName(X model) {
-    }
-
-    default void validateFields(X model) {
     }
 
     default X findByValue(String value) {

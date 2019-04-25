@@ -9,6 +9,108 @@ public class PatientHistoryDto extends BaseDto {
     public PatientHistoryDto() {
     }
 
+    // insurance
+    private String insuranceAddress;
+
+    private Timestamp insuranceFromDate;
+
+    private Timestamp insuranceToDate;
+
+    private Timestamp insuranceAppliedFromDate;
+
+    private Timestamp insuranceAppliedToDate;
+
+    private String insuranceNumber;
+
+    private Integer insurancePercent;
+
+    private Long insuranceRegAtHospitalId;
+
+    private Long insurancePatientFromHospitalId;
+
+    private boolean insuranceEmergency;
+
+    private boolean insuranceAppointment;
+
+    private boolean insuranceExtra;
+
+    private boolean insuranceReferral;
+
+    private Timestamp insuranceTimeContinuity5Year;
+
+    private boolean insuranceContinuity5Year;
+
+    private boolean insuranceHundredPercentHightech;
+
+    private boolean insuranceNotCoPayment;
+
+    private Timestamp insuranceNotCopaymentDate;
+
+    private Integer insuranceRegionValue;
+
+    private boolean insuranceKeeping;
+
+    // address
+    private Long countryId;
+
+    private Long provinceId;
+
+    private Long districtId;
+
+    private Long zoneId;
+
+    private String detail;
+
+    // guardian
+    private String guardianPhone;
+
+    private String guardianName;
+
+    private String guardianIdNo;
+
+    // vital sign
+    private Integer bloodPressure;
+
+    private Integer temperature;
+
+    private Integer spo2;
+
+    private Integer pulse;
+
+    private Integer breath;
+
+    private Integer height;
+
+    private Integer weight;
+
+    // medical history
+    private String allergy;
+
+    private String disease;
+
+    private String familyDisease;
+
+    private String diseaseProgression;
+
+    private String surgery;
+
+    // in hospital diag
+    private String inHospitalDiseaseDiagnostic;
+
+    private String prevDiagnostic;
+
+    private String examinationReason;
+
+    // diag
+    private String firstDiagnostic;
+
+    private String diagnostic;
+
+    private String diseaseDiagnostic;
+
+    private String otherDiseaseDiagnostic;
+
+    // common info
     private String patientValue;
 
     private String patientName;
@@ -33,27 +135,9 @@ public class PatientHistoryDto extends BaseDto {
 
     private String phone;
 
-    private int gender;
+    private Integer gender;
 
     private Long departmentId;
-
-    private String address;
-
-    private Long countryId;
-
-    private Long provinceId;
-
-    private Long districtId;
-
-    private Long zoneId;
-
-    private String detail;
-
-    private String guardianPhone;
-
-    private String guardianName;
-
-    private String guardianIDNo;
 
     private Long jobId;
 
@@ -65,93 +149,20 @@ public class PatientHistoryDto extends BaseDto {
 
     private boolean advancePayment;
 
-    private int bloodPressure;
+    private Integer bloodType;
 
-    private int temperature;
+    private Integer patientType;
 
-    private int spo2;
-
-    private int pulse;
-
-    private int breath;
-
-    private int height;
-
-    private int weight;
-
-    private int bloodType;
-
-    private String allergy;
-
-    private String disease;
-
-    private String familyDisease;
-
-    private String diseaseProgression;
-
-    private String surgery;
-
-    private int patientType;
-
-    private String insuranceAddress;
-
-    private Timestamp insuranceFromDate;
-
-    private Timestamp insuranceToDate;
-
-    private String insuranceNumber;
-
-    private int insurancePercent;
-
-    private Long insuranceRegAtHospitalId;
-
-    private Long patientFromHospitalId;
-
-    private boolean emergency;
-
-    private boolean appointment;
-
-    private boolean extra;
-
-    private boolean referral;
-
-    private Timestamp timeContinuity5Year;
-
-    private boolean continuity5Year;
-
-    private boolean hundredPercentHightech;
-
-    private boolean notCopayment;
-
-    private Timestamp notCopaymentDate;
-
-    private int regionValue;
-
-    private String inHospitalDiseaseDiagnostic;
-
-    private String prevDiagnostic;
-
-    private String examinationReason;
-
-    private Long patientDiagnosticId;
-
-    private String firstDiagnostic;
-
-    private String diagnostic;
-
-    private String diseaseDiagnostic;
-
-    private String otherDiseaseDiagnostic;
-
-    private int discharge_type;
+    //Out hospital
+    private Integer discharge_type;
 
     private String treatmentDetails;
 
-    private int treatmentDirection;
+    private Integer treatmentDirection;
 
-    private int treatmentResult;
+    private Integer treatmentResult;
 
-    private int patientState;
+    private Integer patientState;
 
     private Long transferFromDepartmentId;
 
@@ -159,11 +170,381 @@ public class PatientHistoryDto extends BaseDto {
 
     private Long phCollectionId;
 
-    private Long patientContractId;
+    public String getInsuranceAddress() {
+        return insuranceAddress;
+    }
 
-    private Long patientOnlineId;
+    public void setInsuranceAddress(String insuranceAddress) {
+        this.insuranceAddress = insuranceAddress;
+    }
 
-    private String accountOnline;
+    public Timestamp getInsuranceFromDate() {
+        return insuranceFromDate;
+    }
+
+    public void setInsuranceFromDate(Timestamp insuranceFromDate) {
+        this.insuranceFromDate = insuranceFromDate;
+    }
+
+    public Timestamp getInsuranceToDate() {
+        return insuranceToDate;
+    }
+
+    public void setInsuranceToDate(Timestamp insuranceToDate) {
+        this.insuranceToDate = insuranceToDate;
+    }
+
+    public Timestamp getInsuranceAppliedFromDate() {
+        return insuranceAppliedFromDate;
+    }
+
+    public void setInsuranceAppliedFromDate(Timestamp insuranceAppliedFromDate) {
+        this.insuranceAppliedFromDate = insuranceAppliedFromDate;
+    }
+
+    public Timestamp getInsuranceAppliedToDate() {
+        return insuranceAppliedToDate;
+    }
+
+    public void setInsuranceAppliedToDate(Timestamp insuranceAppliedToDate) {
+        this.insuranceAppliedToDate = insuranceAppliedToDate;
+    }
+
+    public String getInsuranceNumber() {
+        return insuranceNumber;
+    }
+
+    public void setInsuranceNumber(String insuranceNumber) {
+        this.insuranceNumber = insuranceNumber;
+    }
+
+    public Integer getInsurancePercent() {
+        return insurancePercent;
+    }
+
+    public void setInsurancePercent(Integer insurancePercent) {
+        this.insurancePercent = insurancePercent;
+    }
+
+    public Long getInsuranceRegAtHospitalId() {
+        return insuranceRegAtHospitalId;
+    }
+
+    public void setInsuranceRegAtHospitalId(Long insuranceRegAtHospitalId) {
+        this.insuranceRegAtHospitalId = insuranceRegAtHospitalId;
+    }
+
+    public Long getInsurancePatientFromHospitalId() {
+        return insurancePatientFromHospitalId;
+    }
+
+    public void setInsurancePatientFromHospitalId(Long insurancePatientFromHospitalId) {
+        this.insurancePatientFromHospitalId = insurancePatientFromHospitalId;
+    }
+
+    public boolean isInsuranceEmergency() {
+        return insuranceEmergency;
+    }
+
+    public void setInsuranceEmergency(boolean insuranceEmergency) {
+        this.insuranceEmergency = insuranceEmergency;
+    }
+
+    public boolean isInsuranceAppointment() {
+        return insuranceAppointment;
+    }
+
+    public void setInsuranceAppointment(boolean insuranceAppointment) {
+        this.insuranceAppointment = insuranceAppointment;
+    }
+
+    public boolean isInsuranceExtra() {
+        return insuranceExtra;
+    }
+
+    public void setInsuranceExtra(boolean insuranceExtra) {
+        this.insuranceExtra = insuranceExtra;
+    }
+
+    public boolean isInsuranceReferral() {
+        return insuranceReferral;
+    }
+
+    public void setInsuranceReferral(boolean insuranceReferral) {
+        this.insuranceReferral = insuranceReferral;
+    }
+
+    public Timestamp getInsuranceTimeContinuity5Year() {
+        return insuranceTimeContinuity5Year;
+    }
+
+    public void setInsuranceTimeContinuity5Year(Timestamp insuranceTimeContinuity5Year) {
+        this.insuranceTimeContinuity5Year = insuranceTimeContinuity5Year;
+    }
+
+    public boolean isInsuranceContinuity5Year() {
+        return insuranceContinuity5Year;
+    }
+
+    public void setInsuranceContinuity5Year(boolean insuranceContinuity5Year) {
+        this.insuranceContinuity5Year = insuranceContinuity5Year;
+    }
+
+    public boolean isInsuranceHundredPercentHightech() {
+        return insuranceHundredPercentHightech;
+    }
+
+    public void setInsuranceHundredPercentHightech(boolean insuranceHundredPercentHightech) {
+        this.insuranceHundredPercentHightech = insuranceHundredPercentHightech;
+    }
+
+    public boolean isInsuranceNotCoPayment() {
+        return insuranceNotCoPayment;
+    }
+
+    public void setInsuranceNotCoPayment(boolean insuranceNotCoPayment) {
+        this.insuranceNotCoPayment = insuranceNotCoPayment;
+    }
+
+    public Timestamp getInsuranceNotCopaymentDate() {
+        return insuranceNotCopaymentDate;
+    }
+
+    public void setInsuranceNotCopaymentDate(Timestamp insuranceNotCopaymentDate) {
+        this.insuranceNotCopaymentDate = insuranceNotCopaymentDate;
+    }
+
+    public Integer getInsuranceRegionValue() {
+        return insuranceRegionValue;
+    }
+
+    public void setInsuranceRegionValue(Integer insuranceRegionValue) {
+        this.insuranceRegionValue = insuranceRegionValue;
+    }
+
+    public boolean isInsuranceKeeping() {
+        return insuranceKeeping;
+    }
+
+    public void setInsuranceKeeping(boolean insuranceKeeping) {
+        this.insuranceKeeping = insuranceKeeping;
+    }
+
+    public Long getCountryId() {
+        return countryId;
+    }
+
+    public void setCountryId(Long countryId) {
+        this.countryId = countryId;
+    }
+
+    public Long getProvinceId() {
+        return provinceId;
+    }
+
+    public void setProvinceId(Long provinceId) {
+        this.provinceId = provinceId;
+    }
+
+    public Long getDistrictId() {
+        return districtId;
+    }
+
+    public void setDistrictId(Long districtId) {
+        this.districtId = districtId;
+    }
+
+    public Long getZoneId() {
+        return zoneId;
+    }
+
+    public void setZoneId(Long zoneId) {
+        this.zoneId = zoneId;
+    }
+
+    public String getDetail() {
+        return detail;
+    }
+
+    public void setDetail(String detail) {
+        this.detail = detail;
+    }
+
+    public String getGuardianPhone() {
+        return guardianPhone;
+    }
+
+    public void setGuardianPhone(String guardianPhone) {
+        this.guardianPhone = guardianPhone;
+    }
+
+    public String getGuardianName() {
+        return guardianName;
+    }
+
+    public void setGuardianName(String guardianName) {
+        this.guardianName = guardianName;
+    }
+
+    public String getGuardianIdNo() {
+        return guardianIdNo;
+    }
+
+    public void setGuardianIdNo(String guardianIdNo) {
+        this.guardianIdNo = guardianIdNo;
+    }
+
+    public Integer getBloodPressure() {
+        return bloodPressure;
+    }
+
+    public void setBloodPressure(Integer bloodPressure) {
+        this.bloodPressure = bloodPressure;
+    }
+
+    public Integer getTemperature() {
+        return temperature;
+    }
+
+    public void setTemperature(Integer temperature) {
+        this.temperature = temperature;
+    }
+
+    public Integer getSpo2() {
+        return spo2;
+    }
+
+    public void setSpo2(Integer spo2) {
+        this.spo2 = spo2;
+    }
+
+    public Integer getPulse() {
+        return pulse;
+    }
+
+    public void setPulse(Integer pulse) {
+        this.pulse = pulse;
+    }
+
+    public Integer getBreath() {
+        return breath;
+    }
+
+    public void setBreath(Integer breath) {
+        this.breath = breath;
+    }
+
+    public Integer getHeight() {
+        return height;
+    }
+
+    public void setHeight(Integer height) {
+        this.height = height;
+    }
+
+    public Integer getWeight() {
+        return weight;
+    }
+
+    public void setWeight(Integer weight) {
+        this.weight = weight;
+    }
+
+    public String getAllergy() {
+        return allergy;
+    }
+
+    public void setAllergy(String allergy) {
+        this.allergy = allergy;
+    }
+
+    public String getDisease() {
+        return disease;
+    }
+
+    public void setDisease(String disease) {
+        this.disease = disease;
+    }
+
+    public String getFamilyDisease() {
+        return familyDisease;
+    }
+
+    public void setFamilyDisease(String familyDisease) {
+        this.familyDisease = familyDisease;
+    }
+
+    public String getDiseaseProgression() {
+        return diseaseProgression;
+    }
+
+    public void setDiseaseProgression(String diseaseProgression) {
+        this.diseaseProgression = diseaseProgression;
+    }
+
+    public String getSurgery() {
+        return surgery;
+    }
+
+    public void setSurgery(String surgery) {
+        this.surgery = surgery;
+    }
+
+    public String getInHospitalDiseaseDiagnostic() {
+        return inHospitalDiseaseDiagnostic;
+    }
+
+    public void setInHospitalDiseaseDiagnostic(String inHospitalDiseaseDiagnostic) {
+        this.inHospitalDiseaseDiagnostic = inHospitalDiseaseDiagnostic;
+    }
+
+    public String getPrevDiagnostic() {
+        return prevDiagnostic;
+    }
+
+    public void setPrevDiagnostic(String prevDiagnostic) {
+        this.prevDiagnostic = prevDiagnostic;
+    }
+
+    public String getExaminationReason() {
+        return examinationReason;
+    }
+
+    public void setExaminationReason(String examinationReason) {
+        this.examinationReason = examinationReason;
+    }
+
+    public String getFirstDiagnostic() {
+        return firstDiagnostic;
+    }
+
+    public void setFirstDiagnostic(String firstDiagnostic) {
+        this.firstDiagnostic = firstDiagnostic;
+    }
+
+    public String getDiagnostic() {
+        return diagnostic;
+    }
+
+    public void setDiagnostic(String diagnostic) {
+        this.diagnostic = diagnostic;
+    }
+
+    public String getDiseaseDiagnostic() {
+        return diseaseDiagnostic;
+    }
+
+    public void setDiseaseDiagnostic(String diseaseDiagnostic) {
+        this.diseaseDiagnostic = diseaseDiagnostic;
+    }
+
+    public String getOtherDiseaseDiagnostic() {
+        return otherDiseaseDiagnostic;
+    }
+
+    public void setOtherDiseaseDiagnostic(String otherDiseaseDiagnostic) {
+        this.otherDiseaseDiagnostic = otherDiseaseDiagnostic;
+    }
 
     public String getPatientValue() {
         return patientValue;
@@ -261,11 +642,11 @@ public class PatientHistoryDto extends BaseDto {
         this.phone = phone;
     }
 
-    public int getGender() {
+    public Integer getGender() {
         return gender;
     }
 
-    public void setGender(int gender) {
+    public void setGender(Integer gender) {
         this.gender = gender;
     }
 
@@ -275,78 +656,6 @@ public class PatientHistoryDto extends BaseDto {
 
     public void setDepartmentId(Long departmentId) {
         this.departmentId = departmentId;
-    }
-
-    public String getAddress() {
-        return address;
-    }
-
-    public void setAddress(String address) {
-        this.address = address;
-    }
-
-    public Long getCountryId() {
-        return countryId;
-    }
-
-    public void setCountryId(Long countryId) {
-        this.countryId = countryId;
-    }
-
-    public Long getProvinceId() {
-        return provinceId;
-    }
-
-    public void setProvinceId(Long provinceId) {
-        this.provinceId = provinceId;
-    }
-
-    public Long getDistrictId() {
-        return districtId;
-    }
-
-    public void setDistrictId(Long districtId) {
-        this.districtId = districtId;
-    }
-
-    public Long getZoneId() {
-        return zoneId;
-    }
-
-    public void setZoneId(Long zoneId) {
-        this.zoneId = zoneId;
-    }
-
-    public String getDetail() {
-        return detail;
-    }
-
-    public void setDetail(String detail) {
-        this.detail = detail;
-    }
-
-    public String getGuardianPhone() {
-        return guardianPhone;
-    }
-
-    public void setGuardianPhone(String guardianPhone) {
-        this.guardianPhone = guardianPhone;
-    }
-
-    public String getGuardianName() {
-        return guardianName;
-    }
-
-    public void setGuardianName(String guardianName) {
-        this.guardianName = guardianName;
-    }
-
-    public String getGuardianIDNo() {
-        return guardianIDNo;
-    }
-
-    public void setGuardianIDNo(String guardianIDNo) {
-        this.guardianIDNo = guardianIDNo;
     }
 
     public Long getJobId() {
@@ -389,323 +698,27 @@ public class PatientHistoryDto extends BaseDto {
         this.advancePayment = advancePayment;
     }
 
-    public int getBloodPressure() {
-        return bloodPressure;
-    }
-
-    public void setBloodPressure(int bloodPressure) {
-        this.bloodPressure = bloodPressure;
-    }
-
-    public int getTemperature() {
-        return temperature;
-    }
-
-    public void setTemperature(int temperature) {
-        this.temperature = temperature;
-    }
-
-    public int getSpo2() {
-        return spo2;
-    }
-
-    public void setSpo2(int spo2) {
-        this.spo2 = spo2;
-    }
-
-    public int getPulse() {
-        return pulse;
-    }
-
-    public void setPulse(int pulse) {
-        this.pulse = pulse;
-    }
-
-    public int getBreath() {
-        return breath;
-    }
-
-    public void setBreath(int breath) {
-        this.breath = breath;
-    }
-
-    public int getHeight() {
-        return height;
-    }
-
-    public void setHeight(int height) {
-        this.height = height;
-    }
-
-    public int getWeight() {
-        return weight;
-    }
-
-    public void setWeight(int weight) {
-        this.weight = weight;
-    }
-
-    public int getBloodType() {
+    public Integer getBloodType() {
         return bloodType;
     }
 
-    public void setBloodType(int bloodType) {
+    public void setBloodType(Integer bloodType) {
         this.bloodType = bloodType;
     }
 
-    public String getAllergy() {
-        return allergy;
-    }
-
-    public void setAllergy(String allergy) {
-        this.allergy = allergy;
-    }
-
-    public String getDisease() {
-        return disease;
-    }
-
-    public void setDisease(String disease) {
-        this.disease = disease;
-    }
-
-    public String getFamilyDisease() {
-        return familyDisease;
-    }
-
-    public void setFamilyDisease(String familyDisease) {
-        this.familyDisease = familyDisease;
-    }
-
-    public String getDiseaseProgression() {
-        return diseaseProgression;
-    }
-
-    public void setDiseaseProgression(String diseaseProgression) {
-        this.diseaseProgression = diseaseProgression;
-    }
-
-    public String getSurgery() {
-        return surgery;
-    }
-
-    public void setSurgery(String surgery) {
-        this.surgery = surgery;
-    }
-
-    public int getPatientType() {
+    public Integer getPatientType() {
         return patientType;
     }
 
-    public void setPatientType(int patientType) {
+    public void setPatientType(Integer patientType) {
         this.patientType = patientType;
     }
 
-    public String getInsuranceAddress() {
-        return insuranceAddress;
-    }
-
-    public void setInsuranceAddress(String insuranceAddress) {
-        this.insuranceAddress = insuranceAddress;
-    }
-
-    public Timestamp getInsuranceFromDate() {
-        return insuranceFromDate;
-    }
-
-    public void setInsuranceFromDate(Timestamp insuranceFromDate) {
-        this.insuranceFromDate = insuranceFromDate;
-    }
-
-    public Timestamp getInsuranceToDate() {
-        return insuranceToDate;
-    }
-
-    public void setInsuranceToDate(Timestamp insuranceToDate) {
-        this.insuranceToDate = insuranceToDate;
-    }
-
-    public String getInsuranceNumber() {
-        return insuranceNumber;
-    }
-
-    public void setInsuranceNumber(String insuranceNumber) {
-        this.insuranceNumber = insuranceNumber;
-    }
-
-    public int getInsurancePercent() {
-        return insurancePercent;
-    }
-
-    public void setInsurancePercent(int insurancePercent) {
-        this.insurancePercent = insurancePercent;
-    }
-
-    public Long getInsuranceRegAtHospitalId() {
-        return insuranceRegAtHospitalId;
-    }
-
-    public void setInsuranceRegAtHospitalId(Long insuranceRegAtHospitalId) {
-        this.insuranceRegAtHospitalId = insuranceRegAtHospitalId;
-    }
-
-    public Long getPatientFromHospitalId() {
-        return patientFromHospitalId;
-    }
-
-    public void setPatientFromHospitalId(Long patientFromHospitalId) {
-        this.patientFromHospitalId = patientFromHospitalId;
-    }
-
-    public boolean isEmergency() {
-        return emergency;
-    }
-
-    public void setEmergency(boolean emergency) {
-        this.emergency = emergency;
-    }
-
-    public boolean isAppointment() {
-        return appointment;
-    }
-
-    public void setAppointment(boolean appointment) {
-        this.appointment = appointment;
-    }
-
-    public boolean isExtra() {
-        return extra;
-    }
-
-    public void setExtra(boolean extra) {
-        this.extra = extra;
-    }
-
-    public boolean isReferral() {
-        return referral;
-    }
-
-    public void setReferral(boolean referral) {
-        this.referral = referral;
-    }
-
-    public Timestamp getTimeContinuity5Year() {
-        return timeContinuity5Year;
-    }
-
-    public void setTimeContinuity5Year(Timestamp timeContinuity5Year) {
-        this.timeContinuity5Year = timeContinuity5Year;
-    }
-
-    public boolean isContinuity5Year() {
-        return continuity5Year;
-    }
-
-    public void setContinuity5Year(boolean continuity5Year) {
-        this.continuity5Year = continuity5Year;
-    }
-
-    public boolean isHundredPercentHightech() {
-        return hundredPercentHightech;
-    }
-
-    public void setHundredPercentHightech(boolean hundredPercentHightech) {
-        this.hundredPercentHightech = hundredPercentHightech;
-    }
-
-    public boolean isNotCopayment() {
-        return notCopayment;
-    }
-
-    public void setNotCopayment(boolean notCopayment) {
-        this.notCopayment = notCopayment;
-    }
-
-    public Timestamp getNotCopaymentDate() {
-        return notCopaymentDate;
-    }
-
-    public void setNotCopaymentDate(Timestamp notCopaymentDate) {
-        this.notCopaymentDate = notCopaymentDate;
-    }
-
-    public int getRegionValue() {
-        return regionValue;
-    }
-
-    public void setRegionValue(int regionValue) {
-        this.regionValue = regionValue;
-    }
-
-    public String getInHospitalDiseaseDiagnostic() {
-        return inHospitalDiseaseDiagnostic;
-    }
-
-    public void setInHospitalDiseaseDiagnostic(String inHospitalDiseaseDiagnostic) {
-        this.inHospitalDiseaseDiagnostic = inHospitalDiseaseDiagnostic;
-    }
-
-    public String getPrevDiagnostic() {
-        return prevDiagnostic;
-    }
-
-    public void setPrevDiagnostic(String prevDiagnostic) {
-        this.prevDiagnostic = prevDiagnostic;
-    }
-
-    public String getExaminationReason() {
-        return examinationReason;
-    }
-
-    public void setExaminationReason(String examinationReason) {
-        this.examinationReason = examinationReason;
-    }
-
-    public Long getPatientDiagnosticId() {
-        return patientDiagnosticId;
-    }
-
-    public void setPatientDiagnosticId(Long patientDiagnosticId) {
-        this.patientDiagnosticId = patientDiagnosticId;
-    }
-
-    public String getFirstDiagnostic() {
-        return firstDiagnostic;
-    }
-
-    public void setFirstDiagnostic(String firstDiagnostic) {
-        this.firstDiagnostic = firstDiagnostic;
-    }
-
-    public String getDiagnostic() {
-        return diagnostic;
-    }
-
-    public void setDiagnostic(String diagnostic) {
-        this.diagnostic = diagnostic;
-    }
-
-    public String getDiseaseDiagnostic() {
-        return diseaseDiagnostic;
-    }
-
-    public void setDiseaseDiagnostic(String diseaseDiagnostic) {
-        this.diseaseDiagnostic = diseaseDiagnostic;
-    }
-
-    public String getOtherDiseaseDiagnostic() {
-        return otherDiseaseDiagnostic;
-    }
-
-    public void setOtherDiseaseDiagnostic(String otherDiseaseDiagnostic) {
-        this.otherDiseaseDiagnostic = otherDiseaseDiagnostic;
-    }
-
-    public int getDischarge_type() {
+    public Integer getDischarge_type() {
         return discharge_type;
     }
 
-    public void setDischarge_type(int discharge_type) {
+    public void setDischarge_type(Integer discharge_type) {
         this.discharge_type = discharge_type;
     }
 
@@ -717,27 +730,27 @@ public class PatientHistoryDto extends BaseDto {
         this.treatmentDetails = treatmentDetails;
     }
 
-    public int getTreatmentDirection() {
+    public Integer getTreatmentDirection() {
         return treatmentDirection;
     }
 
-    public void setTreatmentDirection(int treatmentDirection) {
+    public void setTreatmentDirection(Integer treatmentDirection) {
         this.treatmentDirection = treatmentDirection;
     }
 
-    public int getTreatmentResult() {
+    public Integer getTreatmentResult() {
         return treatmentResult;
     }
 
-    public void setTreatmentResult(int treatmentResult) {
+    public void setTreatmentResult(Integer treatmentResult) {
         this.treatmentResult = treatmentResult;
     }
 
-    public int getPatientState() {
+    public Integer getPatientState() {
         return patientState;
     }
 
-    public void setPatientState(int patientState) {
+    public void setPatientState(Integer patientState) {
         this.patientState = patientState;
     }
 
@@ -763,29 +776,5 @@ public class PatientHistoryDto extends BaseDto {
 
     public void setPhCollectionId(Long phCollectionId) {
         this.phCollectionId = phCollectionId;
-    }
-
-    public Long getPatientContractId() {
-        return patientContractId;
-    }
-
-    public void setPatientContractId(Long patientContractId) {
-        this.patientContractId = patientContractId;
-    }
-
-    public Long getPatientOnlineId() {
-        return patientOnlineId;
-    }
-
-    public void setPatientOnlineId(Long patientOnlineId) {
-        this.patientOnlineId = patientOnlineId;
-    }
-
-    public String getAccountOnline() {
-        return accountOnline;
-    }
-
-    public void setAccountOnline(String accountOnline) {
-        this.accountOnline = accountOnline;
     }
 }
