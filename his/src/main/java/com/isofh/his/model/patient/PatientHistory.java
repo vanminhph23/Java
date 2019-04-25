@@ -68,9 +68,9 @@ public class PatientHistory extends BaseModel {
     @Audited
     private String phone;
 
-    @Column(name = "gender")
+    @Column(name = "gender", nullable = false)
     @Audited
-    private int gender;
+    private Integer gender;
 
     @Column(name = "department_id", nullable = false)
     @Audited
@@ -135,16 +135,16 @@ public class PatientHistory extends BaseModel {
     // common info
     @Column(name = "blood_type")
     @Audited
-    private int bloodType;
+    private Integer bloodType;
 
     @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "patient_medical_history_id", unique = true, updatable = false)
     private PatientMedicalHistory medicalHistory;
 
     // patient type
-    @Column(name = "patient_type")
+    @Column(name = "patient_type", nullable = false)
     @Audited
-    private int patientType;
+    private Integer patientType;
 
     // insurance info
     @OneToOne(fetch = FetchType.LAZY)
@@ -163,7 +163,7 @@ public class PatientHistory extends BaseModel {
     //Out hospital
     @Column(name = "discharge_type")
     @Audited
-    private int discharge_type;
+    private Integer discharge_type;
 
     @Column(name = "treatment_details")
     @Audited
@@ -171,15 +171,15 @@ public class PatientHistory extends BaseModel {
 
     @Column(name = "treatment_direction")
     @Audited
-    private int treatmentDirection;
+    private Integer treatmentDirection;
 
     @Column(name = "treatment_result")
     @Audited
-    private int treatmentResult;
+    private Integer treatmentResult;
 
     @Column(name = "patient_state")
     @Audited
-    private int patientState;
+    private Integer patientState;
 
     @Column(name = "transfer_from_department_id")
     @Audited
@@ -319,11 +319,11 @@ public class PatientHistory extends BaseModel {
         this.phone = phone;
     }
 
-    public int getGender() {
+    public Integer getGender() {
         return gender;
     }
 
-    public void setGender(int gender) {
+    public void setGender(Integer gender) {
         this.gender = gender;
     }
 
@@ -447,11 +447,11 @@ public class PatientHistory extends BaseModel {
         this.patientVitalSign = patientVitalSign;
     }
 
-    public int getBloodType() {
+    public Integer getBloodType() {
         return bloodType;
     }
 
-    public void setBloodType(int bloodType) {
+    public void setBloodType(Integer bloodType) {
         this.bloodType = bloodType;
     }
 
@@ -463,11 +463,11 @@ public class PatientHistory extends BaseModel {
         this.medicalHistory = medicalHistory;
     }
 
-    public int getPatientType() {
+    public Integer getPatientType() {
         return patientType;
     }
 
-    public void setPatientType(int patientType) {
+    public void setPatientType(Integer patientType) {
         this.patientType = patientType;
     }
 
@@ -495,11 +495,11 @@ public class PatientHistory extends BaseModel {
         this.patientDiag = patientDiag;
     }
 
-    public int getDischarge_type() {
+    public Integer getDischarge_type() {
         return discharge_type;
     }
 
-    public void setDischarge_type(int discharge_type) {
+    public void setDischarge_type(Integer discharge_type) {
         this.discharge_type = discharge_type;
     }
 
@@ -511,27 +511,27 @@ public class PatientHistory extends BaseModel {
         this.treatmentDetails = treatmentDetails;
     }
 
-    public int getTreatmentDirection() {
+    public Integer getTreatmentDirection() {
         return treatmentDirection;
     }
 
-    public void setTreatmentDirection(int treatmentDirection) {
+    public void setTreatmentDirection(Integer treatmentDirection) {
         this.treatmentDirection = treatmentDirection;
     }
 
-    public int getTreatmentResult() {
+    public Integer getTreatmentResult() {
         return treatmentResult;
     }
 
-    public void setTreatmentResult(int treatmentResult) {
+    public void setTreatmentResult(Integer treatmentResult) {
         this.treatmentResult = treatmentResult;
     }
 
-    public int getPatientState() {
+    public Integer getPatientState() {
         return patientState;
     }
 
-    public void setPatientState(int patientState) {
+    public void setPatientState(Integer patientState) {
         this.patientState = patientState;
     }
 

@@ -20,7 +20,7 @@ public class ReferenceList extends BaseModel {
 
     @Column(name = "value", nullable = false)
     @Audited
-    private int value;
+    private Integer value;
 
     @Column(name = "name", nullable = false)
     @Audited
@@ -42,22 +42,6 @@ public class ReferenceList extends BaseModel {
     @JoinColumn(name = "reference_list_id")
     private List<ReferenceListAccess> referenceListAccesses;
 
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public int getValue() {
-        return value;
-    }
-
-    public void setValue(int value) {
-        this.value = value;
-    }
-
     @Override
     public Long getId() {
         return this.id;
@@ -68,12 +52,20 @@ public class ReferenceList extends BaseModel {
         this.id = id;
     }
 
-    public String getDescription() {
-        return description;
+    public Integer getValue() {
+        return value;
     }
 
-    public void setDescription(String description) {
-        this.description = description;
+    public void setValue(Integer value) {
+        this.value = value;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
     }
 
     public Reference getReference() {
@@ -82,6 +74,14 @@ public class ReferenceList extends BaseModel {
 
     public void setReference(Reference reference) {
         this.reference = reference;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
     }
 
     public boolean isStrictAccess() {
