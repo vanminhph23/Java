@@ -14,7 +14,7 @@ public interface BaseCategoryService<X extends BaseCategoryModel, Y extends Base
     Z getRepository();
 
     @Override
-    default void beforeSave(X model) {
+    default X save(X model) {
         validateFields(model);
 
         autoFillFields(model);
@@ -22,6 +22,8 @@ public interface BaseCategoryService<X extends BaseCategoryModel, Y extends Base
         validateDuplicateValue(model);
 
         validateDuplicateName(model);
+
+        return BaseService.super.save(model);
     }
 
     default void validateDuplicateValue(X model) {
