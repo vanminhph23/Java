@@ -1,6 +1,6 @@
 package com.isofh.his.report.jasper;
 
-import com.isofh.his.exception.JasperException;
+import com.isofh.his.exception.report.JasperException;
 import com.isofh.his.report.ReportBuilder;
 import net.sf.jasperreports.engine.*;
 import net.sf.jasperreports.engine.export.JRPdfExporter;

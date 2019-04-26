@@ -1,4 +1,6 @@
-package com.isofh.his.exception;
+package com.isofh.his.exception.storage;
+
+import com.isofh.his.exception.BaseException;
 
 public class StorageException extends BaseException {
 

@@ -1,8 +1,10 @@
-package com.isofh.his.exception;
+package com.isofh.his.exception.data;
+
+import com.isofh.his.exception.BaseException;
 
 public class DuplicateValueException extends BaseException {
 
-    private final static int ERROR_CODE = 1100;
+    private final static int ERROR_CODE = 1101;
 
     public DuplicateValueException(String message) {
         super(ERROR_CODE, message);

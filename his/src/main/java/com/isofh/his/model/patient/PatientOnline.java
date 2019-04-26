@@ -10,16 +10,10 @@ import javax.persistence.*;
 public class PatientOnline extends BasePatientModel {
 
     @Id
-    @GeneratedValue(generator = "patient_online_generator")
-    @SequenceGenerator(
-            name = "patient_online_generator",
-            sequenceName = "patient_online_sq",
-            initialValue = 1000000
-    )
     private Long id;
 
     @OneToOne
-    @JoinColumn(name = "patient_history_id")
+    @MapsId
     private PatientHistory patientHistory;
 
     @Column(name = "account")

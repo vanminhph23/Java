@@ -27,31 +27,31 @@ public class PatientInsurance extends BasePatientModel {
     @Audited
     private String address;
 
-    @Column(name = "from_date")
+    @Column(name = "from_date", nullable = false)
     @Audited
     private Timestamp fromDate;
 
-    @Column(name = "to_date")
+    @Column(name = "to_date", nullable = false)
     @Audited
     private Timestamp toDate;
 
-    @Column(name = "applied_from_date")
+    @Column(name = "applied_from_date", nullable = false)
     @Audited
     private Timestamp appliedFromDate;
 
-    @Column(name = "applied_to_date")
+    @Column(name = "applied_to_date", nullable = false)
     @Audited
     private Timestamp appliedToDate;
 
-    @Column(name = "insurance_number", length = 15)
+    @Column(name = "insurance_number", length = 15, nullable = false)
     @Audited
     private String insuranceNumber;
 
-    @Column(name = "percent")
+    @Column(name = "percent", nullable = false)
     @Audited
     private Integer percent;
 
-    @Column(name = "reg_at_hospital_id")
+    @Column(name = "reg_at_hospital_id", nullable = false)
     @Audited
     private Long regAtHospitalId;
 
@@ -67,19 +67,19 @@ public class PatientInsurance extends BasePatientModel {
     @JoinColumn(name = "patient_from_hospital_id", insertable = false, updatable = false)
     private Hospital patientFromHospital;
 
-    @Column(name = "emergency")
+    @Column(name = "emergency", nullable = false)
     @Audited
     private boolean emergency;
 
-    @Column(name = "appointment")
+    @Column(name = "appointment", nullable = false)
     @Audited
     private boolean appointment;
 
-    @Column(name = "extra")
+    @Column(name = "extra", nullable = false)
     @Audited
     private boolean extra;
 
-    @Column(name = "referral")
+    @Column(name = "referral", nullable = false)
     @Audited
     private boolean referral;
 
@@ -91,11 +91,11 @@ public class PatientInsurance extends BasePatientModel {
     @Audited
     private boolean continuity5Year;
 
-    @Column(name = "hundred_percent_high_tech")
+    @Column(name = "hundred_percent_high_tech", nullable = false)
     @Audited
     private boolean hundredPercentHightech;
 
-    @Column(name = "not_copayment")
+    @Column(name = "not_copayment", nullable = false)
     @Audited
     private boolean notCopayment;
 
@@ -107,9 +107,9 @@ public class PatientInsurance extends BasePatientModel {
     @Audited
     private Integer regionValue;
 
-    @Column(name = "keeping")
+    @Column(name = "keeping", nullable = false)
     @Audited
-    private boolean keeping;
+    private boolean keeping = true;
 
     @Override
     public Long getId() {

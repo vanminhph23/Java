@@ -9,15 +9,10 @@ import javax.persistence.*;
 @Table(name = "his_patient_guardian")
 public class PatientGuardian extends BasePatientModel {
     @Id
-    @GeneratedValue(generator = "patient_guardian_generator")
-    @SequenceGenerator(
-            name = "patient_guardian_generator",
-            sequenceName = "patient_guardian_sq",
-            initialValue = 1000000
-    )
     private Long id;
 
-    @OneToOne(mappedBy = "patientGuardian")
+    @OneToOne
+    @MapsId
     private PatientHistory patientHistory;
 
     @Column(name = "phone")

@@ -1,4 +1,6 @@
-package com.isofh.his.exception;
+package com.isofh.his.exception.report;
+
+import com.isofh.his.exception.BaseException;
 
 public class JasperException extends BaseException {
 

@@ -1,9 +1,14 @@
 package com.isofh.his.service.patient;
 
 import com.isofh.his.dto.patient.PatientHistoryDto;
-import com.isofh.his.map.PropertyMapPatientHistoryDtoToModel;
+import com.isofh.his.exception.data.InvalidDataException;
+import com.isofh.his.exception.data.NotFoundException;
+import com.isofh.his.exception.data.NullValueException;
 import com.isofh.his.map.PropertyMapPatientHistoryToDto;
+import com.isofh.his.model.patient.PatientAddress;
+import com.isofh.his.model.patient.PatientGuardian;
 import com.isofh.his.model.patient.PatientHistory;
+import com.isofh.his.model.patient.PatientInsurance;
 import com.isofh.his.repository.patient.PatientHistoryRepository;
 import com.isofh.his.storage.StorageService;
 import org.modelmapper.ModelMapper;
@@ -61,7 +66,6 @@ public class PatientHistoryServiceImpl implements PatientHistoryService {
             modelMapper = new ModelMapper();
             modelMapper.getConfiguration().setMatchingStrategy(MatchingStrategies.STRICT);
             modelMapper.addMappings(new PropertyMapPatientHistoryToDto());
-            modelMapper.addMappings(new PropertyMapPatientHistoryDtoToModel());
         }
 
         return modelMapper;
@@ -69,33 +73,99 @@ public class PatientHistoryServiceImpl implements PatientHistoryService {
 
     @Transactional
     @Override
-    public PatientHistory create(PatientHistory model) {
-        if (model.getPatientAddress() != null) {
-            addressService.save(model.getPatientAddress());
+    public PatientHistory create(PatientHistoryDto phDto) {
+        PatientHistory ph = getModel(phDto);
+
+        // Address
+        PatientAddress address = new PatientAddress();
+        ph.setPatientAddress(address);
+        address.setCountryId(phDto.getCountryId());
+        address.setProvinceId(phDto.getProvinceId());
+        address.setDistrictId(phDto.getDistrictId());
+        address.setZoneId(phDto.getZoneId());
+        address.setDetail(phDto.getDetail());
+
+        if (ph.getPatientType() == null) {
+            ph.setPatientType(PatientType.SERVICE.getValue());
         }
 
-        if (model.getPatientInsurance() != null) {
-            insuranceService.save(model.getPatientInsurance());
+        if (ph.getPatientType() != PatientType.SERVICE.getValue() && ph.getPatientType() != PatientType.INSURANCE.getValue()) {
+            throw new InvalidDataException("Patient type " + ph.getPatientType());
         }
 
-        if (model.getPatientGuardian() != null) {
-            guardianService.save(model.getPatientGuardian());
+        // Address card
+        if (ph.getPatientType() == PatientType.INSURANCE.getValue()) {
+            PatientInsurance insurance = new PatientInsurance();
+            ph.setPatientInsurance(insurance);
+
+            insurance.setAddress(phDto.getInsuranceAddress());
+            insurance.setAppliedToDate(phDto.getInsuranceAppliedToDate());
+            insurance.setAppliedFromDate(phDto.getInsuranceAppliedFromDate());
+            insurance.setAppointment(phDto.isInsuranceAppointment());
+            insurance.setContinuity5Year(phDto.isInsuranceContinuity5Year());
+            insurance.setEmergency(phDto.isInsuranceEmergency());
+            insurance.setExtra(phDto.isInsuranceExtra());
+            insurance.setHundredPercentHightech(phDto.isInsuranceHundredPercentHightech());
+            insurance.setInsuranceNumber(phDto.getInsuranceNumber());
+            insurance.setFromDate(phDto.getInsuranceFromDate());
+            insurance.setToDate(phDto.getInsuranceToDate());
+            insurance.setNotCopayment(phDto.isInsuranceNotCoPayment());
+            insurance.setNotCopaymentDate(phDto.getInsuranceNotCopaymentDate());
+            insurance.setRegAtHospitalId(phDto.getInsuranceRegAtHospitalId());
+            insurance.setPatientFromHospitalId(phDto.getInsurancePatientFromHospitalId());
+            insurance.setPercent(phDto.getInsurancePercent());
+            insurance.setReferral(phDto.isInsuranceReferral());
+            insurance.setRegionValue(phDto.getInsuranceRegionValue());
+            insurance.setKeeping(phDto.isInsuranceKeeping());
         }
 
-        return save(model);
+        // guardian
+        if (phDto.getGuardianIdNo() != null || phDto.getGuardianName() != null || phDto.getGuardianPhone() != null) {
+            PatientGuardian guardian = new PatientGuardian();
+            guardian.setPatientHistory(ph);
+
+            guardian.setIdNo(phDto.getGuardianIdNo());
+            guardian.setName(phDto.getGuardianName());
+            guardian.setPhone(phDto.getGuardianPhone());
+        }
+
+        return create(ph);
     }
 
     @Transactional
     @Override
-    public PatientHistory update(PatientHistory model) {
-        if (model.getPatientAddress() != null) {
-            addressService.save(model.getPatientAddress());
+    public PatientHistory create(PatientHistory ph) {
+        if (ph.getPatientAddress() != null) {
+            addressService.save(ph.getPatientAddress());
         }
 
-        if (model.getPatientGuardian() != null) {
-            guardianService.save(model.getPatientGuardian());
+        if (ph.getPatientInsurance() != null) {
+            insuranceService.save(ph.getPatientInsurance());
         }
 
-        return save(model);
+        ph = save(ph);
+
+        return ph;
+    }
+
+    @Transactional
+    @Override
+    public PatientHistory update(PatientHistoryDto phDto) {
+        PatientHistory ph = repository.findById(phDto.getId()).orElseThrow(() -> new NotFoundException("Not found patient history id: " + phDto.getId()));
+        return update(ph);
+    }
+
+    @Transactional
+    @Override
+    public PatientHistory update(PatientHistory ph) {
+        return save(ph);
+    }
+
+    private void validatePatientName(PatientHistory ph) {
+        if (ph.getPatientName() == null) {
+            throw new NullValueException("Patient name is null");
+        }
+
+        ph.setPatientName(ph.getPatientName().toUpperCase());
     }
 }

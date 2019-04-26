@@ -3,6 +3,7 @@ package com.isofh.his.controller.patient;
 import com.isofh.his.controller.base.BaseController;
 import com.isofh.his.dto.base.ResponseMsg;
 import com.isofh.his.dto.patient.PatientHistoryDto;
+import com.isofh.his.model.patient.PatientHistory;
 import com.isofh.his.service.patient.PatientHistoryService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -29,12 +30,14 @@ public class PatientHistoryController extends BaseController {
 
     @PostMapping("/patient-histories")
     public ResponseEntity<ResponseMsg> create(@Valid @RequestBody PatientHistoryDto dto) {
-        return response("patientHistory", service.create(dto));
+        PatientHistory ph = service.create(dto);
+        return response("patientHistory", service.getDto(ph));
     }
 
     @PutMapping("/patient-histories")
     public ResponseEntity<ResponseMsg> update(@Valid @RequestBody PatientHistoryDto dto) {
-        return response("patientHistory", service.update(dto));
+        PatientHistory ph = service.update(dto);
+        return response("patientHistory", service.getDto(ph));
     }
 
     @PostMapping("/patient-histories/excel")

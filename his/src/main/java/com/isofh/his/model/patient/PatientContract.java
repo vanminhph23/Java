@@ -10,16 +10,10 @@ import javax.persistence.*;
 public class PatientContract extends BasePatientModel {
 
     @Id
-    @GeneratedValue(generator = "patient_contract_generator")
-    @SequenceGenerator(
-            name = "patient_contract_generator",
-            sequenceName = "patient_contract_sq",
-            initialValue = 1000000
-    )
     private Long id;
 
     @OneToOne
-    @JoinColumn(name = "patient_history_id")
+    @MapsId
     private PatientHistory patientHistory;
 
     @Column(name = "employee_value")

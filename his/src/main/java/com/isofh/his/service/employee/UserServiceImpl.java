@@ -1,7 +1,7 @@
 package com.isofh.his.service.employee;
 
 import com.isofh.his.dto.employee.UserDto;
-import com.isofh.his.exception.DuplicateNameException;
+import com.isofh.his.exception.data.DuplicateNameException;
 import com.isofh.his.model.employee.User;
 import com.isofh.his.repository.employee.UserRepository;
 import com.isofh.his.storage.StorageService;

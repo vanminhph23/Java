@@ -1,7 +1,7 @@
 package com.isofh.his.storage;
 
-import com.isofh.his.exception.StorageException;
-import com.isofh.his.exception.StorageFileNotFoundException;
+import com.isofh.his.exception.storage.StorageException;
+import com.isofh.his.exception.storage.StorageFileNotFoundException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;

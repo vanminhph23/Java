@@ -1,7 +1,7 @@
 package com.isofh.his.security;
 
 import com.isofh.his.dto.employee.UserDto;
-import com.isofh.his.exception.JWTTokenException;
+import com.isofh.his.exception.security.JWTTokenException;
 import com.isofh.his.util.Util;
 import io.jsonwebtoken.*;
 import org.slf4j.Logger;

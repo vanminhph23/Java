@@ -2,7 +2,7 @@ package com.isofh.his.controller.core;
 
 import com.isofh.his.dto.base.ResponseMsg;
 import com.isofh.his.exception.BaseException;
-import com.isofh.his.exception.JWTTokenException;
+import com.isofh.his.exception.security.JWTTokenException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.security.authentication.BadCredentialsException;

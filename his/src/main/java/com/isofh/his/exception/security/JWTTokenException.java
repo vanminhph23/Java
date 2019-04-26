@@ -1,4 +1,6 @@
-package com.isofh.his.exception;
+package com.isofh.his.exception.security;
+
+import com.isofh.his.exception.BaseException;
 
 public class JWTTokenException extends BaseException {
 
