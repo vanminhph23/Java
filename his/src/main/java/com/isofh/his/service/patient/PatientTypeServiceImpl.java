@@ -10,6 +10,8 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Date;
+
 @Service
 public class PatientTypeServiceImpl implements PatientTypeService {
 
@@ -49,5 +51,10 @@ public class PatientTypeServiceImpl implements PatientTypeService {
         }
 
         return modelMapper;
+    }
+
+    @Override
+    public PatientType getByActDate(int patientHistoryId, Date actDate) {
+        return null;
     }
 }

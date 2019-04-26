@@ -13,6 +13,7 @@ public class PropertyMapPatientHistoryToDto extends PropertyMap<PatientHistory, 
         map().setDistrictId(source.getPatientAddress().getDistrictId());
         map().setZoneId(source.getPatientAddress().getZoneId());
         map().setDetail(source.getPatientAddress().getDetail());
+        map().setAddress(source.getPatientAddress().getAddress());
         // insurance
         map().setInsuranceAddress(source.getPatientInsurance().getAddress());
         map().setInsuranceAppliedToDate(source.getPatientInsurance().getAppliedToDate());
@@ -37,5 +38,10 @@ public class PropertyMapPatientHistoryToDto extends PropertyMap<PatientHistory, 
         map().setGuardianIdNo(source.getPatientGuardian().getIdNo());
         map().setGuardianName(source.getPatientGuardian().getName());
         map().setGuardianPhone(source.getPatientGuardian().getPhone());
+        // statistics
+        map().setOutpatientTimes(source.getPatientStatistics().getOutpatientTimes());
+        map().setInsOutpatientTimes(source.getPatientStatistics().getInsOutpatientTimes());
+        map().setInsOutpatientTimesMonth(source.getPatientStatistics().getInsOutpatientTimesMonth());
+        map().setInsOutpatientTimesYear(source.getPatientStatistics().getInsOutpatientTimesYear());
     }
 }

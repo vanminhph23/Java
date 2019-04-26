@@ -5,9 +5,11 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.text.Normalizer;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import java.util.regex.Pattern;
 import java.util.stream.Collectors;
 
 public class Util {
@@ -51,5 +53,15 @@ public class Util {
         }
 
         return toList;
+    }
+
+    public static String deleteAccents(String text) {
+        String nfdNormalizedString = Normalizer.normalize(text, Normalizer.Form.NFD);
+        Pattern pattern = Pattern.compile("\\p{InCombiningDiacriticalMarks}+");
+        text = pattern.matcher(nfdNormalizedString).replaceAll("")
+                .replaceAll("Đ", "D")
+                .replaceAll("đ", "d");
+
+        return text;
     }
 }

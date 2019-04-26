@@ -6,4 +6,6 @@ import com.isofh.his.repository.patient.PatientGuardianRepository;
 import com.isofh.his.service.base.BaseService;
 
 public interface PatientGuardianService extends BaseService<PatientGuardian, PatientGuardianDto, PatientGuardianRepository> {
+
+    void validateInfo(PatientGuardian guardian);
 }

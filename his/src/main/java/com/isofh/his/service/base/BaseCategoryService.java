@@ -55,6 +55,14 @@ public interface BaseCategoryService<X extends BaseCategoryModel, Y extends Base
     default void validateDuplicateName(X model) {
     }
 
+    default String findNameById(Long id) {
+        return (String) getRepository().findNameById(id).orElse(null);
+    }
+
+    default String findNameById(String value) {
+        return (String) getRepository().findNameByValue(value).orElse(null);
+    }
+
     default X findByValue(String value) {
         return (X) getRepository().findByValue(value).orElse(null);
     }

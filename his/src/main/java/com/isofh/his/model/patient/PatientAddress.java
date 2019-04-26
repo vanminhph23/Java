@@ -61,6 +61,10 @@ public class PatientAddress extends BasePatientModel {
     @Audited
     private String detail;
 
+    @Column(name = "address")
+    @Audited
+    private String address;
+
     @Override
     public Long getId() {
         return id;
@@ -149,5 +153,13 @@ public class PatientAddress extends BasePatientModel {
 
     public void setDetail(String detail) {
         this.detail = detail;
+    }
+
+    public String getAddress() {
+        return address;
+    }
+
+    public void setAddress(String address) {
+        this.address = address;
     }
 }

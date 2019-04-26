@@ -1,7 +1,10 @@
 package com.isofh.his.service.patient;
 
 import com.isofh.his.dto.patient.PatientGuardianDto;
+import com.isofh.his.exception.data.InvalidDataException;
+import com.isofh.his.exception.data.NullValueException;
 import com.isofh.his.model.patient.PatientGuardian;
+import com.isofh.his.model.patient.PatientHistory;
 import com.isofh.his.repository.patient.PatientGuardianRepository;
 import com.isofh.his.storage.StorageService;
 import org.modelmapper.ModelMapper;
@@ -17,6 +20,9 @@ public class PatientGuardianServiceImpl implements PatientGuardianService {
 
     @Autowired
     private PatientGuardianRepository repository;
+
+    @Autowired
+    private PatientUtil patientUtil;
 
     @Override
     public PatientGuardianRepository getRepository() {
@@ -49,5 +55,18 @@ public class PatientGuardianServiceImpl implements PatientGuardianService {
         }
 
         return modelMapper;
+    }
+
+    public void validateInfo(PatientGuardian guardian) {
+        validatePatientName(guardian);
+        validatePhone(guardian);
+    }
+
+    private void validatePatientName(PatientGuardian guardian) {
+        guardian.setName(patientUtil.formatName(guardian.getName()));
+    }
+
+    private void validatePhone(PatientGuardian guardian) {
+        guardian.setPhone(patientUtil.formatPhone(guardian.getPhone()));
     }
 }

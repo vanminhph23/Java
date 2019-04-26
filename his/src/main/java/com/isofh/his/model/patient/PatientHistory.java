@@ -2,10 +2,12 @@ package com.isofh.his.model.patient;
 
 import com.isofh.his.model.base.BaseModel;
 import com.isofh.his.model.category.*;
+import com.isofh.his.service.patient.PatientStatistics;
 import org.hibernate.envers.Audited;
 
 import javax.persistence.*;
 import java.sql.Timestamp;
+import java.util.Date;
 
 @Entity
 @Table(name = "his_patient_history")
@@ -41,20 +43,23 @@ public class PatientHistory extends BaseModel {
     private boolean inpatient = false;
 
     @Column(name = "reg_date")
+    @Temporal(TemporalType.TIMESTAMP)
     @Audited
-    private Timestamp regDate;
+    private Date regDate;
 
     @Column(name = "time_go_in")
+    @Temporal(TemporalType.TIMESTAMP)
     @Audited
-    private Timestamp timeGoIn;
+    private Date timeGoIn;
 
     @Column(name = "time_go_out")
+    @Temporal(TemporalType.TIMESTAMP)
     @Audited
-    private Timestamp timeGoOut;
+    private Date timeGoOut;
 
     @Column(name = "birthday")
     @Audited
-    private Timestamp birthday;
+    private Date birthday;
 
     @Column(name = "only_year_birth")
     @Audited
@@ -119,6 +124,10 @@ public class PatientHistory extends BaseModel {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "department_id", insertable = false, updatable = false)
     private Department department;
+
+    @Column(name = "patient_in_hospital")
+    @Audited
+    private boolean patientInHospital = true;
 
     //Out hospital
     @Column(name = "discharge_type")
@@ -197,15 +206,23 @@ public class PatientHistory extends BaseModel {
     private PatientDiag patientDiag;
 
     // Nguoi bao lanh
-    @OneToOne(mappedBy = "patientHistory", fetch = FetchType.LAZY)
+    @OneToOne(mappedBy = "patientHistory", fetch = FetchType.LAZY, cascade = {CascadeType.ALL})
     private PatientGuardian patientGuardian;
 
+    // Nguoi bao lanh
+    @OneToOne(mappedBy = "patientHistory", fetch = FetchType.LAZY, cascade = {CascadeType.ALL})
+    private PatientStatistics patientStatistics;
+
     // KSK
-    @OneToOne(mappedBy = "patientHistory", fetch = FetchType.LAZY)
+    @OneToOne(mappedBy = "patientHistory", fetch = FetchType.LAZY, cascade = {CascadeType.ALL})
     private PatientContract patientContract;
 
+    @Column(name = "contract")
+    @Audited
+    private boolean contract;
+
     // iSofHCare
-    @OneToOne(mappedBy = "patientHistory", fetch = FetchType.LAZY)
+    @OneToOne(mappedBy = "patientHistory", fetch = FetchType.LAZY, cascade = {CascadeType.ALL})
     private PatientOnline patientOnline;
 
     @Override
@@ -224,6 +241,14 @@ public class PatientHistory extends BaseModel {
 
     public void setPatientValue(String patientValue) {
         this.patientValue = patientValue;
+    }
+
+    public boolean isContract() {
+        return contract;
+    }
+
+    public void setContract(boolean contract) {
+        this.contract = contract;
     }
 
     public String getPatientName() {
@@ -258,35 +283,35 @@ public class PatientHistory extends BaseModel {
         this.inpatient = inpatient;
     }
 
-    public Timestamp getRegDate() {
+    public Date getRegDate() {
         return regDate;
     }
 
-    public void setRegDate(Timestamp regDate) {
+    public void setRegDate(Date regDate) {
         this.regDate = regDate;
     }
 
-    public Timestamp getTimeGoIn() {
+    public Date getTimeGoIn() {
         return timeGoIn;
     }
 
-    public void setTimeGoIn(Timestamp timeGoIn) {
+    public void setTimeGoIn(Date timeGoIn) {
         this.timeGoIn = timeGoIn;
     }
 
-    public Timestamp getTimeGoOut() {
+    public Date getTimeGoOut() {
         return timeGoOut;
     }
 
-    public void setTimeGoOut(Timestamp timeGoOut) {
+    public void setTimeGoOut(Date timeGoOut) {
         this.timeGoOut = timeGoOut;
     }
 
-    public Timestamp getBirthday() {
+    public Date getBirthday() {
         return birthday;
     }
 
-    public void setBirthday(Timestamp birthday) {
+    public void setBirthday(Date birthday) {
         this.birthday = birthday;
     }
 
@@ -410,14 +435,6 @@ public class PatientHistory extends BaseModel {
         this.bloodType = bloodType;
     }
 
-    public Integer getPatientType() {
-        return patientType;
-    }
-
-    public void setPatientType(Integer patientType) {
-        this.patientType = patientType;
-    }
-
     public Department getDepartment() {
         return department;
     }
@@ -514,12 +531,12 @@ public class PatientHistory extends BaseModel {
         this.phCollection = phCollection;
     }
 
-    public PatientInsurance getPatientInsurance() {
-        return patientInsurance;
+    public Integer getPatientType() {
+        return patientType;
     }
 
-    public void setPatientInsurance(PatientInsurance patientInsurance) {
-        this.patientInsurance = patientInsurance;
+    public void setPatientType(Integer patientType) {
+        this.patientType = patientType;
     }
 
     public PatientAddress getPatientAddress() {
@@ -530,12 +547,12 @@ public class PatientHistory extends BaseModel {
         this.patientAddress = patientAddress;
     }
 
-    public PatientGuardian getPatientGuardian() {
-        return patientGuardian;
+    public PatientInsurance getPatientInsurance() {
+        return patientInsurance;
     }
 
-    public void setPatientGuardian(PatientGuardian patientGuardian) {
-        this.patientGuardian = patientGuardian;
+    public void setPatientInsurance(PatientInsurance patientInsurance) {
+        this.patientInsurance = patientInsurance;
     }
 
     public PatientMedicalHistory getMedicalHistory() {
@@ -570,6 +587,22 @@ public class PatientHistory extends BaseModel {
         this.patientDiag = patientDiag;
     }
 
+    public PatientGuardian getPatientGuardian() {
+        return patientGuardian;
+    }
+
+    public void setPatientGuardian(PatientGuardian patientGuardian) {
+        this.patientGuardian = patientGuardian;
+    }
+
+    public PatientStatistics getPatientStatistics() {
+        return patientStatistics;
+    }
+
+    public void setPatientStatistics(PatientStatistics patientStatistics) {
+        this.patientStatistics = patientStatistics;
+    }
+
     public PatientContract getPatientContract() {
         return patientContract;
     }
@@ -584,5 +617,13 @@ public class PatientHistory extends BaseModel {
 
     public void setPatientOnline(PatientOnline patientOnline) {
         this.patientOnline = patientOnline;
+    }
+
+    public boolean isPatientInHospital() {
+        return patientInHospital;
+    }
+
+    public void setPatientInHospital(boolean patientInHospital) {
+        this.patientInHospital = patientInHospital;
     }
 }

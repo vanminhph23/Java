@@ -6,4 +6,6 @@ import com.isofh.his.repository.category.InsuranceCardRepository;
 import com.isofh.his.service.base.BaseCategoryService;
 
 public interface InsuranceCardService extends BaseCategoryService<InsuranceCard, InsuranceCardDto, InsuranceCardRepository> {
+
+    InsuranceCard findByInsuranceNumber(String insuranceNumber);
 }

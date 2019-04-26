@@ -73,4 +73,19 @@ public class InsuranceCardServiceImpl implements InsuranceCardService {
 
         return null;
     }
+
+    @Override
+    public void autoFillFields(InsuranceCard model) {
+        model.setValue(model.getValue());
+    }
+
+    @Override
+    public InsuranceCard findByInsuranceNumber(String insuranceNumber) {
+        if (insuranceNumber == null || insuranceNumber.isEmpty() || insuranceNumber.length() < 3) {
+            return null;
+        }
+
+        String value = insuranceNumber.substring(0, 3).toUpperCase();
+        return getRepository().findByValue(value).orElse(null);
+    }
 }

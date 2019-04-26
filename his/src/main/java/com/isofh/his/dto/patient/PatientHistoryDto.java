@@ -1,7 +1,9 @@
 package com.isofh.his.dto.patient;
 
 import com.isofh.his.dto.base.BaseDto;
+import org.hibernate.envers.Audited;
 
+import javax.persistence.Column;
 import java.sql.Timestamp;
 
 public class PatientHistoryDto extends BaseDto {
@@ -60,6 +62,8 @@ public class PatientHistoryDto extends BaseDto {
     private Long zoneId;
 
     private String detail;
+
+    private String address;
 
     // guardian
     private String guardianPhone;
@@ -164,11 +168,39 @@ public class PatientHistoryDto extends BaseDto {
 
     private Integer patientState;
 
+    private boolean patientInHospital = true;
+
     private Long transferFromDepartmentId;
 
     private Long transferToDepartmentId;
 
     private Long phCollectionId;
+
+    private Integer outpatientTimes;
+
+    private Integer insOutpatientTimes;
+
+    private Integer insOutpatientTimesMonth;
+
+    private Integer insOutpatientTimesYear;
+
+    private boolean contract;
+
+    public boolean isPatientInHospital() {
+        return patientInHospital;
+    }
+
+    public void setPatientInHospital(boolean patientInHospital) {
+        this.patientInHospital = patientInHospital;
+    }
+
+    public boolean isContract() {
+        return contract;
+    }
+
+    public void setContract(boolean contract) {
+        this.contract = contract;
+    }
 
     public String getInsuranceAddress() {
         return insuranceAddress;
@@ -368,6 +400,14 @@ public class PatientHistoryDto extends BaseDto {
 
     public void setDetail(String detail) {
         this.detail = detail;
+    }
+
+    public String getAddress() {
+        return address;
+    }
+
+    public void setAddress(String address) {
+        this.address = address;
     }
 
     public String getGuardianPhone() {
@@ -776,5 +816,37 @@ public class PatientHistoryDto extends BaseDto {
 
     public void setPhCollectionId(Long phCollectionId) {
         this.phCollectionId = phCollectionId;
+    }
+
+    public Integer getOutpatientTimes() {
+        return outpatientTimes;
+    }
+
+    public void setOutpatientTimes(Integer outpatientTimes) {
+        this.outpatientTimes = outpatientTimes;
+    }
+
+    public Integer getInsOutpatientTimes() {
+        return insOutpatientTimes;
+    }
+
+    public void setInsOutpatientTimes(Integer insOutpatientTimes) {
+        this.insOutpatientTimes = insOutpatientTimes;
+    }
+
+    public Integer getInsOutpatientTimesMonth() {
+        return insOutpatientTimesMonth;
+    }
+
+    public void setInsOutpatientTimesMonth(Integer insOutpatientTimesMonth) {
+        this.insOutpatientTimesMonth = insOutpatientTimesMonth;
+    }
+
+    public Integer getInsOutpatientTimesYear() {
+        return insOutpatientTimesYear;
+    }
+
+    public void setInsOutpatientTimesYear(Integer insOutpatientTimesYear) {
+        this.insOutpatientTimesYear = insOutpatientTimesYear;
     }
 }

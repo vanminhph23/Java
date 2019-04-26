@@ -12,7 +12,7 @@ public class PatientContract extends BasePatientModel {
     @Id
     private Long id;
 
-    @OneToOne
+    @OneToOne(fetch = FetchType.LAZY, cascade = {CascadeType.ALL})
     @MapsId
     private PatientHistory patientHistory;
 

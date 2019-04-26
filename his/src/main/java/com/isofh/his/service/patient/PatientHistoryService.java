@@ -6,23 +6,28 @@ import com.isofh.his.repository.patient.PatientHistoryRepository;
 import com.isofh.his.service.base.BaseService;
 import com.isofh.his.service.base.IEnum;
 
+import java.sql.Timestamp;
+import java.util.Date;
+
 public interface PatientHistoryService extends BaseService<PatientHistory, PatientHistoryDto, PatientHistoryRepository> {
 
-    PatientHistory create(PatientHistoryDto phDto);
+    PatientHistory create(PatientHistoryDto historyDto);
 
-    PatientHistory update(PatientHistoryDto phDto);
+    PatientHistory update(PatientHistoryDto historyDto);
 
-    PatientHistory create(PatientHistory ph);
+    PatientHistory create(PatientHistory history);
 
-    PatientHistory update(PatientHistory ph);
+    PatientHistory update(PatientHistory history);
 
-    enum PatientType implements IEnum {
+    boolean isInsurancePatient(PatientHistory history, Date actDate);
+
+    enum PatientTypeEnum implements IEnum {
         SERVICE(1, "Service"), INSURANCE(2, "Insurance");
 
         int value;
         String name;
 
-        PatientType(int value, String name) {
+        PatientTypeEnum(int value, String name) {
             this.value = value;
             this.name = name;
         }

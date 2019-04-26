@@ -18,31 +18,31 @@ public class DateUtil {
         return DateUtils.addYears(truncateMonth(new Date()), 100);
     }
 
-    private static Date truncateMonth(Date date) {
+    public static Date truncateMonth(Date date) {
         return DateUtils.truncate(truncateDate(date), Calendar.MONTH);
     }
 
-    private static Date truncateDate(Date date) {
+    public static Date truncateDate(Date date) {
         return DateUtils.truncate(truncateHour(date), Calendar.DATE);
     }
 
-    private static Date truncateHour(Date date) {
+    public static Date truncateHour(Date date) {
         return DateUtils.truncate(truncateMinute(date), Calendar.HOUR_OF_DAY);
     }
 
-    private static Date truncateMinute(Date date) {
+    public static Date truncateMinute(Date date) {
         return DateUtils.truncate(truncateSecond(date), Calendar.MINUTE);
     }
 
-    private static Date truncateSecond(Date date) {
+    public static Date truncateSecond(Date date) {
         return DateUtils.truncate(truncateMillisecond(date), Calendar.SECOND);
     }
 
-    private static Date truncateMillisecond(Date date) {
+    public static Date truncateMillisecond(Date date) {
         return DateUtils.truncate(date, Calendar.MILLISECOND);
     }
 
-    private static boolean isValidDate(Date date) {
+    public static boolean isValidDate(Date date) {
         if (date == null) {
             return false;
         }
@@ -58,6 +58,10 @@ public class DateUtil {
 
     public static Date parseValidDate(String dateStr) throws ParseException {
         return parseValidDate(dateStr, null);
+    }
+
+    public static int truncatedHourCompareTo(Date date1, Date date2) {
+        return truncateHour(date1).compareTo(truncateDate(date2));
     }
 
     public static Date parseValidDate(String dateStr, String parsePattern) throws ParseException {

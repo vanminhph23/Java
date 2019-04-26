@@ -19,11 +19,11 @@ public class PatientType extends BasePatientModel {
     )
     private Long id;
 
-    @Column(name = "patient_history_id", unique = true)
+    @Column(name = "patient_history_id")
     @Audited
     private Long patientHistoryId;
 
-    @OneToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "patient_history_id", insertable = false, updatable = false)
     private PatientHistory patientHistory;
 
@@ -36,12 +36,8 @@ public class PatientType extends BasePatientModel {
     private Timestamp actDate;
 
     // insurance info
-    @Column(name = "patient_insurance_id", unique = true)
-    @Audited
-    private Long patientInsuranceId;
-
-    @OneToOne
-    @JoinColumn(name = "patient_insurance_id", insertable = false, updatable = false)
+    @OneToOne(fetch = FetchType.LAZY, cascade = {CascadeType.ALL})
+    @JoinColumn(name = "patient_insurance_id", unique = true, updatable = false)
     private PatientInsurance patientInsurance;
 
     @Override
@@ -52,5 +48,45 @@ public class PatientType extends BasePatientModel {
     @Override
     public void setId(Long id) {
         this.id = id;
+    }
+
+    public Long getPatientHistoryId() {
+        return patientHistoryId;
+    }
+
+    public void setPatientHistoryId(Long patientHistoryId) {
+        this.patientHistoryId = patientHistoryId;
+    }
+
+    public PatientHistory getPatientHistory() {
+        return patientHistory;
+    }
+
+    public void setPatientHistory(PatientHistory patientHistory) {
+        this.patientHistory = patientHistory;
+    }
+
+    public int getPatientType() {
+        return patientType;
+    }
+
+    public void setPatientType(int patientType) {
+        this.patientType = patientType;
+    }
+
+    public Timestamp getActDate() {
+        return actDate;
+    }
+
+    public void setActDate(Timestamp actDate) {
+        this.actDate = actDate;
+    }
+
+    public PatientInsurance getPatientInsurance() {
+        return patientInsurance;
+    }
+
+    public void setPatientInsurance(PatientInsurance patientInsurance) {
+        this.patientInsurance = patientInsurance;
     }
 }
