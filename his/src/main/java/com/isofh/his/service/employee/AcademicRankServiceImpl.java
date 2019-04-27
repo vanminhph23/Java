@@ -42,6 +42,7 @@ public class AcademicRankServiceImpl implements AcademicRankService {
     }
 
     ModelMapper modelMapper = null;
+
     @Override
     public ModelMapper getModelMapper() {
         if (modelMapper == null) {

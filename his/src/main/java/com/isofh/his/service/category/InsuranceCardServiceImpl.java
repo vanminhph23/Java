@@ -47,6 +47,7 @@ public class InsuranceCardServiceImpl implements InsuranceCardService {
     }
 
     ModelMapper modelMapper = null;
+
     @Override
     public ModelMapper getModelMapper() {
         if (modelMapper == null) {

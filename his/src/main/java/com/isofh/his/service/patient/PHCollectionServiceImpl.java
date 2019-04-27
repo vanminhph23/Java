@@ -42,6 +42,7 @@ public class PHCollectionServiceImpl implements PHCollectionService {
     }
 
     ModelMapper modelMapper = null;
+
     @Override
     public ModelMapper getModelMapper() {
         if (modelMapper == null) {

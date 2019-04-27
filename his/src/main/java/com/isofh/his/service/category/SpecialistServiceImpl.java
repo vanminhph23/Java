@@ -42,6 +42,7 @@ public class SpecialistServiceImpl implements SpecialistService {
     }
 
     ModelMapper modelMapper = null;
+
     @Override
     public ModelMapper getModelMapper() {
         if (modelMapper == null) {

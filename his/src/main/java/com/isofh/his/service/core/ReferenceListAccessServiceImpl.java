@@ -42,6 +42,7 @@ public class ReferenceListAccessServiceImpl implements ReferenceListAccessServic
     }
 
     ModelMapper modelMapper = null;
+
     @Override
     public ModelMapper getModelMapper() {
         if (modelMapper == null) {

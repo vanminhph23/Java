@@ -59,6 +59,7 @@ public class UserServiceImpl implements UserService {
     }
 
     private static ModelMapper modelMapper = null;
+
     @Override
     public ModelMapper getModelMapper() {
         if (modelMapper == null) {

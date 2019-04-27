@@ -42,6 +42,7 @@ public class PatientVitalSignServiceImpl implements PatientVitalSignService {
     }
 
     ModelMapper modelMapper = null;
+
     @Override
     public ModelMapper getModelMapper() {
         if (modelMapper == null) {

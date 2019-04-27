@@ -5,7 +5,7 @@ import com.isofh.his.model.category.Hospital;
 import org.hibernate.envers.Audited;
 
 import javax.persistence.*;
-import java.sql.Timestamp;
+import java.util.Date;
 
 @Entity
 @Table(name = "his_patient_insurance")
@@ -28,20 +28,24 @@ public class PatientInsurance extends BasePatientModel {
     private String address;
 
     @Column(name = "from_date", nullable = false)
+    @Temporal(TemporalType.TIMESTAMP)
     @Audited
-    private Timestamp fromDate;
+    private Date fromDate;
 
     @Column(name = "to_date", nullable = false)
+    @Temporal(TemporalType.TIMESTAMP)
     @Audited
-    private Timestamp toDate;
+    private Date toDate;
 
     @Column(name = "applied_from_date", nullable = false)
+    @Temporal(TemporalType.TIMESTAMP)
     @Audited
-    private Timestamp appliedFromDate;
+    private Date appliedFromDate;
 
     @Column(name = "applied_to_date", nullable = false)
+    @Temporal(TemporalType.TIMESTAMP)
     @Audited
-    private Timestamp appliedToDate;
+    private Date appliedToDate;
 
     @Column(name = "insurance_number", length = 15, nullable = false)
     @Audited
@@ -84,8 +88,9 @@ public class PatientInsurance extends BasePatientModel {
     private boolean referral;
 
     @Column(name = "time_continuity_5year")
+    @Temporal(TemporalType.TIMESTAMP)
     @Audited
-    private Timestamp timeContinuity5Year;
+    private Date timeContinuity5Year;
 
     @Column(name = "continuity_5year")
     @Audited
@@ -100,8 +105,9 @@ public class PatientInsurance extends BasePatientModel {
     private boolean notCopayment;
 
     @Column(name = "not_copayment_date")
+    @Temporal(TemporalType.TIMESTAMP)
     @Audited
-    private Timestamp notCopaymentDate;
+    private Date notCopaymentDate;
 
     @Column(name = "region_value")
     @Audited
@@ -137,35 +143,35 @@ public class PatientInsurance extends BasePatientModel {
         this.address = address;
     }
 
-    public Timestamp getFromDate() {
+    public Date getFromDate() {
         return fromDate;
     }
 
-    public void setFromDate(Timestamp fromDate) {
+    public void setFromDate(Date fromDate) {
         this.fromDate = fromDate;
     }
 
-    public Timestamp getToDate() {
+    public Date getToDate() {
         return toDate;
     }
 
-    public void setToDate(Timestamp toDate) {
+    public void setToDate(Date toDate) {
         this.toDate = toDate;
     }
 
-    public Timestamp getAppliedFromDate() {
+    public Date getAppliedFromDate() {
         return appliedFromDate;
     }
 
-    public void setAppliedFromDate(Timestamp appliedFromDate) {
+    public void setAppliedFromDate(Date appliedFromDate) {
         this.appliedFromDate = appliedFromDate;
     }
 
-    public Timestamp getAppliedToDate() {
+    public Date getAppliedToDate() {
         return appliedToDate;
     }
 
-    public void setAppliedToDate(Timestamp appliedToDate) {
+    public void setAppliedToDate(Date appliedToDate) {
         this.appliedToDate = appliedToDate;
     }
 
@@ -249,11 +255,11 @@ public class PatientInsurance extends BasePatientModel {
         this.referral = referral;
     }
 
-    public Timestamp getTimeContinuity5Year() {
+    public Date getTimeContinuity5Year() {
         return timeContinuity5Year;
     }
 
-    public void setTimeContinuity5Year(Timestamp timeContinuity5Year) {
+    public void setTimeContinuity5Year(Date timeContinuity5Year) {
         this.timeContinuity5Year = timeContinuity5Year;
     }
 
@@ -281,11 +287,11 @@ public class PatientInsurance extends BasePatientModel {
         this.notCopayment = notCopayment;
     }
 
-    public Timestamp getNotCopaymentDate() {
+    public Date getNotCopaymentDate() {
         return notCopaymentDate;
     }
 
-    public void setNotCopaymentDate(Timestamp notCopaymentDate) {
+    public void setNotCopaymentDate(Date notCopaymentDate) {
         this.notCopaymentDate = notCopaymentDate;
     }
 

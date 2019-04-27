@@ -47,6 +47,7 @@ public class DistrictServiceImpl implements DistrictService {
     }
 
     ModelMapper modelMapper = null;
+
     @Override
     public ModelMapper getModelMapper() {
         if (modelMapper == null) {

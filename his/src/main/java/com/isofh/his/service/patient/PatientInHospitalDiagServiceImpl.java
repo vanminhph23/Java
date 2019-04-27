@@ -42,6 +42,7 @@ public class PatientInHospitalDiagServiceImpl implements PatientInHospitalDiagSe
     }
 
     ModelMapper modelMapper = null;
+
     @Override
     public ModelMapper getModelMapper() {
         if (modelMapper == null) {

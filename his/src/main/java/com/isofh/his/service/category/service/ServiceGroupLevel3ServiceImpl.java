@@ -42,9 +42,10 @@ public class ServiceGroupLevel3ServiceImpl implements ServiceGroupLevel3Service 
     }
 
     ModelMapper modelMapper = null;
+
     @Override
     public ModelMapper getModelMapper() {
-        if (modelMapper == null) {  
+        if (modelMapper == null) {
             modelMapper = new ModelMapper();
         }
 

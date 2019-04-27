@@ -42,6 +42,7 @@ public class DiseaseServiceImpl implements DiseaseService {
     }
 
     ModelMapper modelMapper = null;
+
     @Override
     public ModelMapper getModelMapper() {
         if (modelMapper == null) {

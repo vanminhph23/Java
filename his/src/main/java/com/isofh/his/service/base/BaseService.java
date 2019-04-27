@@ -51,6 +51,7 @@ public interface BaseService<X extends BaseModel, Y extends BaseDto, Z extends B
     }
 
     Class<X> getModelClass();
+
     Class<Y> getDtoClass();
 
     default X getModel(Y dto) {

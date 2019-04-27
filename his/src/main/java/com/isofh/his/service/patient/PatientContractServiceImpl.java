@@ -42,6 +42,7 @@ public class PatientContractServiceImpl implements PatientContractService {
     }
 
     ModelMapper modelMapper = null;
+
     @Override
     public ModelMapper getModelMapper() {
         if (modelMapper == null) {

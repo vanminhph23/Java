@@ -69,6 +69,7 @@ public class PatientHistoryServiceImpl implements PatientHistoryService {
     }
 
     ModelMapper modelMapper = null;
+
     @Override
     public ModelMapper getModelMapper() {
         if (modelMapper == null) {
@@ -199,11 +200,11 @@ public class PatientHistoryServiceImpl implements PatientHistoryService {
     private int getPatientType(PatientHistory history, Date actDate) {
         PatientInsurance insurance = insuranceService.findByValidDate(history.getId(), DateUtil.truncateHour(actDate));
 
-        if(insurance == null) {
+        if (insurance == null) {
             return PatientTypeEnum.SERVICE.getValue();
         }
 
-        if(!history.isInpatient() && insurance.isExtra()) {
+        if (!history.isInpatient() && insurance.isExtra()) {
             return PatientTypeEnum.SERVICE.getValue();
         }
 
@@ -241,7 +242,7 @@ public class PatientHistoryServiceImpl implements PatientHistoryService {
 
         PatientHistory oldHistory = getRepository().findFirstByIdNo(idNo).orElse(null);
 
-        if(oldHistory == null) {
+        if (oldHistory == null) {
             return;
         }
 
@@ -252,9 +253,9 @@ public class PatientHistoryServiceImpl implements PatientHistoryService {
             throw new DuplicateIdNoException("Duplicate ID No: " + idNo + "Ma HS: " + oldHistory.getPatientDocument());
         }
 
-        if(history.getPatientValue() == null || history.getPatientValue().isEmpty()) {
+        if (history.getPatientValue() == null || history.getPatientValue().isEmpty()) {
             history.setPatientValue(oldHistory.getPatientValue());
-        } else if(!history.getPatientValue().equals(oldHistory.getPatientValue())) {
+        } else if (!history.getPatientValue().equals(oldHistory.getPatientValue())) {
             throw new DuplicateIdNoException("Duplicate ID No: " + idNo + "Ma HS: " + oldHistory.getPatientDocument());
         }
     }

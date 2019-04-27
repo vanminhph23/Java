@@ -42,6 +42,7 @@ public class BuildingServiceImpl implements BuildingService {
     }
 
     ModelMapper modelMapper = null;
+
     @Override
     public ModelMapper getModelMapper() {
         if (modelMapper == null) {

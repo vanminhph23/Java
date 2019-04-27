@@ -46,6 +46,7 @@ public class ReferenceListServiceImpl implements ReferenceListService {
     }
 
     ModelMapper modelMapper = null;
+
     @Override
     public ModelMapper getModelMapper() {
         if (modelMapper == null) {

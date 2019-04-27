@@ -42,6 +42,7 @@ public class JobServiceImpl implements JobService {
     }
 
     ModelMapper modelMapper = null;
+
     @Override
     public ModelMapper getModelMapper() {
         if (modelMapper == null) {

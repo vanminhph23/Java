@@ -42,6 +42,7 @@ public class PatientMedicalHistoryServiceImpl implements PatientMedicalHistorySe
     }
 
     ModelMapper modelMapper = null;
+
     @Override
     public ModelMapper getModelMapper() {
         if (modelMapper == null) {

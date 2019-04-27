@@ -42,6 +42,7 @@ public class ServiceGroupLevel2ServiceImpl implements ServiceGroupLevel2Service 
     }
 
     ModelMapper modelMapper = null;
+
     @Override
     public ModelMapper getModelMapper() {
         if (modelMapper == null) {

@@ -58,6 +58,7 @@ public class PatientAddressServiceImpl implements PatientAddressService {
     }
 
     ModelMapper modelMapper = null;
+
     @Override
     public ModelMapper getModelMapper() {
         if (modelMapper == null) {
@@ -73,32 +74,32 @@ public class PatientAddressServiceImpl implements PatientAddressService {
 
     public String getAddress(Long countryId, Long provinceId, Long districtId, Long zoneId, String detail) {
         StringBuilder address = new StringBuilder();
-        if(detail != null && !detail.isEmpty()) {
+        if (detail != null && !detail.isEmpty()) {
             address.append(detail + ", ");
         }
 
-        if(zoneId > 0) {
+        if (zoneId > 0) {
             String zone = zoneService.findNameById(zoneId);
             if (zone != null) {
                 address.append(zone + ", ");
             }
         }
 
-        if(districtId > 0) {
+        if (districtId > 0) {
             String district = districtService.findNameById(districtId);
             if (district != null) {
                 address.append(district + ", ");
             }
         }
 
-        if(provinceId > 0) {
+        if (provinceId > 0) {
             String province = provinceService.findNameById(provinceId);
             if (province != null) {
                 address.append(province + ", ");
             }
         }
 
-        if(countryId > 0) {
+        if (countryId > 0) {
             String country = countryService.findNameById(provinceId);
             if (country != null) {
                 address.append(country);
