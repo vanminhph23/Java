@@ -13,8 +13,4 @@ public interface PatientInsuranceRepository extends BaseRepository<PatientInsura
     @Transactional(readOnly = true)
     @Query("select e from PatientInsurance e where e.deleted = 0 and e.appliedFromDate <= ?2 and e.appliedToDate >= ?2 and e.patientHistory = ?1 order by e.percent")
     Optional<PatientInsurance> findByValidDate(Long patientHistoryId, Date actDate);
-
-    @Transactional(readOnly = true)
-    @Query("select e from PatientInsurance e where e.deleted = 0 and e.appliedFromDate <= ?2 and e.appliedToDate >= ?2 and e.patientHistory = ?1 order by e.percent")
-    Optional<Date> findByValidDate(Long patientHistoryId, Date actDate);
 }

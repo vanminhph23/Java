@@ -30,6 +30,10 @@ public class DateUtil {
         return DateUtils.truncate(truncateMinute(date), Calendar.HOUR_OF_DAY);
     }
 
+    public static Date getNow() {
+        return truncateMillisecond(new Date());
+    }
+
     public static Date truncateMinute(Date date) {
         return DateUtils.truncate(truncateSecond(date), Calendar.MINUTE);
     }
@@ -40,6 +44,18 @@ public class DateUtil {
 
     public static Date truncateMillisecond(Date date) {
         return DateUtils.truncate(date, Calendar.MILLISECOND);
+    }
+
+    public static int getYear(Date date) {
+        final Calendar c = Calendar.getInstance();
+        c.setTime(date);
+        return c.get(Calendar.YEAR);
+    }
+
+    public static int getMonth(Date date) {
+        final Calendar c = Calendar.getInstance();
+        c.setTime(date);
+        return c.get(Calendar.MONTH) + 1;
     }
 
     public static boolean isValidDate(Date date) {

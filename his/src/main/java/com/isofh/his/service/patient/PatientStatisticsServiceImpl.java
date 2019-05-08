@@ -4,6 +4,7 @@ import com.isofh.his.dto.patient.PatientStatisticsDto;
 import com.isofh.his.model.patient.PatientHistory;
 import com.isofh.his.repository.patient.PatientStatisticsRepository;
 import com.isofh.his.storage.StorageService;
+import com.isofh.his.util.DateUtil;
 import org.modelmapper.ModelMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -62,7 +63,7 @@ public class PatientStatisticsServiceImpl implements PatientStatisticsService {
         int countIns = historyService.isInsurancePatient(history, history.getTimeGoIn()) ? 1 : 0;
         statistics.setOutpatientTimes(repository.countOutPatientByPatientValue(history.getPatientValue()) + 1);
         statistics.setInsOutpatientTimes(repository.countInsOutPatientByPatientValue(history.getPatientValue()) + countIns);
-        statistics.setInsOutpatientTimesMonth(repository.countInsOutPatientByPatientValueMonth(history.getPatientValue(), history.getRegDate()) + countIns);
-        statistics.setInsOutpatientTimesYear(repository.countInsOutPatientByPatientValueYear(history.getPatientValue(), history.getRegDate()) + countIns);
+        statistics.setInsOutpatientTimesMonth(repository.countInsOutPatientByPatientValueMonth(history.getPatientValue(), DateUtil.getMonth(history.getRegDate())) + countIns);
+        statistics.setInsOutpatientTimesYear(repository.countInsOutPatientByPatientValueYear(history.getPatientValue(), DateUtil.getYear(history.getRegDate())) + countIns);
     }
 }

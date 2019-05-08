@@ -1,10 +1,8 @@
 package com.isofh.his.dto.patient;
 
 import com.isofh.his.dto.base.BaseDto;
-import org.hibernate.envers.Audited;
 
-import javax.persistence.Column;
-import java.sql.Timestamp;
+import java.util.Date;
 
 public class PatientHistoryDto extends BaseDto {
 
@@ -14,13 +12,13 @@ public class PatientHistoryDto extends BaseDto {
     // insurance
     private String insuranceAddress;
 
-    private Timestamp insuranceFromDate;
+    private Date insuranceFromDate;
 
-    private Timestamp insuranceToDate;
+    private Date insuranceToDate;
 
-    private Timestamp insuranceAppliedFromDate;
+    private Date insuranceAppliedFromDate;
 
-    private Timestamp insuranceAppliedToDate;
+    private Date insuranceAppliedToDate;
 
     private String insuranceNumber;
 
@@ -38,7 +36,7 @@ public class PatientHistoryDto extends BaseDto {
 
     private boolean insuranceReferral;
 
-    private Timestamp insuranceTimeContinuity5Year;
+    private Date insuranceTimeContinuity5Year;
 
     private boolean insuranceContinuity5Year;
 
@@ -46,7 +44,7 @@ public class PatientHistoryDto extends BaseDto {
 
     private boolean insuranceNotCoPayment;
 
-    private Timestamp insuranceNotCopaymentDate;
+    private Date insuranceNotCopaymentDate;
 
     private Integer insuranceRegionValue;
 
@@ -125,13 +123,13 @@ public class PatientHistoryDto extends BaseDto {
 
     private boolean inpatient = false;
 
-    private Timestamp regDate;
+    private Date regDate;
 
-    private Timestamp timeGoIn;
+    private Date timeGoIn;
 
-    private Timestamp timeGoOut;
+    private Date timeGoOut;
 
-    private Timestamp birthday;
+    private Date birthday;
 
     private boolean onlyYearBirth;
 
@@ -210,35 +208,35 @@ public class PatientHistoryDto extends BaseDto {
         this.insuranceAddress = insuranceAddress;
     }
 
-    public Timestamp getInsuranceFromDate() {
+    public Date getInsuranceFromDate() {
         return insuranceFromDate;
     }
 
-    public void setInsuranceFromDate(Timestamp insuranceFromDate) {
+    public void setInsuranceFromDate(Date insuranceFromDate) {
         this.insuranceFromDate = insuranceFromDate;
     }
 
-    public Timestamp getInsuranceToDate() {
+    public Date getInsuranceToDate() {
         return insuranceToDate;
     }
 
-    public void setInsuranceToDate(Timestamp insuranceToDate) {
+    public void setInsuranceToDate(Date insuranceToDate) {
         this.insuranceToDate = insuranceToDate;
     }
 
-    public Timestamp getInsuranceAppliedFromDate() {
+    public Date getInsuranceAppliedFromDate() {
         return insuranceAppliedFromDate;
     }
 
-    public void setInsuranceAppliedFromDate(Timestamp insuranceAppliedFromDate) {
+    public void setInsuranceAppliedFromDate(Date insuranceAppliedFromDate) {
         this.insuranceAppliedFromDate = insuranceAppliedFromDate;
     }
 
-    public Timestamp getInsuranceAppliedToDate() {
+    public Date getInsuranceAppliedToDate() {
         return insuranceAppliedToDate;
     }
 
-    public void setInsuranceAppliedToDate(Timestamp insuranceAppliedToDate) {
+    public void setInsuranceAppliedToDate(Date insuranceAppliedToDate) {
         this.insuranceAppliedToDate = insuranceAppliedToDate;
     }
 
@@ -306,11 +304,11 @@ public class PatientHistoryDto extends BaseDto {
         this.insuranceReferral = insuranceReferral;
     }
 
-    public Timestamp getInsuranceTimeContinuity5Year() {
+    public Date getInsuranceTimeContinuity5Year() {
         return insuranceTimeContinuity5Year;
     }
 
-    public void setInsuranceTimeContinuity5Year(Timestamp insuranceTimeContinuity5Year) {
+    public void setInsuranceTimeContinuity5Year(Date insuranceTimeContinuity5Year) {
         this.insuranceTimeContinuity5Year = insuranceTimeContinuity5Year;
     }
 
@@ -338,11 +336,11 @@ public class PatientHistoryDto extends BaseDto {
         this.insuranceNotCoPayment = insuranceNotCoPayment;
     }
 
-    public Timestamp getInsuranceNotCopaymentDate() {
+    public Date getInsuranceNotCopaymentDate() {
         return insuranceNotCopaymentDate;
     }
 
-    public void setInsuranceNotCopaymentDate(Timestamp insuranceNotCopaymentDate) {
+    public void setInsuranceNotCopaymentDate(Date insuranceNotCopaymentDate) {
         this.insuranceNotCopaymentDate = insuranceNotCopaymentDate;
     }
 
@@ -626,35 +624,35 @@ public class PatientHistoryDto extends BaseDto {
         this.inpatient = inpatient;
     }
 
-    public Timestamp getRegDate() {
+    public Date getRegDate() {
         return regDate;
     }
 
-    public void setRegDate(Timestamp regDate) {
+    public void setRegDate(Date regDate) {
         this.regDate = regDate;
     }
 
-    public Timestamp getTimeGoIn() {
+    public Date getTimeGoIn() {
         return timeGoIn;
     }
 
-    public void setTimeGoIn(Timestamp timeGoIn) {
+    public void setTimeGoIn(Date timeGoIn) {
         this.timeGoIn = timeGoIn;
     }
 
-    public Timestamp getTimeGoOut() {
+    public Date getTimeGoOut() {
         return timeGoOut;
     }
 
-    public void setTimeGoOut(Timestamp timeGoOut) {
+    public void setTimeGoOut(Date timeGoOut) {
         this.timeGoOut = timeGoOut;
     }
 
-    public Timestamp getBirthday() {
+    public Date getBirthday() {
         return birthday;
     }
 
-    public void setBirthday(Timestamp birthday) {
+    public void setBirthday(Date birthday) {
         this.birthday = birthday;
     }
 

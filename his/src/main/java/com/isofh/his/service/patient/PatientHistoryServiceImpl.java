@@ -147,6 +147,8 @@ public class PatientHistoryServiceImpl implements PatientHistoryService {
     @Transactional
     @Override
     public PatientHistory create(PatientHistory history) {
+        autoFillDefaultFields(history);
+
         validatePatientName(history);
         validatePhone(history);
         validateIdNo(history);
@@ -195,6 +197,16 @@ public class PatientHistoryServiceImpl implements PatientHistoryService {
     @Override
     public boolean isInsurancePatient(PatientHistory history, Date actDate) {
         return PatientTypeEnum.INSURANCE.getValue() == getPatientType(history, actDate);
+    }
+
+    private void autoFillDefaultFields(PatientHistory history) {
+        if (history.getTimeGoIn() == null) {
+            history.setTimeGoIn(DateUtil.getNow());
+        }
+
+        if (history.getRegDate() == null) {
+            history.setRegDate(history.getTimeGoIn());
+        }
     }
 
     private int getPatientType(PatientHistory history, Date actDate) {

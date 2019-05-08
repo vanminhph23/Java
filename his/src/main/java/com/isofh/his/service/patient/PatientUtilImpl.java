@@ -47,7 +47,7 @@ public class PatientUtilImpl implements PatientUtil {
 
         idNo = idNo.replaceAll("[^0-9]", "");
 
-        if ((!idNo.matches("^[0-9]*$") && !idNo.matches("^+[0-9]*$")) || idNo.length() < 10) {
+        if ((!idNo.matches("^[0-9]*$") && !idNo.matches("^+[0-9]*$")) || idNo.length() < 9) {
             return null;
         }
 
