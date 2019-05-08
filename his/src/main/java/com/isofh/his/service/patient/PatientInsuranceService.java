@@ -1,6 +1,7 @@
 package com.isofh.his.service.patient;
 
 import com.isofh.his.dto.patient.PatientInsuranceDto;
+import com.isofh.his.model.patient.PatientHistory;
 import com.isofh.his.model.patient.PatientInsurance;
 import com.isofh.his.repository.patient.PatientInsuranceRepository;
 import com.isofh.his.service.base.BaseService;
@@ -17,7 +18,7 @@ public interface PatientInsuranceService extends BaseService<PatientInsurance, P
 
     PatientInsurance findByValidDate(Long patientHistoryId, Date actDate);
 
-    void validateInsuranceCard(PatientInsurance insurance);
+    void validateInsuranceCard(PatientHistory history, PatientInsurance insurance);
 
     enum RegionValueEnum implements IEnum {
         K1(1, "K1"), K2(2, "K2"), K3(3, "K2"), Other(4, "Other");

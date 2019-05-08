@@ -93,9 +93,7 @@ public class PatientInsuranceServiceImpl implements PatientInsuranceService {
         insurance.setPercent(percent);
     }
 
-    private void validateInsuranceDate(PatientInsurance insurance) {
-        PatientHistory history = insurance.getPatientHistory();
-
+    private void validateInsuranceDate(PatientHistory history, PatientInsurance insurance) {
         Date regDate = history.getRegDate();
 
         Date fromDate = insurance.getFromDate();
@@ -135,11 +133,11 @@ public class PatientInsuranceServiceImpl implements PatientInsuranceService {
     }
 
     @Override
-    public void validateInsuranceCard(PatientInsurance insurance) {
+    public void validateInsuranceCard(PatientHistory history, PatientInsurance insurance) {
 
         validateInsuranceNumber(insurance);
 
-        validateInsuranceDate(insurance);
+        validateInsuranceDate(history, insurance);
 
         validateRegisterOfInsuranceNumber(insurance);
 
@@ -184,7 +182,7 @@ public class PatientInsuranceServiceImpl implements PatientInsuranceService {
     }
 
     private boolean isExtraInsurance(Long regAtHospitalId, Long patientFromHospitalId, boolean emergency, boolean appointment, Integer regionValue) {
-        return !isCurrentHospital(regAtHospitalId) && patientFromHospitalId <= 0 && !emergency && !appointment
+        return !isCurrentHospital(regAtHospitalId) && (patientFromHospitalId == null || patientFromHospitalId <= 0) && !emergency && !appointment
                 && (regionValue == null || RegionValueEnum.Other.getValue() == regionValue);
     }
 

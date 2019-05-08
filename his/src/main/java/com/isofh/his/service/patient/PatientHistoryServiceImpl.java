@@ -41,6 +41,9 @@ public class PatientHistoryServiceImpl implements PatientHistoryService {
     private PatientStatisticsService statisticsService;
 
     @Autowired
+    private PatientTypeService typeService;
+
+    @Autowired
     private PatientUtil patientUtil;
 
     @Autowired
@@ -170,30 +173,14 @@ public class PatientHistoryServiceImpl implements PatientHistoryService {
         validatePhone(history);
         validateIdNo(history);
 
-        PatientAddress address = history.getPatientAddress();
-        if (address != null) {
-            addressService.setAddress(address);
-            addressService.save(address);
-        }
-
-        PatientInsurance insurance = history.getPatientInsurance();
-        if (insurance != null) {
-            insuranceService.save(insurance);
-        }
-
-        PatientGuardian guardian = history.getPatientGuardian();
-        if (guardian != null) {
-            guardianService.validateInfo(guardian);
-        }
-
-        if (history.isPatientInHospital() && insurance != null) {
-            PatientStatistics statistics = new PatientStatistics();
-            history.setPatientStatistics(statistics);
-            statistics.setPatientHistory(history);
-            statisticsService.countPatientHistoryInHospital(statistics);
-        }
+        createPatientAddress(history);
+        createPatientInsurance(history);
+        createPatientGuardian(history);
+        createPatientStatistics(history);
 
         history = save(history);
+
+        createPatientType(history);
 
         return history;
     }
@@ -214,6 +201,65 @@ public class PatientHistoryServiceImpl implements PatientHistoryService {
     @Override
     public boolean isInsurancePatient(PatientHistory history, Date actDate) {
         return PatientTypeEnum.INSURANCE.getValue() == getPatientType(history, actDate);
+    }
+
+    private PatientAddress createPatientAddress(PatientHistory history) {
+        PatientAddress address = history.getPatientAddress();
+        if (address != null) {
+            addressService.setAddress(address);
+            addressService.save(address);
+        }
+
+        return address;
+    }
+
+    private PatientInsurance createPatientInsurance(PatientHistory history) {
+        PatientInsurance insurance = history.getPatientInsurance();
+        if (insurance != null) {
+            insuranceService.validateInsuranceCard(history, insurance);
+            insuranceService.save(insurance);
+        }
+
+        return insurance;
+    }
+
+    private PatientGuardian createPatientGuardian(PatientHistory history) {
+        PatientGuardian guardian = history.getPatientGuardian();
+        if (guardian != null) {
+            guardianService.validateInfo(guardian);
+        }
+
+        return guardian;
+    }
+
+    private PatientStatistics createPatientStatistics(PatientHistory history) {
+        if (!history.isPatientInHospital()) {
+            return null;
+        }
+
+        PatientStatistics statistics = new PatientStatistics();
+        history.setPatientStatistics(statistics);
+        statistics.setPatientHistory(history);
+        statisticsService.countPatientHistoryInHospital(statistics);
+
+        return statistics;
+    }
+
+    private PatientType createPatientType(PatientHistory history) {
+        PatientInsurance insurance = history.getPatientInsurance();
+
+        PatientType type = new PatientType();
+        type.setPatientHistory(history);
+        if (insurance != null) {
+            type.setPatientInsurance(insurance);
+            type.setPatientType(PatientTypeEnum.INSURANCE.getValue());
+        } else {
+            type.setPatientType(PatientTypeEnum.SERVICE.getValue());
+        }
+
+        typeService.save(type);
+
+        return type;
     }
 
     private void autoFillDefaultFields(PatientHistory history) {
