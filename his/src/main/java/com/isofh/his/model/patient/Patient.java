@@ -4,7 +4,7 @@ import com.isofh.his.model.base.BaseModel;
 import org.hibernate.envers.Audited;
 
 import javax.persistence.*;
-import java.sql.Timestamp;
+import java.util.Date;
 
 @Entity
 @Table(name = "his_patient")
@@ -43,8 +43,9 @@ public class Patient extends BaseModel {
     private String insuranceNumber;
 
     @Column(name = "birthday")
+    @Temporal(TemporalType.TIMESTAMP)
     @Audited
-    private Timestamp birthday;
+    private Date birthday;
 
     @Column(name = "gender")
     @Audited
@@ -58,5 +59,69 @@ public class Patient extends BaseModel {
     @Override
     public void setId(Long id) {
         this.id = id;
+    }
+
+    public String getPatientValue() {
+        return patientValue;
+    }
+
+    public void setPatientValue(String patientValue) {
+        this.patientValue = patientValue;
+    }
+
+    public String getPatientName() {
+        return patientName;
+    }
+
+    public void setPatientName(String patientName) {
+        this.patientName = patientName;
+    }
+
+    public String getIdNo() {
+        return idNo;
+    }
+
+    public void setIdNo(String idNo) {
+        this.idNo = idNo;
+    }
+
+    public String getPhone() {
+        return phone;
+    }
+
+    public void setPhone(String phone) {
+        this.phone = phone;
+    }
+
+    public String getAddress() {
+        return address;
+    }
+
+    public void setAddress(String address) {
+        this.address = address;
+    }
+
+    public String getInsuranceNumber() {
+        return insuranceNumber;
+    }
+
+    public void setInsuranceNumber(String insuranceNumber) {
+        this.insuranceNumber = insuranceNumber;
+    }
+
+    public Date getBirthday() {
+        return birthday;
+    }
+
+    public void setBirthday(Date birthday) {
+        this.birthday = birthday;
+    }
+
+    public int getGender() {
+        return gender;
+    }
+
+    public void setGender(int gender) {
+        this.gender = gender;
     }
 }

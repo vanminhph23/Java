@@ -6,4 +6,8 @@ import com.isofh.his.repository.patient.PatientRepository;
 import com.isofh.his.service.base.BaseService;
 
 public interface PatientService extends BaseService<Patient, PatientDto, PatientRepository> {
+
+    boolean existsByPatientValue(String patientValue);
+
+    Patient getByPatientValue(String patientValue);
 }

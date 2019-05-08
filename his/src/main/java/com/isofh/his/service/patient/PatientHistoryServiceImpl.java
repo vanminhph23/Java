@@ -19,7 +19,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.sql.Timestamp;
 import java.text.ParseException;
 import java.util.Date;
 
@@ -42,6 +41,9 @@ public class PatientHistoryServiceImpl implements PatientHistoryService {
 
     @Autowired
     private PatientTypeService typeService;
+
+    @Autowired
+    private PatientService patientService;
 
     @Autowired
     private PatientUtil patientUtil;
@@ -178,6 +180,8 @@ public class PatientHistoryServiceImpl implements PatientHistoryService {
         createPatientGuardian(history);
         createPatientStatistics(history);
 
+        createPatient(history);
+
         history = save(history);
 
         createPatientType(history);
@@ -201,6 +205,35 @@ public class PatientHistoryServiceImpl implements PatientHistoryService {
     @Override
     public boolean isInsurancePatient(PatientHistory history, Date actDate) {
         return PatientTypeEnum.INSURANCE.getValue() == getPatientType(history, actDate);
+    }
+
+    private Patient createPatient(PatientHistory history) {
+        String patientValue = history.getPatientValue();
+        if (patientValue != null) {
+            boolean isExists = patientService.existsByPatientValue(patientValue);
+            if (!isExists) {
+                throw new NotFoundException("Not found patient value: " + patientValue);
+            }
+        } else {
+            Patient p = new Patient();
+
+            PatientAddress address = history.getPatientAddress();
+            p.setAddress(address == null ? null : address.getAddress());
+
+            p.setBirthday(history.getBirthday());
+            p.setGender(history.getGender());
+            p.setIdNo(history.getIdNo());
+
+            PatientInsurance insurance = history.getPatientInsurance();
+            p.setInsuranceNumber(insurance == null ? null : insurance.getInsuranceNumber());
+
+            p.setPatientName(history.getPatientName());
+            p.setPatientValue(history.getPatientValue());
+
+            patientService.save(p);
+        }
+
+        return null;
     }
 
     private PatientAddress createPatientAddress(PatientHistory history) {

@@ -51,4 +51,9 @@ public class PatientServiceImpl implements PatientService {
 
         return modelMapper;
     }
+
+    @Override
+    public boolean existsByPatientValue(String patientValue) {
+        return repository.existsByPatientValue(patientValue);
+    }
 }
