@@ -122,6 +122,7 @@ public class DateUtil {
 
         for (String separateChar : separateChars) {
             Map<String, String> parsePatterns = new HashMap<>();
+            parsePatterns.put("^" + yyyyPattern + separateChar + mmPattern + separateChar + ddPattern + "$", yyyy + separateChar + mm + separateChar + dd);// YYYY/MM/DD
             parsePatterns.put("^" + ddPattern + separateChar + mmPattern + separateChar + yyyyPattern + "$", dd + separateChar + mm + separateChar + yyyy);// dd/MM/YYYY
             parsePatterns.put("^" + dPattern + separateChar + mmPattern + separateChar + yyyyPattern + "$", d + separateChar + mm + separateChar + yyyy);// d/MM/YYYY
             parsePatterns.put("^" + ddPattern + separateChar + mPattern + separateChar + yyyyPattern + "$", dd + separateChar + m + separateChar + yyyy);// dd/M/YYYY

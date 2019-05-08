@@ -20,6 +20,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.sql.Timestamp;
+import java.text.ParseException;
 import java.util.Date;
 
 @Service
@@ -139,6 +140,22 @@ public class PatientHistoryServiceImpl implements PatientHistoryService {
             guardian.setIdNo(historyDto.getGuardianIdNo());
             guardian.setName(historyDto.getGuardianName());
             guardian.setPhone(historyDto.getGuardianPhone());
+        }
+
+        // birthday
+        if (historyDto.getBirthdayStr() != null) {
+            String birthdayStr = historyDto.getBirthdayStr();
+            if (birthdayStr.length() == 4) {
+                history.setOnlyYearBirth(true);
+            } else {
+                history.setOnlyYearBirth(false);
+            }
+
+            try {
+                history.setBirthday(DateUtil.parseValidDate(birthdayStr));
+            } catch (ParseException e) {
+                throw new InvalidDataException("Birthday " + birthdayStr);
+            }
         }
 
         return create(history);

@@ -24,8 +24,8 @@ public interface PatientHistoryService extends BaseService<PatientHistory, Patie
     enum PatientTypeEnum implements IEnum {
         SERVICE(1, "Service"), INSURANCE(2, "Insurance");
 
-        int value;
-        String name;
+        private int value;
+        private String name;
 
         PatientTypeEnum(int value, String name) {
             this.value = value;

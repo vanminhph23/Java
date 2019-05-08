@@ -131,6 +131,8 @@ public class PatientHistoryDto extends BaseDto {
 
     private Date birthday;
 
+    private String birthdayStr;
+
     private boolean onlyYearBirth;
 
     private String idNo;
@@ -654,6 +656,14 @@ public class PatientHistoryDto extends BaseDto {
 
     public void setBirthday(Date birthday) {
         this.birthday = birthday;
+    }
+
+    public String getBirthdayStr() {
+        return birthdayStr;
+    }
+
+    public void setBirthdayStr(String birthdayStr) {
+        this.birthdayStr = birthdayStr;
     }
 
     public boolean isOnlyYearBirth() {

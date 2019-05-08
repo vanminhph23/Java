@@ -60,7 +60,7 @@ public class PatientStatisticsServiceImpl implements PatientStatisticsService {
     public void countPatientHistoryInHospital(PatientStatistics statistics) {
         PatientHistory history = statistics.getPatientHistory();
 
-        int countIns = historyService.isInsurancePatient(history, history.getTimeGoIn()) ? 1 : 0;
+        int countIns = PatientHistoryService.PatientTypeEnum.INSURANCE.getValue() == history.getPatientType() ? 1 : 0;
         statistics.setOutpatientTimes(repository.countOutPatientByPatientValue(history.getPatientValue()) + 1);
         statistics.setInsOutpatientTimes(repository.countInsOutPatientByPatientValue(history.getPatientValue()) + countIns);
         statistics.setInsOutpatientTimesMonth(repository.countInsOutPatientByPatientValueMonth(history.getPatientValue(), DateUtil.getMonth(history.getRegDate())) + countIns);
