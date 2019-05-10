@@ -28,7 +28,11 @@ public class Role extends BaseCategoryModel {
     @JoinTable(
             name = "his_roles_privileges",
             joinColumns = @JoinColumn(name = "role_id", referencedColumnName = "id"),
-            inverseJoinColumns = @JoinColumn(name = "privilege_id", referencedColumnName = "id"))
+            inverseJoinColumns = @JoinColumn(name = "privilege_id", referencedColumnName = "id"),
+            indexes = {
+                    @Index(name = "idx_roles_privileges_privilege_id", columnList = "privilege_id"),
+                    @Index(name = "idx_roles_privileges_role_id", columnList = "role_id")
+            })
     private List<Privilege> privileges;
 
     @Override

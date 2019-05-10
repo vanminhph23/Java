@@ -19,6 +19,8 @@ public interface PatientHistoryService extends BaseService<PatientHistory, Patie
 
     PatientHistory update(PatientHistory history);
 
+    PatientHistory findFirstByIdNo(String idNo);
+
     boolean isInsurancePatient(PatientHistory history, Date actDate);
 
     enum PatientTypeEnum implements IEnum {

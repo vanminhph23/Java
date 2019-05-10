@@ -22,11 +22,16 @@ public class PatientHistory extends BaseModel {
     private Long id;
 
     // common info
-    @Column(name = "patient_value", nullable = false, unique = true)
+    @Column(name = "patient_value", nullable = false)
     @Audited
     private String patientValue;
 
-    @Column(name = "patient_name", nullable = false)
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "patient_id", nullable = false)
+    @Audited
+    private Patient patient;
+
+    @Column(name = "patient_name", length = 7, unique = true)
     @Audited
     private String patientName;
 
@@ -625,5 +630,13 @@ public class PatientHistory extends BaseModel {
 
     public void setPatientInHospital(boolean patientInHospital) {
         this.patientInHospital = patientInHospital;
+    }
+
+    public Patient getPatient() {
+        return patient;
+    }
+
+    public void setPatient(Patient patient) {
+        this.patient = patient;
     }
 }

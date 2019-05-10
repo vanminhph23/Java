@@ -56,4 +56,14 @@ public class PatientServiceImpl implements PatientService {
     public boolean existsByPatientValue(String patientValue) {
         return repository.existsByPatientValue(patientValue);
     }
+
+    @Override
+    public Long findIdByPatientValue(String patientValue) {
+        return getRepository().findIdByPatientValue(patientValue).orElse(null);
+    }
+
+    @Override
+    public Patient findByPatientValue(String patientValue) {
+        return getRepository().findByPatientValue(patientValue).orElse(null);
+    }
 }

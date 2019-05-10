@@ -9,5 +9,7 @@ public interface PatientService extends BaseService<Patient, PatientDto, Patient
 
     boolean existsByPatientValue(String patientValue);
 
-    Patient getByPatientValue(String patientValue);
+    Long findIdByPatientValue(String patientValue);
+
+    Patient findByPatientValue(String patientValue);
 }

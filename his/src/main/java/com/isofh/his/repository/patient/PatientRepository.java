@@ -5,9 +5,19 @@ import com.isofh.his.repository.base.BaseRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.Optional;
+
 public interface PatientRepository extends BaseRepository<Patient, Long> {
 
     @Transactional(readOnly = true)
-    @Query("select case when count(e) > 0 then true else false end from #{#entityName} e where e.deleted = 0 and e.value = ?1")
-    boolean existsByPatientValue(String patientValue);
+    @Query("select e.id from #{#entityName} e where e.deleted = 0 and e.patientValue = ?1")
+    Optional<Long> findIdByPatientValue(String patientValue);
+
+    default boolean existsByPatientValue(String patientValue) {
+        return findIdByPatientValue(patientValue).orElse(Long.valueOf(0)) > 0;
+    }
+
+    @Transactional(readOnly = true)
+    @Query("select e from #{#entityName} e where e.deleted = 0 and e.patientValue = ?1")
+    Optional<Patient> findByPatientValue(String patientValue);
 }

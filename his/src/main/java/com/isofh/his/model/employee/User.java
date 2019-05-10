@@ -136,21 +136,33 @@ public class User extends BaseCategoryModel {
     @JoinTable(
             name = "his_users_roles",
             joinColumns = @JoinColumn(name = "user_id", referencedColumnName = "id"),
-            inverseJoinColumns = @JoinColumn(name = "role_id", referencedColumnName = "id"))
+            inverseJoinColumns = @JoinColumn(name = "role_id", referencedColumnName = "id"),
+            indexes = {
+            @Index(name = "idx_users_roles_user_id", columnList = "user_id"),
+            @Index(name = "idx_users_roles_role_id", columnList = "role_id")
+    })
     private List<Role> roles;
 
     @ManyToMany
     @JoinTable(
             name = "his_users_departments",
             joinColumns = @JoinColumn(name = "user_id", referencedColumnName = "id"),
-            inverseJoinColumns = @JoinColumn(name = "department_id", referencedColumnName = "id"))
+            inverseJoinColumns = @JoinColumn(name = "department_id", referencedColumnName = "id"),
+            indexes = {
+                    @Index(name = "idx_users_departments_user_id", columnList = "user_id"),
+                    @Index(name = "idx_users_departments_department_id", columnList = "department_id")
+            })
     private List<Department> departments;
 
     @ManyToMany
     @JoinTable(
             name = "his_users_rooms",
             joinColumns = @JoinColumn(name = "user_id", referencedColumnName = "id"),
-            inverseJoinColumns = @JoinColumn(name = "room_id", referencedColumnName = "id"))
+            inverseJoinColumns = @JoinColumn(name = "room_id", referencedColumnName = "id"),
+            indexes = {
+                    @Index(name = "idx_users_rooms_user_id", columnList = "user_id"),
+                    @Index(name = "idx_users_rooms_room_id", columnList = "room_id")
+            })
     private List<Room> rooms;
 
     @Override

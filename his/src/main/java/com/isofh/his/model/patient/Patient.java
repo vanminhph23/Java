@@ -47,6 +47,11 @@ public class Patient extends BaseModel {
     @Audited
     private Date birthday;
 
+    @Column(name = "reg_date")
+    @Temporal(TemporalType.TIMESTAMP)
+    @Audited
+    private Date regDate;
+
     @Column(name = "gender")
     @Audited
     private int gender;
@@ -123,5 +128,13 @@ public class Patient extends BaseModel {
 
     public void setGender(int gender) {
         this.gender = gender;
+    }
+
+    public Date getRegDate() {
+        return regDate;
+    }
+
+    public void setRegDate(Date regDate) {
+        this.regDate = regDate;
     }
 }

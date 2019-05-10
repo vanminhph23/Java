@@ -36,7 +36,7 @@ public class Department extends BaseCategoryModel {
     @Audited
     private Long medicalRecordTypeId;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "medical_record_type_id", insertable = false, updatable = false)
     private MedicalRecordType medicalRecordType;
 
@@ -52,7 +52,7 @@ public class Department extends BaseCategoryModel {
     @Audited
     private Long buildingId;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "building_id", insertable = false, updatable = false)
     private Building building;
 
@@ -60,7 +60,7 @@ public class Department extends BaseCategoryModel {
     @Audited
     private Long cashierBuildingId;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "cashier_building_id", insertable = false, updatable = false)
     private Building cashierBuilding;
 
