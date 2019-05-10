@@ -30,8 +30,10 @@ public class PatientHistoryController extends BaseController {
 
     @PostMapping("/patient-histories")
     public ResponseEntity<ResponseMsg> create(@Valid @RequestBody PatientHistoryDto dto) {
-        PatientHistory ph = service.create(dto);
-        return response("patientHistory", service.getDto(ph));
+        Long historyId = service.create(dto);
+        PatientHistoryDto ph = service.findDtoById(historyId);
+
+        return response("patientHistory", ph);
     }
 
     @PutMapping("/patient-histories")

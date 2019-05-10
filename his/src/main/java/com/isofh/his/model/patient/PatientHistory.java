@@ -10,7 +10,8 @@ import java.sql.Timestamp;
 import java.util.Date;
 
 @Entity
-@Table(name = "his_patient_history")
+@Table(name = "his_patient_history",
+        indexes = {@Index(name = "idx_ph_reg_date", columnList = "reg_date")})
 public class PatientHistory extends BaseModel {
     @Id
     @GeneratedValue(generator = "patient_history_generator")

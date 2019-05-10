@@ -92,7 +92,7 @@ public class PatientHistoryServiceImpl implements PatientHistoryService {
 
     @Transactional
     @Override
-    public PatientHistory create(PatientHistoryDto historyDto) {
+    public Long create(PatientHistoryDto historyDto) {
         PatientHistory history = getModel(historyDto);
 
         // Address
@@ -171,7 +171,7 @@ public class PatientHistoryServiceImpl implements PatientHistoryService {
 
     @Transactional
     @Override
-    public PatientHistory create(PatientHistory history) {
+    public Long create(PatientHistory history) {
         autoFillDefaultFields(history);
 
         validatePatientName(history);
@@ -189,7 +189,7 @@ public class PatientHistoryServiceImpl implements PatientHistoryService {
 
         createPatientType(history);
 
-        return history;
+        return history.getId();
     }
 
     @Transactional
@@ -370,6 +370,10 @@ public class PatientHistoryServiceImpl implements PatientHistoryService {
         }
 
         String idNo = patientUtil.formatIdNo(history.getIdNo());
+
+        if ("0".equals(idNo)) {
+            return;
+        }
 
         if (idNo == null) {
             throw new InvalidDataException("ID No " + history.getIdNo());

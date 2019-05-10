@@ -7,7 +7,8 @@ import javax.persistence.*;
 import java.util.Date;
 
 @Entity
-@Table(name = "his_patient")
+@Table(name = "his_patient",
+        indexes = {@Index(name = "idx_patient_reg_date", columnList = "reg_date")})
 public class Patient extends BaseModel {
     @Id
     @GeneratedValue(generator = "patient_generator")

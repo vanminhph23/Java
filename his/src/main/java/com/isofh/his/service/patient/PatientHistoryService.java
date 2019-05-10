@@ -11,11 +11,11 @@ import java.util.Date;
 
 public interface PatientHistoryService extends BaseService<PatientHistory, PatientHistoryDto, PatientHistoryRepository> {
 
-    PatientHistory create(PatientHistoryDto historyDto);
+    Long create(PatientHistoryDto historyDto);
 
     PatientHistory update(PatientHistoryDto historyDto);
 
-    PatientHistory create(PatientHistory history);
+    Long create(PatientHistory history);
 
     PatientHistory update(PatientHistory history);
 
