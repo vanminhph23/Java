@@ -3,6 +3,7 @@ package com.isofh.his.model.patient;
 import com.isofh.his.model.base.BaseModel;
 import com.isofh.his.model.category.*;
 import com.isofh.his.service.patient.PatientStatistics;
+import com.isofh.his.util.DateUtil;
 import org.hibernate.envers.Audited;
 
 import javax.persistence.*;
@@ -639,5 +640,9 @@ public class PatientHistory extends BaseModel {
 
     public void setPatient(Patient patient) {
         this.patient = patient;
+    }
+
+    public String getBirthdayStr() {
+        return isOnlyYearBirth() ? DateUtil.formatYear(getBirthday()) : DateUtil.formatDate(getBirthday());
     }
 }

@@ -2,7 +2,10 @@ package com.isofh.his.map;
 
 import com.isofh.his.dto.patient.PatientHistoryDto;
 import com.isofh.his.model.patient.PatientHistory;
+import com.isofh.his.util.DateUtil;
 import org.modelmapper.PropertyMap;
+
+import java.util.Date;
 
 public class PropertyMapPatientHistoryToDto extends PropertyMap<PatientHistory, PatientHistoryDto> {
     @Override
@@ -43,5 +46,8 @@ public class PropertyMapPatientHistoryToDto extends PropertyMap<PatientHistory, 
         map().setInsOutpatientTimes(source.getPatientStatistics().getInsOutpatientTimes());
         map().setInsOutpatientTimesMonth(source.getPatientStatistics().getInsOutpatientTimesMonth());
         map().setInsOutpatientTimesYear(source.getPatientStatistics().getInsOutpatientTimesYear());
+
+        // birthday
+        map().setBirthdayStr(source.getBirthdayStr());
     }
 }

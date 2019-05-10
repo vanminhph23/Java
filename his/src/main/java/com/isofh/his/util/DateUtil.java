@@ -3,6 +3,7 @@ package com.isofh.his.util;
 import org.apache.commons.lang3.time.DateUtils;
 
 import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
@@ -149,5 +150,20 @@ public class DateUtil {
         }
 
         return null;
+    }
+
+    public static String format(Date d, String format) {
+        if (d == null || format == null) {
+            return null;
+        }
+        return new SimpleDateFormat(format).format(d);
+    }
+
+    public static String formatDate(Date d) {
+        return format(d, "yyyy-MM-dd");
+    }
+
+    public static String formatYear(Date d) {
+        return format(d, "yyyy");
     }
 }
