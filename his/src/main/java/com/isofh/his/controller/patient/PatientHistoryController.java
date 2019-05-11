@@ -38,8 +38,10 @@ public class PatientHistoryController extends BaseController {
 
     @PutMapping("/patient-histories")
     public ResponseEntity<ResponseMsg> update(@Valid @RequestBody PatientHistoryDto dto) {
-        PatientHistory ph = service.update(dto);
-        return response("patientHistory", service.getDto(ph));
+        Long historyId = service.update(dto);
+        PatientHistoryDto ph = service.findDtoById(historyId);
+
+        return response("patientHistory", ph);
     }
 
     @PostMapping("/patient-histories/excel")

@@ -13,11 +13,11 @@ public interface PatientHistoryService extends BaseService<PatientHistory, Patie
 
     Long create(PatientHistoryDto historyDto);
 
-    PatientHistory update(PatientHistoryDto historyDto);
+    Long update(PatientHistoryDto historyDto);
 
     Long create(PatientHistory history);
 
-    PatientHistory update(PatientHistory history);
+    Long update(PatientHistory history);
 
     PatientHistory findFirstByIdNo(String idNo);
 

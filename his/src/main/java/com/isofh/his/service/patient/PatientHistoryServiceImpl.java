@@ -194,15 +194,15 @@ public class PatientHistoryServiceImpl implements PatientHistoryService {
 
     @Transactional
     @Override
-    public PatientHistory update(PatientHistoryDto historyDto) {
+    public Long update(PatientHistoryDto historyDto) {
         PatientHistory ph = repository.findById(historyDto.getId()).orElseThrow(() -> new NotFoundException("Not found patient history id: " + historyDto.getId()));
         return update(ph);
     }
 
     @Transactional
     @Override
-    public PatientHistory update(PatientHistory history) {
-        return save(history);
+    public Long update(PatientHistory history) {
+        return save(history).getId();
     }
 
     @Override
