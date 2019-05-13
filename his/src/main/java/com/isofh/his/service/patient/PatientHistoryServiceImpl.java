@@ -185,6 +185,8 @@ public class PatientHistoryServiceImpl implements PatientHistoryService {
 
         createPatient(history);
 
+        validatePreviousPayment(history);
+
         history = save(history);
 
         createPatientType(history);
@@ -398,5 +400,8 @@ public class PatientHistoryServiceImpl implements PatientHistoryService {
         } else if (!history.getPatientValue().equals(oldHistory.getPatientValue())) {
             throw new DuplicateIdNoException("Duplicate ID No: " + idNo + "Ma HS: " + oldHistory.getPatientDocument());
         }
+    }
+
+    private void validatePreviousPayment(PatientHistory history) {
     }
 }

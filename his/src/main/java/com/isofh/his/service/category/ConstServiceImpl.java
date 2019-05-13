@@ -1,9 +1,8 @@
-package com.isofh.his.service.patient;
+package com.isofh.his.service.category;
 
-import com.isofh.his.dto.core.ConstDto;
-import com.isofh.his.model.core.Const;
-import com.isofh.his.repository.core.ConstRepository;
-import com.isofh.his.service.category.HospitalService;
+import com.isofh.his.dto.category.ConstDto;
+import com.isofh.his.model.category.Const;
+import com.isofh.his.repository.category.ConstRepository;
 import com.isofh.his.storage.StorageService;
 import org.modelmapper.ModelMapper;
 import org.slf4j.Logger;
@@ -78,5 +77,27 @@ public class ConstServiceImpl implements ConstService {
         }
 
         return 40;
+    }
+
+    @Override
+    public String getInsuranceUsername() {
+        Const c = get("INSURANCE_USERNAME");
+
+        if (c != null && c.getValue() != null){
+            return  c.getValue();
+        }
+
+        return "01910_BV";
+    }
+
+    @Override
+    public String getInsurancePassword() {
+        Const c = get("INSURANCE_PASSWORD");
+
+        if (c != null && c.getValue() != null){
+            return  c.getValue();
+        }
+
+        return "93c674bbea62adf2a5d70252e612cccd";
     }
 }

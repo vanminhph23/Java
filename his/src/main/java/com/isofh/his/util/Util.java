@@ -5,6 +5,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.io.IOException;
 import java.text.Normalizer;
 import java.util.ArrayList;
 import java.util.List;
@@ -27,6 +28,10 @@ public class Util {
 
     public static <T> T convertValue(Map<String, Object> fromValue, Class<T> toValueType) {
         return mapper.convertValue(fromValue, toValueType);
+    }
+
+    public static <T> T convertValue(String fromValue, Class<T> toValueType) throws IOException {
+        return mapper.readValue(fromValue, toValueType);
     }
 
     public static Map<String, Object> convertValue(Object fromValue) {

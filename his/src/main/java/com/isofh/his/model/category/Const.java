@@ -1,4 +1,4 @@
-package com.isofh.his.model.core;
+package com.isofh.his.model.category;
 
 import com.isofh.his.model.base.BaseCategoryModel;
 import org.hibernate.envers.Audited;

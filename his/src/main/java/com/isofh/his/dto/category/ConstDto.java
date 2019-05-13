@@ -1,4 +1,4 @@
-package com.isofh.his.dto.core;
+package com.isofh.his.dto.category;
 
 import com.isofh.his.dto.base.BaseCategoryDto;
 

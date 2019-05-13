@@ -2,11 +2,12 @@ package com.isofh.his.service.patient;
 
 import com.isofh.his.dto.patient.PatientInsuranceDto;
 import com.isofh.his.exception.data.InvalidDataException;
+import com.isofh.his.insurance.card.service.TokenService;
 import com.isofh.his.model.category.InsuranceCard;
 import com.isofh.his.model.patient.PatientHistory;
 import com.isofh.his.model.patient.PatientInsurance;
 import com.isofh.his.repository.patient.PatientInsuranceRepository;
-import com.isofh.his.service.category.HospitalService;
+import com.isofh.his.service.category.ConstService;
 import com.isofh.his.service.category.InsuranceCardService;
 import com.isofh.his.storage.StorageService;
 import com.isofh.his.util.DateUtil;
@@ -16,6 +17,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.io.IOException;
 import java.util.Date;
 
 @Service
@@ -31,6 +33,9 @@ public class PatientInsuranceServiceImpl implements PatientInsuranceService {
 
     @Autowired
     private InsuranceCardService insuranceCardService;
+
+    @Autowired
+    private TokenService tokenService;
 
     @Override
     public PatientInsuranceRepository getRepository() {
@@ -144,6 +149,12 @@ public class PatientInsuranceServiceImpl implements PatientInsuranceService {
         setExtraInsurance(insurance);
 
         setInsurancePercent(insurance);
+
+        try {
+            tokenService.getToken();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     private int calInsurancePercent(String insuranceNumber, boolean extra, boolean notCoPayment) {

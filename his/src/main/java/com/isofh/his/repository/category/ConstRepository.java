@@ -1,6 +1,6 @@
-package com.isofh.his.repository.core;
+package com.isofh.his.repository.category;
 
-import com.isofh.his.model.core.Const;
+import com.isofh.his.model.category.Const;
 import com.isofh.his.repository.base.BaseCategoryRepository;
 
 public interface ConstRepository extends BaseCategoryRepository<Const, Long> {
