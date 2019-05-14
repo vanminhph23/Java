@@ -85,6 +85,10 @@ public class DateUtil {
         return truncateHour(date1).compareTo(truncateDate(date2));
     }
 
+    public static int compareTo(Date date1, Date date2) {
+        return date1.compareTo(date2);
+    }
+
     public static Date parseValidDate(String dateStr, String parsePattern) throws ParseException {
         if (dateStr == null) {
             return null;

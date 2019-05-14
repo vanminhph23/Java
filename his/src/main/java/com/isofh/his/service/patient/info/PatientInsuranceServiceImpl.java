@@ -81,8 +81,7 @@ public class PatientInsuranceServiceImpl implements PatientInsuranceService {
 
     @Override
     public PatientInsurance findByValidDate(Long patientHistoryId, Date actDate) {
-
-        List<PatientInsurance> list = getRepository().findByValidDate(patientHistoryId, actDate, PageRequest.of(0, 1, Sort.by("percent").descending()));
+        List<PatientInsurance> list = getRepository().findByValidDate(patientHistoryId, DateUtil.truncateHour(actDate), PageRequest.of(0, 1, Sort.by("percent").descending()));
 
         if (list != null && list.size() > 0) {
             return list.get(0);
@@ -122,6 +121,22 @@ public class PatientInsuranceServiceImpl implements PatientInsuranceService {
         Date appliedFromDate = insurance.getAppliedFromDate();
         Date appliedToDate = insurance.getAppliedToDate();
 
+        if (fromDate != null) {
+            fromDate = DateUtil.truncateHour(fromDate);
+        }
+
+        if (toDate != null) {
+            toDate = DateUtil.truncateHour(toDate);
+        }
+
+        if (appliedFromDate != null) {
+            appliedFromDate = DateUtil.truncateHour(appliedFromDate);
+        }
+
+        if (appliedToDate != null) {
+            appliedToDate = DateUtil.truncateHour(appliedToDate);
+        }
+
         if (fromDate == null || (!history.isInpatient() && DateUtil.truncatedHourCompareTo(fromDate, regDate) > 0)) {
             throw new InvalidDataException("Insurance from date " + fromDate);
         }
@@ -136,16 +151,21 @@ public class PatientInsuranceServiceImpl implements PatientInsuranceService {
         }
 
         if (!history.isInpatient() || appliedFromDate == null) {
-            insurance.setAppliedFromDate(fromDate);
+            appliedFromDate = fromDate;
         } else if (DateUtil.truncatedHourCompareTo(appliedFromDate, fromDate) < 0) {
             throw new InvalidDataException("Insurance applied from date " + appliedFromDate + ", " + fromDate);
         }
 
         if (!history.isInpatient() || appliedToDate == null) {
-            insurance.setAppliedToDate(toDate);
+            appliedToDate = toDate;
         } else if (DateUtil.truncatedHourCompareTo(appliedToDate, toDate) > 0) {
             throw new InvalidDataException("Insurance applied from date " + appliedToDate + ", " + toDate);
         }
+
+        insurance.setFromDate(fromDate);
+        insurance.setToDate(toDate);
+        insurance.setAppliedFromDate(appliedFromDate);
+        insurance.setAppliedToDate(appliedToDate);
     }
 
     void validateRegisterOfInsuranceNumber(PatientHistory history, PatientInsurance insurance) {
