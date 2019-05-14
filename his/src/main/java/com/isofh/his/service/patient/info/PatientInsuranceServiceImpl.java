@@ -2,6 +2,9 @@ package com.isofh.his.service.patient.info;
 
 import com.isofh.his.dto.patient.info.PatientInsuranceDto;
 import com.isofh.his.exception.data.InvalidDataException;
+import com.isofh.his.exception.insurance.InsurancePortalException;
+import com.isofh.his.exception.insurance.TakeTokenException;
+import com.isofh.his.insurance.card.model.TheBH;
 import com.isofh.his.insurance.card.service.InsuranceCardPortalService;
 import com.isofh.his.model.category.InsuranceCard;
 import com.isofh.his.model.patient.info.PatientHistory;
@@ -137,17 +140,28 @@ public class PatientInsuranceServiceImpl implements PatientInsuranceService {
     }
 
     @Override
-    public void validateInsuranceCard(PatientHistory history, PatientInsurance insurance) {
+    public void validateInsuranceCard(PatientHistory history, PatientInsurance insurance, boolean ignoreValidatePortalInsurance) {
 
         validateInsuranceNumber(insurance);
 
         validateInsuranceDate(history, insurance);
+
+        if (!ignoreValidatePortalInsurance) {
+            validateInsuranceCardPortal(history, insurance);
+        }
 
         validateRegisterOfInsuranceNumber(insurance);
 
         setExtraInsurance(insurance);
 
         setInsurancePercent(insurance);
+    }
+
+    private void validateInsuranceCardPortal(PatientHistory history, PatientInsurance insurance) {
+        TheBH bh = insuranceCardPortalService.getPatientInsuranceCard(history, insurance);
+        if (bh == null || !"000".equals(bh.getMaKetQua())) {
+            throw new InsurancePortalException("Invalid insurance card", bh);
+        }
     }
 
     private int calInsurancePercent(String insuranceNumber, boolean extra, boolean notCoPayment) {

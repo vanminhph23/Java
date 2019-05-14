@@ -15,7 +15,7 @@ public interface PatientInsuranceService extends BaseService<PatientInsurance, P
 
     PatientInsurance findByValidDate(Long patientHistoryId, Date actDate);
 
-    void validateInsuranceCard(PatientHistory history, PatientInsurance insurance);
+    void validateInsuranceCard(PatientHistory history, PatientInsurance insurance, boolean ignoreValidatePortalInsurance);
 
     enum RegionValueEnum implements IEnum {
         K1(1, "K1"), K2(2, "K2"), K3(3, "K2"), Other(4, "Other");

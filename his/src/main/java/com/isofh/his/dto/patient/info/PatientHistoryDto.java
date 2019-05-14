@@ -50,6 +50,8 @@ public class PatientHistoryDto extends BaseDto {
 
     private boolean insuranceKeeping;
 
+    private boolean ignoreValidatePortalInsurance;
+
     // address
     private Long countryId;
 
@@ -200,6 +202,14 @@ public class PatientHistoryDto extends BaseDto {
 
     public void setContract(boolean contract) {
         this.contract = contract;
+    }
+
+    public boolean isIgnoreValidatePortalInsurance() {
+        return ignoreValidatePortalInsurance;
+    }
+
+    public void setIgnoreValidatePortalInsurance(boolean ignoreValidatePortalInsurance) {
+        this.ignoreValidatePortalInsurance = ignoreValidatePortalInsurance;
     }
 
     public String getInsuranceAddress() {

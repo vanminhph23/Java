@@ -14,9 +14,9 @@ public interface PatientHistoryService extends BaseService<PatientHistory, Patie
 
     Long update(PatientHistoryDto historyDto);
 
-    Long create(PatientHistory history);
+    Long create(PatientHistory history, boolean isCheckPortalInsurance);
 
-    Long update(PatientHistory history);
+    Long update(PatientHistory history, boolean isCheckPortalInsurance);
 
     PatientHistory findLastByIdNo(String idNo);
 

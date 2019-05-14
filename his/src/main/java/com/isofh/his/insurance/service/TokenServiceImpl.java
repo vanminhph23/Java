@@ -2,7 +2,7 @@ package com.isofh.his.insurance.service;
 
 import com.isofh.his.client.RestClientService;
 import com.isofh.his.exception.connection.ConnectionException;
-import com.isofh.his.exception.insurance.InsurancePortalException;
+import com.isofh.his.exception.insurance.TakeTokenException;
 import com.isofh.his.insurance.model.APIKey;
 import com.isofh.his.insurance.model.KetQua;
 import com.isofh.his.insurance.model.Login;
@@ -43,7 +43,7 @@ public class TokenServiceImpl implements TokenService {
 
         KetQua kq = responseEntity.getBody();
         if (kq.getAPIKey() == null || !"200".equals(kq.getMaKetQua())) {
-            throw new InsurancePortalException("Cannot get token from insurance portal", kq);
+            throw new TakeTokenException("Cannot get token from insurance portal", kq);
         }
 
         currentAPIKey = kq.getAPIKey();

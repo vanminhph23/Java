@@ -167,12 +167,12 @@ public class PatientHistoryServiceImpl implements PatientHistoryService {
             }
         }
 
-        return create(history);
+        return create(history, historyDto.isIgnoreValidatePortalInsurance());
     }
 
     @Transactional
     @Override
-    public Long create(PatientHistory history) {
+    public Long create(PatientHistory history, boolean ignoreValidatePortalInsurance) {
         autoFillDefaultFields(history);
 
         validatePatientName(history);
@@ -180,7 +180,7 @@ public class PatientHistoryServiceImpl implements PatientHistoryService {
         validateIdNo(history);
 
         createPatientAddress(history);
-        createPatientInsurance(history);
+        createPatientInsurance(history, ignoreValidatePortalInsurance);
         createPatientGuardian(history);
         createPatientStatistics(history);
 
@@ -199,12 +199,15 @@ public class PatientHistoryServiceImpl implements PatientHistoryService {
     @Override
     public Long update(PatientHistoryDto historyDto) {
         PatientHistory ph = repository.findById(historyDto.getId()).orElseThrow(() -> new NotFoundException("Not found patient history id: " + historyDto.getId()));
-        return update(ph);
+
+        boolean ignoreValidatePortalInsurance = historyDto.isIgnoreValidatePortalInsurance();
+
+        return update(ph, ignoreValidatePortalInsurance);
     }
 
     @Transactional
     @Override
-    public Long update(PatientHistory history) {
+    public Long update(PatientHistory history, boolean validatePortalInsurance) {
         return save(history).getId();
     }
 
@@ -286,10 +289,10 @@ public class PatientHistoryServiceImpl implements PatientHistoryService {
         return address;
     }
 
-    private PatientInsurance createPatientInsurance(PatientHistory history) {
+    private PatientInsurance createPatientInsurance(PatientHistory history, boolean ignoreValidatePortalInsurance) {
         PatientInsurance insurance = history.getPatientInsurance();
         if (insurance != null) {
-            insuranceService.validateInsuranceCard(history, insurance);
+            insuranceService.validateInsuranceCard(history, insurance, ignoreValidatePortalInsurance);
             insuranceService.save(insurance);
         }
 
