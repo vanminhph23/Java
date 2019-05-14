@@ -156,7 +156,12 @@ public class PatientInsuranceServiceImpl implements PatientInsuranceService {
     }
 
     private void validateReturnedInsuranceNumber(PatientHistory history, PatientInsurance insurance) {
-        List<PatientInsurance> list = getRepository().findByKeeping(insurance.getInsuranceNumber(), true, history.getId(), PageRequest.of(0, 1));
+        Long id = history.getId();
+        if (id == null) {
+            id = Long.valueOf(0);
+        }
+
+        List<PatientInsurance> list = getRepository().findByKeeping(insurance.getInsuranceNumber(), true, id, PageRequest.of(0, 1));
 
         if (list != null && list.size() > 0) {
             throw new NotReturnInsuranceException("Patient not return insurance card", list.get(0).getPatientHistory());
@@ -164,7 +169,12 @@ public class PatientInsuranceServiceImpl implements PatientInsuranceService {
     }
 
     void validateRegDateOfInsuranceNumber(PatientHistory history, PatientInsurance insurance) {
-        List<PatientInsurance> list = getRepository().findByRegDate(insurance.getInsuranceNumber(), history.getId(), PageRequest.of(0, 1));
+        Long id = history.getId();
+        if (id == null) {
+            id = Long.valueOf(0);
+        }
+
+        List<PatientInsurance> list = getRepository().findByRegDate(insurance.getInsuranceNumber(), history.getRegDate(), id, PageRequest.of(0, 1));
 
         if (list != null && list.size() > 0) {
             throw new RegisterSameDayException("Patient has register same day", list.get(0).getPatientHistory());
