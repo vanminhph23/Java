@@ -35,6 +35,10 @@ public interface BaseCategoryRepository<T extends BaseCategoryModel, ID extends 
     Optional<String> findNameById(ID id);
 
     @Transactional(readOnly = true)
+    @Query("select e.value from #{#entityName} e where e.id = ?1 and e.deleted = 0")
+    Optional<String> findValueById(ID id);
+
+    @Transactional(readOnly = true)
     default boolean existsByValue(String value, ID id) {
         return findIdByValue(value, id).orElse(Long.valueOf(0)) > 0;
     }

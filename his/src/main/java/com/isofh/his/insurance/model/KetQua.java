@@ -1,4 +1,4 @@
-package com.isofh.his.insurance.card.model;
+package com.isofh.his.insurance.model;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 

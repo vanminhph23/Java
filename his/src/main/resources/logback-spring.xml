@@ -117,9 +117,9 @@
         <appender-ref ref="Console" />
     </logger>
 
-    <logger name="org.hibernate.type" level="trace" additivity="false">
-        <appender-ref ref="HibernateFile" />
-        <appender-ref ref="Console" />
-    </logger>
+    <!--<logger name="org.hibernate.type" level="trace" additivity="false">-->
+        <!--<appender-ref ref="HibernateFile" />-->
+        <!--<appender-ref ref="Console" />-->
+    <!--</logger>-->
 
 </configuration>

@@ -73,6 +73,10 @@ public class DateUtil {
         return false;
     }
 
+    public static Date addMinutes(Date date, int amount) {
+        return DateUtils.addMinutes(date, amount);
+    }
+
     public static Date parseValidDate(String dateStr) throws ParseException {
         return parseValidDate(dateStr, null);
     }
