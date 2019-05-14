@@ -208,8 +208,18 @@ public class PatientHistoryServiceImpl implements PatientHistoryService {
     }
 
     @Override
-    public PatientHistory findFirstByIdNo(String idNo) {
+    public PatientHistory findLastByIdNo(String idNo) {
         List<PatientHistory> list = getRepository().findByIdNo(idNo, PageRequest.of(0, 1, Sort.by("id").descending()));
+        if (list != null && list.size() > 0) {
+            return list.get(0);
+        }
+
+        return null;
+    }
+
+    @Override
+    public PatientHistory findLastByPatientValue(String patientValue) {
+        List<PatientHistory> list = getRepository().findByPatientValue(patientValue, PageRequest.of(0, 1, Sort.by("id").descending()));
         if (list != null && list.size() > 0) {
             return list.get(0);
         }
@@ -381,7 +391,7 @@ public class PatientHistoryServiceImpl implements PatientHistoryService {
             throw new InvalidDataException("ID No " + history.getIdNo());
         }
 
-        PatientHistory oldHistory = findFirstByIdNo(idNo);
+        PatientHistory oldHistory = findLastByIdNo(idNo);
 
         if (oldHistory == null) {
             return;

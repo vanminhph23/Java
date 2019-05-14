@@ -13,4 +13,8 @@ public interface PatientHistoryRepository extends BaseRepository<PatientHistory,
     @Transactional(readOnly = true)
     @Query("select e from PatientHistory e where e.deleted = 0 and e.idNo = ?1")
     List<PatientHistory> findByIdNo(String idNo, Pageable pageable);
+
+    @Transactional(readOnly = true)
+    @Query("select e from PatientHistory e where e.deleted = 0 and e.patientValue = ?1")
+    List<PatientHistory> findByPatientValue(String patientValue, Pageable pageable);
 }

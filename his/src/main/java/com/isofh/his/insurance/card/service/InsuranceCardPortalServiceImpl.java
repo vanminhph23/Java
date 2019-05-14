@@ -33,7 +33,7 @@ public class InsuranceCardPortalServiceImpl implements InsuranceCardPortalServic
     private HospitalService hospitalService;
 
     @Override
-    public TheBH getInsuranceInfo(PatientHistory patientHistory, PatientInsurance patientInsurance) {
+    public TheBH getPatientInsuranceCard(BenhNhan bn) {
         APIKey apiKey = tokenService.getToken();
 
         Map<String, String> paras = new HashMap<>();
@@ -42,11 +42,16 @@ public class InsuranceCardPortalServiceImpl implements InsuranceCardPortalServic
         paras.put("username", apiKey.getUsername());
         paras.put("password", constService.getInsurancePassword());
 
-        BenhNhan bn = convert(patientHistory, patientInsurance);
-
         ResponseEntity<TheBH> bh = restClientService.doPost(URL_LSKCB, paras, bn, TheBH.class);
 
         return bh.getBody();
+    }
+
+    @Override
+    public TheBH getPatientInsuranceCard(PatientHistory patientHistory, PatientInsurance patientInsurance) {
+        BenhNhan bn = convert(patientHistory, patientInsurance);
+
+        return getPatientInsuranceCard(bn);
     }
 
     private BenhNhan convert(PatientHistory patientHistory, PatientInsurance patientInsurance) {

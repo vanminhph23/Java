@@ -3,6 +3,10 @@ package com.isofh.his.controller.patient;
 import com.isofh.his.controller.base.BaseController;
 import com.isofh.his.dto.base.ResponseMsg;
 import com.isofh.his.dto.patient.PatientHistoryDto;
+import com.isofh.his.exception.data.NotFoundException;
+import com.isofh.his.insurance.card.model.BenhNhan;
+import com.isofh.his.insurance.card.model.TheBH;
+import com.isofh.his.insurance.card.service.InsuranceCardPortalService;
 import com.isofh.his.model.patient.PatientHistory;
 import com.isofh.his.service.patient.PatientHistoryService;
 import org.slf4j.Logger;
@@ -23,9 +27,49 @@ public class PatientHistoryController extends BaseController {
     @Autowired
     private PatientHistoryService service;
 
+    @Autowired
+    private InsuranceCardPortalService insuranceCardPortalService;
+
     @GetMapping("/patient-histories/{id}")
     public ResponseEntity<ResponseMsg> getById(@PathVariable Long id) {
-        return response("patientHistory", service.findDtoById(id));
+        PatientHistoryDto ph = service.findDtoById(id);
+
+        return response("patientHistory", ph);
+    }
+
+    @GetMapping("/patient-histories/id-no/{idNo}")
+    public ResponseEntity<ResponseMsg> getByIdNo(@PathVariable String idNo) {
+
+        PatientHistory ph = service.findLastByIdNo(idNo);
+
+        if (ph == null) {
+            throw new NotFoundException("Not found patient idNo: " + idNo);
+        }
+
+        PatientHistoryDto dto = service.getDto(ph);
+
+        return response("patientHistory", dto);
+    }
+
+    @GetMapping("/patient-histories/patient-value/{patientValue}")
+    public ResponseEntity<ResponseMsg> getByPatientValue(@PathVariable String patientValue) {
+
+        PatientHistory ph = service.findLastByPatientValue(patientValue);
+
+        if (ph == null) {
+            throw new NotFoundException("Not found patient value: " + patientValue);
+        }
+
+        PatientHistoryDto dto = service.getDto(ph);
+
+        return response("patientHistory", dto);
+    }
+
+    @PostMapping("/patient-histories/insurance-card")
+    public ResponseEntity<ResponseMsg> getPatientInsuranceCard(@Valid @RequestBody BenhNhan bn) {
+        TheBH bh = insuranceCardPortalService.getPatientInsuranceCard(bn);
+
+        return response("insuranceCard", bh);
     }
 
     @PostMapping("/patient-histories")
@@ -46,6 +90,9 @@ public class PatientHistoryController extends BaseController {
 
     @PostMapping("/patient-histories/excel")
     public ResponseEntity<InputStreamResource> importExcel(@RequestParam("file") MultipartFile file) {
-        return response(service.importExcel(file, 1, 1));
+        String responseStr = service.importExcel(file, 1, 1);
+
+        return response(responseStr);
     }
 }
+;

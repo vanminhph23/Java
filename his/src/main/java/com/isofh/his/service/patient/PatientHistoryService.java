@@ -19,7 +19,9 @@ public interface PatientHistoryService extends BaseService<PatientHistory, Patie
 
     Long update(PatientHistory history);
 
-    PatientHistory findFirstByIdNo(String idNo);
+    PatientHistory findLastByIdNo(String idNo);
+
+    PatientHistory findLastByPatientValue(String patientValue);
 
     boolean isInsurancePatient(PatientHistory history, Date actDate);
 
