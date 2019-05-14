@@ -2,7 +2,7 @@ package com.isofh.his.controller.patient;
 
 import com.isofh.his.controller.base.BaseController;
 import com.isofh.his.dto.base.ResponseMsg;
-import com.isofh.his.dto.patient.PatientHistoryDto;
+import com.isofh.his.dto.patient.info.PatientHistoryDto;
 import com.isofh.his.exception.data.NotFoundException;
 import com.isofh.his.insurance.card.model.BenhNhan;
 import com.isofh.his.insurance.card.model.TheBH;

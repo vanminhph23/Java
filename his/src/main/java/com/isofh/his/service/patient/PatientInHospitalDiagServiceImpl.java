@@ -1,6 +1,6 @@
 package com.isofh.his.service.patient;
 
-import com.isofh.his.dto.patient.PatientInHospitalDiagDto;
+import com.isofh.his.dto.patient.info.PatientInHospitalDiagDto;
 import com.isofh.his.model.patient.info.PatientInHospitalDiag;
 import com.isofh.his.repository.patient.PatientInHospitalDiagRepository;
 import com.isofh.his.storage.StorageService;

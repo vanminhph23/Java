@@ -1,6 +1,6 @@
 package com.isofh.his.service.patient;
 
-import com.isofh.his.dto.patient.PatientHistoryDto;
+import com.isofh.his.dto.patient.info.PatientHistoryDto;
 import com.isofh.his.exception.data.InvalidDataException;
 import com.isofh.his.exception.data.NotFoundException;
 import com.isofh.his.exception.data.NullValueException;

@@ -1,6 +1,6 @@
 package com.isofh.his.map;
 
-import com.isofh.his.dto.patient.PatientHistoryDto;
+import com.isofh.his.dto.patient.info.PatientHistoryDto;
 import com.isofh.his.model.patient.info.PatientHistory;
 import org.modelmapper.PropertyMap;
 

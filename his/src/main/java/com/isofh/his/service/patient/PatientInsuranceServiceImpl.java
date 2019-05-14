@@ -1,6 +1,6 @@
 package com.isofh.his.service.patient;
 
-import com.isofh.his.dto.patient.PatientInsuranceDto;
+import com.isofh.his.dto.patient.info.PatientInsuranceDto;
 import com.isofh.his.exception.data.InvalidDataException;
 import com.isofh.his.insurance.card.service.InsuranceCardPortalService;
 import com.isofh.his.model.category.InsuranceCard;

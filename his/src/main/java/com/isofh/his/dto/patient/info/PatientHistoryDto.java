@@ -1,4 +1,4 @@
-package com.isofh.his.dto.patient;
+package com.isofh.his.dto.patient.info;
 
 import com.isofh.his.dto.base.BaseDto;
 

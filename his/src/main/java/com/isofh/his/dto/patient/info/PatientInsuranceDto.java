@@ -1,10 +1,10 @@
-package com.isofh.his.dto.patient;
+package com.isofh.his.dto.patient.info;
 
-import com.isofh.his.dto.base.BaseCategoryDto;
+import com.isofh.his.dto.base.BaseDto;
 
 import java.sql.Timestamp;
 
-public class PatientInsuranceDto extends BaseCategoryDto {
+public class PatientInsuranceDto extends BaseDto {
 
     public PatientInsuranceDto() {
     }

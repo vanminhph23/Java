@@ -1,8 +1,8 @@
-package com.isofh.his.dto.patient;
+package com.isofh.his.dto.patient.info;
 
-import com.isofh.his.dto.base.BaseCategoryDto;
+import com.isofh.his.dto.base.BaseDto;
 
-public class PatientStatisticsDto extends BaseCategoryDto {
+public class PatientStatisticsDto extends BaseDto {
 
     public PatientStatisticsDto() {
     }
