@@ -6,13 +6,13 @@ import org.hibernate.envers.Audited;
 import javax.persistence.*;
 
 @Entity
-@Table(name = "his_ph_collection")
-public class PHCollection extends BaseModel {
+@Table(name = "his_patient_history_collection")
+public class PatientHistoryCollection extends BaseModel {
     @Id
-    @GeneratedValue(generator = "ph_collection_generator")
+    @GeneratedValue(generator = "patient_history_collection_generator")
     @SequenceGenerator(
-            name = "ph_collection_generator",
-            sequenceName = "ph_collection_sq",
+            name = "patient_history_collection_generator",
+            sequenceName = "patient_history_collection_sq",
             initialValue = 1000000
     )
     private Long id;
@@ -25,7 +25,7 @@ public class PHCollection extends BaseModel {
     @JoinColumn(name = "patient_history_id", insertable = false, updatable = false)
     private PatientHistory patientHistory;
 
-    @Column(name = "patient_value", nullable = false, unique = true)
+    @Column(name = "patient_value", nullable = false)
     @Audited
     private String patientValue;
 
