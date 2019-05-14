@@ -1,8 +1,8 @@
 package com.isofh.his.service.patient;
 
-import com.isofh.his.dto.patient.PHCollectionDto;
-import com.isofh.his.model.patient.PHCollection;
-import com.isofh.his.repository.patient.PHCollectionRepository;
+import com.isofh.his.dto.patient.PatientHistoryCollectionDto;
+import com.isofh.his.model.patient.PatientHistoryCollection;
+import com.isofh.his.repository.patient.PatientHistoryCollectionRepository;
 import com.isofh.his.storage.StorageService;
 import org.modelmapper.ModelMapper;
 import org.slf4j.Logger;
@@ -11,15 +11,15 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 @Service
-public class PHCollectionServiceImpl implements PHCollectionService {
+public class PatientHistoryCollectionImpl implements PatientHistoryCollectionService {
 
-    private final static Logger logger = LoggerFactory.getLogger(PHCollectionServiceImpl.class);
+    private final static Logger logger = LoggerFactory.getLogger(PatientHistoryCollectionImpl.class);
 
     @Autowired
-    private PHCollectionRepository repository;
+    private PatientHistoryCollectionRepository repository;
 
     @Override
-    public PHCollectionRepository getRepository() {
+    public PatientHistoryCollectionRepository getRepository() {
         return repository;
     }
 
@@ -32,13 +32,13 @@ public class PHCollectionServiceImpl implements PHCollectionService {
     }
 
     @Override
-    public Class<PHCollection> getModelClass() {
-        return PHCollection.class;
+    public Class<PatientHistoryCollection> getModelClass() {
+        return PatientHistoryCollection.class;
     }
 
     @Override
-    public Class<PHCollectionDto> getDtoClass() {
-        return PHCollectionDto.class;
+    public Class<PatientHistoryCollectionDto> getDtoClass() {
+        return PatientHistoryCollectionDto.class;
     }
 
     ModelMapper modelMapper = null;

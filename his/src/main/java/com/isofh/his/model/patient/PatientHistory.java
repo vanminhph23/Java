@@ -178,8 +178,8 @@ public class PatientHistory extends BaseModel {
     private Long phCollectionId;
 
     @ManyToOne(fetch = FetchType.LAZY, cascade = {CascadeType.ALL})
-    @JoinColumn(name = "ph_collection_id")
-    private PHCollection phCollection;
+    @JoinColumn(name = "patient_history_collection_id")
+    private PatientHistoryCollection patientHistoryCollection;
 
     // insurance info
     @Column(name = "patient_type", nullable = false)
@@ -530,12 +530,12 @@ public class PatientHistory extends BaseModel {
         this.phCollectionId = phCollectionId;
     }
 
-    public PHCollection getPhCollection() {
-        return phCollection;
+    public PatientHistoryCollection getPatientHistoryCollection() {
+        return patientHistoryCollection;
     }
 
-    public void setPhCollection(PHCollection phCollection) {
-        this.phCollection = phCollection;
+    public void setPatientHistoryCollection(PatientHistoryCollection patientHistoryCollection) {
+        this.patientHistoryCollection = patientHistoryCollection;
     }
 
     public Integer getPatientType() {
