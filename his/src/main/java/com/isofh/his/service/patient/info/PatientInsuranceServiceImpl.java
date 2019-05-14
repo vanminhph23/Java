@@ -3,10 +3,13 @@ package com.isofh.his.service.patient.info;
 import com.isofh.his.dto.patient.info.PatientInsuranceDto;
 import com.isofh.his.exception.data.InvalidDataException;
 import com.isofh.his.exception.insurance.InsurancePortalException;
+import com.isofh.his.exception.insurance.NotReturnInsuranceException;
+import com.isofh.his.exception.insurance.RegisterSameDayException;
 import com.isofh.his.exception.insurance.TakeTokenException;
 import com.isofh.his.insurance.card.model.TheBH;
 import com.isofh.his.insurance.card.service.InsuranceCardPortalService;
 import com.isofh.his.model.category.InsuranceCard;
+import com.isofh.his.model.patient.info.Patient;
 import com.isofh.his.model.patient.info.PatientHistory;
 import com.isofh.his.model.patient.info.PatientInsurance;
 import com.isofh.his.repository.patient.info.PatientInsuranceRepository;
@@ -18,9 +21,12 @@ import org.modelmapper.ModelMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import java.util.Date;
+import java.util.List;
 
 @Service
 public class PatientInsuranceServiceImpl implements PatientInsuranceService {
@@ -75,7 +81,14 @@ public class PatientInsuranceServiceImpl implements PatientInsuranceService {
 
     @Override
     public PatientInsurance findByValidDate(Long patientHistoryId, Date actDate) {
-        return getRepository().findByValidDate(patientHistoryId, actDate).orElse(null);
+
+        List<PatientInsurance> list = getRepository().findByValidDate(patientHistoryId, actDate, PageRequest.of(0, 1, Sort.by("percent").descending()));
+
+        if (list != null && list.size() > 0) {
+            return list.get(0);
+        }
+
+        return null;
     }
 
     private void validateInsuranceNumber(PatientInsurance insurance) {
@@ -135,8 +148,27 @@ public class PatientInsuranceServiceImpl implements PatientInsuranceService {
         }
     }
 
-    void validateRegisterOfInsuranceNumber(PatientInsurance insurance) {
+    void validateRegisterOfInsuranceNumber(PatientHistory history, PatientInsurance insurance) {
+        validateRegDateOfInsuranceNumber(history, insurance);
 
+        validateReturnedInsuranceNumber(history, insurance);
+
+    }
+
+    private void validateReturnedInsuranceNumber(PatientHistory history, PatientInsurance insurance) {
+        List<PatientInsurance> list = getRepository().findByKeeping(insurance.getInsuranceNumber(), true, history.getId(), PageRequest.of(0, 1));
+
+        if (list != null && list.size() > 0) {
+            throw new NotReturnInsuranceException("Patient not return insurance card", list.get(0).getPatientHistory());
+        }
+    }
+
+    void validateRegDateOfInsuranceNumber(PatientHistory history, PatientInsurance insurance) {
+        List<PatientInsurance> list = getRepository().findByRegDate(insurance.getInsuranceNumber(), history.getId(), PageRequest.of(0, 1));
+
+        if (list != null && list.size() > 0) {
+            throw new RegisterSameDayException("Patient has register same day", list.get(0).getPatientHistory());
+        }
     }
 
     @Override
@@ -150,7 +182,7 @@ public class PatientInsuranceServiceImpl implements PatientInsuranceService {
             validateInsuranceCardPortal(history, insurance);
         }
 
-        validateRegisterOfInsuranceNumber(insurance);
+        validateRegisterOfInsuranceNumber(history, insurance);
 
         setExtraInsurance(insurance);
 

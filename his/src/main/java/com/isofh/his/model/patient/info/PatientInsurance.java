@@ -23,6 +23,9 @@ public class PatientInsurance extends BasePatientModel {
     @OneToOne(mappedBy = "patientInsurance")
     private PatientHistory patientHistory;
 
+    @OneToOne(mappedBy = "patientInsurance")
+    private PatientType patientType;
+
     @Column(name = "address")
     @Audited
     private String address;
