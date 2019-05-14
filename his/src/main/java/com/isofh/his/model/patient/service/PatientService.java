@@ -1,9 +1,18 @@
-package com.isofh.his.model.patient;
+package com.isofh.his.model.patient.service;
 
 import com.isofh.his.model.base.BaseModel;
+import com.isofh.his.model.category.Department;
+import com.isofh.his.model.category.Room;
+import com.isofh.his.model.category.service.Service;
+import com.isofh.his.model.patient.info.PatientHistory;
+import com.isofh.his.model.patient.info.PatientTransferDepartment;
+import com.isofh.his.model.patient.info.PatientType;
+import com.isofh.his.model.patient.invoice.PatientInvoice;
+import com.isofh.his.model.patient.invoice.PatientPayment;
 import org.hibernate.envers.Audited;
 
 import javax.persistence.*;
+import java.util.Date;
 
 @Entity
 @Table(name = "his_patient_service")
@@ -46,9 +55,9 @@ public class PatientService extends BaseModel {
     @Audited
     private boolean inpatient = false;
 
-    @Column(name = "service_id")
-    @Audited
-    private Long serviceId;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "service_id")
+    private Service service;
 
     @Column(name = "service_type")
     @Audited
@@ -102,9 +111,21 @@ public class PatientService extends BaseModel {
     @Audited
     private Double insuranceAmount;
 
+    @Column(name = "service_exemption_amount")
+    @Audited
+    private Double serviceExemptionAmount;
+
+    @Column(name = "insurance_exemption_amount")
+    @Audited
+    private Double insuranceExemptionAmount;
+
     @Column(name = "amount")
     @Audited
     private Double amount;
+
+    @Column(name = "quantity")
+    @Audited
+    private Double quantity;
 
     @Column(name = "service_pay_rate")
     @Audited
@@ -114,17 +135,69 @@ public class PatientService extends BaseModel {
     @Audited
     private Double insurancePayRate;
 
-    @Column(name = "from_department_id")
+    @Column(name = "not_counted", nullable = false)
     @Audited
-    private Long fromDepartmentId;
+    private boolean notCounted;
 
-    @Column(name = "department_id")
+    @Column(name = "service_used", nullable = false)
     @Audited
-    private Long departmentId;
+    private boolean serviceUsed;
 
-    @Column(name = "room_id")
+    @Column(name = "insurance_paid", nullable = false)
     @Audited
-    private Long roomId;
+    private boolean insurancePaid;
+
+    @Column(name = "service_paid", nullable = false)
+    @Audited
+    private boolean servicePaid;
+
+    @Column(name = "service_in_hospital", nullable = false)
+    @Audited
+    private boolean serviceInHospital;
+
+    @Column(name = "contract", nullable = false)
+    @Audited
+    private boolean contract;
+
+    @Column(name = "patient_request", nullable = false)
+    @Audited
+    private boolean patientRequest;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "insurance_patient_invoice_id")
+    private PatientInvoice insurancePatientInvoice;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "service_patient_invoice_id")
+    private PatientInvoice servicePatientInvoice;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "patient_transfer_department_id")
+    private PatientTransferDepartment patientTransferDepartment;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "patient_type_id")
+    private PatientType patientType;
+
+    @Column(name = "transfer_from_outpatient")
+    @Audited
+    private boolean transferFromOutpatient;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "patient_payment_id")
+    private PatientPayment patientPayment;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "from_department_id")
+    private Department fromDepartment;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "department_id")
+    private Department department;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "room_id")
+    private Room room;
 
     @Column(name = "created_from_record_id")
     @Audited
@@ -133,6 +206,20 @@ public class PatientService extends BaseModel {
     @Column(name = "created_from_service_type")
     @Audited
     private int createdFromServiceType;
+
+    @Column(name = "doc_date")
+    @Temporal(TemporalType.TIMESTAMP)
+    @Audited
+    private Date docDate;
+
+    @Column(name = "act_date")
+    @Temporal(TemporalType.TIMESTAMP)
+    @Audited
+    private Date actDate;
+
+    @Column(name = "status")
+    @Audited
+    private int status;
 
     @Override
     public Long getId() {

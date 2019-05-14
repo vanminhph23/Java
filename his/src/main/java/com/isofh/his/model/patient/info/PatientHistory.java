@@ -1,4 +1,4 @@
-package com.isofh.his.model.patient;
+package com.isofh.his.model.patient.info;
 
 import com.isofh.his.model.base.BaseModel;
 import com.isofh.his.model.category.*;
@@ -7,7 +7,6 @@ import com.isofh.his.util.DateUtil;
 import org.hibernate.envers.Audited;
 
 import javax.persistence.*;
-import java.sql.Timestamp;
 import java.util.Date;
 
 @Entity

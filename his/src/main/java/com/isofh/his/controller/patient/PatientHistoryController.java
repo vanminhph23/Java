@@ -7,7 +7,7 @@ import com.isofh.his.exception.data.NotFoundException;
 import com.isofh.his.insurance.card.model.BenhNhan;
 import com.isofh.his.insurance.card.model.TheBH;
 import com.isofh.his.insurance.card.service.InsuranceCardPortalService;
-import com.isofh.his.model.patient.PatientHistory;
+import com.isofh.his.model.patient.info.PatientHistory;
 import com.isofh.his.service.patient.PatientHistoryService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

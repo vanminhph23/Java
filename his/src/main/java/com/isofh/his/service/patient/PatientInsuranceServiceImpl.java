@@ -2,11 +2,10 @@ package com.isofh.his.service.patient;
 
 import com.isofh.his.dto.patient.PatientInsuranceDto;
 import com.isofh.his.exception.data.InvalidDataException;
-import com.isofh.his.insurance.card.model.TheBH;
 import com.isofh.his.insurance.card.service.InsuranceCardPortalService;
 import com.isofh.his.model.category.InsuranceCard;
-import com.isofh.his.model.patient.PatientHistory;
-import com.isofh.his.model.patient.PatientInsurance;
+import com.isofh.his.model.patient.info.PatientHistory;
+import com.isofh.his.model.patient.info.PatientInsurance;
 import com.isofh.his.repository.patient.PatientInsuranceRepository;
 import com.isofh.his.service.category.ConstService;
 import com.isofh.his.service.category.InsuranceCardService;

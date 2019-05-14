@@ -2,8 +2,8 @@ package com.isofh.his.insurance.card.service;
 
 import com.isofh.his.insurance.card.model.BenhNhan;
 import com.isofh.his.insurance.card.model.TheBH;
-import com.isofh.his.model.patient.PatientHistory;
-import com.isofh.his.model.patient.PatientInsurance;
+import com.isofh.his.model.patient.info.PatientHistory;
+import com.isofh.his.model.patient.info.PatientInsurance;
 
 public interface InsuranceCardPortalService {
 

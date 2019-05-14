@@ -93,47 +93,23 @@ public class Service extends BaseCategoryModel {
     @Audited
     private Double unitPriceDifference;
 
-    @Column(name = "department_id")
-    @Audited
-    private Long departmentId;
-
-    @ManyToOne
-    @JoinColumn(name = "department_id", insertable = false, updatable = false)
-    private Department department;
-
-    @Column(name = "room_id")
-    @Audited
-    private Long roomId;
-
-    @ManyToOne
-    @JoinColumn(name = "room_id", insertable = false, updatable = false)
-    private Room room;
-
-    @Column(name = "old_value", nullable = false)
+    @Column(name = "old_value")
     @Audited
     private String oldValue;
 
-    @Column(name = "form_value", nullable = false)
-    @Audited
-    private String formValue;
-
-    @Column(name = "link_value", nullable = false)
-    @Audited
-    private String linkValue;
-
-    @Column(name = "short_name", nullable = false)
+    @Column(name = "short_name")
     @Audited
     private String shortName;
 
-    @Column(name = "description", nullable = false)
+    @Column(name = "description")
     @Audited
     private String description;
 
-    @Column(name = "using_object", nullable = false)
+    @Column(name = "using_object")
     @Audited
     private String usingObject;
 
-    @Column(name = "print_order", nullable = false)
+    @Column(name = "print_order")
     @Audited
     private int printOrder;
 
@@ -141,33 +117,9 @@ public class Service extends BaseCategoryModel {
     @Audited
     private boolean highTech;
 
-    @Column(name = "use_in_reception", nullable = false)
-    @Audited
-    private boolean useInReception;
-
     @Column(name = "not_counted", nullable = false)
     @Audited
     private boolean notCounted;
-
-    @Column(name = "consultation", nullable = false)
-    @Audited
-    private boolean consultation;
-
-    @Column(name = "in_surgery", nullable = false)
-    @Audited
-    private boolean inSurgery;
-
-    @Column(name = "long_take_result", nullable = false)
-    @Audited
-    private boolean longTakeResult;
-
-    @Column(name = "inpatient", nullable = false)
-    @Audited
-    private boolean inpatient;
-
-    @Column(name = "outpatient", nullable = false)
-    @Audited
-    private boolean outpatient;
 
     @Column(name = "on_request", nullable = false)
     @Audited

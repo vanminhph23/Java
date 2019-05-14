@@ -6,7 +6,7 @@ import com.isofh.his.exception.data.NotFoundException;
 import com.isofh.his.exception.data.NullValueException;
 import com.isofh.his.exception.patient.DuplicateIdNoException;
 import com.isofh.his.map.PropertyMapPatientHistoryToDto;
-import com.isofh.his.model.patient.*;
+import com.isofh.his.model.patient.info.*;
 import com.isofh.his.repository.patient.PatientHistoryRepository;
 import com.isofh.his.storage.StorageService;
 import com.isofh.his.util.DateUtil;

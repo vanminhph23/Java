@@ -1,4 +1,4 @@
-package com.isofh.his.model.patient;
+package com.isofh.his.model.patient.info;
 
 import com.isofh.his.model.base.patient.BasePatientModel;
 import com.isofh.his.model.category.Country;

@@ -1,7 +1,7 @@
 package com.isofh.his.service.patient;
 
 import com.isofh.his.dto.patient.PatientTypeDto;
-import com.isofh.his.model.patient.PatientType;
+import com.isofh.his.model.patient.info.PatientType;
 import com.isofh.his.repository.patient.PatientTypeRepository;
 import com.isofh.his.storage.StorageService;
 import org.modelmapper.ModelMapper;

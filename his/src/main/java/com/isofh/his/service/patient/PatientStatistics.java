@@ -1,7 +1,7 @@
 package com.isofh.his.service.patient;
 
 import com.isofh.his.model.base.patient.BasePatientModel;
-import com.isofh.his.model.patient.PatientHistory;
+import com.isofh.his.model.patient.info.PatientHistory;
 import org.hibernate.envers.Audited;
 
 import javax.persistence.*;

@@ -1,11 +1,8 @@
 package com.isofh.his.map;
 
 import com.isofh.his.dto.patient.PatientHistoryDto;
-import com.isofh.his.model.patient.PatientHistory;
-import com.isofh.his.util.DateUtil;
+import com.isofh.his.model.patient.info.PatientHistory;
 import org.modelmapper.PropertyMap;
-
-import java.util.Date;
 
 public class PropertyMapPatientHistoryToDto extends PropertyMap<PatientHistory, PatientHistoryDto> {
     @Override
