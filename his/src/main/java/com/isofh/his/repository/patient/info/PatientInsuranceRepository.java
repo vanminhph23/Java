@@ -1,6 +1,7 @@
 package com.isofh.his.repository.patient.info;
 
 import com.isofh.his.model.patient.info.PatientInsurance;
+import com.isofh.his.model.patient.invoice.PatientInvoice;
 import com.isofh.his.repository.base.BaseRepository;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.Query;
@@ -34,4 +35,12 @@ public interface PatientInsuranceRepository extends BaseRepository<PatientInsura
             " inner join t.patientHistory as h" +
             " where e.deleted = 0 and e.insuranceNumber = ?1 and e.keeping = ?2 and h.id <> ?3")
     List<PatientInsurance> findByKeeping(String insuranceNumber, boolean keeping, Long patientHistoryId, Pageable pageable);
+
+    @Transactional(readOnly = true)
+    @Query("select e from PatientInsurance e" +
+            " inner join e.patientType as t" +
+            " inner join t.patientHistory as h" +
+            " inner join h.patientInvoices as i" +
+            " where e.deleted = 0 and e.insuranceNumber = ?1 and i.payTime = ?2 and h.id <> ?3")
+    List<PatientInsurance> findByInsuranceNumberAndPayTime(String insuranceNumber, Date regDate, Long patientHistoryId, Pageable pageable);
 }

@@ -10,6 +10,4 @@ import java.util.Date;
 import java.util.List;
 
 public interface PatientInvoiceService extends BaseService<PatientInvoice, PatientInvoiceDto, PatientInvoiceRepository> {
-
-    List<PatientInvoice> findByInsuranceNumberAndPayTime(String insuranceNumber, Date regDate, Long patientHistoryId, Pageable pageable);
 }

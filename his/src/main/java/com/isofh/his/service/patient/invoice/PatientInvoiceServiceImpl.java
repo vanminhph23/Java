@@ -8,11 +8,7 @@ import org.modelmapper.ModelMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
-
-import java.util.Date;
-import java.util.List;
 
 @Service
 public class PatientInvoiceServiceImpl implements PatientInvoiceService {
@@ -54,10 +50,5 @@ public class PatientInvoiceServiceImpl implements PatientInvoiceService {
         }
 
         return modelMapper;
-    }
-
-    @Override
-    public List<PatientInvoice> findByInsuranceNumberAndPayTime(String insuranceNumber, Date regDate, Long patientHistoryId, Pageable pageable) {
-        return getRepository().findByInsuranceNumberAndPayTime(insuranceNumber, regDate, patientHistoryId, pageable);
     }
 }

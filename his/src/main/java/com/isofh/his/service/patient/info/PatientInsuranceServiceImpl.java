@@ -18,7 +18,6 @@ import com.isofh.his.repository.patient.info.PatientInsuranceRepository;
 import com.isofh.his.service.category.ConstService;
 import com.isofh.his.service.category.InsuranceCardService;
 import com.isofh.his.service.patient.invoice.PatientInvoiceLineService;
-import com.isofh.his.service.patient.invoice.PatientInvoiceService;
 import com.isofh.his.storage.StorageService;
 import com.isofh.his.util.DateUtil;
 import org.modelmapper.ModelMapper;
@@ -54,9 +53,6 @@ public class PatientInsuranceServiceImpl implements PatientInsuranceService {
 
     @Autowired
     private InsuranceCardPortalService insuranceCardPortalService;
-
-    @Autowired
-    private PatientInvoiceService invoiceService;
 
     @Override
     public PatientInsuranceRepository getRepository() {
@@ -275,7 +271,7 @@ public class PatientInsuranceServiceImpl implements PatientInsuranceService {
             id = Long.valueOf(0);
         }
 
-        List<PatientInvoice> list = invoiceService.findByInsuranceNumberAndPayTime(insurance.getInsuranceNumber(), DateUtil.truncateHour(history.getRegDate()), id, PageRequest.of(0, 1));
+        List<PatientInsurance> list = getRepository().findByInsuranceNumberAndPayTime(insurance.getInsuranceNumber(), DateUtil.truncateHour(history.getRegDate()), id, PageRequest.of(0, 1));
 
         if (list != null && list.size() > 0) {
             Map<String, Object> data = new HashMap<>();
