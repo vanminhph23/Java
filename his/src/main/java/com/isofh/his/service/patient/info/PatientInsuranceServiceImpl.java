@@ -1,19 +1,15 @@
 package com.isofh.his.service.patient.info;
 
-import com.isofh.his.dto.patient.info.PatientHistoryDto;
 import com.isofh.his.dto.patient.info.PatientInsuranceDto;
 import com.isofh.his.dto.patient.info.SimpleInsurancePatientHistoryDto;
 import com.isofh.his.exception.data.InvalidDataException;
 import com.isofh.his.exception.insurance.InsurancePortalException;
 import com.isofh.his.exception.insurance.NotReturnInsuranceException;
 import com.isofh.his.exception.insurance.RegisterSameDayException;
-import com.isofh.his.exception.insurance.TakeTokenException;
 import com.isofh.his.exception.patient.InsuranceNumberNotPaidException;
-import com.isofh.his.exception.patient.PatientNotPaidException;
 import com.isofh.his.insurance.card.model.TheBH;
 import com.isofh.his.insurance.card.service.InsuranceCardPortalService;
 import com.isofh.his.model.category.InsuranceCard;
-import com.isofh.his.model.patient.info.Patient;
 import com.isofh.his.model.patient.info.PatientHistory;
 import com.isofh.his.model.patient.info.PatientInsurance;
 import com.isofh.his.model.patient.invoice.PatientInvoiceLine;
@@ -33,7 +29,9 @@ import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @Service
 public class PatientInsuranceServiceImpl implements PatientInsuranceService {
@@ -243,7 +241,9 @@ public class PatientInsuranceServiceImpl implements PatientInsuranceService {
         List<PatientInsurance> list = getRepository().findByKeeping(insurance.getInsuranceNumber(), true, id, PageRequest.of(0, 1));
 
         if (list != null && list.size() > 0) {
-            throw new NotReturnInsuranceException("Patient not return insurance card", getSimpleInsurancePatientHistoryDto(list.get(0)));
+            Map<String, Object> data = new HashMap<>();
+            data.put("patientHistory", getSimpleInsurancePatientHistoryDto(list.get(0)));
+            throw new NotReturnInsuranceException("Patient not return insurance card", data);
         }
     }
 
@@ -256,7 +256,9 @@ public class PatientInsuranceServiceImpl implements PatientInsuranceService {
         List<PatientInsurance> list = getRepository().findByRegDate(insurance.getInsuranceNumber(), history.getRegDate(), id, PageRequest.of(0, 1));
 
         if (list != null && list.size() > 0) {
-            throw new RegisterSameDayException("Patient has register same day", getSimpleInsurancePatientHistoryDto(list.get(0)));
+            Map<String, Object> data = new HashMap<>();
+            data.put("patientHistory", getSimpleInsurancePatientHistoryDto(list.get(0)));
+            throw new RegisterSameDayException("Patient has register same day", data);
         }
     }
 
@@ -269,7 +271,9 @@ public class PatientInsuranceServiceImpl implements PatientInsuranceService {
 
         List<PatientInvoiceLine> invoiceLines = invoiceLineService.findNotPaidServiceByInsuranceNumber(insurance.getInsuranceNumber(), history.getId());
         if (invoiceLines != null && invoiceLines.size() > 0) {
-            throw new InsuranceNumberNotPaidException("Insurance number " + insurance.getInsuranceNumber() + " not paid", invoiceLines);
+            Map<String, Object> data = new HashMap<>();
+            data.put("invoiceLines", invoiceLines);
+            throw new InsuranceNumberNotPaidException("Insurance number " + insurance.getInsuranceNumber() + " not paid", data);
         }
     }
 

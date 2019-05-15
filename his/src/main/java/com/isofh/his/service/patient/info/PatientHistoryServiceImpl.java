@@ -27,7 +27,9 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.text.ParseException;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @Service
 public class PatientHistoryServiceImpl implements PatientHistoryService {
@@ -428,7 +430,9 @@ public class PatientHistoryServiceImpl implements PatientHistoryService {
 
         List<PatientInvoiceLine> invoiceLines = invoiceLineService.findNotPaidServiceByPatient(patient, history.getId());
         if (invoiceLines != null && invoiceLines.size() > 0) {
-            throw new PatientNotPaidException("Patient value " + patient.getPatientValue() + " not paid", invoiceLines);
+            Map<String, Object> data = new HashMap<>();
+            data.put("invoiceLines", invoiceLines);
+            throw new PatientNotPaidException("Patient value " + patient.getPatientValue() + " not paid", data);
         }
     }
 }
