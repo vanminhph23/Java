@@ -12,11 +12,13 @@ import com.isofh.his.insurance.card.service.InsuranceCardPortalService;
 import com.isofh.his.model.category.InsuranceCard;
 import com.isofh.his.model.patient.info.PatientHistory;
 import com.isofh.his.model.patient.info.PatientInsurance;
+import com.isofh.his.model.patient.invoice.PatientInvoice;
 import com.isofh.his.model.patient.invoice.PatientInvoiceLine;
 import com.isofh.his.repository.patient.info.PatientInsuranceRepository;
 import com.isofh.his.service.category.ConstService;
 import com.isofh.his.service.category.InsuranceCardService;
 import com.isofh.his.service.patient.invoice.PatientInvoiceLineService;
+import com.isofh.his.service.patient.invoice.PatientInvoiceService;
 import com.isofh.his.storage.StorageService;
 import com.isofh.his.util.DateUtil;
 import org.modelmapper.ModelMapper;
@@ -52,6 +54,9 @@ public class PatientInsuranceServiceImpl implements PatientInsuranceService {
 
     @Autowired
     private InsuranceCardPortalService insuranceCardPortalService;
+
+    @Autowired
+    private PatientInvoiceService invoiceService;
 
     @Override
     public PatientInsuranceRepository getRepository() {
@@ -230,6 +235,8 @@ public class PatientInsuranceServiceImpl implements PatientInsuranceService {
         validateReturnedInsuranceNumber(history, insurance);
 
         validatePreviousPayment(history, insurance);
+
+        validatePayTimeOfInsuranceNumber(history, insurance);
     }
 
     private void validateReturnedInsuranceNumber(PatientHistory history, PatientInsurance insurance) {
@@ -253,7 +260,22 @@ public class PatientInsuranceServiceImpl implements PatientInsuranceService {
             id = Long.valueOf(0);
         }
 
-        List<PatientInsurance> list = getRepository().findByRegDate(insurance.getInsuranceNumber(), history.getRegDate(), id, PageRequest.of(0, 1));
+        List<PatientInsurance> list = getRepository().findByRegDate(insurance.getInsuranceNumber(), DateUtil.truncateHour(history.getRegDate()), id, PageRequest.of(0, 1));
+
+        if (list != null && list.size() > 0) {
+            Map<String, Object> data = new HashMap<>();
+            data.put("patientHistory", getSimpleInsurancePatientHistoryDto(list.get(0)));
+            throw new RegisterSameDayException("Patient has register same day", data);
+        }
+    }
+
+    void validatePayTimeOfInsuranceNumber(PatientHistory history, PatientInsurance insurance) {
+        Long id = history.getId();
+        if (id == null) {
+            id = Long.valueOf(0);
+        }
+
+        List<PatientInvoice> list = invoiceService.findByInsuranceNumberAndPayTime(insurance.getInsuranceNumber(), DateUtil.truncateHour(history.getRegDate()), id, PageRequest.of(0, 1));
 
         if (list != null && list.size() > 0) {
             Map<String, Object> data = new HashMap<>();

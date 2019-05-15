@@ -1,10 +1,9 @@
 package com.isofh.his.model.patient.invoice;
 
 import com.isofh.his.model.base.BaseModel;
-import com.isofh.his.model.category.Department;
 import com.isofh.his.model.employee.User;
 import com.isofh.his.model.patient.info.PatientHistory;
-import com.isofh.his.model.patient.service.PatientService;
+import com.isofh.his.model.patient.info.PatientType;
 import org.hibernate.envers.Audited;
 
 import javax.persistence.*;
@@ -60,6 +59,10 @@ public class PatientInvoice extends BaseModel {
     @Audited
     private int invoiceType;
 
+    @ManyToOne(fetch = FetchType.LAZY, cascade = {CascadeType.ALL})
+    @JoinColumn(name = "patient_type_id")
+    private PatientType patientType;
+
     @Override
     public Long getId() {
         return this.id;
@@ -68,5 +71,85 @@ public class PatientInvoice extends BaseModel {
     @Override
     public void setId(Long id) {
         this.id = id;
+    }
+
+    public PatientHistory getPatientHistory() {
+        return patientHistory;
+    }
+
+    public void setPatientHistory(PatientHistory patientHistory) {
+        this.patientHistory = patientHistory;
+    }
+
+    public Double getAmount() {
+        return amount;
+    }
+
+    public void setAmount(Double amount) {
+        this.amount = amount;
+    }
+
+    public Date getPayTime() {
+        return payTime;
+    }
+
+    public void setPayTime(Date payTime) {
+        this.payTime = payTime;
+    }
+
+    public User getCashierUser() {
+        return cashierUser;
+    }
+
+    public void setCashierUser(User cashierUser) {
+        this.cashierUser = cashierUser;
+    }
+
+    public String getInvoiceNo() {
+        return invoiceNo;
+    }
+
+    public void setInvoiceNo(String invoiceNo) {
+        this.invoiceNo = invoiceNo;
+    }
+
+    public String getTotalInvoiceNo() {
+        return totalInvoiceNo;
+    }
+
+    public void setTotalInvoiceNo(String totalInvoiceNo) {
+        this.totalInvoiceNo = totalInvoiceNo;
+    }
+
+    public boolean isPaid() {
+        return paid;
+    }
+
+    public void setPaid(boolean paid) {
+        this.paid = paid;
+    }
+
+    public boolean isInpatient() {
+        return inpatient;
+    }
+
+    public void setInpatient(boolean inpatient) {
+        this.inpatient = inpatient;
+    }
+
+    public int getInvoiceType() {
+        return invoiceType;
+    }
+
+    public void setInvoiceType(int invoiceType) {
+        this.invoiceType = invoiceType;
+    }
+
+    public PatientType getPatientType() {
+        return patientType;
+    }
+
+    public void setPatientType(PatientType patientType) {
+        this.patientType = patientType;
     }
 }

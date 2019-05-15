@@ -1,6 +1,7 @@
 package com.isofh.his.service.patient.info;
 
 import com.isofh.his.dto.patient.info.PatientHistoryDto;
+import com.isofh.his.dto.patient.info.SimpleInsurancePatientHistoryDto;
 import com.isofh.his.exception.data.InvalidDataException;
 import com.isofh.his.exception.data.NotFoundException;
 import com.isofh.his.exception.data.NullValueException;
@@ -26,10 +27,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.text.ParseException;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 @Service
 public class PatientHistoryServiceImpl implements PatientHistoryService {
@@ -94,6 +92,14 @@ public class PatientHistoryServiceImpl implements PatientHistoryService {
         }
 
         return modelMapper;
+    }
+
+    @Override
+    public SimpleInsurancePatientHistoryDto getSimpleInsurancePatientHistoryDto(PatientHistory history) {
+        ModelMapper patientHistoryMapper = new ModelMapper();
+        patientHistoryMapper.getConfiguration().setMatchingStrategy(MatchingStrategies.STRICT);
+
+        return patientHistoryMapper.map(history, SimpleInsurancePatientHistoryDto.class);
     }
 
     @Transactional
@@ -190,6 +196,8 @@ public class PatientHistoryServiceImpl implements PatientHistoryService {
         createPatientStatistics(history);
 
         validatePreviousPayment(history);
+
+        validatePreviousInpatientInHospital(history);
 
         createPatient(history);
 
@@ -433,6 +441,27 @@ public class PatientHistoryServiceImpl implements PatientHistoryService {
             Map<String, Object> data = new HashMap<>();
             data.put("invoiceLines", invoiceLines);
             throw new PatientNotPaidException("Patient value " + patient.getPatientValue() + " not paid", data);
+        }
+    }
+
+    private void validatePreviousInpatientInHospital(PatientHistory history) {
+        String patientValue = history.getPatientValue();
+        if (patientValue == null) {
+            return;
+        }
+
+        Long id = history.getId();
+        if (id == null) {
+            id = Long.valueOf(0);
+        }
+
+        List<Integer> states = Arrays.asList(PatientStateEnum.NEW.getValue());
+
+        List<PatientHistory> list = getRepository().findByPatientValueAndPatientSate(patientValue, states, id, PageRequest.of(0, 1));
+
+        if (list != null && list.size() > 0) {
+            Map<String, Object> data = new HashMap<>();
+            data.put("patientHistory", getSimpleInsurancePatientHistoryDto(list.get(0)));
         }
     }
 }

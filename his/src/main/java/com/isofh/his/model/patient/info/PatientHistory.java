@@ -2,12 +2,14 @@ package com.isofh.his.model.patient.info;
 
 import com.isofh.his.model.base.BaseModel;
 import com.isofh.his.model.category.*;
+import com.isofh.his.model.patient.invoice.PatientInvoice;
 import com.isofh.his.service.patient.info.PatientStatistics;
 import com.isofh.his.util.DateUtil;
 import org.hibernate.envers.Audited;
 
 import javax.persistence.*;
 import java.util.Date;
+import java.util.List;
 
 @Entity
 @Table(name = "his_patient_history",
@@ -192,6 +194,12 @@ public class PatientHistory extends BaseModel {
     @OneToOne(fetch = FetchType.LAZY, cascade = {CascadeType.ALL})
     @JoinColumn(name = "patient_insurance_id", unique = true, updatable = false)
     private PatientInsurance patientInsurance;
+
+    @OneToMany(mappedBy = "patientHistory", fetch = FetchType.LAZY, cascade = {CascadeType.ALL})
+    private List<PatientType> patientTypes;
+
+    @OneToMany(mappedBy = "patientHistory", fetch = FetchType.LAZY, cascade = {CascadeType.ALL})
+    private List<PatientInvoice> patientInvoices;
 
     @OneToOne(fetch = FetchType.LAZY, cascade = {CascadeType.ALL})
     @JoinColumn(name = "patient_medical_history_id", unique = true, updatable = false)
@@ -639,6 +647,22 @@ public class PatientHistory extends BaseModel {
 
     public void setPatient(Patient patient) {
         this.patient = patient;
+    }
+
+    public List<PatientType> getPatientTypes() {
+        return patientTypes;
+    }
+
+    public void setPatientTypes(List<PatientType> patientTypes) {
+        this.patientTypes = patientTypes;
+    }
+
+    public List<PatientInvoice> getPatientInvoices() {
+        return patientInvoices;
+    }
+
+    public void setPatientInvoices(List<PatientInvoice> patientInvoices) {
+        this.patientInvoices = patientInvoices;
     }
 
     public String getBirthdayStr() {
