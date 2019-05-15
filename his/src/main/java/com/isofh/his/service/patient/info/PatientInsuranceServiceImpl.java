@@ -1,6 +1,8 @@
 package com.isofh.his.service.patient.info;
 
+import com.isofh.his.dto.patient.info.PatientHistoryDto;
 import com.isofh.his.dto.patient.info.PatientInsuranceDto;
+import com.isofh.his.dto.patient.info.SimpleInsurancePatientHistoryDto;
 import com.isofh.his.exception.data.InvalidDataException;
 import com.isofh.his.exception.insurance.InsurancePortalException;
 import com.isofh.his.exception.insurance.NotReturnInsuranceException;
@@ -18,6 +20,7 @@ import com.isofh.his.service.category.InsuranceCardService;
 import com.isofh.his.storage.StorageService;
 import com.isofh.his.util.DateUtil;
 import org.modelmapper.ModelMapper;
+import org.modelmapper.convention.MatchingStrategies;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -184,7 +187,7 @@ public class PatientInsuranceServiceImpl implements PatientInsuranceService {
         List<PatientInsurance> list = getRepository().findByKeeping(insurance.getInsuranceNumber(), true, id, PageRequest.of(0, 1));
 
         if (list != null && list.size() > 0) {
-            throw new NotReturnInsuranceException("Patient not return insurance card", list.get(0).getPatientHistory());
+            throw new NotReturnInsuranceException("Patient not return insurance card", getSimpleInsurancePatientHistoryDto(list.get(0)));
         }
     }
 
@@ -197,7 +200,7 @@ public class PatientInsuranceServiceImpl implements PatientInsuranceService {
         List<PatientInsurance> list = getRepository().findByRegDate(insurance.getInsuranceNumber(), history.getRegDate(), id, PageRequest.of(0, 1));
 
         if (list != null && list.size() > 0) {
-            throw new RegisterSameDayException("Patient has register same day", list.get(0).getPatientHistory());
+            throw new RegisterSameDayException("Patient has register same day", getSimpleInsurancePatientHistoryDto(list.get(0)));
         }
     }
 
@@ -217,6 +220,36 @@ public class PatientInsuranceServiceImpl implements PatientInsuranceService {
         setExtraInsurance(insurance);
 
         setInsurancePercent(insurance);
+    }
+
+    @Override
+    public SimpleInsurancePatientHistoryDto getSimpleInsurancePatientHistoryDto(PatientInsurance insurance) {
+        ModelMapper patientHistoryMapper = new ModelMapper();
+        patientHistoryMapper.getConfiguration().setMatchingStrategy(MatchingStrategies.STRICT);
+
+        SimpleInsurancePatientHistoryDto historyDto = patientHistoryMapper.map(insurance.getPatientType().getPatientHistory(), SimpleInsurancePatientHistoryDto.class);
+
+        historyDto.setInsuranceAddress(insurance.getAddress());
+        historyDto.setInsuranceAppliedToDate(insurance.getAppliedToDate());
+        historyDto.setInsuranceAppliedFromDate(insurance.getAppliedFromDate());
+        historyDto.setInsuranceAppointment(insurance.isAppointment());
+        historyDto.setInsuranceContinuity5Year(insurance.isContinuity5Year());
+        historyDto.setInsuranceEmergency(insurance.isEmergency());
+        historyDto.setInsuranceExtra(insurance.isExtra());
+        historyDto.setInsuranceHundredPercentHightech(insurance.isHundredPercentHightech());
+        historyDto.setInsuranceNumber(insurance.getInsuranceNumber());
+        historyDto.setInsuranceFromDate(insurance.getFromDate());
+        historyDto.setInsuranceToDate(insurance.getToDate());
+        historyDto.setInsuranceNotCoPayment(insurance.isNotCopayment());
+        historyDto.setInsuranceNotCopaymentDate(insurance.getNotCopaymentDate());
+        historyDto.setInsuranceRegAtHospitalId(insurance.getRegAtHospitalId());
+        historyDto.setInsurancePatientFromHospitalId(insurance.getPatientFromHospitalId());
+        historyDto.setInsurancePercent(insurance.getPercent());
+        historyDto.setInsuranceReferral(insurance.isReferral());
+        historyDto.setInsuranceRegionValue(insurance.getRegionValue());
+        historyDto.setInsuranceKeeping(insurance.isKeeping());
+
+        return historyDto;
     }
 
     private void validateInsuranceCardPortal(PatientHistory history, PatientInsurance insurance) {

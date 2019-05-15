@@ -138,6 +138,14 @@ public class PatientInsurance extends BasePatientModel {
         this.patientHistory = patientHistory;
     }
 
+    public PatientType getPatientType() {
+        return patientType;
+    }
+
+    public void setPatientType(PatientType patientType) {
+        this.patientType = patientType;
+    }
+
     public String getAddress() {
         return address;
     }

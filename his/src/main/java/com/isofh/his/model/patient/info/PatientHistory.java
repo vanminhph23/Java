@@ -172,9 +172,9 @@ public class PatientHistory extends BaseModel {
     @JoinColumn(name = "transfer_to_department_id", insertable = false, updatable = false)
     private Department transferToDepartment;
 
-    @Column(name = "ph_collection_id", insertable = false, updatable = false)
+    @Column(name = "patient_history_collection_id", insertable = false, updatable = false)
     @Audited
-    private Long phCollectionId;
+    private Long patientHistoryCollectionId;
 
     @ManyToOne(fetch = FetchType.LAZY, cascade = {CascadeType.ALL})
     @JoinColumn(name = "patient_history_collection_id")
@@ -521,12 +521,12 @@ public class PatientHistory extends BaseModel {
         this.transferToDepartment = transferToDepartment;
     }
 
-    public Long getPhCollectionId() {
-        return phCollectionId;
+    public Long getPatientHistoryCollectionId() {
+        return patientHistoryCollectionId;
     }
 
-    public void setPhCollectionId(Long phCollectionId) {
-        this.phCollectionId = phCollectionId;
+    public void setPatientHistoryCollectionId(Long patientHistoryCollectionId) {
+        this.patientHistoryCollectionId = patientHistoryCollectionId;
     }
 
     public PatientHistoryCollection getPatientHistoryCollection() {
