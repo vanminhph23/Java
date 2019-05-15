@@ -1,12 +1,8 @@
-package com.isofh.his.service.patient;
+package com.isofh.his.util;
 
-import org.springframework.stereotype.Service;
+public class PatientUtil {
 
-@Service
-public class PatientUtilImpl implements PatientUtil {
-
-    @Override
-    public String formatName(String name) {
+    public static String formatName(String name) {
         if (name == null || name.isEmpty()) {
             return null;
         }
@@ -14,8 +10,7 @@ public class PatientUtilImpl implements PatientUtil {
         return name.trim().toUpperCase();
     }
 
-    @Override
-    public String formatPhone(String phone) {
+    public static String formatPhone(String phone) {
         if (phone == null || phone.isEmpty()) {
             return null;
         }
@@ -33,8 +28,7 @@ public class PatientUtilImpl implements PatientUtil {
         return phone;
     }
 
-    @Override
-    public String formatIdNo(String idNo) {
+    public static String formatIdNo(String idNo) {
         if (idNo == null || idNo.isEmpty()) {
             return null;
         }

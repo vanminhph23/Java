@@ -1,6 +1,7 @@
 package com.isofh.his.model.patient.service;
 
 import com.isofh.his.model.base.BaseModel;
+import com.isofh.his.model.patient.invoice.PatientInvoiceLine;
 
 import javax.persistence.*;
 
@@ -13,7 +14,7 @@ public class PatientOtherService extends BaseModel {
 
     @OneToOne(fetch = FetchType.LAZY, cascade = {CascadeType.ALL})
     @MapsId
-    private PatientService patientService;
+    private PatientInvoiceLine patientInvoiceLine;
 
     @Override
     public Long getId() {

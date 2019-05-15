@@ -8,15 +8,19 @@ import com.isofh.his.exception.insurance.InsurancePortalException;
 import com.isofh.his.exception.insurance.NotReturnInsuranceException;
 import com.isofh.his.exception.insurance.RegisterSameDayException;
 import com.isofh.his.exception.insurance.TakeTokenException;
+import com.isofh.his.exception.patient.InsuranceNumberNotPaidException;
+import com.isofh.his.exception.patient.PatientNotPaidException;
 import com.isofh.his.insurance.card.model.TheBH;
 import com.isofh.his.insurance.card.service.InsuranceCardPortalService;
 import com.isofh.his.model.category.InsuranceCard;
 import com.isofh.his.model.patient.info.Patient;
 import com.isofh.his.model.patient.info.PatientHistory;
 import com.isofh.his.model.patient.info.PatientInsurance;
+import com.isofh.his.model.patient.invoice.PatientInvoiceLine;
 import com.isofh.his.repository.patient.info.PatientInsuranceRepository;
 import com.isofh.his.service.category.ConstService;
 import com.isofh.his.service.category.InsuranceCardService;
+import com.isofh.his.service.patient.invoice.PatientInvoiceLineService;
 import com.isofh.his.storage.StorageService;
 import com.isofh.his.util.DateUtil;
 import org.modelmapper.ModelMapper;
@@ -44,6 +48,9 @@ public class PatientInsuranceServiceImpl implements PatientInsuranceService {
 
     @Autowired
     private InsuranceCardService insuranceCardService;
+
+    @Autowired
+    private PatientInvoiceLineService invoiceLineService;
 
     @Autowired
     private InsuranceCardPortalService insuranceCardPortalService;
@@ -91,6 +98,54 @@ public class PatientInsuranceServiceImpl implements PatientInsuranceService {
         }
 
         return null;
+    }
+
+    @Override
+    public void validateInsuranceCard(PatientHistory history, PatientInsurance insurance, boolean ignoreValidatePortalInsurance) {
+
+        validateInsuranceNumber(insurance);
+
+        validateInsuranceDate(history, insurance);
+
+        if (!ignoreValidatePortalInsurance) {
+            validateInsuranceCardPortal(history, insurance);
+        }
+
+        validateRegisterOfInsuranceNumber(history, insurance);
+
+        setExtraInsurance(insurance);
+
+        setInsurancePercent(insurance);
+    }
+
+    @Override
+    public SimpleInsurancePatientHistoryDto getSimpleInsurancePatientHistoryDto(PatientInsurance insurance) {
+        ModelMapper patientHistoryMapper = new ModelMapper();
+        patientHistoryMapper.getConfiguration().setMatchingStrategy(MatchingStrategies.STRICT);
+
+        SimpleInsurancePatientHistoryDto historyDto = patientHistoryMapper.map(insurance.getPatientType().getPatientHistory(), SimpleInsurancePatientHistoryDto.class);
+
+        historyDto.setInsuranceAddress(insurance.getAddress());
+        historyDto.setInsuranceAppliedToDate(insurance.getAppliedToDate());
+        historyDto.setInsuranceAppliedFromDate(insurance.getAppliedFromDate());
+        historyDto.setInsuranceAppointment(insurance.isAppointment());
+        historyDto.setInsuranceContinuity5Year(insurance.isContinuity5Year());
+        historyDto.setInsuranceEmergency(insurance.isEmergency());
+        historyDto.setInsuranceExtra(insurance.isExtra());
+        historyDto.setInsuranceHundredPercentHightech(insurance.isHundredPercentHightech());
+        historyDto.setInsuranceNumber(insurance.getInsuranceNumber());
+        historyDto.setInsuranceFromDate(insurance.getFromDate());
+        historyDto.setInsuranceToDate(insurance.getToDate());
+        historyDto.setInsuranceNotCoPayment(insurance.isNotCopayment());
+        historyDto.setInsuranceNotCopaymentDate(insurance.getNotCopaymentDate());
+        historyDto.setInsuranceRegAtHospitalId(insurance.getRegAtHospitalId());
+        historyDto.setInsurancePatientFromHospitalId(insurance.getPatientFromHospitalId());
+        historyDto.setInsurancePercent(insurance.getPercent());
+        historyDto.setInsuranceReferral(insurance.isReferral());
+        historyDto.setInsuranceRegionValue(insurance.getRegionValue());
+        historyDto.setInsuranceKeeping(insurance.isKeeping());
+
+        return historyDto;
     }
 
     private void validateInsuranceNumber(PatientInsurance insurance) {
@@ -176,6 +231,7 @@ public class PatientInsuranceServiceImpl implements PatientInsuranceService {
 
         validateReturnedInsuranceNumber(history, insurance);
 
+        validatePreviousPayment(history, insurance);
     }
 
     private void validateReturnedInsuranceNumber(PatientHistory history, PatientInsurance insurance) {
@@ -204,52 +260,17 @@ public class PatientInsuranceServiceImpl implements PatientInsuranceService {
         }
     }
 
-    @Override
-    public void validateInsuranceCard(PatientHistory history, PatientInsurance insurance, boolean ignoreValidatePortalInsurance) {
+    private void validatePreviousPayment(PatientHistory history, PatientInsurance insurance) {
+        String insuranceNumber = insurance.getInsuranceNumber();
 
-        validateInsuranceNumber(insurance);
-
-        validateInsuranceDate(history, insurance);
-
-        if (!ignoreValidatePortalInsurance) {
-            validateInsuranceCardPortal(history, insurance);
+        if (insuranceNumber == null) {
+            return;
         }
 
-        validateRegisterOfInsuranceNumber(history, insurance);
-
-        setExtraInsurance(insurance);
-
-        setInsurancePercent(insurance);
-    }
-
-    @Override
-    public SimpleInsurancePatientHistoryDto getSimpleInsurancePatientHistoryDto(PatientInsurance insurance) {
-        ModelMapper patientHistoryMapper = new ModelMapper();
-        patientHistoryMapper.getConfiguration().setMatchingStrategy(MatchingStrategies.STRICT);
-
-        SimpleInsurancePatientHistoryDto historyDto = patientHistoryMapper.map(insurance.getPatientType().getPatientHistory(), SimpleInsurancePatientHistoryDto.class);
-
-        historyDto.setInsuranceAddress(insurance.getAddress());
-        historyDto.setInsuranceAppliedToDate(insurance.getAppliedToDate());
-        historyDto.setInsuranceAppliedFromDate(insurance.getAppliedFromDate());
-        historyDto.setInsuranceAppointment(insurance.isAppointment());
-        historyDto.setInsuranceContinuity5Year(insurance.isContinuity5Year());
-        historyDto.setInsuranceEmergency(insurance.isEmergency());
-        historyDto.setInsuranceExtra(insurance.isExtra());
-        historyDto.setInsuranceHundredPercentHightech(insurance.isHundredPercentHightech());
-        historyDto.setInsuranceNumber(insurance.getInsuranceNumber());
-        historyDto.setInsuranceFromDate(insurance.getFromDate());
-        historyDto.setInsuranceToDate(insurance.getToDate());
-        historyDto.setInsuranceNotCoPayment(insurance.isNotCopayment());
-        historyDto.setInsuranceNotCopaymentDate(insurance.getNotCopaymentDate());
-        historyDto.setInsuranceRegAtHospitalId(insurance.getRegAtHospitalId());
-        historyDto.setInsurancePatientFromHospitalId(insurance.getPatientFromHospitalId());
-        historyDto.setInsurancePercent(insurance.getPercent());
-        historyDto.setInsuranceReferral(insurance.isReferral());
-        historyDto.setInsuranceRegionValue(insurance.getRegionValue());
-        historyDto.setInsuranceKeeping(insurance.isKeeping());
-
-        return historyDto;
+        List<PatientInvoiceLine> invoiceLines = invoiceLineService.findNotPaidServiceByInsuranceNumber(insurance.getInsuranceNumber(), history.getId());
+        if (invoiceLines != null && invoiceLines.size() > 0) {
+            throw new InsuranceNumberNotPaidException("Insurance number " + insurance.getInsuranceNumber() + " not paid", invoiceLines);
+        }
     }
 
     private void validateInsuranceCardPortal(PatientHistory history, PatientInsurance insurance) {

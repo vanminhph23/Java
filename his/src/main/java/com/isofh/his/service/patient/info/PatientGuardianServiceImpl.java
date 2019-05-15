@@ -3,8 +3,8 @@ package com.isofh.his.service.patient.info;
 import com.isofh.his.dto.patient.info.PatientGuardianDto;
 import com.isofh.his.model.patient.info.PatientGuardian;
 import com.isofh.his.repository.patient.info.PatientGuardianRepository;
-import com.isofh.his.service.patient.PatientUtil;
 import com.isofh.his.storage.StorageService;
+import com.isofh.his.util.PatientUtil;
 import org.modelmapper.ModelMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -18,9 +18,6 @@ public class PatientGuardianServiceImpl implements PatientGuardianService {
 
     @Autowired
     private PatientGuardianRepository repository;
-
-    @Autowired
-    private PatientUtil patientUtil;
 
     @Override
     public PatientGuardianRepository getRepository() {
@@ -62,10 +59,10 @@ public class PatientGuardianServiceImpl implements PatientGuardianService {
     }
 
     private void validatePatientName(PatientGuardian guardian) {
-        guardian.setName(patientUtil.formatName(guardian.getName()));
+        guardian.setName(PatientUtil.formatName(guardian.getName()));
     }
 
     private void validatePhone(PatientGuardian guardian) {
-        guardian.setPhone(patientUtil.formatPhone(guardian.getPhone()));
+        guardian.setPhone(PatientUtil.formatPhone(guardian.getPhone()));
     }
 }

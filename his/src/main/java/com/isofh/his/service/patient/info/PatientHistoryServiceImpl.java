@@ -5,12 +5,15 @@ import com.isofh.his.exception.data.InvalidDataException;
 import com.isofh.his.exception.data.NotFoundException;
 import com.isofh.his.exception.data.NullValueException;
 import com.isofh.his.exception.patient.DuplicateIdNoException;
+import com.isofh.his.exception.patient.PatientNotPaidException;
 import com.isofh.his.map.PropertyMapPatientHistoryToDto;
 import com.isofh.his.model.patient.info.*;
+import com.isofh.his.model.patient.invoice.PatientInvoiceLine;
 import com.isofh.his.repository.patient.info.PatientHistoryRepository;
-import com.isofh.his.service.patient.PatientUtil;
+import com.isofh.his.service.patient.invoice.PatientInvoiceLineService;
 import com.isofh.his.storage.StorageService;
 import com.isofh.his.util.DateUtil;
+import com.isofh.his.util.PatientUtil;
 import com.isofh.his.util.Util;
 import org.modelmapper.ModelMapper;
 import org.modelmapper.convention.MatchingStrategies;
@@ -50,7 +53,7 @@ public class PatientHistoryServiceImpl implements PatientHistoryService {
     private PatientService patientService;
 
     @Autowired
-    private PatientUtil patientUtil;
+    private PatientInvoiceLineService invoiceLineService;
 
     @Autowired
     private PatientHistoryRepository repository;
@@ -184,9 +187,9 @@ public class PatientHistoryServiceImpl implements PatientHistoryService {
         createPatientGuardian(history);
         createPatientStatistics(history);
 
-        createPatient(history);
-
         validatePreviousPayment(history);
+
+        createPatient(history);
 
         history = save(history);
 
@@ -367,11 +370,11 @@ public class PatientHistoryServiceImpl implements PatientHistoryService {
             throw new NullValueException("Patient name is null");
         }
 
-        history.setPatientName(patientUtil.formatName(history.getPatientName()));
+        history.setPatientName(PatientUtil.formatName(history.getPatientName()));
     }
 
     private void validatePhone(PatientHistory history) {
-        String phone = patientUtil.formatPhone(history.getPhone());
+        String phone = PatientUtil.formatPhone(history.getPhone());
 
         if (phone == null) {
             throw new InvalidDataException("phone " + history.getPhone());
@@ -385,7 +388,7 @@ public class PatientHistoryServiceImpl implements PatientHistoryService {
             return;
         }
 
-        String idNo = patientUtil.formatIdNo(history.getIdNo());
+        String idNo = PatientUtil.formatIdNo(history.getIdNo());
 
         if ("0".equals(idNo)) {
             return;
@@ -417,5 +420,15 @@ public class PatientHistoryServiceImpl implements PatientHistoryService {
     }
 
     private void validatePreviousPayment(PatientHistory history) {
+        Patient patient = history.getPatient();
+
+        if (patient == null || patient.getId() == null) {
+            return;
+        }
+
+        List<PatientInvoiceLine> invoiceLines = invoiceLineService.findNotPaidServiceByPatient(patient, history.getId());
+        if (invoiceLines != null && invoiceLines.size() > 0) {
+            throw new PatientNotPaidException("Patient value " + patient.getPatientValue() + " not paid", invoiceLines);
+        }
     }
 }
