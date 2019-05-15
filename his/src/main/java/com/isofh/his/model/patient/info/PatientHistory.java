@@ -138,7 +138,7 @@ public class PatientHistory extends BaseModel {
     //Out hospital
     @Column(name = "discharge_type")
     @Audited
-    private Integer discharge_type;
+    private Integer dischargeType;
 
     @Column(name = "treatment_details")
     @Audited
@@ -449,12 +449,12 @@ public class PatientHistory extends BaseModel {
         this.department = department;
     }
 
-    public Integer getDischarge_type() {
-        return discharge_type;
+    public Integer getDischargeType() {
+        return dischargeType;
     }
 
-    public void setDischarge_type(Integer discharge_type) {
-        this.discharge_type = discharge_type;
+    public void setDischargeType(Integer dischargeType) {
+        this.dischargeType = dischargeType;
     }
 
     public String getTreatmentDetails() {

@@ -30,9 +30,7 @@ public class PatientUtilImpl implements PatientUtil {
             return null;
         }
 
-        int length = phone.length();
-
-        return phone.substring(0, length - 6) + " " + phone.substring(length - 6, length - 3) + " " + phone.substring(length - 3);
+        return phone;
     }
 
     @Override

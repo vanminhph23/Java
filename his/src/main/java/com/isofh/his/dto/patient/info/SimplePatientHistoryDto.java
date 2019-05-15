@@ -55,7 +55,7 @@ public class SimplePatientHistoryDto extends BaseDto {
     private Integer patientType;
 
     //Out hospital
-    private Integer discharge_type;
+    private Integer dischargeType;
 
     private String treatmentDetails;
 
@@ -251,12 +251,12 @@ public class SimplePatientHistoryDto extends BaseDto {
         this.patientType = patientType;
     }
 
-    public Integer getDischarge_type() {
-        return discharge_type;
+    public Integer getDischargeType() {
+        return dischargeType;
     }
 
-    public void setDischarge_type(Integer discharge_type) {
-        this.discharge_type = discharge_type;
+    public void setDischargeType(Integer dischargeType) {
+        this.dischargeType = dischargeType;
     }
 
     public String getTreatmentDetails() {
