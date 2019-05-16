@@ -1,12 +1,10 @@
 package com.isofh.his.model.category.service;
 
 import com.isofh.his.model.base.BaseCategoryModel;
-import com.isofh.his.model.category.Department;
-import com.isofh.his.model.category.Room;
+import com.isofh.his.model.category.*;
 import org.hibernate.envers.Audited;
 
 import javax.persistence.*;
-import java.sql.Timestamp;
 import java.util.Date;
 
 @Entity
@@ -28,6 +26,14 @@ public class ServiceTechnical extends BaseCategoryModel {
     @JoinColumn(name = "room_id")
     private Room room;
 
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "specialist_id")
+    private Specialist specialist;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "specialist_id")
+    private DyeMethod dyeMethod;
+
     @Column(name = "link_value")
     @Audited
     private String linkValue;
@@ -44,10 +50,6 @@ public class ServiceTechnical extends BaseCategoryModel {
     @Audited
     private boolean longTakeResult;
 
-    @Column(name = "consultation", nullable = false)
-    @Audited
-    private boolean consultation;
-
     @Column(name = "inpatient", nullable = false)
     @Audited
     private boolean inpatient;
@@ -55,6 +57,71 @@ public class ServiceTechnical extends BaseCategoryModel {
     @Column(name = "outpatient", nullable = false)
     @Audited
     private boolean outpatient;
+
+    @Column(name = "low_indicator")
+    @Audited
+    private Double lowIndicator;
+
+    @Column(name = "high_indicator")
+    @Audited
+    private Double highIndicator;
+
+    @Column(name = "male_low_indicator")
+    @Audited
+    private Double maleLowIndicator;
+
+    @Column(name = "male_high_indicator")
+    @Audited
+    private Double maleHighIndicator;
+
+    @Column(name = "female_low_indicator")
+    @Audited
+    private Double femaleLowIndicator;
+
+    @Column(name = "female_high_indicator")
+    @Audited
+    private Double femaleHighIndicator;
+
+    @Column(name = "normal_range")
+    @Audited
+    private String normalRange;
+
+    @Column(name = "unit")
+    @Audited
+    private String unit;
+
+    @Column(name = "report_name")
+    @Audited
+    private String reportName;
+
+    @Column(name = "c43_value")
+    @Audited
+    private String c43Value;
+
+    @Column(name = "c43_name")
+    @Audited
+    private String c43Name;
+
+    @Column(name = "c37_value")
+    @Audited
+    private String c37Value;
+
+    @Column(name = "c37_name")
+    @Audited
+    private String c37Name;
+
+    @Column(name = "machine_name")
+    @Audited
+    private String machineName;
+
+    @Column(name = "conclusion_template")
+    @Audited
+    private String conclusionTemplate;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "report_template_id")
+    @Audited
+    private ReportTemplate reportTemplate;
 
     @Column(name = "decision")
     @Audited
@@ -76,6 +143,18 @@ public class ServiceTechnical extends BaseCategoryModel {
     @Column(name = "on_request", nullable = false)
     @Audited
     private boolean onRequest;
+
+    @Column(name = "time_keeping", nullable = false)
+    @Audited
+    private boolean timeKeeping;
+
+    @Column(name = "specimens", nullable = false)
+    @Audited
+    private boolean specimens;
+
+    @Column(name = "contract", nullable = false)
+    @Audited
+    private boolean contract;
 
     @Override
     public Long getId() {

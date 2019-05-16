@@ -1,5 +1,7 @@
 package com.isofh.his.model.category.service;
 
+import org.hibernate.envers.Audited;
+
 import javax.persistence.*;
 
 @Entity
@@ -12,4 +14,8 @@ public class ServiceBed {
     @OneToOne(fetch = FetchType.LAZY)
     @MapsId
     private Service service;
+
+    @Column(name = "bed_type")
+    @Audited
+    private int bedType;
 }

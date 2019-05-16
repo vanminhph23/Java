@@ -1,13 +1,10 @@
 package com.isofh.his.model.category.service;
 
 import com.isofh.his.model.base.BaseCategoryModel;
-import com.isofh.his.model.category.Department;
-import com.isofh.his.model.category.Room;
 import com.isofh.his.model.category.UOM;
 import org.hibernate.envers.Audited;
 
 import javax.persistence.*;
-import java.sql.Timestamp;
 
 @Entity
 @Table(name = "his_service")
@@ -124,6 +121,42 @@ public class Service extends BaseCategoryModel {
     @Column(name = "change_source", nullable = false)
     @Audited
     private boolean changeSource;
+
+    @Column(name = "apply_c35", nullable = false)
+    @Audited
+    private boolean applyC35;
+
+    @Column(name = "surgery", nullable = false)
+    @Audited
+    private boolean surgery;
+
+    @Column(name = "auto_create_line", nullable = false)
+    @Audited
+    private boolean autoCreateLine;
+
+    @Column(name = "in_department", nullable = false)
+    @Audited
+    private boolean inDepartment;
+
+    @Column(name = "consultation", nullable = false)
+    @Audited
+    private boolean consultation;
+
+    @Column(name = "tracking_using_day", nullable = false)
+    @Audited
+    private boolean trackingUsingDay;
+
+    @Column(name = "limit_insurance", nullable = false)
+    @Audited
+    private boolean limitInsurance;
+
+    @Column(name = "dosage", nullable = false)
+    @Audited
+    private boolean dosage;
+
+    @Column(name = "antibiotic", nullable = false)
+    @Audited
+    private boolean antibiotic;
 
     @Override
     public Long getId() {
