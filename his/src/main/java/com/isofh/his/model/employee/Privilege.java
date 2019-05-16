@@ -22,8 +22,7 @@ public class Privilege extends BaseCategoryModel {
     )
     private Long id;
 
-    @JsonIgnore
-    @ManyToMany(mappedBy = "privileges")
+    @ManyToMany(fetch = FetchType.LAZY, mappedBy = "privileges")
     private List<Role> roles;
 
     @Override

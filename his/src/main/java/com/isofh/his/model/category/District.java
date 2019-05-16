@@ -41,8 +41,7 @@ public class District extends BaseCategoryModel {
     @Audited
     private String acronym;
 
-    @JsonIgnore
-    @OneToMany(mappedBy = "district")
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "district")
     private List<Zone> zones;
 
     public Long getProvinceId() {

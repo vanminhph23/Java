@@ -31,7 +31,7 @@ public class Room extends BaseCategoryModel {
     @Audited
     private Long departmentId;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "department_id", insertable = false, updatable = false)
     private Department department;
 
@@ -43,7 +43,7 @@ public class Room extends BaseCategoryModel {
     @Audited
     private Long buildingId;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "building_id", insertable = false, updatable = false)
     private Building building;
 
@@ -51,7 +51,7 @@ public class Room extends BaseCategoryModel {
     @Audited
     private Long specialistId;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "specialist_id", insertable = false, updatable = false)
     private Specialist specialist;
 

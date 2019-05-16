@@ -18,7 +18,7 @@ public class PatientMedicalHistory extends BasePatientModel {
     )
     private Long id;
 
-    @OneToOne(mappedBy = "medicalHistory")
+    @OneToOne(fetch = FetchType.LAZY, mappedBy = "medicalHistory")
     private PatientHistory patientHistory;
 
     @Column(name = "allergy")

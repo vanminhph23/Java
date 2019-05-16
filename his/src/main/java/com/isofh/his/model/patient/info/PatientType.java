@@ -32,7 +32,7 @@ public class PatientType extends BasePatientModel {
     private Timestamp actDate;
 
     // insurance info
-    @OneToOne(fetch = FetchType.LAZY, cascade = {CascadeType.ALL})
+    @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "patient_insurance_id", unique = true, updatable = false)
     private PatientInsurance patientInsurance;
 

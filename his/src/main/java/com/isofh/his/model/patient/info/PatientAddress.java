@@ -22,14 +22,14 @@ public class PatientAddress extends BasePatientModel {
     )
     private Long id;
 
-    @OneToOne(mappedBy = "patientAddress")
+    @OneToOne(fetch = FetchType.LAZY, mappedBy = "patientAddress")
     private PatientHistory patientHistory;
 
     @Column(name = "country_id", nullable = false)
     @Audited
     private Long countryId;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "country_id", insertable = false, updatable = false)
     private Country country;
 
@@ -37,7 +37,7 @@ public class PatientAddress extends BasePatientModel {
     @Audited
     private Long provinceId;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "province_id", insertable = false, updatable = false)
     private Province province;
 
@@ -45,7 +45,7 @@ public class PatientAddress extends BasePatientModel {
     @Audited
     private Long districtId;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "district_id", insertable = false, updatable = false)
     private District district;
 
@@ -53,7 +53,7 @@ public class PatientAddress extends BasePatientModel {
     @Audited
     private Long zoneId;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "zone_id", insertable = false, updatable = false)
     private Zone zone;
 

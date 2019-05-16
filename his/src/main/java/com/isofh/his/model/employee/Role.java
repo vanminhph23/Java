@@ -20,11 +20,10 @@ public class Role extends BaseCategoryModel {
     )
     private Long id;
 
-    @JsonIgnore
-    @ManyToMany(mappedBy = "roles")
+    @ManyToMany(fetch = FetchType.LAZY, mappedBy = "roles")
     private List<User> users;
 
-    @ManyToMany
+    @ManyToMany(fetch = FetchType.LAZY)
     @JoinTable(
             name = "his_roles_privileges",
             joinColumns = @JoinColumn(name = "role_id", referencedColumnName = "id"),

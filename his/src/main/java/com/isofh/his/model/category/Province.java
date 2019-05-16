@@ -33,7 +33,7 @@ public class Province extends BaseCategoryModel {
     @Audited
     private Long countryId;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "country_id", insertable = false, updatable = false)
     private Country country;
 
@@ -41,8 +41,7 @@ public class Province extends BaseCategoryModel {
     @Audited
     private String acronym;
 
-    @JsonIgnore
-    @OneToMany(mappedBy = "province")
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "province")
     private List<District> districts;
 
     public Long getCountryId() {

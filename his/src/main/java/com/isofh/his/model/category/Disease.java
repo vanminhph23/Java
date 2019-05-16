@@ -21,7 +21,7 @@ public class Disease extends BaseCategoryModel {
     @Audited
     private Long parentDiseaseId;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "parent_disease_id", insertable = false, updatable = false)
     private Disease parentDisease;
 

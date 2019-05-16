@@ -28,12 +28,14 @@ public class ReferenceListAccess extends BaseModel {
         this.id = id;
     }
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "reference_list_id")
+    @Audited
     private ReferenceList referenceList;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "privilege_id")
+    @Audited
     private Privilege privilege;
 
     @Column(name = "description")

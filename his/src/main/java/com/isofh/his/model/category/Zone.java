@@ -31,7 +31,7 @@ public class Zone extends BaseCategoryModel {
     @Audited
     private Long districtId;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "district_id", insertable = false, updatable = false)
     private District district;
 

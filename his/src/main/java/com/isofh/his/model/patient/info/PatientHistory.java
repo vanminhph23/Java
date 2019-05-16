@@ -178,7 +178,7 @@ public class PatientHistory extends BaseModel {
     @Audited
     private Long patientHistoryCollectionId;
 
-    @ManyToOne(fetch = FetchType.LAZY, cascade = {CascadeType.ALL})
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "patient_history_collection_id")
     private PatientHistoryCollection patientHistoryCollection;
 
@@ -187,48 +187,48 @@ public class PatientHistory extends BaseModel {
     @Audited
     private Integer patientType;
 
-    @OneToOne(fetch = FetchType.LAZY, cascade = {CascadeType.ALL})
+    @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "patient_address_id", unique = true, updatable = false)
     private PatientAddress patientAddress;
 
-    @OneToOne(fetch = FetchType.LAZY, cascade = {CascadeType.ALL})
+    @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "patient_insurance_id", unique = true, updatable = false)
     private PatientInsurance patientInsurance;
 
-    @OneToMany(mappedBy = "patientHistory", fetch = FetchType.LAZY, cascade = {CascadeType.ALL})
+    @OneToMany(mappedBy = "patientHistory", fetch = FetchType.LAZY)
     private List<PatientType> patientTypes;
 
-    @OneToMany(mappedBy = "patientHistory", fetch = FetchType.LAZY, cascade = {CascadeType.ALL})
+    @OneToMany(mappedBy = "patientHistory", fetch = FetchType.LAZY)
     private List<PatientInvoice> patientInvoices;
 
-    @OneToOne(fetch = FetchType.LAZY, cascade = {CascadeType.ALL})
+    @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "patient_medical_history_id", unique = true, updatable = false)
     private PatientMedicalHistory medicalHistory;
 
-    @OneToOne(fetch = FetchType.LAZY, cascade = {CascadeType.ALL})
+    @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "patient_vital_sign_id", unique = true, updatable = false)
     private PatientVitalSign patientVitalSign;
 
     // CD vao vien
-    @OneToOne(fetch = FetchType.LAZY, cascade = {CascadeType.ALL})
+    @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "patient_in_hospital_diag_id", unique = true, updatable = false)
     private PatientInHospitalDiag patientInHospitalDiag;
 
     // CD benh
-    @OneToOne(fetch = FetchType.LAZY, cascade = {CascadeType.ALL})
+    @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "patient_diag_id", unique = true, updatable = false)
     private PatientDiag patientDiag;
 
     // Nguoi bao lanh
-    @OneToOne(mappedBy = "patientHistory", fetch = FetchType.LAZY, cascade = {CascadeType.ALL})
+    @OneToOne(mappedBy = "patientHistory", fetch = FetchType.LAZY)
     private PatientGuardian patientGuardian;
 
     // Nguoi bao lanh
-    @OneToOne(mappedBy = "patientHistory", fetch = FetchType.LAZY, cascade = {CascadeType.ALL})
+    @OneToOne(mappedBy = "patientHistory", fetch = FetchType.LAZY)
     private PatientStatistics patientStatistics;
 
     // KSK
-    @OneToOne(mappedBy = "patientHistory", fetch = FetchType.LAZY, cascade = {CascadeType.ALL})
+    @OneToOne(mappedBy = "patientHistory", fetch = FetchType.LAZY)
     private PatientContract patientContract;
 
     @Column(name = "contract")
@@ -236,7 +236,7 @@ public class PatientHistory extends BaseModel {
     private boolean contract;
 
     // iSofHCare
-    @OneToOne(mappedBy = "patientHistory", fetch = FetchType.LAZY, cascade = {CascadeType.ALL})
+    @OneToOne(mappedBy = "patientHistory", fetch = FetchType.LAZY)
     private PatientOnline patientOnline;
 
     @Override

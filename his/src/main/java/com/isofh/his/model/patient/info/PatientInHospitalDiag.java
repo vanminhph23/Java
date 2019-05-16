@@ -18,7 +18,7 @@ public class PatientInHospitalDiag extends BasePatientModel {
     )
     private Long id;
 
-    @OneToOne(mappedBy = "patientInHospitalDiag")
+    @OneToOne(fetch = FetchType.LAZY, mappedBy = "patientInHospitalDiag")
     private PatientHistory patientHistory;
 
     @Column(name = "in_hospital_disease_diagnostic")

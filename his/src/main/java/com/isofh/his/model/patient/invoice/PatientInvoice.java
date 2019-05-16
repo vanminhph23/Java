@@ -59,7 +59,7 @@ public class PatientInvoice extends BaseModel {
     @Audited
     private int invoiceType;
 
-    @ManyToOne(fetch = FetchType.LAZY, cascade = {CascadeType.ALL})
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "patient_type_id")
     private PatientType patientType;
 

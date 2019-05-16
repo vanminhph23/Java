@@ -17,12 +17,8 @@ public class PatientHistoryCollection extends BaseModel {
     )
     private Long id;
 
-    @Column(name = "patient_history_id", unique = true)
-    @Audited
-    private Long patientHistoryId;
-
-    @OneToOne
-    @JoinColumn(name = "patient_history_id", insertable = false, updatable = false)
+    @OneToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "patient_history_id", unique = true, nullable = false)
     private PatientHistory patientHistory;
 
     @Column(name = "patient_value", nullable = false)

@@ -26,7 +26,7 @@ public class ReferenceList extends BaseModel {
     @Audited
     private String name;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "reference_id", nullable = false)
     private Reference reference;
 
@@ -38,8 +38,7 @@ public class ReferenceList extends BaseModel {
     @Audited
     private boolean strictAccess;
 
-    @OneToMany
-    @JoinColumn(name = "reference_list_id")
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "referenceList")
     private List<ReferenceListAccess> referenceListAccesses;
 
     @Override

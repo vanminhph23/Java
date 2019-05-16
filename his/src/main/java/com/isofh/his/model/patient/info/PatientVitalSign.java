@@ -18,7 +18,7 @@ public class PatientVitalSign extends BasePatientModel {
     )
     private Long id;
 
-    @OneToOne(mappedBy = "patientVitalSign")
+    @OneToOne(fetch = FetchType.LAZY, mappedBy = "patientVitalSign")
     private PatientHistory patientHistory;
 
     @Column(name = "blood_pressure")

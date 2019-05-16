@@ -20,10 +20,10 @@ public class PatientInsurance extends BasePatientModel {
     )
     private Long id;
 
-    @OneToOne(mappedBy = "patientInsurance")
+    @OneToOne(fetch = FetchType.LAZY, mappedBy = "patientInsurance")
     private PatientHistory patientHistory;
 
-    @OneToOne(mappedBy = "patientInsurance")
+    @OneToOne(fetch = FetchType.LAZY, mappedBy = "patientInsurance")
     private PatientType patientType;
 
     @Column(name = "address")
@@ -62,7 +62,7 @@ public class PatientInsurance extends BasePatientModel {
     @Audited
     private Long regAtHospitalId;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "reg_at_hospital_id", insertable = false, updatable = false)
     private Hospital regAtHospital;
 
@@ -70,7 +70,7 @@ public class PatientInsurance extends BasePatientModel {
     @Audited
     private Long patientFromHospitalId;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "patient_from_hospital_id", insertable = false, updatable = false)
     private Hospital patientFromHospital;
 

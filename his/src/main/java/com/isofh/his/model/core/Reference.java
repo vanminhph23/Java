@@ -28,8 +28,7 @@ public class Reference extends BaseCategoryModel {
         this.id = id;
     }
 
-    @OneToMany
-    @JoinColumn(name = "reference_id")
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "reference")
     private List<ReferenceList> referenceLists;
 
     @Column(name = "description")

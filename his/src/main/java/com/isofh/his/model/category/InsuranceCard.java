@@ -25,7 +25,7 @@ public class InsuranceCard extends BaseCategoryModel {
     @Audited
     private Long jobId;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "job_id", insertable = false, updatable = false)
     private Job job;
 

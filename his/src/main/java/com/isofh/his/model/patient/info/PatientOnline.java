@@ -12,7 +12,7 @@ public class PatientOnline extends BasePatientModel {
     @Id
     private Long id;
 
-    @OneToOne
+    @OneToOne(fetch = FetchType.LAZY)
     @MapsId
     private PatientHistory patientHistory;
 

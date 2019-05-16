@@ -40,7 +40,7 @@ public class User extends BaseCategoryModel {
     @Audited
     private Long departmentId;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "department_id", insertable = false, updatable = false)
     private Department department;
 
@@ -48,7 +48,7 @@ public class User extends BaseCategoryModel {
     @Audited
     private Long buildingId;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "building_id", insertable = false, updatable = false)
     private Building building;
 
@@ -60,7 +60,7 @@ public class User extends BaseCategoryModel {
     @Audited
     private Long certificateId;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "certificate_id", insertable = false, updatable = false)
     private Certificate certificate;
 
@@ -68,7 +68,7 @@ public class User extends BaseCategoryModel {
     @Audited
     private Long specialistId;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "specialist_id", insertable = false, updatable = false)
     private Specialist specialist;
 
@@ -80,7 +80,7 @@ public class User extends BaseCategoryModel {
     @Audited
     private Long academicRankId;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "academic_rank_id", insertable = false, updatable = false)
     private AcademicRank academicRank;
 
@@ -108,7 +108,7 @@ public class User extends BaseCategoryModel {
     @Audited
     private Long positionId;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "position_id", insertable = false, updatable = false)
     private Position position;
 
@@ -120,7 +120,7 @@ public class User extends BaseCategoryModel {
     @Audited
     private Long supervisorId;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "supervisor_id", insertable = false, updatable = false)
     private User supervisor;
 
@@ -132,7 +132,7 @@ public class User extends BaseCategoryModel {
     @Audited
     private String note;
 
-    @ManyToMany
+    @ManyToMany(fetch = FetchType.LAZY)
     @JoinTable(
             name = "his_users_roles",
             joinColumns = @JoinColumn(name = "user_id", referencedColumnName = "id"),
@@ -143,7 +143,7 @@ public class User extends BaseCategoryModel {
     })
     private List<Role> roles;
 
-    @ManyToMany
+    @ManyToMany(fetch = FetchType.LAZY)
     @JoinTable(
             name = "his_users_departments",
             joinColumns = @JoinColumn(name = "user_id", referencedColumnName = "id"),
@@ -154,7 +154,7 @@ public class User extends BaseCategoryModel {
             })
     private List<Department> departments;
 
-    @ManyToMany
+    @ManyToMany(fetch = FetchType.LAZY)
     @JoinTable(
             name = "his_users_rooms",
             joinColumns = @JoinColumn(name = "user_id", referencedColumnName = "id"),

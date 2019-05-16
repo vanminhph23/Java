@@ -1,6 +1,5 @@
 package com.isofh.his.model.category;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.isofh.his.model.base.BaseCategoryModel;
 import org.hibernate.envers.Audited;
 
@@ -30,8 +29,7 @@ public class Country extends BaseCategoryModel {
         this.id = id;
     }
 
-    @JsonIgnore
-    @OneToMany(mappedBy = "country")
+    @OneToMany(mappedBy = "country", fetch = FetchType.LAZY)
     private List<Province> provinces;
 
     public List<Province> getProvinces() {
