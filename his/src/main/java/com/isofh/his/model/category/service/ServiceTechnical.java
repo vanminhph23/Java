@@ -18,21 +18,41 @@ public class ServiceTechnical extends BaseCategoryModel {
     @MapsId
     private Service service;
 
+    @Column(name = "department_id")
+    private Long departmentId;
+
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "department_id")
+    @JoinColumn(name = "department_id", insertable = false, updatable = false)
     private Department department;
 
+    @Column(name = "room_id")
+    private Long roomId;
+
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "room_id")
+    @JoinColumn(name = "room_id", insertable = false, updatable = false)
     private Room room;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "specialist_id")
-    private Specialist specialist;
+    @Column(name = "specialist_id")
+    private Long specialistId;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "dye_method_id")
+    @JoinColumn(name = "specialist_id", insertable = false, updatable = false)
+    private Specialist specialist;
+
+    @Column(name = "dye_method_id")
+    private Long dyeMethodId;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "dye_method_id", insertable = false, updatable = false)
     private DyeMethod dyeMethod;
+
+    @Column(name = "report_template_id")
+    private Long reportTemplateId;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "report_template_id", insertable = false, updatable = false)
+    @Audited
+    private ReportTemplate reportTemplate;
 
     @Column(name = "link_value")
     @Audited
@@ -117,11 +137,6 @@ public class ServiceTechnical extends BaseCategoryModel {
     @Column(name = "conclusion_template")
     @Audited
     private String conclusionTemplate;
-
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "report_template_id")
-    @Audited
-    private ReportTemplate reportTemplate;
 
     @Column(name = "decision")
     @Audited
