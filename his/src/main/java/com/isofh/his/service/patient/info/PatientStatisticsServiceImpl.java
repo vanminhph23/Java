@@ -27,9 +27,6 @@ public class PatientStatisticsServiceImpl implements PatientStatisticsService {
     @Autowired
     private StorageService storageService;
 
-    @Autowired
-    private PatientHistoryService historyService;
-
     @Override
     public StorageService getStorageService() {
         return storageService;
