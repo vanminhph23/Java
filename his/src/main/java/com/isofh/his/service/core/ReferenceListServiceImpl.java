@@ -67,7 +67,7 @@ public class ReferenceListServiceImpl implements ReferenceListService {
     }
 
     @Override
-    public Long getReferenceId(Header header, String value) {
+    public Object getReference(Header header, String value) {
         if ("referenceId".equals(header.getColumnName())) {
             if ("value".equals(header.getLinkColumnName())) {
                 return referenceService.findIdByValue(value);

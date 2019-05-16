@@ -68,7 +68,7 @@ public interface BaseService<X extends BaseModel, Y extends BaseDto, Z extends B
         return getModelMapper().map(model, getDtoClass());
     }
 
-    default Long getReferenceId(Header header, String value) {
+    default Object getReference(Header header, String value) {
         return null;
     }
 

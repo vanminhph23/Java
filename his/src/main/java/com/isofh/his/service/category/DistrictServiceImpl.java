@@ -59,7 +59,7 @@ public class DistrictServiceImpl implements DistrictService {
     }
 
     @Override
-    public Long getReferenceId(Header header, String value) {
+    public Object getReference(Header header, String value) {
         if (value == null) {
             return null;
         }
