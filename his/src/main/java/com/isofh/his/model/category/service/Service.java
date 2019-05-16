@@ -37,14 +37,6 @@ public class Service extends BaseCategoryModel {
     @Audited
     private String cxName;
 
-    @Column(name = "decision")
-    @Audited
-    private String decision;
-
-    @Column(name = "decision_date")
-    @Audited
-    private Timestamp decisionDate;
-
     @Column(name = "pay_rate")
     @Audited
     private int payRate;
@@ -97,6 +89,10 @@ public class Service extends BaseCategoryModel {
     @Audited
     private String oldValue;
 
+    @Column(name = "old_name")
+    @Audited
+    private String oldName;
+
     @Column(name = "short_name")
     @Audited
     private String shortName;
@@ -105,25 +101,9 @@ public class Service extends BaseCategoryModel {
     @Audited
     private String description;
 
-    @Column(name = "using_object")
-    @Audited
-    private String usingObject;
-
-    @Column(name = "print_order")
-    @Audited
-    private int printOrder;
-
-    @Column(name = "high_tech", nullable = false)
-    @Audited
-    private boolean highTech;
-
     @Column(name = "not_counted", nullable = false)
     @Audited
     private boolean notCounted;
-
-    @Column(name = "on_request", nullable = false)
-    @Audited
-    private boolean onRequest;
 
     @Column(name = "service_in_hospital", nullable = false)
     @Audited
