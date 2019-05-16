@@ -18,9 +18,9 @@ public class MethodUse extends BaseCategoryModel {
     )
     private Long id;
 
-    @Column(name = "display_order")
+    @Column(name = "sequence_no")
     @Audited
-    private int displayOrder;
+    private int sequenceNo;
 
     @Override
     public Long getId() {

@@ -7,6 +7,6 @@ import org.modelmapper.PropertyMap;
 public class PropertyMapServiceTechnicalToDto extends PropertyMap<ServiceTechnical, ServiceTechnicalDto> {
     @Override
     protected void configure() {
-        
+
     }
 }

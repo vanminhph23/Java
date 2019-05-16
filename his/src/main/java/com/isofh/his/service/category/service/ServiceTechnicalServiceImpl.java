@@ -41,6 +41,25 @@ public class ServiceTechnicalServiceImpl implements ServiceTechnicalService {
         return ServiceTechnicalDto.class;
     }
 
+    @Override
+    public ServiceTechnical getModel(ServiceTechnicalDto dto) {
+        if (dto == null) {
+            return null;
+        }
+        ServiceTechnical model = getModelMapper().map(dto, getModelClass());
+        getModelMapper().map(dto, model.getService());
+
+        return model;
+    }
+
+    @Override
+    public ServiceTechnicalDto getDto(ServiceTechnical model) {
+        if (model == null) {
+            return null;
+        }
+        return getModelMapper().map(model, getDtoClass());
+    }
+
     ModelMapper modelMapper = null;
 
     @Override
