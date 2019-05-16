@@ -29,7 +29,7 @@ public class ServiceGroupLevel2 extends BaseCategoryModel {
     @Audited
     private Long serviceGroupLevel1Id;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "service_group_level1_id", insertable = false, updatable = false)
     private ServiceGroupLevel1 serviceGroupLevel1;
 

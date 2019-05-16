@@ -45,7 +45,7 @@ public class Service extends BaseCategoryModel {
     @Audited
     private Long uomId;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "uom_id", insertable = false, updatable = false)
     private UOM uom;
 
@@ -53,7 +53,7 @@ public class Service extends BaseCategoryModel {
     @Audited
     private Long serviceGroupLevel1Id;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "service_group_level1_id", insertable = false, updatable = false)
     private ServiceGroupLevel1 serviceGroupLevel1;
 
@@ -61,7 +61,7 @@ public class Service extends BaseCategoryModel {
     @Audited
     private Long serviceGroupLevel2Id;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "service_group_level2_id", insertable = false, updatable = false)
     private ServiceGroupLevel1 serviceGroupLevel2;
 
@@ -69,7 +69,7 @@ public class Service extends BaseCategoryModel {
     @Audited
     private Long serviceGroupLevel3Id;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "service_group_level3_id", insertable = false, updatable = false)
     private ServiceGroupLevel1 serviceGroupLevel3;
 

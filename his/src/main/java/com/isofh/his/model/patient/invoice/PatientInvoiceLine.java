@@ -31,7 +31,7 @@ public class PatientInvoiceLine extends BaseModel {
     @Audited
     private Long patientHistoryId;
 
-    @OneToOne
+    @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "patient_history_id", insertable = false, updatable = false)
     private PatientHistory patientHistory;
 

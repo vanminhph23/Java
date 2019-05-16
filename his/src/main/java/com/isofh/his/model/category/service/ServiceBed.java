@@ -9,7 +9,7 @@ public class ServiceBed {
     @Id
     private Long id;
 
-    @OneToOne(fetch = FetchType.LAZY, cascade = {CascadeType.ALL})
+    @OneToOne(fetch = FetchType.LAZY)
     @MapsId
     private Service service;
 }

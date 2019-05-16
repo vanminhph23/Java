@@ -33,7 +33,7 @@ public class District extends BaseCategoryModel {
     @Audited
     private Long provinceId;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "province_id", insertable = false, updatable = false)
     private Province province;
 

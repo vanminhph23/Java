@@ -79,7 +79,7 @@ public class Room extends BaseCategoryModel {
     @Audited
     private Long speakerId;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "speaker_id", insertable = false, updatable = false)
     private Speaker speaker;
 
@@ -91,7 +91,7 @@ public class Room extends BaseCategoryModel {
     @Audited
     private Long parentRoomId;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "parent_room_id", insertable = false, updatable = false)
     private Room parentRoom;
 
