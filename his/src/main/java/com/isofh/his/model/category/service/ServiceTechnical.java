@@ -31,7 +31,7 @@ public class ServiceTechnical extends BaseCategoryModel {
     private Specialist specialist;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "specialist_id")
+    @JoinColumn(name = "dye_method_id")
     private DyeMethod dyeMethod;
 
     @Column(name = "link_value")

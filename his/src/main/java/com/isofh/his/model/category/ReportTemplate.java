@@ -26,7 +26,7 @@ public class ReportTemplate extends BaseCategoryModel {
     @Audited
     private int reportFile;
 
-    @Column(name = "report_file", nullable = false)
+    @Column(name = "separate", nullable = false)
     @Audited
     private boolean separate;
 
