@@ -126,6 +126,5 @@ public class ServiceTechnicalServiceImpl implements ServiceTechnicalService {
     private void createServiceSource(ServiceTechnical serviceTechnical) {
         ServiceSource source = serviceTechnical.getService();
 
-        serviceSourceService.create(source);
     }
 }

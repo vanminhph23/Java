@@ -302,7 +302,6 @@ public class PatientHistoryServiceImpl implements PatientHistoryService {
         PatientAddress address = history.getPatientAddress();
         if (address != null) {
             addressService.setAddress(address);
-            addressService.save(address);
         }
 
         return address;
@@ -312,7 +311,6 @@ public class PatientHistoryServiceImpl implements PatientHistoryService {
         PatientInsurance insurance = history.getPatientInsurance();
         if (insurance != null) {
             insuranceService.validateInsuranceCard(history, insurance, ignoreValidatePortalInsurance);
-            insuranceService.save(insurance);
         }
 
         return insurance;
@@ -351,8 +349,6 @@ public class PatientHistoryServiceImpl implements PatientHistoryService {
         } else {
             type.setPatientType(PatientTypeEnum.SERVICE.getValue());
         }
-
-        typeService.save(type);
 
         return type;
     }

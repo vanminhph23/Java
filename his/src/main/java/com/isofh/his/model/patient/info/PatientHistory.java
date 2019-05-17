@@ -187,11 +187,11 @@ public class PatientHistory extends BaseModel {
     @Audited
     private Integer patientType;
 
-    @OneToOne(fetch = FetchType.LAZY)
+    @OneToOne(fetch = FetchType.LAZY, cascade = {CascadeType.ALL})
     @JoinColumn(name = "patient_address_id", unique = true, updatable = false)
     private PatientAddress patientAddress;
 
-    @OneToOne(fetch = FetchType.LAZY)
+    @OneToOne(fetch = FetchType.LAZY, cascade = {CascadeType.ALL})
     @JoinColumn(name = "patient_insurance_id", unique = true, updatable = false)
     private PatientInsurance patientInsurance;
 
