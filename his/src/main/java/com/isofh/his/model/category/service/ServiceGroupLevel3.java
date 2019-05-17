@@ -21,17 +21,13 @@ public class ServiceGroupLevel3 extends BaseCategoryModel {
     @Audited
     private int sequenceNo;
 
-    @Column(name = "service_type")
-    @Audited
-    private int serviceType;
-
-    @Column(name = "service_group_level2_id")
+    @Column(name = "service_group_level2_id", nullable = false)
     @Audited
     private Long serviceGroupLevel2Id;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "service_group_level2_id", insertable = false, updatable = false)
-    private ServiceGroupLevel1 serviceGroupLevel2;
+    private ServiceGroupLevel2 serviceGroupLevel2;
 
     @Override
     public Long getId() {
@@ -41,5 +37,29 @@ public class ServiceGroupLevel3 extends BaseCategoryModel {
     @Override
     public void setId(Long id) {
         this.id = id;
+    }
+
+    public int getSequenceNo() {
+        return sequenceNo;
+    }
+
+    public void setSequenceNo(int sequenceNo) {
+        this.sequenceNo = sequenceNo;
+    }
+
+    public Long getServiceGroupLevel2Id() {
+        return serviceGroupLevel2Id;
+    }
+
+    public void setServiceGroupLevel2Id(Long serviceGroupLevel2Id) {
+        this.serviceGroupLevel2Id = serviceGroupLevel2Id;
+    }
+
+    public ServiceGroupLevel2 getServiceGroupLevel2() {
+        return serviceGroupLevel2;
+    }
+
+    public void setServiceGroupLevel2(ServiceGroupLevel2 serviceGroupLevel2) {
+        this.serviceGroupLevel2 = serviceGroupLevel2;
     }
 }

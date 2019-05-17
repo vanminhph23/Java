@@ -21,11 +21,7 @@ public class ServiceGroupLevel2 extends BaseCategoryModel {
     @Audited
     private int sequenceNo;
 
-    @Column(name = "service_type")
-    @Audited
-    private int serviceType;
-
-    @Column(name = "service_group_level1_id")
+    @Column(name = "service_group_level1_id", nullable = false)
     @Audited
     private Long serviceGroupLevel1Id;
 
@@ -41,5 +37,29 @@ public class ServiceGroupLevel2 extends BaseCategoryModel {
     @Override
     public void setId(Long id) {
         this.id = id;
+    }
+
+    public int getSequenceNo() {
+        return sequenceNo;
+    }
+
+    public void setSequenceNo(int sequenceNo) {
+        this.sequenceNo = sequenceNo;
+    }
+
+    public Long getServiceGroupLevel1Id() {
+        return serviceGroupLevel1Id;
+    }
+
+    public void setServiceGroupLevel1Id(Long serviceGroupLevel1Id) {
+        this.serviceGroupLevel1Id = serviceGroupLevel1Id;
+    }
+
+    public ServiceGroupLevel1 getServiceGroupLevel1() {
+        return serviceGroupLevel1;
+    }
+
+    public void setServiceGroupLevel1(ServiceGroupLevel1 serviceGroupLevel1) {
+        this.serviceGroupLevel1 = serviceGroupLevel1;
     }
 }

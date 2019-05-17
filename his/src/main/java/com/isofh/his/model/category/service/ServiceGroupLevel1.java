@@ -34,4 +34,20 @@ public class ServiceGroupLevel1 extends BaseCategoryModel {
     public void setId(Long id) {
         this.id = id;
     }
+
+    public int getSequenceNo() {
+        return sequenceNo;
+    }
+
+    public void setSequenceNo(int sequenceNo) {
+        this.sequenceNo = sequenceNo;
+    }
+
+    public int getServiceType() {
+        return serviceType;
+    }
+
+    public void setServiceType(int serviceType) {
+        this.serviceType = serviceType;
+    }
 }
