@@ -18,6 +18,14 @@ public class Specialist extends BaseCategoryModel {
     )
     private Long id;
 
+    @Column(name = "sequence_no")
+    @Audited
+    private int sequenceNo;
+
+    @Column(name = "note")
+    @Audited
+    private String note;
+
     @Override
     public Long getId() {
         return this.id;
@@ -26,5 +34,21 @@ public class Specialist extends BaseCategoryModel {
     @Override
     public void setId(Long id) {
         this.id = id;
+    }
+
+    public int getSequenceNo() {
+        return sequenceNo;
+    }
+
+    public void setSequenceNo(int sequenceNo) {
+        this.sequenceNo = sequenceNo;
+    }
+
+    public String getNote() {
+        return note;
+    }
+
+    public void setNote(String note) {
+        this.note = note;
     }
 }

@@ -160,10 +160,6 @@ public class Department extends BaseCategoryModel {
     @Audited
     private boolean rehabilitation = false;
 
-    @JsonIgnore
-    @OneToMany(mappedBy = "department")
-    private List<User> users;
-
     @Override
     public Long getId() {
         return id;
@@ -452,13 +448,5 @@ public class Department extends BaseCategoryModel {
 
     public void setPlanAssistant(Long planAssistant) {
         this.planAssistant = planAssistant;
-    }
-
-    public List<User> getUsers() {
-        return users;
-    }
-
-    public void setUsers(List<User> users) {
-        this.users = users;
     }
 }

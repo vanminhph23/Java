@@ -39,6 +39,7 @@ public class ExcelUtil {
 
             int columnCount = sheet.getRow(0).getPhysicalNumberOfCells();
             int rowCount = 0;
+            int dataSize = data.size();
             while (rowIterator.hasNext()) {
                 Row row = rowIterator.next();
 
@@ -49,6 +50,10 @@ public class ExcelUtil {
                 Cell cell = row.createCell(columnCount);
                 cell.setCellValue(data.get(rowCount));
                 rowCount++;
+
+                if (rowCount >= dataSize) {
+                    break;
+                }
             }
 
             String logFile = fileName.substring(0, fileName.length() - 4)+ "_log.xls";
