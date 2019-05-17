@@ -67,6 +67,24 @@ public class ReferenceListServiceImpl implements ReferenceListService {
     }
 
     @Override
+    public ReferenceListDto createDto(ReferenceListDto dto) {
+        ReferenceList model = getModel(dto);
+
+        validateIdBeforeCreate(model);
+
+        return saveDto(model);
+    }
+
+    @Override
+    public ReferenceListDto updateDto(ReferenceListDto dto) {
+        ReferenceList model = getModel(dto);
+
+        validateIdBeforeUpdate(model);
+
+        return saveDto(model);
+    }
+
+    @Override
     public Object getReference(Header header, String value) {
         if ("referenceId".equals(header.getColumnName())) {
             if ("value".equals(header.getLinkColumnName())) {

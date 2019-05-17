@@ -29,12 +29,12 @@ public class ProvinceController extends BaseController {
 
     @PostMapping("/provinces")
     public ResponseEntity<ResponseMsg> create(@Valid @RequestBody ProvinceDto dto) {
-        return response("province", service.saveDto(dto));
+        return response("province", service.createDto(dto));
     }
 
     @PutMapping("/provinces")
     public ResponseEntity<ResponseMsg> update(@Valid @RequestBody ProvinceDto dto) {
-        return response("province", service.saveDto(dto));
+        return response("province", service.updateDto(dto));
     }
 
     @PostMapping("/provinces/excel")

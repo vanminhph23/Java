@@ -29,12 +29,12 @@ public class AcademicRankController extends BaseController {
 
     @PostMapping("/academic-ranks")
     public ResponseEntity<ResponseMsg> create(@Valid @RequestBody AcademicRankDto dto) {
-        return response("academicRank", service.saveDto(dto));
+        return response("academicRank", service.createDto(dto));
     }
 
     @PutMapping("/academic-ranks")
     public ResponseEntity<ResponseMsg> update(@Valid @RequestBody AcademicRankDto dto) {
-        return response("academicRank", service.saveDto(dto));
+        return response("academicRank", service.updateDto(dto));
     }
 
     @PostMapping("/academic-ranks/excel")

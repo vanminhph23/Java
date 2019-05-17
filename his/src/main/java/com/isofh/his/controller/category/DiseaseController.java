@@ -29,12 +29,12 @@ public class DiseaseController extends BaseController {
 
     @PostMapping("/diseases")
     public ResponseEntity<ResponseMsg> create(@Valid @RequestBody DiseaseDto dto) {
-        return response("disease", service.saveDto(dto));
+        return response("disease", service.createDto(dto));
     }
 
     @PutMapping("/diseases")
     public ResponseEntity<ResponseMsg> update(@Valid @RequestBody DiseaseDto dto) {
-        return response("disease", service.saveDto(dto));
+        return response("disease", service.updateDto(dto));
     }
 
     @PostMapping("/diseases/excel")

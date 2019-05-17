@@ -29,12 +29,12 @@ public class ServiceGroupLevel3Controller extends BaseController {
 
     @PostMapping("/service-group-level3s")
     public ResponseEntity<ResponseMsg> create(@Valid @RequestBody ServiceGroupLevel3Dto dto) {
-        return response("serviceGroupLevel1", service.saveDto(dto));
+        return response("serviceGroupLevel1", service.createDto(dto));
     }
 
     @PutMapping("/service-group-level3s")
     public ResponseEntity<ResponseMsg> update(@Valid @RequestBody ServiceGroupLevel3Dto dto) {
-        return response("serviceGroupLevel1", service.saveDto(dto));
+        return response("serviceGroupLevel1", service.updateDto(dto));
     }
 
     @PostMapping("/service-group-level3s/excel")

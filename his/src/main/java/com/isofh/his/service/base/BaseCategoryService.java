@@ -2,6 +2,7 @@ package com.isofh.his.service.base;
 
 import com.isofh.his.dto.base.BaseCategoryDto;
 import com.isofh.his.exception.data.DuplicateValueException;
+import com.isofh.his.exception.data.InvalidDataException;
 import com.isofh.his.exception.data.NullValueException;
 import com.isofh.his.model.base.BaseCategoryModel;
 import com.isofh.his.repository.base.BaseCategoryRepository;
@@ -14,45 +15,28 @@ public interface BaseCategoryService<X extends BaseCategoryModel, Y extends Base
     @Override
     Z getRepository();
 
-    @Override
-    default X save(X model) {
+    default X create(X model) {
+        validateIdBeforeCreate(model);
+
         validateFields(model);
 
         autoFillFields(model);
 
         validateDuplicateData(model);
 
-        return BaseService.super.save(model);
+        return save(model);
     }
 
-    default void validateFields(X model) {
-        if (model.getValue() == null) {
-            throw new NullValueException("Field 'Value' cannot be null");
-        }
+    default X update(X model) {
+        validateIdBeforeUpdate(model);
 
-        if (model.getName() == null) {
-            throw new NullValueException("Field 'Name' cannot be null");
-        }
-    }
+        validateFields(model);
 
-    default void autoFillFields(X model) {
-    }
+        autoFillFields(model);
 
-    default void validateDuplicateData(X model) {
-        validateDuplicateValue(model);
+        validateDuplicateData(model);
 
-        validateDuplicateName(model);
-    }
-
-    default void validateDuplicateValue(X model) {
-        Long id = findIdByValue(model.getValue(), model.getId());
-
-        if (id != null && id > 0) {
-            throw new DuplicateValueException("Duplicate value, value: " + model.getValue() + ", name: " + model.getName() + ", id: " + id);
-        }
-    }
-
-    default void validateDuplicateName(X model) {
+        return save(model);
     }
 
     default String findNameById(Long id) {
@@ -103,6 +87,64 @@ public interface BaseCategoryService<X extends BaseCategoryModel, Y extends Base
 
     default Long findIdByName(String name) {
         return findIdByName(name, Long.valueOf(0));
+    }
+
+    default X create(Y dto) {
+        return create(getModel(dto));
+    }
+
+    default Y createDto(X model) {
+        return getDto(create(model));
+    }
+
+    default Y createDto(Y dto) {
+        return createDto(getModel(dto));
+    }
+
+    default X update(Y dto) {
+        return update(getModel(dto));
+    }
+
+    default Y updateDto(X model) {
+        return getDto(update(model));
+    }
+
+    default Y updateDto(Y dto) {
+        return updateDto(getModel(dto));
+    }
+
+    default X findById(Long id) {
+        return (X) getRepository().findById(id).orElse(null);
+    }
+
+    default void validateFields(X model) {
+        if (model.getValue() == null) {
+            throw new NullValueException("Field 'Value' cannot be null");
+        }
+
+        if (model.getName() == null) {
+            throw new NullValueException("Field 'Name' cannot be null");
+        }
+    }
+
+    default void autoFillFields(X model) {
+    }
+
+    default void validateDuplicateData(X model) {
+        validateDuplicateValue(model);
+
+        validateDuplicateName(model);
+    }
+
+    default void validateDuplicateValue(X model) {
+        Long id = findIdByValue(model.getValue(), model.getId());
+
+        if (id != null && id > 0) {
+            throw new DuplicateValueException("Duplicate value, value: " + model.getValue() + ", name: " + model.getName() + ", id: " + id);
+        }
+    }
+
+    default void validateDuplicateName(X model) {
     }
 
     @Override

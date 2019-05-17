@@ -29,12 +29,12 @@ public class CertificateController extends BaseController {
 
     @PostMapping("/certificates")
     public ResponseEntity<ResponseMsg> create(@Valid @RequestBody CertificateDto dto) {
-        return response("certificate", service.saveDto(dto));
+        return response("certificate", service.createDto(dto));
     }
 
     @PutMapping("/certificates")
     public ResponseEntity<ResponseMsg> update(@Valid @RequestBody CertificateDto dto) {
-        return response("certificate", service.saveDto(dto));
+        return response("certificate", service.updateDto(dto));
     }
 
     @PostMapping("/certificates/excel")

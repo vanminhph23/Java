@@ -29,12 +29,12 @@ public class InsuranceCardController extends BaseController {
 
     @PostMapping("/insurance-cards")
     public ResponseEntity<ResponseMsg> create(@Valid @RequestBody InsuranceCardDto dto) {
-        return response("assuranceCard", service.saveDto(dto));
+        return response("assuranceCard", service.createDto(dto));
     }
 
     @PutMapping("/insurance-cards")
     public ResponseEntity<ResponseMsg> update(@Valid @RequestBody InsuranceCardDto dto) {
-        return response("assuranceCard", service.saveDto(dto));
+        return response("assuranceCard", service.updateDto(dto));
     }
 
     @PostMapping("/insurance-cards/excel")

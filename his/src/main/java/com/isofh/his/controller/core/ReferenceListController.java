@@ -34,12 +34,12 @@ public class ReferenceListController extends BaseController {
 
     @PostMapping("/reference-lists")
     public ResponseEntity<ResponseMsg> create(@Valid @RequestBody ReferenceListDto dto) {
-        return response("referenceList", service.saveDto(dto));
+        return response("referenceList", service.createDto(dto));
     }
 
     @PutMapping("/reference-lists")
     public ResponseEntity<ResponseMsg> update(@Valid @RequestBody ReferenceListDto dto) {
-        return response("referenceList", service.saveDto(dto));
+        return response("referenceList", service.updateDto(dto));
     }
 
     @PostMapping("/reference-lists/excel")

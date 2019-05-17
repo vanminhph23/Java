@@ -27,11 +27,11 @@ public class RoleController extends BaseController {
 
     @PostMapping("/roles")
     public ResponseEntity<ResponseMsg> create(@Valid @RequestBody RoleDto dto) {
-        return response("role", service.saveDto(dto));
+        return response("role", service.createDto(dto));
     }
 
     @PutMapping("/roles")
     public ResponseEntity<ResponseMsg> update(@Valid @RequestBody RoleDto dto) {
-        return response("role", service.saveDto(dto));
+        return response("role", service.updateDto(dto));
     }
 }

@@ -29,12 +29,12 @@ public class DistrictController extends BaseController {
 
     @PostMapping("/districts")
     public ResponseEntity<ResponseMsg> create(@Valid @RequestBody DistrictDto dto) {
-        return response("district", service.saveDto(dto));
+        return response("district", service.createDto(dto));
     }
 
     @PutMapping("/districts")
     public ResponseEntity<ResponseMsg> update(@Valid @RequestBody DistrictDto dto) {
-        return response("district", service.saveDto(dto));
+        return response("district", service.updateDto(dto));
     }
 
     @PostMapping("/districts/excel")

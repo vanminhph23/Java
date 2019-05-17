@@ -2,6 +2,7 @@ package com.isofh.his.service.base;
 
 import com.isofh.his.dto.base.BaseDto;
 import com.isofh.his.exception.BaseException;
+import com.isofh.his.exception.data.InvalidDataException;
 import com.isofh.his.importdata.Header;
 import com.isofh.his.importdata.ImportUtil;
 import com.isofh.his.model.base.BaseModel;
@@ -48,6 +49,22 @@ public interface BaseService<X extends BaseModel, Y extends BaseDto, Z extends B
 
     default Y findDtoById(Long id) {
         return getDto(findById(id));
+    }
+
+    default void validateIdBeforeUpdate(X model) {
+        Long id = model.getId();
+
+        if (id == null && id <= 0) {
+            throw new InvalidDataException("Cannot update entity with id null");
+        }
+    }
+
+    default void validateIdBeforeCreate(X model) {
+        Long id = model.getId();
+
+        if (id != null && id > 0) {
+            throw new InvalidDataException("Cannot create entity with id " + id);
+        }
     }
 
     Class<X> getModelClass();

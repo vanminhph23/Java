@@ -29,12 +29,12 @@ public class EthnicityController extends BaseController {
 
     @PostMapping("/ethnicities")
     public ResponseEntity<ResponseMsg> create(@Valid @RequestBody EthnicityDto dto) {
-        return response("zone", service.saveDto(dto));
+        return response("zone", service.createDto(dto));
     }
 
     @PutMapping("/ethnicities")
     public ResponseEntity<ResponseMsg> update(@Valid @RequestBody EthnicityDto dto) {
-        return response("zone", service.saveDto(dto));
+        return response("zone", service.updateDto(dto));
     }
 
     @PostMapping("/ethnicities/excel")

@@ -34,12 +34,12 @@ public class ReferenceController extends BaseController {
 
     @PostMapping("/references")
     public ResponseEntity<ResponseMsg> create(@Valid @RequestBody ReferenceDto dto) {
-        return response("reference", service.saveDto(dto));
+        return response("reference", service.createDto(dto));
     }
 
     @PutMapping("/references")
     public ResponseEntity<ResponseMsg> update(@Valid @RequestBody ReferenceDto dto) {
-        return response("reference", service.saveDto(dto));
+        return response("reference", service.updateDto(dto));
     }
 
     @PostMapping("/references/excel")

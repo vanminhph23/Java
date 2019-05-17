@@ -27,11 +27,11 @@ public class UserController extends BaseController {
 
     @PostMapping("/users")
     public ResponseEntity<ResponseMsg> create(@Valid @RequestBody UserDto dto) {
-        return response("user", userService.saveDto(dto));
+        return response("user", userService.createDto(dto));
     }
 
     @PutMapping("/users")
     public ResponseEntity<ResponseMsg> update(@Valid @RequestBody UserDto dto) {
-        return response("user", userService.saveDto(dto));
+        return response("user", userService.updateDto(dto));
     }
 }

@@ -29,12 +29,12 @@ public class HospitalController extends BaseController {
 
     @PostMapping("/hospitals")
     public ResponseEntity<ResponseMsg> create(@Valid @RequestBody HospitalDto dto) {
-        return response("hospital", service.saveDto(dto));
+        return response("hospital", service.createDto(dto));
     }
 
     @PutMapping("/hospitals")
     public ResponseEntity<ResponseMsg> update(@Valid @RequestBody HospitalDto dto) {
-        return response("hospital", service.saveDto(dto));
+        return response("hospital", service.updateDto(dto));
     }
 
     @PostMapping("/hospitals/excel")

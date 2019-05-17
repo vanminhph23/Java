@@ -29,12 +29,12 @@ public class JobController extends BaseController {
 
     @PostMapping("/jobs")
     public ResponseEntity<ResponseMsg> create(@Valid @RequestBody JobDto dto) {
-        return response("job", service.saveDto(dto));
+        return response("job", service.createDto(dto));
     }
 
     @PutMapping("/jobs")
     public ResponseEntity<ResponseMsg> update(@Valid @RequestBody JobDto dto) {
-        return response("job", service.saveDto(dto));
+        return response("job", service.updateDto(dto));
     }
 
     @PostMapping("/jobs/excel")

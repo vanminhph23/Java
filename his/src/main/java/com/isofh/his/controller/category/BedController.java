@@ -29,12 +29,12 @@ public class BedController extends BaseController {
 
     @PostMapping("/beds")
     public ResponseEntity<ResponseMsg> create(@Valid @RequestBody BedDto dto) {
-        return response("bed", service.saveDto(dto));
+        return response("bed", service.createDto(dto));
     }
 
     @PutMapping("/beds")
     public ResponseEntity<ResponseMsg> update(@Valid @RequestBody BedDto dto) {
-        return response("bed", service.saveDto(dto));
+        return response("bed", service.updateDto(dto));
     }
 
     @PostMapping("/beds/excel")

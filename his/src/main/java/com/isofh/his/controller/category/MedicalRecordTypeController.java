@@ -29,12 +29,12 @@ public class MedicalRecordTypeController extends BaseController {
 
     @PostMapping("/medical-record-types")
     public ResponseEntity<ResponseMsg> create(@Valid @RequestBody MedicalRecordTypeDto dto) {
-        return response("medicalRecordType", service.saveDto(dto));
+        return response("medicalRecordType", service.createDto(dto));
     }
 
     @PutMapping("/medical-record-types")
     public ResponseEntity<ResponseMsg> update(@Valid @RequestBody MedicalRecordTypeDto dto) {
-        return response("medicalRecordType", service.saveDto(dto));
+        return response("medicalRecordType", service.updateDto(dto));
     }
 
     @PostMapping("/medical-record-types/excel")

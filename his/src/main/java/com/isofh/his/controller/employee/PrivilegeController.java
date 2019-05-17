@@ -27,11 +27,11 @@ public class PrivilegeController extends BaseController {
 
     @PostMapping("/privileges")
     public ResponseEntity<ResponseMsg> create(@Valid @RequestBody PrivilegeDto dto) {
-        return response("privilege", service.saveDto(dto));
+        return response("privilege", service.createDto(dto));
     }
 
     @PutMapping("/privileges")
     public ResponseEntity<ResponseMsg> update(@Valid @RequestBody PrivilegeDto dto) {
-        return response("privilege", service.saveDto(dto));
+        return response("privilege", service.updateDto(dto));
     }
 }

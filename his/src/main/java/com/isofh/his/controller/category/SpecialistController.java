@@ -29,12 +29,12 @@ public class SpecialistController extends BaseController {
 
     @PostMapping("/specialists")
     public ResponseEntity<ResponseMsg> create(@Valid @RequestBody SpecialistDto dto) {
-        return response("specialist", service.saveDto(dto));
+        return response("specialist", service.createDto(dto));
     }
 
     @PutMapping("/specialists")
     public ResponseEntity<ResponseMsg> update(@Valid @RequestBody SpecialistDto dto) {
-        return response("specialist", service.saveDto(dto));
+        return response("specialist", service.updateDto(dto));
     }
 
     @PostMapping("/specialists/excel")

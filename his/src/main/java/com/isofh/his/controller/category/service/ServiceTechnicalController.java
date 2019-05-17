@@ -30,12 +30,12 @@ public class ServiceTechnicalController extends BaseController {
 
     @PostMapping("/service-technical")
     public ResponseEntity<ResponseMsg> create(@Valid @RequestBody ServiceTechnicalDto dto) {
-        return response("serviceTechnical", service.saveDto(dto));
+        return response("serviceTechnical", service.createDto(dto));
     }
 
     @PutMapping("/service-technical")
     public ResponseEntity<ResponseMsg> update(@Valid @RequestBody ServiceTechnicalDto dto) {
-        return response("serviceTechnical", service.saveDto(dto));
+        return response("serviceTechnical", service.updateDto(dto));
     }
 
     @PostMapping("/service-technical/excel")

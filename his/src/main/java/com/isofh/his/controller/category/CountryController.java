@@ -29,12 +29,12 @@ public class CountryController extends BaseController {
 
     @PostMapping("/countries")
     public ResponseEntity<ResponseMsg> create(@Valid @RequestBody CountryDto dto) {
-        return response("country", service.saveDto(dto));
+        return response("country", service.createDto(dto));
     }
 
     @PutMapping("/countries")
     public ResponseEntity<ResponseMsg> update(@Valid @RequestBody CountryDto dto) {
-        return response("country", service.saveDto(dto));
+        return response("country", service.updateDto(dto));
     }
 
     @PostMapping("/countries/excel")

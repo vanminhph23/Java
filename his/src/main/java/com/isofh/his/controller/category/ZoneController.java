@@ -29,12 +29,12 @@ public class ZoneController extends BaseController {
 
     @PostMapping("/zones")
     public ResponseEntity<ResponseMsg> create(@Valid @RequestBody ZoneDto dto) {
-        return response("zone", service.saveDto(dto));
+        return response("zone", service.createDto(dto));
     }
 
     @PutMapping("/zones")
     public ResponseEntity<ResponseMsg> update(@Valid @RequestBody ZoneDto dto) {
-        return response("zone", service.saveDto(dto));
+        return response("zone", service.updateDto(dto));
     }
 
     @PostMapping("/zones/excel")
