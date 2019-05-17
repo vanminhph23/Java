@@ -11,13 +11,13 @@ import java.util.Date;
 
 public interface PatientHistoryService extends BaseService<PatientHistory, PatientHistoryDto, PatientHistoryRepository> {
 
-    Long create(PatientHistoryDto historyDto);
+    PatientHistoryDto createDto(PatientHistoryDto dto);
 
-    Long update(PatientHistoryDto historyDto);
+    PatientHistoryDto updateDto(PatientHistoryDto dto);
 
-    Long create(PatientHistory history, boolean isCheckPortalInsurance);
+    PatientHistory create(PatientHistory history, boolean ignoreValidatePortalInsurance);
 
-    Long update(PatientHistory history, boolean isCheckPortalInsurance);
+    PatientHistory update(PatientHistory history, boolean ignoreValidatePortalInsurance);
 
     PatientHistory findLastByIdNo(String idNo);
 
@@ -26,6 +26,7 @@ public interface PatientHistoryService extends BaseService<PatientHistory, Patie
     SimpleInsurancePatientHistoryDto getSimpleInsurancePatientHistoryDto(PatientHistory history);
 
     boolean isInsurancePatient(PatientHistory history, Date actDate);
+
 
     enum PatientTypeEnum implements IEnum {
         SERVICE(1, "Service"), INSURANCE(2, "Insurance");

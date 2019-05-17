@@ -1,6 +1,6 @@
 package com.isofh.his.model.category.service;
 
-import com.isofh.his.model.base.BaseCategoryModel;
+import com.isofh.his.model.base.BaseModel;
 import com.isofh.his.model.category.*;
 import org.hibernate.envers.Audited;
 
@@ -9,12 +9,12 @@ import java.util.Date;
 
 @Entity
 @Table(name = "his_service_technical")
-public class ServiceTechnical extends BaseCategoryModel {
+public class ServiceTechnical extends BaseModel {
 
     @Id
     private Long id;
 
-    @OneToOne(fetch = FetchType.LAZY)
+    @OneToOne(fetch = FetchType.LAZY, cascade = {CascadeType.ALL})
     @MapsId
     private ServiceSource service;
 

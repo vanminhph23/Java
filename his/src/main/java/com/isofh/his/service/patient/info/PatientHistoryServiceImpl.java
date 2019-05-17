@@ -104,7 +104,7 @@ public class PatientHistoryServiceImpl implements PatientHistoryService {
 
     @Transactional
     @Override
-    public Long create(PatientHistoryDto historyDto) {
+    public PatientHistoryDto createDto(PatientHistoryDto historyDto) {
         PatientHistory history = getModel(historyDto);
 
         // Address
@@ -178,12 +178,16 @@ public class PatientHistoryServiceImpl implements PatientHistoryService {
             }
         }
 
-        return create(history, historyDto.isIgnoreValidatePortalInsurance());
+        history = create(history, historyDto.isIgnoreValidatePortalInsurance());
+
+        return getDto(findById(history.getId()));
     }
 
     @Transactional
     @Override
-    public Long create(PatientHistory history, boolean ignoreValidatePortalInsurance) {
+    public PatientHistory create(PatientHistory history, boolean ignoreValidatePortalInsurance) {
+        validateIdBeforeCreate(history);
+
         autoFillDefaultFields(history);
 
         validatePatientName(history);
@@ -205,23 +209,25 @@ public class PatientHistoryServiceImpl implements PatientHistoryService {
 
         createPatientType(history);
 
-        return history.getId();
+        return history;
     }
 
     @Transactional
     @Override
-    public Long update(PatientHistoryDto historyDto) {
-        PatientHistory ph = repository.findById(historyDto.getId()).orElseThrow(() -> new NotFoundException("Not found patient history id: " + historyDto.getId()));
+    public PatientHistoryDto updateDto(PatientHistoryDto historyDto) {
+        PatientHistory history = getModel(historyDto);
 
-        boolean ignoreValidatePortalInsurance = historyDto.isIgnoreValidatePortalInsurance();
+        history = update(history, historyDto.isIgnoreValidatePortalInsurance());
 
-        return update(ph, ignoreValidatePortalInsurance);
+        return getDto(history);
     }
 
     @Transactional
     @Override
-    public Long update(PatientHistory history, boolean validatePortalInsurance) {
-        return save(history).getId();
+    public PatientHistory update(PatientHistory history, boolean ignoreValidatePortalInsurance) {
+        validateIdBeforeUpdate(history);
+
+        return save(history);
     }
 
     @Override
