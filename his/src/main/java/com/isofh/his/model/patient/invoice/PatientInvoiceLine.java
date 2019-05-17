@@ -3,12 +3,10 @@ package com.isofh.his.model.patient.invoice;
 import com.isofh.his.model.base.BaseModel;
 import com.isofh.his.model.category.Department;
 import com.isofh.his.model.category.Room;
-import com.isofh.his.model.category.service.Service;
+import com.isofh.his.model.category.service.ServiceSource;
 import com.isofh.his.model.patient.info.PatientHistory;
 import com.isofh.his.model.patient.info.PatientTransferDepartment;
 import com.isofh.his.model.patient.info.PatientType;
-import com.isofh.his.model.patient.invoice.PatientInvoice;
-import com.isofh.his.model.patient.invoice.PatientPayment;
 import org.hibernate.envers.Audited;
 
 import javax.persistence.*;
@@ -57,7 +55,7 @@ public class PatientInvoiceLine extends BaseModel {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "service_id")
-    private Service service;
+    private ServiceSource service;
 
     @Column(name = "service_type")
     @Audited
@@ -287,11 +285,11 @@ public class PatientInvoiceLine extends BaseModel {
         this.inpatient = inpatient;
     }
 
-    public Service getService() {
+    public ServiceSource getService() {
         return service;
     }
 
-    public void setService(Service service) {
+    public void setService(ServiceSource service) {
         this.service = service;
     }
 

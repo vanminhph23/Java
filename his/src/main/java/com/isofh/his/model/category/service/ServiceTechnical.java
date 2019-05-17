@@ -16,7 +16,7 @@ public class ServiceTechnical extends BaseCategoryModel {
 
     @OneToOne(fetch = FetchType.LAZY)
     @MapsId
-    private Service service;
+    private ServiceSource service;
 
     @Column(name = "department_id")
     private Long departmentId;
@@ -61,6 +61,10 @@ public class ServiceTechnical extends BaseCategoryModel {
     @Column(name = "form_value")
     @Audited
     private String formValue;
+
+    @Column(name = "surgery_form")
+    @Audited
+    private int surgeryForm;
 
     @Column(name = "use_in_reception", nullable = false)
     @Audited
@@ -181,11 +185,11 @@ public class ServiceTechnical extends BaseCategoryModel {
         this.id = id;
     }
 
-    public Service getService() {
+    public ServiceSource getService() {
         return service;
     }
 
-    public void setService(Service service) {
+    public void setService(ServiceSource service) {
         this.service = service;
     }
 

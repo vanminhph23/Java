@@ -2,9 +2,9 @@ package com.isofh.his.dto.category.service;
 
 import com.isofh.his.dto.base.BaseCategoryDto;
 
-public class ServiceDto extends BaseCategoryDto {
+public class ServiceSourceDto extends BaseCategoryDto {
 
-    public ServiceDto() {
+    public ServiceSourceDto() {
     }
 
     private int serviceType;

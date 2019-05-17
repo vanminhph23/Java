@@ -13,7 +13,7 @@ public class ServiceBed {
 
     @OneToOne(fetch = FetchType.LAZY)
     @MapsId
-    private Service service;
+    private ServiceSource service;
 
     @Column(name = "bed_type")
     @Audited

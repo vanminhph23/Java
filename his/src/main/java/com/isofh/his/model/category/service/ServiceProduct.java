@@ -18,7 +18,7 @@ public class ServiceProduct extends BaseCategoryModel {
 
     @OneToOne(fetch = FetchType.LAZY)
     @MapsId
-    private Service service;
+    private ServiceSource service;
 
     @Column(name = "high_tech", nullable = false)
     @Audited

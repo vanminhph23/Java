@@ -8,7 +8,7 @@ import javax.persistence.*;
 
 @Entity
 @Table(name = "his_service")
-public class Service extends BaseCategoryModel {
+public class ServiceSource extends BaseCategoryModel {
     @Id
     @GeneratedValue(generator = "service_generator")
     @SequenceGenerator(

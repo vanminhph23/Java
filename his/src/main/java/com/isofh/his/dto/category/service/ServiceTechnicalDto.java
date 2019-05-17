@@ -2,7 +2,7 @@ package com.isofh.his.dto.category.service;
 
 import java.util.Date;
 
-public class ServiceTechnicalDto extends ServiceDto {
+public class ServiceTechnicalDto extends ServiceSourceDto {
 
     public ServiceTechnicalDto() {
     }
