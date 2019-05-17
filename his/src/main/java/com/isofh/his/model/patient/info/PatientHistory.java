@@ -29,7 +29,7 @@ public class PatientHistory extends BaseModel {
     @Audited
     private String patientValue;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.LAZY, cascade = {CascadeType.ALL})
     @JoinColumn(name = "patient_id", nullable = false)
     @Audited
     private Patient patient;

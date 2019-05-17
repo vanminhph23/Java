@@ -291,8 +291,6 @@ public class PatientHistoryServiceImpl implements PatientHistoryService {
 
             patient.setRegDate(history.getRegDate());
 
-            patientService.save(patient);
-
             history.setPatient(patient);
             return patient;
         }
