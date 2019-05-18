@@ -11,10 +11,6 @@ import java.util.Date;
 
 public interface PatientHistoryService extends BaseService<PatientHistory, PatientHistoryDto, PatientHistoryRepository> {
 
-    PatientHistoryDto createDto(PatientHistoryDto dto);
-
-    PatientHistoryDto updateDto(PatientHistoryDto dto);
-
     PatientHistory create(PatientHistory history, boolean ignoreValidatePortalInsurance);
 
     PatientHistory update(PatientHistory history, boolean ignoreValidatePortalInsurance);

@@ -10,7 +10,9 @@ import com.isofh.his.repository.base.BaseRepository;
 import com.isofh.his.storage.StorageService;
 import com.isofh.his.util.ExcelUtil;
 import com.isofh.his.util.Util;
+import org.hibernate.exception.ConstraintViolationException;
 import org.modelmapper.ModelMapper;
+import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -25,6 +27,38 @@ public interface BaseService<X extends BaseModel, Y extends BaseDto, Z extends B
     ModelMapper getModelMapper();
 
     Z getRepository();
+
+    default X create(X model) {
+        return save(model);
+    }
+
+    default X update(X model) {
+        return save(model);
+    }
+
+    default X create(Y dto) {
+        return create(getModel(dto));
+    }
+
+    default Y createDto(X model) {
+        return getDto(create(model));
+    }
+
+    default Y createDto(Y dto) {
+        return createDto(getModel(dto));
+    }
+
+    default X update(Y dto) {
+        return update(getModel(dto));
+    }
+
+    default Y updateDto(X model) {
+        return getDto(update(model));
+    }
+
+    default Y updateDto(Y dto) {
+        return updateDto(getModel(dto));
+    }
 
     @Transactional
     default X save(X model) {
@@ -111,7 +145,8 @@ public interface BaseService<X extends BaseModel, Y extends BaseDto, Z extends B
         List<String> mes = new ArrayList<>();
         for (Y dto : dtos) {
             try {
-                X model = save(dto);
+                X model = importExcel(dto);
+
                 mes.add(String.valueOf(model.getId()));
             } catch (BaseException e) {
                 mes.add("Error " + e.getCode() + ": " + e.getMessage());
@@ -119,5 +154,18 @@ public interface BaseService<X extends BaseModel, Y extends BaseDto, Z extends B
         }
 
         return ExcelUtil.appendLog(fileName, sheetNo, startLineNo + 2, mes);
+    }
+
+    @Transactional(propagation = Propagation.REQUIRES_NEW)
+    default X importExcel(Y dto) {
+        X model;
+
+        if (dto.getId() != null && dto.getId() > 0) {
+            model = update(dto);
+        } else {
+            model = create(dto);
+        }
+
+        return model;
     }
 }

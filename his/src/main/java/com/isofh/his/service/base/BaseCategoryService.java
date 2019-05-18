@@ -7,6 +7,7 @@ import com.isofh.his.exception.data.NullValueException;
 import com.isofh.his.model.base.BaseCategoryModel;
 import com.isofh.his.repository.base.BaseCategoryRepository;
 import com.isofh.his.util.Util;
+import org.hibernate.exception.ConstraintViolationException;
 
 import java.util.Map;
 
@@ -15,6 +16,7 @@ public interface BaseCategoryService<X extends BaseCategoryModel, Y extends Base
     @Override
     Z getRepository();
 
+    @Override
     default X create(X model) {
         validateIdBeforeCreate(model);
 
@@ -22,11 +24,16 @@ public interface BaseCategoryService<X extends BaseCategoryModel, Y extends Base
 
         autoFillFields(model);
 
-        validateDuplicateData(model);
+        try {
+            return save(model);
+        } catch (ConstraintViolationException e) {
+            validateDuplicateData(model);
 
-        return save(model);
+            throw e;
+        }
     }
 
+    @Override
     default X update(X model) {
         validateIdBeforeUpdate(model);
 
@@ -34,9 +41,13 @@ public interface BaseCategoryService<X extends BaseCategoryModel, Y extends Base
 
         autoFillFields(model);
 
-        validateDuplicateData(model);
+        try {
+            return save(model);
+        } catch (ConstraintViolationException e) {
+            validateDuplicateData(model);
 
-        return save(model);
+            throw e;
+        }
     }
 
     default String findNameById(Long id) {
@@ -87,30 +98,6 @@ public interface BaseCategoryService<X extends BaseCategoryModel, Y extends Base
 
     default Long findIdByName(String name) {
         return findIdByName(name, Long.valueOf(0));
-    }
-
-    default X create(Y dto) {
-        return create(getModel(dto));
-    }
-
-    default Y createDto(X model) {
-        return getDto(create(model));
-    }
-
-    default Y createDto(Y dto) {
-        return createDto(getModel(dto));
-    }
-
-    default X update(Y dto) {
-        return update(getModel(dto));
-    }
-
-    default Y updateDto(X model) {
-        return getDto(update(model));
-    }
-
-    default Y updateDto(Y dto) {
-        return updateDto(getModel(dto));
     }
 
     default X findById(Long id) {
