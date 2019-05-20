@@ -3,7 +3,6 @@ package com.isofh.his.model.patient.info;
 import com.isofh.his.model.base.BaseModel;
 import com.isofh.his.model.category.*;
 import com.isofh.his.model.patient.invoice.PatientInvoice;
-import com.isofh.his.service.patient.info.PatientStatistics;
 import com.isofh.his.util.DateUtil;
 import org.hibernate.envers.Audited;
 

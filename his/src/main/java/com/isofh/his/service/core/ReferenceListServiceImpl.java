@@ -6,6 +6,7 @@ import com.isofh.his.model.core.ReferenceList;
 import com.isofh.his.repository.core.ReferenceListRepository;
 import com.isofh.his.storage.StorageService;
 import org.modelmapper.ModelMapper;
+import org.modelmapper.convention.MatchingStrategies;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -51,9 +52,15 @@ public class ReferenceListServiceImpl implements ReferenceListService {
     public ModelMapper getModelMapper() {
         if (modelMapper == null) {
             modelMapper = new ModelMapper();
+            modelMapper.getConfiguration().setMatchingStrategy(MatchingStrategies.STRICT);
         }
 
         return modelMapper;
+    }
+
+    @Override
+    public Logger getLogger() {
+        return this.logger;
     }
 
     @Override

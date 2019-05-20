@@ -83,9 +83,15 @@ public class PatientInsuranceServiceImpl implements PatientInsuranceService {
     public ModelMapper getModelMapper() {
         if (modelMapper == null) {
             modelMapper = new ModelMapper();
+            modelMapper.getConfiguration().setMatchingStrategy(MatchingStrategies.STRICT);
         }
 
         return modelMapper;
+    }
+
+    @Override
+    public Logger getLogger() {
+        return this.logger;
     }
 
     @Override

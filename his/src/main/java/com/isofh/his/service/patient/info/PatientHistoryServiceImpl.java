@@ -95,6 +95,11 @@ public class PatientHistoryServiceImpl implements PatientHistoryService {
     }
 
     @Override
+    public Logger getLogger() {
+        return this.logger;
+    }
+
+    @Override
     public SimpleInsurancePatientHistoryDto getSimpleInsurancePatientHistoryDto(PatientHistory history) {
         ModelMapper patientHistoryMapper = new ModelMapper();
         patientHistoryMapper.getConfiguration().setMatchingStrategy(MatchingStrategies.STRICT);

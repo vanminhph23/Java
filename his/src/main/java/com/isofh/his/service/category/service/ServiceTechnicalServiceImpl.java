@@ -60,6 +60,11 @@ public class ServiceTechnicalServiceImpl implements ServiceTechnicalService {
     }
 
     @Override
+    public Logger getLogger() {
+        return this.logger;
+    }
+
+    @Override
     public ServiceTechnical getModel(ServiceTechnicalDto dto) {
         ServiceTechnical technical = getModelMapper().map(dto, getModelClass());
 

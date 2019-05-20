@@ -60,7 +60,7 @@ public class ImportUtil {
                         } else if (dateType.startsWith("date")) {
                             String format = null;
                             if (!dateType.contains("[")) {
-                                format = dateType.replace("]", "").split("\\[")[1];
+                                format = dateType.replace("]", "").split("\\[")[1].replace("mm", "MM");
                             }
 
                             try {

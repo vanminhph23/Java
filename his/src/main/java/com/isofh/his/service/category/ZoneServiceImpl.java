@@ -59,6 +59,11 @@ public class ZoneServiceImpl implements ZoneService {
     }
 
     @Override
+    public Logger getLogger() {
+        return this.logger;
+    }
+
+    @Override
     public Object getReference(Header header, String value) {
         if (value == null) {
             return null;

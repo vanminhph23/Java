@@ -2,10 +2,12 @@ package com.isofh.his.service.patient.info;
 
 import com.isofh.his.dto.patient.info.PatientStatisticsDto;
 import com.isofh.his.model.patient.info.PatientHistory;
+import com.isofh.his.model.patient.info.PatientStatistics;
 import com.isofh.his.repository.patient.info.PatientStatisticsRepository;
 import com.isofh.his.storage.StorageService;
 import com.isofh.his.util.DateUtil;
 import org.modelmapper.ModelMapper;
+import org.modelmapper.convention.MatchingStrategies;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -48,9 +50,15 @@ public class PatientStatisticsServiceImpl implements PatientStatisticsService {
     public ModelMapper getModelMapper() {
         if (modelMapper == null) {
             modelMapper = new ModelMapper();
+            modelMapper.getConfiguration().setMatchingStrategy(MatchingStrategies.STRICT);
         }
 
         return modelMapper;
+    }
+
+    @Override
+    public Logger getLogger() {
+        return this.logger;
     }
 
     @Override

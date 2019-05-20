@@ -1,4 +1,4 @@
-package com.isofh.his.service.patient.info;
+package com.isofh.his.model.patient.info;
 
 import com.isofh.his.model.base.patient.BasePatientModel;
 import com.isofh.his.model.patient.info.PatientHistory;

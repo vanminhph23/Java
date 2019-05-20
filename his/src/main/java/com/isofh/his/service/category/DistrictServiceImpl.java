@@ -59,6 +59,11 @@ public class DistrictServiceImpl implements DistrictService {
     }
 
     @Override
+    public Logger getLogger() {
+        return this.logger;
+    }
+
+    @Override
     public Object getReference(Header header, String value) {
         if (value == null) {
             return null;

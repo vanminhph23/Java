@@ -55,6 +55,8 @@ public class ServiceTechnicalDto extends ServiceSourceDto {
 
     private String c37Name;
 
+    private String c37Note;
+
     private String machineName;
 
     private String conclusionTemplate;
@@ -74,6 +76,8 @@ public class ServiceTechnicalDto extends ServiceSourceDto {
     private boolean specimens;
 
     private boolean contract;
+
+    private boolean freeByApproval;
 
     public Long getDepartmentId() {
         return departmentId;
@@ -267,6 +271,14 @@ public class ServiceTechnicalDto extends ServiceSourceDto {
         this.c37Name = c37Name;
     }
 
+    public String getC37Note() {
+        return c37Note;
+    }
+
+    public void setC37Note(String c37Note) {
+        this.c37Note = c37Note;
+    }
+
     public String getMachineName() {
         return machineName;
     }
@@ -345,5 +357,13 @@ public class ServiceTechnicalDto extends ServiceSourceDto {
 
     public void setContract(boolean contract) {
         this.contract = contract;
+    }
+
+    public boolean isFreeByApproval() {
+        return freeByApproval;
+    }
+
+    public void setFreeByApproval(boolean freeByApproval) {
+        this.freeByApproval = freeByApproval;
     }
 }

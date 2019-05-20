@@ -6,6 +6,7 @@ import com.isofh.his.repository.patient.info.PatientGuardianRepository;
 import com.isofh.his.storage.StorageService;
 import com.isofh.his.util.PatientUtil;
 import org.modelmapper.ModelMapper;
+import org.modelmapper.convention.MatchingStrategies;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -48,9 +49,15 @@ public class PatientGuardianServiceImpl implements PatientGuardianService {
     public ModelMapper getModelMapper() {
         if (modelMapper == null) {
             modelMapper = new ModelMapper();
+            modelMapper.getConfiguration().setMatchingStrategy(MatchingStrategies.STRICT);
         }
 
         return modelMapper;
+    }
+
+    @Override
+    public Logger getLogger() {
+        return this.logger;
     }
 
     public void validateInfo(PatientGuardian guardian) {

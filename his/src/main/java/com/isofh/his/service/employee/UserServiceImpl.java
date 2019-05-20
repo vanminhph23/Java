@@ -76,4 +76,9 @@ public class UserServiceImpl implements UserService {
 
         return modelMapper;
     }
+
+    @Override
+    public Logger getLogger() {
+        return this.logger;
+    }
 }

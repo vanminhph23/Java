@@ -59,6 +59,11 @@ public class ServiceGroupLevel2ServiceImpl implements ServiceGroupLevel2Service 
     }
 
     @Override
+    public Logger getLogger() {
+        return this.logger;
+    }
+
+    @Override
     public Object getReference(Header header, String value) {
         if ("serviceGroupLevel1Id".equals(header.getColumnName())) {
             if ("value".equals(header.getLinkColumnName())) {

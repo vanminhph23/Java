@@ -134,6 +134,10 @@ public class ServiceTechnical extends BaseModel {
     @Audited
     private String c37Name;
 
+    @Column(name = "c37_note")
+    @Audited
+    private String c37Note;
+
     @Column(name = "machine_name")
     @Audited
     private String machineName;
@@ -170,6 +174,18 @@ public class ServiceTechnical extends BaseModel {
     @Column(name = "specimens", nullable = false)
     @Audited
     private boolean specimens;
+
+    @Column(name = "diagnostic", nullable = false)
+    @Audited
+    private boolean diagnostic;
+
+    @Column(name = "auto_create_line", nullable = false)
+    @Audited
+    private boolean autoCreateLine;
+
+    @Column(name = "in_department", nullable = false)
+    @Audited
+    private boolean inDepartment;
 
     @Column(name = "contract", nullable = false)
     @Audited
@@ -425,6 +441,22 @@ public class ServiceTechnical extends BaseModel {
         this.c37Name = c37Name;
     }
 
+    public String getC37Note() {
+        return c37Note;
+    }
+
+    public void setC37Note(String c37Note) {
+        this.c37Note = c37Note;
+    }
+
+    public int getSurgeryForm() {
+        return surgeryForm;
+    }
+
+    public void setSurgeryForm(int surgeryForm) {
+        this.surgeryForm = surgeryForm;
+    }
+
     public String getMachineName() {
         return machineName;
     }
@@ -503,5 +535,29 @@ public class ServiceTechnical extends BaseModel {
 
     public void setContract(boolean contract) {
         this.contract = contract;
+    }
+
+    public boolean isDiagnostic() {
+        return diagnostic;
+    }
+
+    public void setDiagnostic(boolean diagnostic) {
+        this.diagnostic = diagnostic;
+    }
+
+    public boolean isAutoCreateLine() {
+        return autoCreateLine;
+    }
+
+    public void setAutoCreateLine(boolean autoCreateLine) {
+        this.autoCreateLine = autoCreateLine;
+    }
+
+    public boolean isInDepartment() {
+        return inDepartment;
+    }
+
+    public void setInDepartment(boolean inDepartment) {
+        this.inDepartment = inDepartment;
     }
 }

@@ -39,4 +39,28 @@ public class ReportTemplate extends BaseCategoryModel {
     public void setId(Long id) {
         this.id = id;
     }
+
+    public int getServiceType() {
+        return serviceType;
+    }
+
+    public void setServiceType(int serviceType) {
+        this.serviceType = serviceType;
+    }
+
+    public int getReportFile() {
+        return reportFile;
+    }
+
+    public void setReportFile(int reportFile) {
+        this.reportFile = reportFile;
+    }
+
+    public boolean isSeparate() {
+        return separate;
+    }
+
+    public void setSeparate(boolean separate) {
+        this.separate = separate;
+    }
 }

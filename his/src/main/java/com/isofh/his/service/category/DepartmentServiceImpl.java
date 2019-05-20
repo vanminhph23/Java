@@ -62,6 +62,11 @@ public class DepartmentServiceImpl implements DepartmentService {
     }
 
     @Override
+    public Logger getLogger() {
+        return this.logger;
+    }
+
+    @Override
     public Object getReference(Header header, String value) {
         if ("buildingId".equals(header.getColumnName())) {
             if ("value".equals(header.getLinkColumnName())) {

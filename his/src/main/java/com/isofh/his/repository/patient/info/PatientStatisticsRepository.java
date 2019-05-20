@@ -1,7 +1,7 @@
 package com.isofh.his.repository.patient.info;
 
+import com.isofh.his.model.patient.info.PatientStatistics;
 import com.isofh.his.repository.base.BaseRepository;
-import com.isofh.his.service.patient.info.PatientStatistics;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.transaction.annotation.Transactional;

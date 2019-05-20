@@ -12,6 +12,7 @@ import com.isofh.his.util.ExcelUtil;
 import com.isofh.his.util.Util;
 import org.hibernate.exception.ConstraintViolationException;
 import org.modelmapper.ModelMapper;
+import org.slf4j.Logger;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
@@ -25,6 +26,8 @@ public interface BaseService<X extends BaseModel, Y extends BaseDto, Z extends B
     StorageService getStorageService();
 
     ModelMapper getModelMapper();
+
+    Logger getLogger();
 
     Z getRepository();
 

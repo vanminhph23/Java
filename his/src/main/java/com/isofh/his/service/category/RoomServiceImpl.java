@@ -65,6 +65,11 @@ public class RoomServiceImpl implements RoomService {
     }
 
     @Override
+    public Logger getLogger() {
+        return this.logger;
+    }
+
+    @Override
     public Object getReference(Header header, String value) {
         if ("parentRoomId".equals(header.getColumnName())) {
             if ("value".equals(header.getLinkColumnName())) {

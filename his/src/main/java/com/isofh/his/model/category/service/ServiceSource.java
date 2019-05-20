@@ -34,9 +34,9 @@ public class ServiceSource extends BaseCategoryModel {
     @Audited
     private String cxName;
 
-    @Column(name = "pay_rate")
+    @Column(name = "insurance_pay_rate")
     @Audited
-    private int payRate;
+    private int insurancePayRate;
 
     @Column(name = "uom_id")
     @Audited
@@ -70,17 +70,17 @@ public class ServiceSource extends BaseCategoryModel {
     @JoinColumn(name = "service_group_level3_id", insertable = false, updatable = false)
     private ServiceGroupLevel3 serviceGroupLevel3;
 
-    @Column(name = "unit_price_service")
+    @Column(name = "service_unit_price")
     @Audited
-    private Double unitPriceService;
+    private Double serviceUnitPrice;
 
-    @Column(name = "unit_price_insurance")
+    @Column(name = "insurance_unit_price")
     @Audited
-    private Double unitPriceInsurance;
+    private Double insuranceUnitPrice;
 
-    @Column(name = "unit_price_difference")
+    @Column(name = "difference_unit_price")
     @Audited
-    private Double unitPriceDifference;
+    private Double differenceUnitPrice;
 
     @Column(name = "old_value")
     @Audited
@@ -130,14 +130,6 @@ public class ServiceSource extends BaseCategoryModel {
     @Audited
     private boolean surgery;
 
-    @Column(name = "auto_create_line", nullable = false)
-    @Audited
-    private boolean autoCreateLine;
-
-    @Column(name = "in_department", nullable = false)
-    @Audited
-    private boolean inDepartment;
-
     @Column(name = "consultation", nullable = false)
     @Audited
     private boolean consultation;
@@ -157,6 +149,10 @@ public class ServiceSource extends BaseCategoryModel {
     @Column(name = "antibiotic", nullable = false)
     @Audited
     private boolean antibiotic;
+
+    @Column(name = "free_by_approval", nullable = false)
+    @Audited
+    private boolean freeByApproval;
 
     @Override
     public Long getId() {
@@ -200,12 +196,12 @@ public class ServiceSource extends BaseCategoryModel {
         this.cxName = cxName;
     }
 
-    public int getPayRate() {
-        return payRate;
+    public int getInsurancePayRate() {
+        return insurancePayRate;
     }
 
-    public void setPayRate(int payRate) {
-        this.payRate = payRate;
+    public void setInsurancePayRate(int insurancePayRate) {
+        this.insurancePayRate = insurancePayRate;
     }
 
     public Long getUomId() {
@@ -272,28 +268,28 @@ public class ServiceSource extends BaseCategoryModel {
         this.serviceGroupLevel3 = serviceGroupLevel3;
     }
 
-    public Double getUnitPriceService() {
-        return unitPriceService;
+    public Double getServiceUnitPrice() {
+        return serviceUnitPrice;
     }
 
-    public void setUnitPriceService(Double unitPriceService) {
-        this.unitPriceService = unitPriceService;
+    public void setServiceUnitPrice(Double serviceUnitPrice) {
+        this.serviceUnitPrice = serviceUnitPrice;
     }
 
-    public Double getUnitPriceInsurance() {
-        return unitPriceInsurance;
+    public Double getInsuranceUnitPrice() {
+        return insuranceUnitPrice;
     }
 
-    public void setUnitPriceInsurance(Double unitPriceInsurance) {
-        this.unitPriceInsurance = unitPriceInsurance;
+    public void setInsuranceUnitPrice(Double insuranceUnitPrice) {
+        this.insuranceUnitPrice = insuranceUnitPrice;
     }
 
-    public Double getUnitPriceDifference() {
-        return unitPriceDifference;
+    public Double getDifferenceUnitPrice() {
+        return differenceUnitPrice;
     }
 
-    public void setUnitPriceDifference(Double unitPriceDifference) {
-        this.unitPriceDifference = unitPriceDifference;
+    public void setDifferenceUnitPrice(Double differenceUnitPrice) {
+        this.differenceUnitPrice = differenceUnitPrice;
     }
 
     public String getOldValue() {
@@ -392,22 +388,6 @@ public class ServiceSource extends BaseCategoryModel {
         this.surgery = surgery;
     }
 
-    public boolean isAutoCreateLine() {
-        return autoCreateLine;
-    }
-
-    public void setAutoCreateLine(boolean autoCreateLine) {
-        this.autoCreateLine = autoCreateLine;
-    }
-
-    public boolean isInDepartment() {
-        return inDepartment;
-    }
-
-    public void setInDepartment(boolean inDepartment) {
-        this.inDepartment = inDepartment;
-    }
-
     public boolean isConsultation() {
         return consultation;
     }
@@ -446,5 +426,13 @@ public class ServiceSource extends BaseCategoryModel {
 
     public void setAntibiotic(boolean antibiotic) {
         this.antibiotic = antibiotic;
+    }
+
+    public boolean isFreeByApproval() {
+        return freeByApproval;
+    }
+
+    public void setFreeByApproval(boolean freeByApproval) {
+        this.freeByApproval = freeByApproval;
     }
 }
