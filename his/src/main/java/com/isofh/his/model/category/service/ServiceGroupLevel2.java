@@ -6,7 +6,7 @@ import org.hibernate.envers.Audited;
 import javax.persistence.*;
 
 @Entity
-@Table(name = "his_service_group_level2")
+@Table(name = "his_service_group_level2", uniqueConstraints={@UniqueConstraint(columnNames = {"value", "deleted"})})
 public class ServiceGroupLevel2 extends BaseCategoryModel {
     @Id
     @GeneratedValue(generator = "service_group_level2_generator")

@@ -13,6 +13,7 @@ import java.util.List;
 
 @Entity
 @Table(name = "his_patient_history",
+        uniqueConstraints={@UniqueConstraint(columnNames = {"patient_document", "deleted"}), @UniqueConstraint(columnNames = {"medical_record_no", "deleted"})},
         indexes = {@Index(name = "idx_ph_reg_date", columnList = "reg_date")})
 public class PatientHistory extends BaseModel {
     @Id
@@ -34,15 +35,15 @@ public class PatientHistory extends BaseModel {
     @Audited
     private Patient patient;
 
-    @Column(name = "patient_name", length = 7, unique = true)
+    @Column(name = "patient_name", length = 7)
     @Audited
     private String patientName;
 
-    @Column(name = "medical_record_no", length = 7, unique = true)
+    @Column(name = "medical_record_no", length = 7)
     @Audited
     private String medicalRecordNo;
 
-    @Column(name = "patient_document", nullable = false, length = 10, unique = true)
+    @Column(name = "patient_document", nullable = false, length = 10)
     @Audited
     private String patientDocument;
 

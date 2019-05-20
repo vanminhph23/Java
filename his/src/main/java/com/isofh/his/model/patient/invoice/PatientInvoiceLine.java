@@ -33,39 +33,23 @@ public class PatientInvoiceLine extends BaseModel {
     @JoinColumn(name = "patient_history_id", insertable = false, updatable = false)
     private PatientHistory patientHistory;
 
-    @Column(name = "patient_value", nullable = false)
-    @Audited
-    private String patientValue;
-
-    @Column(name = "patient_name", nullable = false)
-    @Audited
-    private String patientName;
-
-    @Column(name = "medical_record_no", length = 7)
-    @Audited
-    private String medicalRecordNo;
-
-    @Column(name = "patient_document", nullable = false, length = 10)
-    @Audited
-    private String patientDocument;
-
     @Column(name = "inpatient", nullable = false)
     @Audited
     private boolean inpatient = false;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "service_id")
+    @JoinColumn(name = "service_id", nullable = false)
     private ServiceSource service;
 
-    @Column(name = "service_type")
+    @Column(name = "service_type", nullable = false)
     @Audited
     private int serviceType;
 
-    @Column(name = "service_name")
+    @Column(name = "service_name", nullable = false)
     @Audited
     private String serviceName;
 
-    @Column(name = "service_value")
+    @Column(name = "service_value", nullable = false)
     @Audited
     private String serviceValue;
 
@@ -243,38 +227,6 @@ public class PatientInvoiceLine extends BaseModel {
 
     public void setPatientHistory(PatientHistory patientHistory) {
         this.patientHistory = patientHistory;
-    }
-
-    public String getPatientValue() {
-        return patientValue;
-    }
-
-    public void setPatientValue(String patientValue) {
-        this.patientValue = patientValue;
-    }
-
-    public String getPatientName() {
-        return patientName;
-    }
-
-    public void setPatientName(String patientName) {
-        this.patientName = patientName;
-    }
-
-    public String getMedicalRecordNo() {
-        return medicalRecordNo;
-    }
-
-    public void setMedicalRecordNo(String medicalRecordNo) {
-        this.medicalRecordNo = medicalRecordNo;
-    }
-
-    public String getPatientDocument() {
-        return patientDocument;
-    }
-
-    public void setPatientDocument(String patientDocument) {
-        this.patientDocument = patientDocument;
     }
 
     public boolean isInpatient() {

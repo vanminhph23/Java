@@ -8,6 +8,7 @@ import java.util.Date;
 
 @Entity
 @Table(name = "his_patient",
+        uniqueConstraints={@UniqueConstraint(columnNames = {"patient_value", "deleted"})},
         indexes = {@Index(name = "idx_patient_reg_date", columnList = "reg_date")})
 public class Patient extends BaseModel {
     @Id
@@ -19,7 +20,7 @@ public class Patient extends BaseModel {
     )
     private Long id;
 
-    @Column(name = "patient_value", nullable = false, unique = true)
+    @Column(name = "patient_value", nullable = false)
     @Audited
     private String patientValue;
 
