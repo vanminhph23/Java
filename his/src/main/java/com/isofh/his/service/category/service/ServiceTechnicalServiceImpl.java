@@ -76,7 +76,10 @@ public class ServiceTechnicalServiceImpl implements ServiceTechnicalService {
 
     @Override
     public ServiceTechnicalDto getDto(ServiceTechnical model) {
-        return null;
+        ServiceTechnicalDto dto = getModelMapper().map(model, getDtoClass());
+        getModelMapper().map(model.getService(), dto);
+
+        return dto;
     }
 
     @Transactional

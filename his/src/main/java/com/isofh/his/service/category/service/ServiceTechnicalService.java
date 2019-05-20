@@ -6,12 +6,4 @@ import com.isofh.his.repository.category.service.ServiceTechnicalRepository;
 import com.isofh.his.service.base.BaseService;
 
 public interface ServiceTechnicalService extends BaseService<ServiceTechnical, ServiceTechnicalDto, ServiceTechnicalRepository> {
-
-    ServiceTechnicalDto createDto(ServiceTechnicalDto technicalDto);
-
-    ServiceTechnicalDto updateDto(ServiceTechnicalDto technicalDto);
-
-    ServiceTechnical create(ServiceTechnical technical);
-
-    ServiceTechnical update(ServiceTechnical technical);
 }
