@@ -15,6 +15,7 @@ import org.springframework.web.multipart.MultipartFile;
 import javax.validation.Valid;
 
 @RestController
+@RequestMapping(path = "/departments")
 public class DepartmentController extends BaseController {
 
     private final static Logger logger = LoggerFactory.getLogger(DepartmentController.class);
@@ -22,22 +23,22 @@ public class DepartmentController extends BaseController {
     @Autowired
     private DepartmentService service;
 
-    @GetMapping("/departments/{id}")
+    @GetMapping("/{id}")
     public ResponseEntity<ResponseMsg> getById(@PathVariable Long id) {
-        return response("department", service.findDtoById(id));
+        return response(service.findDtoById(id));
     }
 
-    @PostMapping("/departments")
+    @PostMapping
     public ResponseEntity<ResponseMsg> create(@Valid @RequestBody DepartmentDto dto) {
-        return response("department", service.createDto(dto));
+        return response(service.createDto(dto));
     }
 
-    @PutMapping("/departments")
+    @PutMapping
     public ResponseEntity<ResponseMsg> update(@Valid @RequestBody DepartmentDto dto) {
-        return response("department", service.updateDto(dto));
+        return response(service.updateDto(dto));
     }
 
-    @PostMapping("/departments/excel")
+    @PostMapping("/excel")
     public ResponseEntity<InputStreamResource> importExcel(@RequestParam("file") MultipartFile file) {
         return response(service.importExcel(file, 1, 1));
     }

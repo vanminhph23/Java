@@ -15,31 +15,30 @@ import org.springframework.web.multipart.MultipartFile;
 import javax.validation.Valid;
 
 @RestController
+@RequestMapping(path = "/uoms")
 public class UOMController extends BaseController {
 
     private final static Logger logger = LoggerFactory.getLogger(UOMController.class);
 
-    private final String DATA_FIELD = "uom";
-
     @Autowired
     private UOMService service;
 
-    @GetMapping("/uoms/{id}")
+    @GetMapping("/{id}")
     public ResponseEntity<ResponseMsg> getById(@PathVariable Long id) {
-        return response(DATA_FIELD, service.findDtoById(id));
+        return response(service.findDtoById(id));
     }
 
-    @PostMapping("/uoms")
+    @PostMapping
     public ResponseEntity<ResponseMsg> create(@Valid @RequestBody UOMDto dto) {
-        return response(DATA_FIELD, service.createDto(dto));
+        return response(service.createDto(dto));
     }
 
-    @PutMapping("/uoms")
+    @PutMapping
     public ResponseEntity<ResponseMsg> update(@Valid @RequestBody UOMDto dto) {
-        return response(DATA_FIELD, service.updateDto(dto));
+        return response(service.updateDto(dto));
     }
 
-    @PostMapping("/uoms/excel")
+    @PostMapping("/excel")
     public ResponseEntity<InputStreamResource> importExcel(@RequestParam("file") MultipartFile file) {
         return response(service.importExcel(file, 1, 1));
     }

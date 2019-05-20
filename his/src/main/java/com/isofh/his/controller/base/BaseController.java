@@ -18,7 +18,7 @@ import java.util.Map;
 
 public class BaseController {
 
-    protected ResponseEntity response(int code, String message, Map<String, Object> data) {
+    protected ResponseEntity response(int code, String message, Object data) {
         return new ResponseEntity(new ResponseMsg(code, message, data), HttpStatus.OK);
     }
 
@@ -34,47 +34,16 @@ public class BaseController {
         }
     }
 
-    protected ResponseEntity response(String message, Map<String, Object> data) {
+    protected ResponseEntity response(String message, Object data) {
         return response(0, message , data);
     }
 
-    protected ResponseEntity response(Map<String, Object> data) {
+    protected ResponseEntity response(Object data) {
         return response(null, data);
     }
 
     protected ResponseEntity response(Exception ex) {
         return new ResponseEntity(new ResponseMsg(ex), HttpStatus.OK);
-    }
-
-    protected ResponseEntity response(int code, String message, List<String> keys, List<Object> values) throws BaseException {
-        int keySize = keys.size();
-        int valueSize = values.size();
-
-        if (keySize != valueSize) {
-            throw new BaseException("Keys and values must be the same size");
-        }
-
-        Map<String, Object> data = new HashMap<>();
-        for (int i = 0; i < keySize; i++) {
-            data.put(keys.get(i), values.get(i));
-        }
-
-        return response(code, message, data);
-    }
-
-    protected ResponseEntity response(int code, String message, String key, Object value) {
-        Map<String, Object> data = new HashMap<>();
-        data.put(key, value);
-
-        return response(code, message, data);
-    }
-
-    protected ResponseEntity response(String key, Object value) {
-        return response(null, key, value);
-    }
-
-    protected ResponseEntity response(String message, String key, Object value) {
-        return response(0, message, key, value);
     }
 
     protected ResponseEntity response(int code, String message) {

@@ -15,6 +15,7 @@ import org.springframework.web.multipart.MultipartFile;
 import javax.validation.Valid;
 
 @RestController
+@RequestMapping(path = "/reference-lists")
 public class ReferenceListController extends BaseController {
 
     private final static Logger logger = LoggerFactory.getLogger(ReferenceListController.class);
@@ -22,24 +23,20 @@ public class ReferenceListController extends BaseController {
     @Autowired
     private ReferenceListService service;
 
-    @GetMapping("/reference-lists/{id}")
+    @GetMapping("/{id}")
     public ResponseEntity<ResponseMsg> getById(@PathVariable Long id) {
-        return response("referenceList", service.findDtoById(id));
+        return response(service.findDtoById(id));
     }
 
-    @GetMapping("/reference-lists")
-    public ResponseEntity<ResponseMsg> getByValue(@RequestParam String referenceValue, @RequestParam int value) {
-        return response("referenceList", service.findDtoByReferenceValueAndValue(referenceValue, value));
-    }
 
-    @PostMapping("/reference-lists")
+    @PostMapping
     public ResponseEntity<ResponseMsg> create(@Valid @RequestBody ReferenceListDto dto) {
-        return response("referenceList", service.createDto(dto));
+        return response(service.createDto(dto));
     }
 
-    @PutMapping("/reference-lists")
+    @PutMapping
     public ResponseEntity<ResponseMsg> update(@Valid @RequestBody ReferenceListDto dto) {
-        return response("referenceList", service.updateDto(dto));
+        return response(service.updateDto(dto));
     }
 
     @PostMapping("/reference-lists/excel")

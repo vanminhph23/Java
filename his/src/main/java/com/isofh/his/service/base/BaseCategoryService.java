@@ -24,13 +24,9 @@ public interface BaseCategoryService<X extends BaseCategoryModel, Y extends Base
 
         autoFillFields(model);
 
-        try {
-            return save(model);
-        } catch (ConstraintViolationException e) {
-            validateDuplicateData(model);
+        validateDuplicateData(model);
 
-            throw e;
-        }
+        return save(model);
     }
 
     @Override
@@ -41,13 +37,9 @@ public interface BaseCategoryService<X extends BaseCategoryModel, Y extends Base
 
         autoFillFields(model);
 
-        try {
-            return save(model);
-        } catch (ConstraintViolationException e) {
-            validateDuplicateData(model);
+        validateDuplicateData(model);
 
-            throw e;
-        }
+        return save(model);
     }
 
     default String findNameById(Long id) {

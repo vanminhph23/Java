@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.*;
 import javax.validation.Valid;
 
 @RestController
+@RequestMapping(path = "/users")
 public class UserController extends BaseController {
 
     private final static Logger logger = LoggerFactory.getLogger(UserController.class);
@@ -20,18 +21,18 @@ public class UserController extends BaseController {
     @Autowired
     private UserService userService;
 
-    @GetMapping("/users/{id}")
+    @GetMapping("/{id}")
     public ResponseEntity<ResponseMsg> getById(@PathVariable Long id) {
-        return response("user", userService.findDtoById(id));
+        return response(userService.findDtoById(id));
     }
 
-    @PostMapping("/users")
+    @PostMapping
     public ResponseEntity<ResponseMsg> create(@Valid @RequestBody UserDto dto) {
-        return response("user", userService.createDto(dto));
+        return response(userService.createDto(dto));
     }
 
-    @PutMapping("/users")
+    @PutMapping
     public ResponseEntity<ResponseMsg> update(@Valid @RequestBody UserDto dto) {
-        return response("user", userService.updateDto(dto));
+        return response(userService.updateDto(dto));
     }
 }

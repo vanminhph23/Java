@@ -17,28 +17,27 @@ import org.springframework.web.multipart.MultipartFile;
 import javax.validation.Valid;
 
 @RestController
+@RequestMapping(path = "/dye-methods")
 public class DyeMethodController extends BaseController {
 
     private final static Logger logger = LoggerFactory.getLogger(DyeMethodController.class);
 
-    private final String DATA_FIELD = "dyeMethod";
-
     @Autowired
     private DyeMethodService service;
 
-    @GetMapping("/dye-methods/{id}")
+    @GetMapping("/{id}")
     public ResponseEntity<ResponseMsg> getById(@PathVariable Long id) {
-        return response(DATA_FIELD, service.findDtoById(id));
+        return response(service.findDtoById(id));
     }
 
-    @PostMapping("/dye-methods")
+    @PostMapping
     public ResponseEntity<ResponseMsg> create(@Valid @RequestBody DyeMethodDto dto) {
-        return response(DATA_FIELD, service.createDto(dto));
+        return response(service.createDto(dto));
     }
 
     @PutMapping("/dye-methods")
     public ResponseEntity<ResponseMsg> update(@Valid @RequestBody DyeMethodDto dto) {
-        return response(DATA_FIELD, service.updateDto(dto));
+        return response(service.updateDto(dto));
     }
 
     @PostMapping("/dye-methods/excel")

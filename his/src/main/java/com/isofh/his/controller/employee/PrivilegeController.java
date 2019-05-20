@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.*;
 import javax.validation.Valid;
 
 @RestController
+@RequestMapping(path = "/privileges")
 public class PrivilegeController extends BaseController {
 
     private final static Logger logger = LoggerFactory.getLogger(PrivilegeController.class);
@@ -20,18 +21,18 @@ public class PrivilegeController extends BaseController {
     @Autowired
     private PrivilegeService service;
 
-    @GetMapping("/privileges/{id}")
+    @GetMapping("/{id}")
     public ResponseEntity<ResponseMsg> getById(@PathVariable Long id) {
-        return response("privilege", service.findDtoById(id));
+        return response(service.findDtoById(id));
     }
 
-    @PostMapping("/privileges")
+    @PostMapping
     public ResponseEntity<ResponseMsg> create(@Valid @RequestBody PrivilegeDto dto) {
-        return response("privilege", service.createDto(dto));
+        return response(service.createDto(dto));
     }
 
     @PutMapping("/privileges")
     public ResponseEntity<ResponseMsg> update(@Valid @RequestBody PrivilegeDto dto) {
-        return response("privilege", service.updateDto(dto));
+        return response(service.updateDto(dto));
     }
 }

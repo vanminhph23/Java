@@ -1,5 +1,6 @@
 package com.isofh.his.controller.core;
 
+import com.isofh.his.controller.base.BaseCategoryController;
 import com.isofh.his.controller.base.BaseController;
 import com.isofh.his.dto.base.ResponseMsg;
 import com.isofh.his.dto.core.ReferenceDto;
@@ -15,31 +16,27 @@ import org.springframework.web.multipart.MultipartFile;
 import javax.validation.Valid;
 
 @RestController
-public class ReferenceController extends BaseController {
+@RequestMapping(path = "/references")
+public class ReferenceController extends BaseCategoryController {
 
     private final static Logger logger = LoggerFactory.getLogger(ReferenceController.class);
 
     @Autowired
     private ReferenceService service;
 
-    @GetMapping("/references/{id}")
+    @GetMapping("/{id}")
     public ResponseEntity<ResponseMsg> getById(@PathVariable Long id) {
-        return response("reference", service.findDtoById(id));
+        return response(service.findDtoById(id));
     }
 
-    @GetMapping("/references")
-    public ResponseEntity<ResponseMsg> getByValue(@RequestParam String value) {
-        return response("reference", service.findDtoByValue(value));
-    }
-
-    @PostMapping("/references")
+    @PostMapping
     public ResponseEntity<ResponseMsg> create(@Valid @RequestBody ReferenceDto dto) {
-        return response("reference", service.createDto(dto));
+        return response(service.createDto(dto));
     }
 
-    @PutMapping("/references")
+    @PutMapping
     public ResponseEntity<ResponseMsg> update(@Valid @RequestBody ReferenceDto dto) {
-        return response("reference", service.updateDto(dto));
+        return response(service.updateDto(dto));
     }
 
     @PostMapping("/references/excel")

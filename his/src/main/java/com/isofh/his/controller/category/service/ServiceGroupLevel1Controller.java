@@ -1,6 +1,6 @@
 package com.isofh.his.controller.category.service;
 
-import com.isofh.his.controller.base.BaseController;
+import com.isofh.his.controller.base.BaseCategoryController;
 import com.isofh.his.dto.base.ResponseMsg;
 import com.isofh.his.dto.category.service.ServiceGroupLevel1Dto;
 import com.isofh.his.service.category.service.ServiceGroupLevel1Service;
@@ -15,29 +15,30 @@ import org.springframework.web.multipart.MultipartFile;
 import javax.validation.Valid;
 
 @RestController
-public class ServiceGroupLevel1Controller extends BaseController {
+@RequestMapping(path = "/service-group-level1s")
+public class ServiceGroupLevel1Controller extends BaseCategoryController {
 
     private final static Logger logger = LoggerFactory.getLogger(ServiceGroupLevel1Controller.class);
 
     @Autowired
     private ServiceGroupLevel1Service service;
 
-    @GetMapping("/service-group-level1s/{id}")
+    @GetMapping("/{id}")
     public ResponseEntity<ResponseMsg> getById(@PathVariable Long id) {
-        return response("serviceGroupLevel1", service.findDtoById(id));
+        return response(service.findDtoById(id));
     }
 
-    @PostMapping("/service-group-level1s")
+    @PostMapping
     public ResponseEntity<ResponseMsg> create(@Valid @RequestBody ServiceGroupLevel1Dto dto) {
-        return response("serviceGroupLevel1", service.createDto(dto));
+        return response(service.createDto(dto));
     }
 
-    @PutMapping("/service-group-level1s")
+    @PutMapping
     public ResponseEntity<ResponseMsg> update(@Valid @RequestBody ServiceGroupLevel1Dto dto) {
-        return response("serviceGroupLevel1", service.updateDto(dto));
+        return response(service.updateDto(dto));
     }
 
-    @PostMapping("/service-group-level1s/excel")
+    @PostMapping("/excel")
     public ResponseEntity<InputStreamResource> importExcel(@RequestParam("file") MultipartFile file) {
         return response(service.importExcel(file, 1, 1));
     }

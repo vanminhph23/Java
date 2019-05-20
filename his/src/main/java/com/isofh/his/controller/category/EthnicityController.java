@@ -15,6 +15,7 @@ import org.springframework.web.multipart.MultipartFile;
 import javax.validation.Valid;
 
 @RestController
+@RequestMapping(path = "/ethnicities")
 public class EthnicityController extends BaseController {
 
     private final static Logger logger = LoggerFactory.getLogger(EthnicityController.class);
@@ -22,19 +23,19 @@ public class EthnicityController extends BaseController {
     @Autowired
     private EthnicityService service;
 
-    @GetMapping("/ethnicities/{id}")
+    @GetMapping("/{id}")
     public ResponseEntity<ResponseMsg> getById(@PathVariable Long id) {
-        return response("zone", service.findDtoById(id));
+        return response(service.findDtoById(id));
     }
 
-    @PostMapping("/ethnicities")
+    @PostMapping
     public ResponseEntity<ResponseMsg> create(@Valid @RequestBody EthnicityDto dto) {
-        return response("zone", service.createDto(dto));
+        return response(service.createDto(dto));
     }
 
-    @PutMapping("/ethnicities")
+    @PutMapping
     public ResponseEntity<ResponseMsg> update(@Valid @RequestBody EthnicityDto dto) {
-        return response("zone", service.updateDto(dto));
+        return response(service.updateDto(dto));
     }
 
     @PostMapping("/ethnicities/excel")

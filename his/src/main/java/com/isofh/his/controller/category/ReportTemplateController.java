@@ -15,31 +15,30 @@ import org.springframework.web.multipart.MultipartFile;
 import javax.validation.Valid;
 
 @RestController
+@RequestMapping(path = "/report-templates")
 public class ReportTemplateController extends BaseController {
 
     private final static Logger logger = LoggerFactory.getLogger(ReportTemplateController.class);
 
-    private final String DATA_FIELD = "reportTemplate";
-
     @Autowired
     private ReportTemplateService service;
 
-    @GetMapping("/report-templates/{id}")
+    @GetMapping("/{id}")
     public ResponseEntity<ResponseMsg> getById(@PathVariable Long id) {
-        return response(DATA_FIELD, service.findDtoById(id));
+        return response(service.findDtoById(id));
     }
 
-    @PostMapping("/report-templates")
+    @PostMapping
     public ResponseEntity<ResponseMsg> create(@Valid @RequestBody ReportTemplateDto dto) {
-        return response(DATA_FIELD, service.createDto(dto));
+        return response(service.createDto(dto));
     }
 
-    @PutMapping("/report-templates")
+    @PutMapping
     public ResponseEntity<ResponseMsg> update(@Valid @RequestBody ReportTemplateDto dto) {
-        return response(DATA_FIELD, service.updateDto(dto));
+        return response(service.updateDto(dto));
     }
 
-    @PostMapping("/report-templates/excel")
+    @PostMapping("/excel")
     public ResponseEntity<InputStreamResource> importExcel(@RequestParam("file") MultipartFile file) {
         return response(service.importExcel(file, 1, 1));
     }

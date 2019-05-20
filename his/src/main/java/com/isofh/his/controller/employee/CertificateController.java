@@ -15,6 +15,7 @@ import org.springframework.web.multipart.MultipartFile;
 import javax.validation.Valid;
 
 @RestController
+@RequestMapping(path = "/certificates")
 public class CertificateController extends BaseController {
 
     private final static Logger logger = LoggerFactory.getLogger(CertificateController.class);
@@ -22,22 +23,22 @@ public class CertificateController extends BaseController {
     @Autowired
     private CertificateService service;
 
-    @GetMapping("/certificates/{id}")
+    @GetMapping("/{id}")
     public ResponseEntity<ResponseMsg> getById(@PathVariable Long id) {
-        return response("certificate", service.findDtoById(id));
+        return response(service.findDtoById(id));
     }
 
-    @PostMapping("/certificates")
+    @PostMapping
     public ResponseEntity<ResponseMsg> create(@Valid @RequestBody CertificateDto dto) {
-        return response("certificate", service.createDto(dto));
+        return response(service.createDto(dto));
     }
 
-    @PutMapping("/certificates")
+    @PutMapping
     public ResponseEntity<ResponseMsg> update(@Valid @RequestBody CertificateDto dto) {
-        return response("certificate", service.updateDto(dto));
+        return response(service.updateDto(dto));
     }
 
-    @PostMapping("/certificates/excel")
+    @PostMapping("/excel")
     public ResponseEntity<InputStreamResource> importExcel(@RequestParam("file") MultipartFile file) {
         return response(service.importExcel(file, 1, 1));
     }

@@ -15,6 +15,7 @@ import org.springframework.web.multipart.MultipartFile;
 import javax.validation.Valid;
 
 @RestController
+@RequestMapping(path = "/service-group-level3s")
 public class ServiceGroupLevel3Controller extends BaseController {
 
     private final static Logger logger = LoggerFactory.getLogger(ServiceGroupLevel3Controller.class);
@@ -22,22 +23,22 @@ public class ServiceGroupLevel3Controller extends BaseController {
     @Autowired
     private ServiceGroupLevel3Service service;
 
-    @GetMapping("/service-group-level3s/{id}")
+    @GetMapping("/{id}")
     public ResponseEntity<ResponseMsg> getById(@PathVariable Long id) {
-        return response("serviceGroupLevel1", service.findDtoById(id));
+        return response(service.findDtoById(id));
     }
 
-    @PostMapping("/service-group-level3s")
+    @PostMapping
     public ResponseEntity<ResponseMsg> create(@Valid @RequestBody ServiceGroupLevel3Dto dto) {
-        return response("serviceGroupLevel1", service.createDto(dto));
+        return response(service.createDto(dto));
     }
 
-    @PutMapping("/service-group-level3s")
+    @PutMapping
     public ResponseEntity<ResponseMsg> update(@Valid @RequestBody ServiceGroupLevel3Dto dto) {
-        return response("serviceGroupLevel1", service.updateDto(dto));
+        return response(service.updateDto(dto));
     }
 
-    @PostMapping("/service-group-level3s/excel")
+    @PostMapping("/excel")
     public ResponseEntity<InputStreamResource> importExcel(@RequestParam("file") MultipartFile file) {
         return response(service.importExcel(file, 1, 1));
     }

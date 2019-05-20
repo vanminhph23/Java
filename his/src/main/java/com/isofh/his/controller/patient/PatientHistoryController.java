@@ -20,6 +20,7 @@ import org.springframework.web.multipart.MultipartFile;
 import javax.validation.Valid;
 
 @RestController
+@RequestMapping(path = "/patient-histories")
 public class PatientHistoryController extends BaseController {
 
     private final static Logger logger = LoggerFactory.getLogger(PatientHistoryController.class);
@@ -30,14 +31,14 @@ public class PatientHistoryController extends BaseController {
     @Autowired
     private InsuranceCardPortalService insuranceCardPortalService;
 
-    @GetMapping("/patient-histories/{id}")
+    @GetMapping("/{id}")
     public ResponseEntity<ResponseMsg> getById(@PathVariable Long id) {
         PatientHistoryDto ph = service.findDtoById(id);
 
-        return response("patientHistory", ph);
+        return response(ph);
     }
 
-    @GetMapping("/patient-histories/id-no/{idNo}")
+    @GetMapping("/id-no/{idNo}")
     public ResponseEntity<ResponseMsg> getByIdNo(@PathVariable String idNo) {
 
         PatientHistory ph = service.findLastByIdNo(idNo);
@@ -48,10 +49,10 @@ public class PatientHistoryController extends BaseController {
 
         PatientHistoryDto dto = service.getDto(ph);
 
-        return response("patientHistory", dto);
+        return response(dto);
     }
 
-    @GetMapping("/patient-histories/patient-value/{patientValue}")
+    @GetMapping("/patient-value/{patientValue}")
     public ResponseEntity<ResponseMsg> getByPatientValue(@PathVariable String patientValue) {
 
         PatientHistory ph = service.findLastByPatientValue(patientValue);
@@ -62,30 +63,30 @@ public class PatientHistoryController extends BaseController {
 
         PatientHistoryDto dto = service.getDto(ph);
 
-        return response("patientHistory", dto);
+        return response(dto);
     }
 
-    @PostMapping("/patient-histories/insurance-card")
+    @PostMapping("/insurance-card")
     public ResponseEntity<ResponseMsg> getPatientInsuranceCard(@Valid @RequestBody BenhNhan bn) {
         TheBH bh = insuranceCardPortalService.getPatientInsuranceCard(bn);
 
-        return response("insuranceCard", bh);
+        return response(bh);
     }
 
-    @PostMapping("/patient-histories")
+    @PostMapping
     public ResponseEntity<ResponseMsg> create(@Valid @RequestBody PatientHistoryDto dto) {
         PatientHistoryDto ph = service.createDto(dto);
-        return response("patientHistory", ph);
+        return response(ph);
     }
 
-    @PutMapping("/patient-histories")
+    @PutMapping
     public ResponseEntity<ResponseMsg> update(@Valid @RequestBody PatientHistoryDto dto) {
         PatientHistoryDto ph = service.updateDto(dto);
 
-        return response("patientHistory", ph);
+        return response(ph);
     }
 
-    @PostMapping("/patient-histories/excel")
+    @PostMapping("/excel")
     public ResponseEntity<InputStreamResource> importExcel(@RequestParam("file") MultipartFile file) {
         String responseStr = service.importExcel(file, 1, 1);
 
