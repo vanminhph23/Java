@@ -22,7 +22,6 @@ public class RoleController extends BaseCategoryController<RoleDto, RoleService>
     @Autowired
     private RoleService service;
 
-
     @Override
     protected RoleService getService() {
         return this.service;

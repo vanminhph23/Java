@@ -24,7 +24,6 @@ public class DiseaseController extends BaseCategoryController<DiseaseDto, Diseas
     @Autowired
     private DiseaseService service;
 
-
     @Override
     protected DiseaseService getService() {
         return this.service;

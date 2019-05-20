@@ -24,7 +24,6 @@ public class JobController extends BaseCategoryController<JobDto, JobService> {
     @Autowired
     private JobService service;
 
-
     @Override
     protected JobService getService() {
         return this.service;

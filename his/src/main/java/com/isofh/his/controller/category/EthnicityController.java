@@ -24,7 +24,6 @@ public class EthnicityController extends BaseCategoryController<EthnicityDto, Et
     @Autowired
     private EthnicityService service;
 
-
     @Override
     protected EthnicityService getService() {
         return this.service;

@@ -24,7 +24,6 @@ public class InsuranceCardController extends BaseCategoryController<InsuranceCar
     @Autowired
     private InsuranceCardService service;
 
-
     @Override
     protected InsuranceCardService getService() {
         return this.service;
