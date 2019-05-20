@@ -7,7 +7,7 @@ import org.hibernate.envers.Audited;
 import javax.persistence.*;
 
 @Entity
-@Table(name = "his_service")
+@Table(name = "his_service", uniqueConstraints={@UniqueConstraint(columnNames = {"value", "service_type", "deleted"})})
 public class ServiceSource extends BaseCategoryModel {
     @Id
     @GeneratedValue(generator = "service_generator")
