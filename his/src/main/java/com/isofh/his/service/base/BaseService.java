@@ -88,7 +88,7 @@ public interface BaseService<X extends BaseModel, Y extends BaseDto, Z extends B
     default void validateIdBeforeUpdate(X model) {
         Long id = model.getId();
 
-        if (id == null && id <= 0) {
+        if (id == null || id <= 0) {
             throw new InvalidDataException("Cannot update entity with id null");
         }
     }

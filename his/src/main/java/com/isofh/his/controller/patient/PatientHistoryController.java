@@ -8,6 +8,7 @@ import com.isofh.his.insurance.card.model.BenhNhan;
 import com.isofh.his.insurance.card.model.TheBH;
 import com.isofh.his.insurance.card.service.InsuranceCardPortalService;
 import com.isofh.his.model.patient.info.PatientHistory;
+import com.isofh.his.service.base.BaseService;
 import com.isofh.his.service.patient.info.PatientHistoryService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -31,11 +32,14 @@ public class PatientHistoryController extends BaseController {
     @Autowired
     private InsuranceCardPortalService insuranceCardPortalService;
 
-    @GetMapping("/{id}")
-    public ResponseEntity<ResponseMsg> getById(@PathVariable Long id) {
-        PatientHistoryDto ph = service.findDtoById(id);
+    @Override
+    protected BaseService getService() {
+        return this.service;
+    }
 
-        return response(ph);
+    @Override
+    protected Logger getLogger() {
+        return this.logger;
     }
 
     @GetMapping("/id-no/{idNo}")
@@ -72,25 +76,4 @@ public class PatientHistoryController extends BaseController {
 
         return response(bh);
     }
-
-    @PostMapping
-    public ResponseEntity<ResponseMsg> create(@Valid @RequestBody PatientHistoryDto dto) {
-        PatientHistoryDto ph = service.createDto(dto);
-        return response(ph);
-    }
-
-    @PutMapping
-    public ResponseEntity<ResponseMsg> update(@Valid @RequestBody PatientHistoryDto dto) {
-        PatientHistoryDto ph = service.updateDto(dto);
-
-        return response(ph);
-    }
-
-    @PostMapping("/excel")
-    public ResponseEntity<InputStreamResource> importExcel(@RequestParam("file") MultipartFile file) {
-        String responseStr = service.importExcel(file, 1, 1);
-
-        return response(responseStr);
-    }
 }
-;

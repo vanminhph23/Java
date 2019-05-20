@@ -1,5 +1,6 @@
 package com.isofh.his.controller.employee;
 
+import com.isofh.his.controller.base.BaseCategoryController;
 import com.isofh.his.controller.base.BaseController;
 import com.isofh.his.dto.base.ResponseMsg;
 import com.isofh.his.dto.employee.PrivilegeDto;
@@ -14,25 +15,20 @@ import javax.validation.Valid;
 
 @RestController
 @RequestMapping(path = "/privileges")
-public class PrivilegeController extends BaseController {
+public class PrivilegeController extends BaseCategoryController<PrivilegeDto, PrivilegeService> {
 
     private final static Logger logger = LoggerFactory.getLogger(PrivilegeController.class);
 
     @Autowired
     private PrivilegeService service;
 
-    @GetMapping("/{id}")
-    public ResponseEntity<ResponseMsg> getById(@PathVariable Long id) {
-        return response(service.findDtoById(id));
+    @Override
+    protected PrivilegeService getService() {
+        return this.service;
     }
 
-    @PostMapping
-    public ResponseEntity<ResponseMsg> create(@Valid @RequestBody PrivilegeDto dto) {
-        return response(service.createDto(dto));
-    }
-
-    @PutMapping("/privileges")
-    public ResponseEntity<ResponseMsg> update(@Valid @RequestBody PrivilegeDto dto) {
-        return response(service.updateDto(dto));
+    @Override
+    protected Logger getLogger() {
+        return this.logger;
     }
 }

@@ -1,5 +1,6 @@
 package com.isofh.his.controller.category;
 
+import com.isofh.his.controller.base.BaseCategoryController;
 import com.isofh.his.controller.base.BaseController;
 import com.isofh.his.dto.base.ResponseMsg;
 import com.isofh.his.dto.category.DistrictDto;
@@ -16,30 +17,20 @@ import javax.validation.Valid;
 
 @RestController
 @RequestMapping(path = "/districts")
-public class DistrictController extends BaseController {
+public class DistrictController extends BaseCategoryController<DistrictDto, DistrictService> {
 
     private final static Logger logger = LoggerFactory.getLogger(DistrictController.class);
 
     @Autowired
     private DistrictService service;
 
-    @GetMapping("/{id}")
-    public ResponseEntity<ResponseMsg> getById(@PathVariable Long id) {
-        return response(service.findDtoById(id));
+    @Override
+    protected DistrictService getService() {
+        return this.service;
     }
 
-    @PostMapping
-    public ResponseEntity<ResponseMsg> create(@Valid @RequestBody DistrictDto dto) {
-        return response(service.createDto(dto));
-    }
-
-    @PutMapping
-    public ResponseEntity<ResponseMsg> update(@Valid @RequestBody DistrictDto dto) {
-        return response(service.updateDto(dto));
-    }
-
-    @PostMapping("/excel")
-    public ResponseEntity<InputStreamResource> importExcel(@RequestParam("file") MultipartFile file) {
-        return response(service.importExcel(file, 1, 1));
+    @Override
+    protected Logger getLogger() {
+        return this.logger;
     }
 }

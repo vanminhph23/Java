@@ -17,30 +17,20 @@ import javax.validation.Valid;
 
 @RestController
 @RequestMapping(path = "/references")
-public class ReferenceController extends BaseCategoryController {
+public class ReferenceController extends BaseCategoryController<ReferenceDto, ReferenceService> {
 
     private final static Logger logger = LoggerFactory.getLogger(ReferenceController.class);
 
     @Autowired
     private ReferenceService service;
 
-    @GetMapping("/{id}")
-    public ResponseEntity<ResponseMsg> getById(@PathVariable Long id) {
-        return response(service.findDtoById(id));
+    @Override
+    protected ReferenceService getService() {
+        return this.service;
     }
 
-    @PostMapping
-    public ResponseEntity<ResponseMsg> create(@Valid @RequestBody ReferenceDto dto) {
-        return response(service.createDto(dto));
-    }
-
-    @PutMapping
-    public ResponseEntity<ResponseMsg> update(@Valid @RequestBody ReferenceDto dto) {
-        return response(service.updateDto(dto));
-    }
-
-    @PostMapping("/references/excel")
-    public ResponseEntity<InputStreamResource> importExcel(@RequestParam("file") MultipartFile file) {
-        return response(service.importExcel(file, 1, 1));
+    @Override
+    protected Logger getLogger() {
+        return this.logger;
     }
 }

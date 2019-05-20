@@ -1,6 +1,6 @@
 package com.isofh.his.controller.employee;
 
-import com.isofh.his.controller.base.BaseController;
+import com.isofh.his.controller.base.BaseResponseController;
 import com.isofh.his.dto.base.ResponseMsg;
 import com.isofh.his.dto.employee.ChooseRoleRequest;
 import com.isofh.his.dto.employee.JwtAuthenticationResponse;
@@ -29,7 +29,7 @@ import java.util.Map;
 
 @RestController
 @RequestMapping("/auth")
-public class AuthController extends BaseController {
+public class AuthController extends BaseResponseController {
 
     private final static Logger logger = LoggerFactory.getLogger(AuthController.class);
 
@@ -47,6 +47,11 @@ public class AuthController extends BaseController {
 
     @Autowired
     JasperReportServiceImpl reportService;
+
+    @Override
+    protected Logger getLogger() {
+        return this.logger;
+    }
 
     @RequestMapping(value = "/login", method = RequestMethod.POST)
     public ResponseEntity<ResponseMsg> login(@Valid @RequestBody LoginRequest request) {

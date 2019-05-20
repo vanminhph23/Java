@@ -1,52 +1,44 @@
 package com.isofh.his.controller.base;
 
+import com.isofh.his.dto.base.BaseDto;
 import com.isofh.his.dto.base.ResponseMsg;
-import com.isofh.his.exception.BaseException;
 import com.isofh.his.exception.storage.StorageFileNotFoundException;
+import com.isofh.his.service.base.BaseService;
 import org.apache.commons.io.FileUtils;
+import org.slf4j.Logger;
 import org.springframework.core.io.InputStreamResource;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
+import javax.validation.Valid;
 import java.io.ByteArrayInputStream;
 import java.io.File;
 import java.io.IOException;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
 
-public class BaseController {
+public abstract class BaseController<Y extends BaseDto, S extends BaseService> extends BaseResponseController {
 
-    protected ResponseEntity response(int code, String message, Object data) {
-        return new ResponseEntity(new ResponseMsg(code, message, data), HttpStatus.OK);
+    protected abstract S getService();
+
+    @GetMapping("/{id}")
+    public ResponseEntity<ResponseMsg> getById(@PathVariable Long id) {
+        return response(getService().findDtoById(id));
     }
 
-    protected ResponseEntity response(String fileName) {
-        try {
-            File file = new File(fileName);
-            HttpHeaders headers = new HttpHeaders();
-            headers.add("Content-Disposition", "attachment; filename=" + file.getName());
-
-            return new ResponseEntity(new InputStreamResource(new ByteArrayInputStream(FileUtils.readFileToByteArray(file))), headers, HttpStatus.OK);
-        } catch (IOException e) {
-            throw new StorageFileNotFoundException("Could not read file: " + fileName);
-        }
+    @PostMapping
+    public ResponseEntity<ResponseMsg> create(@Valid @RequestBody Y dto) {
+        return response(getService().createDto(dto));
     }
 
-    protected ResponseEntity response(String message, Object data) {
-        return response(0, message , data);
+    @PutMapping
+    public ResponseEntity<ResponseMsg> update(@Valid @RequestBody Y dto) {
+        return response(getService().updateDto(dto));
     }
 
-    protected ResponseEntity response(Object data) {
-        return response(null, data);
-    }
-
-    protected ResponseEntity response(Exception ex) {
-        return new ResponseEntity(new ResponseMsg(ex), HttpStatus.OK);
-    }
-
-    protected ResponseEntity response(int code, String message) {
-        return response(code, message, null);
+    @PostMapping("/excel")
+    public ResponseEntity<InputStreamResource> importExcel(@RequestParam("file") MultipartFile file) {
+        return response(getService().importExcel(file, 1, 1));
     }
 }

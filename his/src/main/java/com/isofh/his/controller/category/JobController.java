@@ -1,5 +1,6 @@
 package com.isofh.his.controller.category;
 
+import com.isofh.his.controller.base.BaseCategoryController;
 import com.isofh.his.controller.base.BaseController;
 import com.isofh.his.dto.base.ResponseMsg;
 import com.isofh.his.dto.category.JobDto;
@@ -16,30 +17,21 @@ import javax.validation.Valid;
 
 @RestController
 @RequestMapping(path = "/jobs")
-public class JobController extends BaseController {
+public class JobController extends BaseCategoryController<JobDto, JobService> {
 
     private final static Logger logger = LoggerFactory.getLogger(JobController.class);
 
     @Autowired
     private JobService service;
 
-    @GetMapping("/{id}")
-    public ResponseEntity<ResponseMsg> getById(@PathVariable Long id) {
-        return response(service.findDtoById(id));
+
+    @Override
+    protected JobService getService() {
+        return this.service;
     }
 
-    @PostMapping
-    public ResponseEntity<ResponseMsg> create(@Valid @RequestBody JobDto dto) {
-        return response( service.createDto(dto));
-    }
-
-    @PutMapping
-    public ResponseEntity<ResponseMsg> update(@Valid @RequestBody JobDto dto) {
-        return response(service.updateDto(dto));
-    }
-
-    @PostMapping("/excel")
-    public ResponseEntity<InputStreamResource> importExcel(@RequestParam("file") MultipartFile file) {
-        return response(service.importExcel(file, 1, 1));
+    @Override
+    protected Logger getLogger() {
+        return this.logger;
     }
 }

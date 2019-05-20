@@ -4,6 +4,7 @@ import com.isofh.his.controller.base.BaseController;
 import com.isofh.his.dto.base.ResponseMsg;
 import com.isofh.his.dto.category.service.ServiceGroupLevel1Dto;
 import com.isofh.his.dto.category.service.ServiceTechnicalDto;
+import com.isofh.his.service.base.BaseCategoryService;
 import com.isofh.his.service.category.service.ServiceTechnicalService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -17,30 +18,20 @@ import javax.validation.Valid;
 
 @RestController
 @RequestMapping(path = "/service-technical")
-public class ServiceTechnicalController extends BaseController {
+public class ServiceTechnicalController extends BaseController<ServiceTechnicalDto, ServiceTechnicalService> {
 
     private final static Logger logger = LoggerFactory.getLogger(ServiceTechnicalController.class);
 
     @Autowired
     private ServiceTechnicalService service;
 
-    @GetMapping("/{id}")
-    public ResponseEntity<ResponseMsg> getById(@PathVariable Long id) {
-        return response(service.findDtoById(id));
+    @Override
+    protected ServiceTechnicalService getService() {
+        return this.service;
     }
 
-    @PostMapping
-    public ResponseEntity<ResponseMsg> create(@Valid @RequestBody ServiceTechnicalDto dto) {
-        return response(service.createDto(dto));
-    }
-
-    @PutMapping
-    public ResponseEntity<ResponseMsg> update(@Valid @RequestBody ServiceTechnicalDto dto) {
-        return response(service.updateDto(dto));
-    }
-
-    @PostMapping("/excel")
-    public ResponseEntity<InputStreamResource> importExcel(@RequestParam("file") MultipartFile file) {
-        return response(service.importExcel(file, 1, 1));
+    @Override
+    protected Logger getLogger() {
+        return this.logger;
     }
 }

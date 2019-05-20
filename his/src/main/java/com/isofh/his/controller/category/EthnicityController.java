@@ -1,5 +1,6 @@
 package com.isofh.his.controller.category;
 
+import com.isofh.his.controller.base.BaseCategoryController;
 import com.isofh.his.controller.base.BaseController;
 import com.isofh.his.dto.base.ResponseMsg;
 import com.isofh.his.dto.category.EthnicityDto;
@@ -16,30 +17,21 @@ import javax.validation.Valid;
 
 @RestController
 @RequestMapping(path = "/ethnicities")
-public class EthnicityController extends BaseController {
+public class EthnicityController extends BaseCategoryController<EthnicityDto, EthnicityService> {
 
     private final static Logger logger = LoggerFactory.getLogger(EthnicityController.class);
 
     @Autowired
     private EthnicityService service;
 
-    @GetMapping("/{id}")
-    public ResponseEntity<ResponseMsg> getById(@PathVariable Long id) {
-        return response(service.findDtoById(id));
+
+    @Override
+    protected EthnicityService getService() {
+        return this.service;
     }
 
-    @PostMapping
-    public ResponseEntity<ResponseMsg> create(@Valid @RequestBody EthnicityDto dto) {
-        return response(service.createDto(dto));
-    }
-
-    @PutMapping
-    public ResponseEntity<ResponseMsg> update(@Valid @RequestBody EthnicityDto dto) {
-        return response(service.updateDto(dto));
-    }
-
-    @PostMapping("/ethnicities/excel")
-    public ResponseEntity<InputStreamResource> importExcel(@RequestParam("file") MultipartFile file) {
-        return response(service.importExcel(file, 1, 1));
+    @Override
+    protected Logger getLogger() {
+        return this.logger;
     }
 }

@@ -1,5 +1,6 @@
 package com.isofh.his.controller.employee;
 
+import com.isofh.his.controller.base.BaseCategoryController;
 import com.isofh.his.controller.base.BaseController;
 import com.isofh.his.dto.base.ResponseMsg;
 import com.isofh.his.dto.employee.CertificateDto;
@@ -16,30 +17,20 @@ import javax.validation.Valid;
 
 @RestController
 @RequestMapping(path = "/certificates")
-public class CertificateController extends BaseController {
+public class CertificateController extends BaseCategoryController<CertificateDto, CertificateService> {
 
     private final static Logger logger = LoggerFactory.getLogger(CertificateController.class);
 
     @Autowired
     private CertificateService service;
 
-    @GetMapping("/{id}")
-    public ResponseEntity<ResponseMsg> getById(@PathVariable Long id) {
-        return response(service.findDtoById(id));
+    @Override
+    protected CertificateService getService() {
+        return this.service;
     }
 
-    @PostMapping
-    public ResponseEntity<ResponseMsg> create(@Valid @RequestBody CertificateDto dto) {
-        return response(service.createDto(dto));
-    }
-
-    @PutMapping
-    public ResponseEntity<ResponseMsg> update(@Valid @RequestBody CertificateDto dto) {
-        return response(service.updateDto(dto));
-    }
-
-    @PostMapping("/excel")
-    public ResponseEntity<InputStreamResource> importExcel(@RequestParam("file") MultipartFile file) {
-        return response(service.importExcel(file, 1, 1));
+    @Override
+    protected Logger getLogger() {
+        return this.logger;
     }
 }

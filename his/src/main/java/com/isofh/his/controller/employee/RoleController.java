@@ -1,5 +1,6 @@
 package com.isofh.his.controller.employee;
 
+import com.isofh.his.controller.base.BaseCategoryController;
 import com.isofh.his.controller.base.BaseController;
 import com.isofh.his.dto.base.ResponseMsg;
 import com.isofh.his.dto.employee.RoleDto;
@@ -14,25 +15,21 @@ import javax.validation.Valid;
 
 @RestController
 @RequestMapping(path = "/roles")
-public class RoleController extends BaseController {
+public class RoleController extends BaseCategoryController<RoleDto, RoleService> {
 
     private final static Logger logger = LoggerFactory.getLogger(RoleController.class);
 
     @Autowired
     private RoleService service;
 
-    @GetMapping("/{id}")
-    public ResponseEntity<ResponseMsg> getById(@PathVariable Long id) {
-        return response(service.findDtoById(id));
+
+    @Override
+    protected RoleService getService() {
+        return this.service;
     }
 
-    @PostMapping
-    public ResponseEntity<ResponseMsg> create(@Valid @RequestBody RoleDto dto) {
-        return response(service.createDto(dto));
-    }
-
-    @PutMapping
-    public ResponseEntity<ResponseMsg> update(@Valid @RequestBody RoleDto dto) {
-        return response(service.updateDto(dto));
+    @Override
+    protected Logger getLogger() {
+        return this.logger;
     }
 }
