@@ -1,6 +1,7 @@
 package com.isofh.his.model.patient.info;
 
 import com.isofh.his.model.base.patient.BasePatientModel;
+import com.isofh.his.model.patient.service.PatientServiceCheckUp;
 import org.hibernate.envers.Audited;
 
 import javax.persistence.*;
@@ -20,6 +21,9 @@ public class PatientVitalSign extends BasePatientModel {
 
     @OneToOne(fetch = FetchType.LAZY, mappedBy = "patientVitalSign")
     private PatientHistory patientHistory;
+
+    @OneToOne(fetch = FetchType.LAZY, mappedBy = "patientVitalSign")
+    private PatientServiceCheckUp patientServiceCheckUp;
 
     @Column(name = "blood_pressure")
     @Audited
@@ -65,6 +69,14 @@ public class PatientVitalSign extends BasePatientModel {
 
     public void setPatientHistory(PatientHistory patientHistory) {
         this.patientHistory = patientHistory;
+    }
+
+    public PatientServiceCheckUp getPatientServiceCheckUp() {
+        return patientServiceCheckUp;
+    }
+
+    public void setPatientServiceCheckUp(PatientServiceCheckUp patientServiceCheckUp) {
+        this.patientServiceCheckUp = patientServiceCheckUp;
     }
 
     public Integer getBloodPressure() {

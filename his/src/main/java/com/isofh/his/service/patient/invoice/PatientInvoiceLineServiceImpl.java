@@ -79,4 +79,6 @@ public class PatientInvoiceLineServiceImpl implements PatientInvoiceLineService 
 
         return getRepository().findNotPaidServiceByInsuranceNumber(insuranceNumber, patientHistoryId);
     }
+
+
 }

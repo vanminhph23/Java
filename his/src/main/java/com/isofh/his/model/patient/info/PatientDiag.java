@@ -1,6 +1,7 @@
 package com.isofh.his.model.patient.info;
 
 import com.isofh.his.model.base.patient.BasePatientModel;
+import com.isofh.his.model.patient.service.PatientServiceCheckUp;
 import org.hibernate.envers.Audited;
 
 import javax.persistence.*;
@@ -20,6 +21,9 @@ public class PatientDiag extends BasePatientModel {
 
     @OneToOne(fetch = FetchType.LAZY, mappedBy = "patientDiag")
     private PatientHistory patientHistory;
+
+    @OneToOne(fetch = FetchType.LAZY, mappedBy = "patientDiag")
+    private PatientServiceCheckUp patientServiceCheckUp;
 
     @Column(name = "first_diagnostic")
     @Audited
@@ -46,5 +50,53 @@ public class PatientDiag extends BasePatientModel {
     @Override
     public void setId(Long id) {
         this.id = id;
+    }
+
+    public PatientHistory getPatientHistory() {
+        return patientHistory;
+    }
+
+    public void setPatientHistory(PatientHistory patientHistory) {
+        this.patientHistory = patientHistory;
+    }
+
+    public PatientServiceCheckUp getPatientServiceCheckUp() {
+        return patientServiceCheckUp;
+    }
+
+    public void setPatientServiceCheckUp(PatientServiceCheckUp patientServiceCheckUp) {
+        this.patientServiceCheckUp = patientServiceCheckUp;
+    }
+
+    public String getFirstDiagnostic() {
+        return firstDiagnostic;
+    }
+
+    public void setFirstDiagnostic(String firstDiagnostic) {
+        this.firstDiagnostic = firstDiagnostic;
+    }
+
+    public String getDiagnostic() {
+        return diagnostic;
+    }
+
+    public void setDiagnostic(String diagnostic) {
+        this.diagnostic = diagnostic;
+    }
+
+    public String getDiseaseDiagnostic() {
+        return diseaseDiagnostic;
+    }
+
+    public void setDiseaseDiagnostic(String diseaseDiagnostic) {
+        this.diseaseDiagnostic = diseaseDiagnostic;
+    }
+
+    public String getOtherDiseaseDiagnostic() {
+        return otherDiseaseDiagnostic;
+    }
+
+    public void setOtherDiseaseDiagnostic(String otherDiseaseDiagnostic) {
+        this.otherDiseaseDiagnostic = otherDiseaseDiagnostic;
     }
 }

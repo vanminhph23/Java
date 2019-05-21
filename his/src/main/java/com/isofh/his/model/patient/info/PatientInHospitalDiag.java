@@ -1,6 +1,7 @@
 package com.isofh.his.model.patient.info;
 
 import com.isofh.his.model.base.patient.BasePatientModel;
+import com.isofh.his.model.patient.service.PatientServiceCheckUp;
 import org.hibernate.envers.Audited;
 
 import javax.persistence.*;
@@ -21,6 +22,9 @@ public class PatientInHospitalDiag extends BasePatientModel {
     @OneToOne(fetch = FetchType.LAZY, mappedBy = "patientInHospitalDiag")
     private PatientHistory patientHistory;
 
+    @OneToOne(fetch = FetchType.LAZY, mappedBy = "patientInHospitalDiag")
+    private PatientServiceCheckUp patientServiceCheckUp;
+
     @Column(name = "in_hospital_disease_diagnostic")
     @Audited
     private String inHospitalDiseaseDiagnostic;
@@ -32,6 +36,10 @@ public class PatientInHospitalDiag extends BasePatientModel {
     @Column(name = "examination_reason")
     @Audited
     private String examinationReason;
+
+    @Column(name = "transfer_inpatient_reason")
+    @Audited
+    private String transferInpatientReason;
 
     @Override
     public Long getId() {
