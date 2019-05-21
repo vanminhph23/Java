@@ -15,7 +15,7 @@ public class ServiceSourceDto extends BaseCategoryDto {
 
     private String cxName;
 
-    private int payRate;
+    private int insurancePayRate;
 
     private Long uomId;
 
@@ -25,11 +25,11 @@ public class ServiceSourceDto extends BaseCategoryDto {
 
     private Long serviceGroupLevel3Id;
 
-    private Double unitPriceService;
+    private Double serviceUnitPrice;
 
-    private Double unitPriceInsurance;
+    private Double insuranceUnitPrice;
 
-    private Double unitPriceDifference;
+    private Double differenceUnitPrice;
 
     private String oldValue;
 
@@ -55,10 +55,6 @@ public class ServiceSourceDto extends BaseCategoryDto {
 
     private boolean surgery;
 
-    private boolean autoCreateLine;
-
-    private boolean inDepartment;
-
     private boolean consultation;
 
     private boolean trackingUsingDay;
@@ -68,6 +64,8 @@ public class ServiceSourceDto extends BaseCategoryDto {
     private boolean dosage;
 
     private boolean antibiotic;
+
+    private boolean freeByApproval;
 
     public int getServiceType() {
         return serviceType;
@@ -101,12 +99,12 @@ public class ServiceSourceDto extends BaseCategoryDto {
         this.cxName = cxName;
     }
 
-    public int getPayRate() {
-        return payRate;
+    public int getInsurancePayRate() {
+        return insurancePayRate;
     }
 
-    public void setPayRate(int payRate) {
-        this.payRate = payRate;
+    public void setInsurancePayRate(int insurancePayRate) {
+        this.insurancePayRate = insurancePayRate;
     }
 
     public Long getUomId() {
@@ -141,28 +139,28 @@ public class ServiceSourceDto extends BaseCategoryDto {
         this.serviceGroupLevel3Id = serviceGroupLevel3Id;
     }
 
-    public Double getUnitPriceService() {
-        return unitPriceService;
+    public Double getServiceUnitPrice() {
+        return serviceUnitPrice;
     }
 
-    public void setUnitPriceService(Double unitPriceService) {
-        this.unitPriceService = unitPriceService;
+    public void setServiceUnitPrice(Double serviceUnitPrice) {
+        this.serviceUnitPrice = serviceUnitPrice;
     }
 
-    public Double getUnitPriceInsurance() {
-        return unitPriceInsurance;
+    public Double getInsuranceUnitPrice() {
+        return insuranceUnitPrice;
     }
 
-    public void setUnitPriceInsurance(Double unitPriceInsurance) {
-        this.unitPriceInsurance = unitPriceInsurance;
+    public void setInsuranceUnitPrice(Double insuranceUnitPrice) {
+        this.insuranceUnitPrice = insuranceUnitPrice;
     }
 
-    public Double getUnitPriceDifference() {
-        return unitPriceDifference;
+    public Double getDifferenceUnitPrice() {
+        return differenceUnitPrice;
     }
 
-    public void setUnitPriceDifference(Double unitPriceDifference) {
-        this.unitPriceDifference = unitPriceDifference;
+    public void setDifferenceUnitPrice(Double differenceUnitPrice) {
+        this.differenceUnitPrice = differenceUnitPrice;
     }
 
     public String getOldValue() {
@@ -261,22 +259,6 @@ public class ServiceSourceDto extends BaseCategoryDto {
         this.surgery = surgery;
     }
 
-    public boolean isAutoCreateLine() {
-        return autoCreateLine;
-    }
-
-    public void setAutoCreateLine(boolean autoCreateLine) {
-        this.autoCreateLine = autoCreateLine;
-    }
-
-    public boolean isInDepartment() {
-        return inDepartment;
-    }
-
-    public void setInDepartment(boolean inDepartment) {
-        this.inDepartment = inDepartment;
-    }
-
     public boolean isConsultation() {
         return consultation;
     }
@@ -315,5 +297,13 @@ public class ServiceSourceDto extends BaseCategoryDto {
 
     public void setAntibiotic(boolean antibiotic) {
         this.antibiotic = antibiotic;
+    }
+
+    public boolean isFreeByApproval() {
+        return freeByApproval;
+    }
+
+    public void setFreeByApproval(boolean freeByApproval) {
+        this.freeByApproval = freeByApproval;
     }
 }

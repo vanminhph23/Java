@@ -7,6 +7,8 @@ public class ServiceTechnicalDto extends ServiceSourceDto {
     public ServiceTechnicalDto() {
     }
 
+    private Long serviceId;
+
     private Long departmentId;
 
     private Long roomId;
@@ -20,6 +22,8 @@ public class ServiceTechnicalDto extends ServiceSourceDto {
     private String linkValue;
 
     private String formValue;
+
+    private int surgeryForm;
 
     private boolean useInReception;
 
@@ -75,9 +79,21 @@ public class ServiceTechnicalDto extends ServiceSourceDto {
 
     private boolean specimens;
 
+    private boolean diagnostic;
+
+    private boolean autoCreateLine;
+
+    private boolean inDepartment;
+
     private boolean contract;
 
-    private boolean freeByApproval;
+    public Long getServiceId() {
+        return serviceId;
+    }
+
+    public void setServiceId(Long serviceId) {
+        this.serviceId = serviceId;
+    }
 
     public Long getDepartmentId() {
         return departmentId;
@@ -133,6 +149,14 @@ public class ServiceTechnicalDto extends ServiceSourceDto {
 
     public void setFormValue(String formValue) {
         this.formValue = formValue;
+    }
+
+    public int getSurgeryForm() {
+        return surgeryForm;
+    }
+
+    public void setSurgeryForm(int surgeryForm) {
+        this.surgeryForm = surgeryForm;
     }
 
     public boolean isUseInReception() {
@@ -351,19 +375,35 @@ public class ServiceTechnicalDto extends ServiceSourceDto {
         this.specimens = specimens;
     }
 
+    public boolean isDiagnostic() {
+        return diagnostic;
+    }
+
+    public void setDiagnostic(boolean diagnostic) {
+        this.diagnostic = diagnostic;
+    }
+
+    public boolean isAutoCreateLine() {
+        return autoCreateLine;
+    }
+
+    public void setAutoCreateLine(boolean autoCreateLine) {
+        this.autoCreateLine = autoCreateLine;
+    }
+
+    public boolean isInDepartment() {
+        return inDepartment;
+    }
+
+    public void setInDepartment(boolean inDepartment) {
+        this.inDepartment = inDepartment;
+    }
+
     public boolean isContract() {
         return contract;
     }
 
     public void setContract(boolean contract) {
         this.contract = contract;
-    }
-
-    public boolean isFreeByApproval() {
-        return freeByApproval;
-    }
-
-    public void setFreeByApproval(boolean freeByApproval) {
-        this.freeByApproval = freeByApproval;
     }
 }

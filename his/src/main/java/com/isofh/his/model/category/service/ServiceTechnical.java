@@ -19,6 +19,7 @@ public class ServiceTechnical extends BaseModel {
     private ServiceSource service;
 
     @Column(name = "department_id")
+    @Audited
     private Long departmentId;
 
     @ManyToOne(fetch = FetchType.LAZY)
@@ -26,6 +27,7 @@ public class ServiceTechnical extends BaseModel {
     private Department department;
 
     @Column(name = "room_id")
+    @Audited
     private Long roomId;
 
     @ManyToOne(fetch = FetchType.LAZY)
@@ -33,6 +35,7 @@ public class ServiceTechnical extends BaseModel {
     private Room room;
 
     @Column(name = "specialist_id")
+    @Audited
     private Long specialistId;
 
     @ManyToOne(fetch = FetchType.LAZY)
@@ -40,6 +43,7 @@ public class ServiceTechnical extends BaseModel {
     private Specialist specialist;
 
     @Column(name = "dye_method_id")
+    @Audited
     private Long dyeMethodId;
 
     @ManyToOne(fetch = FetchType.LAZY)
@@ -47,11 +51,11 @@ public class ServiceTechnical extends BaseModel {
     private DyeMethod dyeMethod;
 
     @Column(name = "report_template_id")
+    @Audited
     private Long reportTemplateId;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "report_template_id", insertable = false, updatable = false)
-    @Audited
     private ReportTemplate reportTemplate;
 
     @Column(name = "link_value")

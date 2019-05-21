@@ -4,6 +4,8 @@ public abstract class BaseDto {
 
     private Long id;
 
+    private boolean active = true;
+
     public BaseDto() {
     }
 
@@ -13,5 +15,13 @@ public abstract class BaseDto {
 
     public void setId(Long id) {
         this.id = id;
+    }
+
+    public boolean isActive() {
+        return active;
+    }
+
+    public void setActive(boolean active) {
+        this.active = active;
     }
 }
