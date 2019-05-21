@@ -1,10 +1,7 @@
 package com.isofh.his.model.patient.service;
 
 import com.isofh.his.model.base.BaseModel;
-import com.isofh.his.model.patient.info.PatientDiag;
-import com.isofh.his.model.patient.info.PatientInHospitalDiag;
-import com.isofh.his.model.patient.info.PatientMedicalHistory;
-import com.isofh.his.model.patient.info.PatientVitalSign;
+import com.isofh.his.model.patient.info.*;
 import com.isofh.his.model.patient.invoice.PatientInvoiceLine;
 import org.hibernate.envers.Audited;
 
@@ -17,9 +14,13 @@ public class PatientServiceCheckUp extends BaseModel {
     @Id
     private Long id;
 
-    @OneToOne(fetch = FetchType.LAZY)
+    @OneToOne(fetch = FetchType.LAZY, cascade = {CascadeType.ALL})
     @MapsId
     private PatientInvoiceLine patientInvoiceLine;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "patient_history_id")
+    private PatientHistory patientHistory;
 
     // CD vao vien
     @OneToOne(fetch = FetchType.LAZY, cascade = {CascadeType.ALL})

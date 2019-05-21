@@ -81,9 +81,9 @@ public class Room extends BaseCategoryModel {
     @JoinColumn(name = "speaker_id", insertable = false, updatable = false)
     private Speaker speaker;
 
-    @Column(name = "sequence_no", nullable = false)
+    @Column(name = "sequence_no")
     @Audited
-    private int sequenceNo = 0;
+    private int sequenceNo;
 
     @Column(name = "parent_room_id")
     @Audited

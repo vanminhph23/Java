@@ -1,6 +1,7 @@
 package com.isofh.his.model.patient.service;
 
 import com.isofh.his.model.base.BaseModel;
+import com.isofh.his.model.patient.info.PatientHistory;
 import com.isofh.his.model.patient.invoice.PatientInvoiceLine;
 
 import javax.persistence.*;
@@ -15,6 +16,10 @@ public class PatientServiceBlood extends BaseModel {
     @OneToOne(fetch = FetchType.LAZY)
     @MapsId
     private PatientInvoiceLine patientInvoiceLine;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "patient_history_id")
+    private PatientHistory patientHistory;
 
     @Override
     public Long getId() {

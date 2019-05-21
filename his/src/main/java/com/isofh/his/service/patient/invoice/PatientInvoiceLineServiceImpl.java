@@ -80,5 +80,8 @@ public class PatientInvoiceLineServiceImpl implements PatientInvoiceLineService 
         return getRepository().findNotPaidServiceByInsuranceNumber(insuranceNumber, patientHistoryId);
     }
 
-
+    @Override
+    public PatientInvoiceLineDto createDto(PatientInvoiceLine model) {
+        return null;
+    }
 }

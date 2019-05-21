@@ -25,12 +25,8 @@ public class PatientInvoiceLine extends BaseModel {
     )
     private Long id;
 
-    @Column(name = "patient_history_id")
-    @Audited
-    private Long patientHistoryId;
-
-    @OneToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "patient_history_id", insertable = false, updatable = false)
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "patient_history_id")
     private PatientHistory patientHistory;
 
     @Column(name = "inpatient", nullable = false)
@@ -211,14 +207,6 @@ public class PatientInvoiceLine extends BaseModel {
     @Override
     public void setId(Long id) {
         this.id = id;
-    }
-
-    public Long getPatientHistoryId() {
-        return patientHistoryId;
-    }
-
-    public void setPatientHistoryId(Long patientHistoryId) {
-        this.patientHistoryId = patientHistoryId;
     }
 
     public PatientHistory getPatientHistory() {
