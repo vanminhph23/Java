@@ -12,7 +12,7 @@ public abstract class BaseCategoryModel extends BaseModel {
     @Audited
     private String value;
 
-    @Column(name = "name", nullable = false)
+    @Column(name = "name", nullable = false, length = 500)
     @Audited
     private String name;
 
