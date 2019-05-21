@@ -1,9 +1,11 @@
 package com.isofh.his.service.category.service;
 
 import com.isofh.his.dto.category.service.ServiceTechnicalDto;
+import com.isofh.his.importdata.Header;
 import com.isofh.his.model.category.service.ServiceSource;
 import com.isofh.his.model.category.service.ServiceTechnical;
 import com.isofh.his.repository.category.service.ServiceTechnicalRepository;
+import com.isofh.his.service.category.*;
 import com.isofh.his.storage.StorageService;
 import org.modelmapper.ModelMapper;
 import org.modelmapper.convention.MatchingStrategies;
@@ -22,7 +24,31 @@ public class ServiceTechnicalServiceImpl implements ServiceTechnicalService {
     private ServiceTechnicalRepository repository;
 
     @Autowired
-    private ServiceSourceService serviceSourceService;
+    private UOMService uomService;
+
+    @Autowired
+    private DepartmentService departmentService;
+
+    @Autowired
+    private RoomService roomService;
+
+    @Autowired
+    private SpecialistService specialistService;
+
+    @Autowired
+    private ServiceGroupLevel1Service groupLevel1Service;
+
+    @Autowired
+    private ServiceGroupLevel2Service groupLevel2Service;
+
+    @Autowired
+    private ServiceGroupLevel3Service groupLevel3Service;
+
+    @Autowired
+    private ReportTemplateService reportTemplateService;
+
+    @Autowired
+    private DyeMethodService dyeMethodService;
 
     @Override
     public ServiceTechnicalRepository getRepository() {
@@ -57,6 +83,71 @@ public class ServiceTechnicalServiceImpl implements ServiceTechnicalService {
         }
 
         return modelMapper;
+    }
+
+    @Override
+    public Object getReference(Header header, String value) {
+        if (value == null) {
+            return null;
+        }
+
+        if ("uomId".equals(header.getColumnName())) {
+            if ("value".equals(header.getLinkColumnName())) {
+                return uomService.findIdByValue(value);
+            } else if ("name".equals(header.getLinkColumnName())) {
+                return uomService.findIdByName(value);
+            }
+        } else if ("departmentId".equals(header.getColumnName())) {
+            if ("value".equals(header.getLinkColumnName())) {
+                return departmentService.findIdByValue(value);
+            } else if ("name".equals(header.getLinkColumnName())) {
+                return departmentService.findIdByName(value);
+            }
+        } else if ("roomId".equals(header.getColumnName())) {
+            if ("value".equals(header.getLinkColumnName())) {
+                return roomService.findIdByValue(value);
+            } else if ("name".equals(header.getLinkColumnName())) {
+                return roomService.findIdByName(value);
+            }
+        } else if ("specialistId".equals(header.getColumnName())) {
+            if ("value".equals(header.getLinkColumnName())) {
+                return specialistService.findIdByValue(value);
+            } else if ("name".equals(header.getLinkColumnName())) {
+                return specialistService.findIdByName(value);
+            }
+        } else if ("serviceGroupLevel1Id".equals(header.getColumnName())) {
+            if ("value".equals(header.getLinkColumnName())) {
+                return groupLevel1Service.findIdByValue(value);
+            } else if ("name".equals(header.getLinkColumnName())) {
+                return groupLevel1Service.findIdByName(value);
+            }
+        } else if ("serviceGroupLevel2Id".equals(header.getColumnName())) {
+            if ("value".equals(header.getLinkColumnName())) {
+                return groupLevel2Service.findIdByValue(value);
+            } else if ("name".equals(header.getLinkColumnName())) {
+                return groupLevel2Service.findIdByName(value);
+            }
+        } else if ("serviceGroupLevel3Id".equals(header.getColumnName())) {
+            if ("value".equals(header.getLinkColumnName())) {
+                return groupLevel3Service.findIdByValue(value);
+            } else if ("name".equals(header.getLinkColumnName())) {
+                return groupLevel3Service.findIdByName(value);
+            }
+        } else if ("reportTemplateId".equals(header.getColumnName())) {
+            if ("value".equals(header.getLinkColumnName())) {
+                return reportTemplateService.findIdByValue(value);
+            } else if ("name".equals(header.getLinkColumnName())) {
+                return reportTemplateService.findIdByName(value);
+            }
+        } else if ("dyeMethodId".equals(header.getColumnName())) {
+            if ("value".equals(header.getLinkColumnName())) {
+                return dyeMethodService.findIdByValue(value);
+            } else if ("name".equals(header.getLinkColumnName())) {
+                return dyeMethodService.findIdByName(value);
+            }
+        }
+
+        return null;
     }
 
     @Override
