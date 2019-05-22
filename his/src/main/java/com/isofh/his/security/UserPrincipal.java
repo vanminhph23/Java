@@ -41,7 +41,7 @@ public class UserPrincipal implements UserDetails {
 
     private boolean isEnabled;
 
-    private Collection<SimpleGrantedAuthority> authorities;
+    private List<SimpleGrantedAuthority> authorities;
 
 
     public UserPrincipal(Long id, String username, String email, String password, boolean isEnabled, Long departmentId) {
@@ -175,7 +175,7 @@ public class UserPrincipal implements UserDetails {
     }
 
     @Override
-    public Collection<? extends GrantedAuthority> getAuthorities() {
+    public List<SimpleGrantedAuthority> getAuthorities() {
         return authorities;
     }
 
