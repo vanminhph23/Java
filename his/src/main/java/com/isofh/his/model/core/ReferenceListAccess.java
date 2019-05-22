@@ -2,12 +2,14 @@ package com.isofh.his.model.core;
 
 import com.isofh.his.model.base.BaseModel;
 import com.isofh.his.model.employee.Privilege;
+import org.hibernate.annotations.Where;
 import org.hibernate.envers.Audited;
 
 import javax.persistence.*;
 
 @Entity
 @Table(name = "his_reference_list_access")
+@Where(clause = "deleted=0")
 public class ReferenceListAccess extends BaseModel {
     @Id
     @GeneratedValue(generator = "reference_list_access_generator")

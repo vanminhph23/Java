@@ -4,6 +4,7 @@ import com.isofh.his.model.base.BaseModel;
 import com.isofh.his.model.category.*;
 import com.isofh.his.model.patient.invoice.PatientInvoice;
 import com.isofh.his.util.DateUtil;
+import org.hibernate.annotations.Where;
 import org.hibernate.envers.Audited;
 
 import javax.persistence.*;
@@ -14,6 +15,7 @@ import java.util.List;
 @Table(name = "his_patient_history",
         uniqueConstraints={@UniqueConstraint(columnNames = {"patient_document", "deleted"}), @UniqueConstraint(columnNames = {"medical_record_no", "deleted"})},
         indexes = {@Index(name = "idx_ph_reg_date", columnList = "reg_date")})
+@Where(clause = "deleted=0")
 public class PatientHistory extends BaseModel {
     @Id
     @GeneratedValue(generator = "patient_history_generator")

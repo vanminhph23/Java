@@ -1,6 +1,7 @@
 package com.isofh.his.model.patient.info;
 
 import com.isofh.his.model.base.BaseModel;
+import org.hibernate.annotations.Where;
 import org.hibernate.envers.Audited;
 
 import javax.persistence.*;
@@ -10,6 +11,7 @@ import java.util.Date;
 @Table(name = "his_patient",
         uniqueConstraints={@UniqueConstraint(columnNames = {"patient_value", "deleted"})},
         indexes = {@Index(name = "idx_patient_reg_date", columnList = "reg_date")})
+@Where(clause = "deleted=0")
 public class Patient extends BaseModel {
     @Id
     @GeneratedValue(generator = "patient_generator")

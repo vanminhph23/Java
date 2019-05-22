@@ -5,12 +5,14 @@ import com.isofh.his.model.category.ProductClassify;
 import com.isofh.his.model.category.ProductGroup;
 import com.isofh.his.model.category.ProductType;
 import com.isofh.his.model.category.UOM;
+import org.hibernate.annotations.Where;
 import org.hibernate.envers.Audited;
 
 import javax.persistence.*;
 
 @Entity
 @Table(name = "his_service_product")
+@Where(clause = "deleted=0")
 public class ServiceProduct extends BaseCategoryModel {
 
     @Id

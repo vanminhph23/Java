@@ -1,12 +1,14 @@
 package com.isofh.his.model.category;
 
 import com.isofh.his.model.base.BaseCategoryModel;
+import org.hibernate.annotations.Where;
 import org.hibernate.envers.Audited;
 
 import javax.persistence.*;
 
 @Entity
 @Table(name = "his_room", uniqueConstraints={@UniqueConstraint(columnNames = {"value", "deleted"})})
+@Where(clause = "deleted=0")
 public class Room extends BaseCategoryModel {
     @Id
     @GeneratedValue(generator = "room_generator")

@@ -2,6 +2,7 @@ package com.isofh.his.model.employee;
 
 import com.isofh.his.model.base.BaseCategoryModel;
 import com.isofh.his.model.category.*;
+import org.hibernate.annotations.Where;
 import org.hibernate.envers.Audited;
 
 import javax.persistence.*;
@@ -10,6 +11,7 @@ import java.util.List;
 
 @Entity
 @Table(name = "his_user", uniqueConstraints={@UniqueConstraint(columnNames = {"value", "deleted"}), @UniqueConstraint(columnNames = {"name", "deleted"})})
+@Where(clause = "deleted=0")
 public class User extends BaseCategoryModel {
     @Id
     @GeneratedValue(generator = "user_generator")

@@ -1,6 +1,7 @@
 package com.isofh.his.model.patient.info;
 
 import com.isofh.his.model.base.patient.BasePatientModel;
+import org.hibernate.annotations.Where;
 import org.hibernate.envers.Audited;
 
 import javax.persistence.*;
@@ -8,6 +9,7 @@ import java.sql.Timestamp;
 
 @Entity
 @Table(name = "his_patient_type", indexes = {@Index(name = "pt_patient_history_id", columnList = "patient_history_id")})
+@Where(clause = "deleted=0")
 public class PatientType extends BasePatientModel {
 
     @Id

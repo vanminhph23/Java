@@ -10,7 +10,7 @@ import java.util.Optional;
 public interface PatientRepository extends BaseRepository<Patient, Long> {
 
     @Transactional(readOnly = true)
-    @Query("select e.id from #{#entityName} e where e.deleted = 0 and e.patientValue = ?1")
+    @Query("select e.id from #{#entityName} e where e.patientValue = ?1")
     Optional<Long> findIdByPatientValue(String patientValue);
 
     @Transactional(readOnly = true)
@@ -19,6 +19,6 @@ public interface PatientRepository extends BaseRepository<Patient, Long> {
     }
 
     @Transactional(readOnly = true)
-    @Query("select e from #{#entityName} e where e.deleted = 0 and e.patientValue = ?1")
+    @Query("select e from #{#entityName} e where e.patientValue = ?1")
     Optional<Patient> findByPatientValue(String patientValue);
 }

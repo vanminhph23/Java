@@ -8,6 +8,7 @@ import com.isofh.his.model.employee.User;
 import com.isofh.his.model.patient.info.PatientHistory;
 import com.isofh.his.model.patient.info.PatientTransferDepartment;
 import com.isofh.his.model.patient.info.PatientType;
+import org.hibernate.annotations.Where;
 import org.hibernate.envers.Audited;
 
 import javax.persistence.*;
@@ -15,6 +16,7 @@ import java.util.Date;
 
 @Entity
 @Table(name = "his_patient_invoice_line")
+@Where(clause = "deleted=0")
 public class PatientInvoiceLine extends BaseModel {
 
     @Id

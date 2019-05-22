@@ -3,6 +3,7 @@ package com.isofh.his.model.patient.invoice;
 import com.isofh.his.model.base.BaseModel;
 import com.isofh.his.model.employee.User;
 import com.isofh.his.model.patient.info.PatientHistory;
+import org.hibernate.annotations.Where;
 import org.hibernate.envers.Audited;
 
 import javax.persistence.*;
@@ -10,6 +11,7 @@ import java.util.Date;
 
 @Entity
 @Table(name = "his_patient_payment")
+@Where(clause = "deleted=0")
 public class PatientPayment extends BaseModel {
 
     @Id

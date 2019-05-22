@@ -1,11 +1,13 @@
 package com.isofh.his.model.patient.info;
 
 import com.isofh.his.model.base.patient.BasePatientModel;
+import org.hibernate.annotations.Where;
 
 import javax.persistence.*;
 
 @Entity
 @Table(name = "his_patient_transfer_department")
+@Where(clause = "deleted=0")
 public class PatientTransferDepartment extends BasePatientModel {
 
     @Id

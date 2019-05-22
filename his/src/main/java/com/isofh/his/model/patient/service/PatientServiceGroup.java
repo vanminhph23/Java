@@ -2,11 +2,13 @@ package com.isofh.his.model.patient.service;
 
 import com.isofh.his.model.base.BaseModel;
 import com.isofh.his.model.patient.info.PatientHistory;
+import org.hibernate.annotations.Where;
 
 import javax.persistence.*;
 
 @Entity
 @Table(name = "his_patient_service_group")
+@Where(clause = "deleted=0")
 public class PatientServiceGroup extends BaseModel {
 
     @Id

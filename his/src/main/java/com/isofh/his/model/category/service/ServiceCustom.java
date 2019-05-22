@@ -2,6 +2,7 @@ package com.isofh.his.model.category.service;
 
 import com.isofh.his.model.base.BaseCategoryModel;
 import com.isofh.his.model.category.Department;
+import org.hibernate.annotations.Where;
 import org.hibernate.envers.Audited;
 
 import javax.persistence.*;
@@ -9,6 +10,7 @@ import java.util.Date;
 
 @Entity
 @Table(name = "his_service_custom")
+@Where(clause = "deleted=0")
 public class ServiceCustom extends BaseCategoryModel {
 
     @Id

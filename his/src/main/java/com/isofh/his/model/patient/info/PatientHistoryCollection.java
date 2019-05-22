@@ -1,12 +1,14 @@
 package com.isofh.his.model.patient.info;
 
 import com.isofh.his.model.base.BaseModel;
+import org.hibernate.annotations.Where;
 import org.hibernate.envers.Audited;
 
 import javax.persistence.*;
 
 @Entity
 @Table(name = "his_patient_history_collection")
+@Where(clause = "deleted=0")
 public class PatientHistoryCollection extends BaseModel {
     @Id
     @GeneratedValue(generator = "patient_history_collection_generator")

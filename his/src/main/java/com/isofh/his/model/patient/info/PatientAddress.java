@@ -5,12 +5,14 @@ import com.isofh.his.model.category.Country;
 import com.isofh.his.model.category.District;
 import com.isofh.his.model.category.Province;
 import com.isofh.his.model.category.Zone;
+import org.hibernate.annotations.Where;
 import org.hibernate.envers.Audited;
 
 import javax.persistence.*;
 
 @Entity
 @Table(name = "his_patient_address")
+@Where(clause = "deleted=0")
 public class PatientAddress extends BasePatientModel {
 
     @Id

@@ -13,7 +13,7 @@ public interface PatientInvoiceLineRepository extends BaseRepository<PatientInvo
     @Transactional(readOnly = true)
     @Query("select e from PatientInvoiceLine e" +
             " inner join e.patientHistory as h" +
-            " where e.deleted = 0 and e.active = true and h.patient = ?1 and h.id <> ?2 and e.serviceInHospital = true and e.notCounted = false" +
+            " where e.active = true and h.patient = ?1 and h.id <> ?2 and e.serviceInHospital = true and e.notCounted = false" +
             " and ((e.insuranceTotalAmount > 0 and e.insurancePaid = false) or (e.serviceTotalAmount > 0 and e.servicePaid = false)) and e.status <> 0")
     List<PatientInvoiceLine> findNotPaidServiceByPatient(Patient patient, Long patientHistoryId);
 
@@ -22,7 +22,7 @@ public interface PatientInvoiceLineRepository extends BaseRepository<PatientInvo
             " inner join e.patientType as t" +
             " inner join t.patientInsurance as i" +
             " inner join t.patientHistory as h" +
-            " where e.deleted = 0 and e.active = true and i.insuranceNumber = ?1 and h.id <> ?2 and e.serviceInHospital = true and e.notCounted = false" +
+            " where e.active = true and i.insuranceNumber = ?1 and h.id <> ?2 and e.serviceInHospital = true and e.notCounted = false" +
             " and ((e.insuranceTotalAmount > 0 and e.insurancePaid = false) or (e.serviceTotalAmount > 0 and e.servicePaid = false)) and e.status <> 0")
     List<PatientInvoiceLine> findNotPaidServiceByInsuranceNumber(String insuranceNumber, Long patientHistoryId);
 }

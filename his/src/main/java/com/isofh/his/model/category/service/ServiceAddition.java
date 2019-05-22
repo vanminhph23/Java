@@ -1,12 +1,14 @@
 package com.isofh.his.model.category.service;
 
 import com.isofh.his.model.base.BaseCategoryModel;
+import org.hibernate.annotations.Where;
 import org.hibernate.envers.Audited;
 
 import javax.persistence.*;
 
 @Entity
 @Table(name = "his_service_addition")
+@Where(clause = "deleted=0")
 public class ServiceAddition extends BaseCategoryModel {
 
     @Id

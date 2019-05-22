@@ -3,12 +3,14 @@ package com.isofh.his.model.patient.service;
 import com.isofh.his.model.base.BaseModel;
 import com.isofh.his.model.patient.info.PatientHistory;
 import com.isofh.his.model.patient.invoice.PatientInvoiceLine;
+import org.hibernate.annotations.Where;
 import org.hibernate.envers.Audited;
 
 import javax.persistence.*;
 
 @Entity
 @Table(name = "his_patient_service_medical_test")
+@Where(clause = "deleted=0")
 public class PatientServiceMedicalTest extends BaseModel {
 
     @Id

@@ -1,6 +1,7 @@
 package com.isofh.his.model.core;
 
 import com.isofh.his.model.base.BaseModel;
+import org.hibernate.annotations.Where;
 import org.hibernate.envers.Audited;
 
 import javax.persistence.*;
@@ -8,6 +9,7 @@ import java.util.List;
 
 @Entity
 @Table(name = "his_reference_list", uniqueConstraints={@UniqueConstraint(columnNames = {"reference_id", "value", "deleted"})})
+@Where(clause = "deleted=0")
 public class ReferenceList extends BaseModel {
     @Id
     @GeneratedValue(generator = "reference_list_generator")

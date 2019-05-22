@@ -1,12 +1,14 @@
 package com.isofh.his.model.employee;
 
 import com.isofh.his.model.base.BaseCategoryModel;
+import org.hibernate.annotations.Where;
 import org.hibernate.envers.Audited;
 
 import javax.persistence.*;
 
 @Entity
 @Table(name = "his_academic_rank", uniqueConstraints={@UniqueConstraint(columnNames = {"value", "deleted"})})
+@Where(clause = "deleted=0")
 public class AcademicRank extends BaseCategoryModel {
     @Id
     @GeneratedValue(generator = "academic_rank_generator")
