@@ -4,9 +4,11 @@ import com.isofh.his.model.core.ReferenceList;
 import com.isofh.his.repository.base.BaseRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
+import org.springframework.transaction.annotation.Transactional;
 
 public interface ReferenceListRepository extends BaseRepository<ReferenceList, Long> {
 
+    @Transactional(readOnly = true)
     @Query(value = "select e from ReferenceList e inner join e.reference as r where e.value = ?1 and r.value = ?2")
     ReferenceList findByReferenceValueAndValue(String referenceValue, int value);
 }

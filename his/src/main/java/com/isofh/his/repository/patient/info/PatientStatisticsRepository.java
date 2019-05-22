@@ -2,6 +2,7 @@ package com.isofh.his.repository.patient.info;
 
 import com.isofh.his.model.patient.info.PatientStatistics;
 import com.isofh.his.repository.base.BaseRepository;
+import com.isofh.his.service.patient.info.PatientService;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.transaction.annotation.Transactional;
@@ -13,19 +14,19 @@ public interface PatientStatisticsRepository extends BaseRepository<PatientStati
     int countOutPatientByPatientValue(String patientValue);
 
     @Transactional(readOnly = true)
-    @Query("select count(e) from PatientHistory e inner join PatientInsurance pi on e.id = pi.patientHistory" +
-            " where e.patientValue = ?1")
+    @Query("select count(e) from PatientHistory e inner join e.patientTypes as t" +
+            " where e.patientValue = ?1 and t.patientType = 2")
     int countInsOutPatientByPatientValue(String patientValue);
 
     @Transactional(readOnly = true)
-    @Query("select count(e) from PatientHistory e inner join PatientInsurance pi on e.id = pi.patientHistory" +
+    @Query("select count(e) from PatientHistory e inner join e.patientTypes as t" +
             " where e.patientValue = :patientValue" +
-            " and month(e.regDate) = :month")
+            " and month(e.regDate) = :month and t.patientType = 2")
     int countInsOutPatientByPatientValueMonth(@Param("patientValue") String patientValue, @Param("month") int month);
 
     @Transactional(readOnly = true)
-    @Query("select count(e) from PatientHistory e inner join PatientInsurance pi on e.id = pi.patientHistory" +
+    @Query("select count(e) from PatientHistory e inner join e.patientTypes as t" +
             " where e.patientValue = :patientValue" +
-            " and year(e.regDate) = :year")
+            " and year(e.regDate) = :year and t.patientType = 2")
     int countInsOutPatientByPatientValueYear(@Param("patientValue") String patientValue, @Param("year") int year);
 }

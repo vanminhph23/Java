@@ -61,12 +61,14 @@ public class JwtTokenProvider {
                 .getBody();
 
         Long id = Long.valueOf(claims.getSubject());
-        Long departmentId = Long.valueOf((Integer) claims.get("departmentId"));
+        Integer departmentId = (Integer) claims.get("departmentId");
         List<Long> departmentIds = Util.convertIntToLong((List<Integer>) claims.get("departmentIds"));
         List<Long> roleIds = Util.convertIntToLong((List<Integer>) claims.get("roleIds"));
         List<String> privileges = (List<String>) claims.get("authorities");
 
-        return UserPrincipal.get(id, departmentId, roleIds, departmentIds, privileges);
+        privileges = privileges == null ? new ArrayList<>() : privileges;
+
+        return UserPrincipal.get(id, departmentId == null ? null : Long.valueOf(departmentId), roleIds, departmentIds, privileges);
     }
 
     public void validateToken(String authToken) {

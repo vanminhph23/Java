@@ -20,7 +20,7 @@ import javax.validation.Valid;
 
 @RestController
 @RequestMapping(path = "/patient-histories")
-public class PatientHistoryController extends BaseController {
+public class PatientHistoryController extends BaseController<PatientHistoryDto, PatientHistoryService> {
 
     private final static Logger logger = LoggerFactory.getLogger(PatientHistoryController.class);
 
@@ -31,7 +31,7 @@ public class PatientHistoryController extends BaseController {
     private InsuranceCardPortalService insuranceCardPortalService;
 
     @Override
-    protected BaseService getService() {
+    protected PatientHistoryService getService() {
         return this.service;
     }
 
