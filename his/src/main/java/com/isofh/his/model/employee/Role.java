@@ -1,6 +1,5 @@
 package com.isofh.his.model.employee;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.isofh.his.model.base.BaseCategoryModel;
 import org.hibernate.envers.Audited;
 

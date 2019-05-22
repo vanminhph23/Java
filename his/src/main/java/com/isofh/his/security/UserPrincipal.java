@@ -28,8 +28,6 @@ public class UserPrincipal implements UserDetails {
 
     private boolean isEnabled;
 
-    private List<SimpleGrantedAuthority> authorities;
-
     private List<String> privileges;
 
 
@@ -42,7 +40,6 @@ public class UserPrincipal implements UserDetails {
 
         this.roleIds = new ArrayList<>();
         this.departmentIds = new ArrayList<>();
-        this.authorities = new ArrayList<>();
         this.privileges = new ArrayList<>();
     }
 
@@ -52,11 +49,6 @@ public class UserPrincipal implements UserDetails {
         userPrincipal.setRoleIds(roleIds);
         userPrincipal.setDepartmentIds(departmentIds);
         userPrincipal.setPrivileges(privileges);
-
-        for (String pr : privileges) {
-            userPrincipal.authorities.add(new SimpleGrantedAuthority(pr));
-        }
-
         return userPrincipal;
     }
 
@@ -72,7 +64,6 @@ public class UserPrincipal implements UserDetails {
             List<Privilege> privileges = r.getPrivileges();
             for (Privilege pr : privileges) {
                 userPrincipal.privileges.add(pr.getValue());
-                userPrincipal.authorities.add(new SimpleGrantedAuthority(pr.getValue()));
             }
         }
 
@@ -136,6 +127,12 @@ public class UserPrincipal implements UserDetails {
 
     @Override
     public List<SimpleGrantedAuthority> getAuthorities() {
+        List<SimpleGrantedAuthority> authorities = new ArrayList<>();
+
+        for (String pr : privileges) {
+            authorities.add(new SimpleGrantedAuthority(pr));
+        }
+
         return authorities;
     }
 

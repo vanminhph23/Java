@@ -5,7 +5,6 @@ import com.isofh.his.model.category.Room;
 import org.hibernate.envers.Audited;
 
 import javax.persistence.*;
-import java.util.Date;
 
 @Entity
 @Table(name = "his_service_room")

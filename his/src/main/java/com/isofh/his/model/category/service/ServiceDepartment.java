@@ -2,7 +2,6 @@ package com.isofh.his.model.category.service;
 
 import com.isofh.his.model.base.BaseCategoryModel;
 import com.isofh.his.model.category.Department;
-import com.isofh.his.model.category.Room;
 import org.hibernate.envers.Audited;
 
 import javax.persistence.*;

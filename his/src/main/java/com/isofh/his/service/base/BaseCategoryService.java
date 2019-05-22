@@ -2,12 +2,10 @@ package com.isofh.his.service.base;
 
 import com.isofh.his.dto.base.BaseCategoryDto;
 import com.isofh.his.exception.data.DuplicateValueException;
-import com.isofh.his.exception.data.InvalidDataException;
 import com.isofh.his.exception.data.NullValueException;
 import com.isofh.his.model.base.BaseCategoryModel;
 import com.isofh.his.repository.base.BaseCategoryRepository;
 import com.isofh.his.util.Util;
-import org.hibernate.exception.ConstraintViolationException;
 
 import java.util.Map;
 

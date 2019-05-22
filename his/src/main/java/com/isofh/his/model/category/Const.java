@@ -4,7 +4,6 @@ import com.isofh.his.model.base.BaseCategoryModel;
 import org.hibernate.envers.Audited;
 
 import javax.persistence.*;
-import java.util.List;
 
 @Entity
 @Table(name = "his_const", uniqueConstraints={@UniqueConstraint(columnNames = {"value", "deleted"})})

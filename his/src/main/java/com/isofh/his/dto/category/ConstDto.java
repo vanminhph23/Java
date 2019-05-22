@@ -2,8 +2,6 @@ package com.isofh.his.dto.category;
 
 import com.isofh.his.dto.base.BaseCategoryDto;
 
-import java.util.List;
-
 public class ConstDto extends BaseCategoryDto {
 
     public ConstDto() {

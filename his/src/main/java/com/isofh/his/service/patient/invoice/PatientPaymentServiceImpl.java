@@ -2,7 +2,6 @@ package com.isofh.his.service.patient.invoice;
 
 import com.isofh.his.dto.patient.invoice.PatientPaymentDto;
 import com.isofh.his.model.patient.invoice.PatientPayment;
-import com.isofh.his.repository.patient.invoice.PatientInvoiceRepository;
 import com.isofh.his.repository.patient.invoice.PatientPaymentRepository;
 import com.isofh.his.storage.StorageService;
 import org.modelmapper.ModelMapper;

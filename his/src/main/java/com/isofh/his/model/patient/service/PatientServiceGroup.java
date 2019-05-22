@@ -2,7 +2,6 @@ package com.isofh.his.model.patient.service;
 
 import com.isofh.his.model.base.BaseModel;
 import com.isofh.his.model.patient.info.PatientHistory;
-import com.isofh.his.model.patient.invoice.PatientInvoiceLine;
 
 import javax.persistence.*;
 

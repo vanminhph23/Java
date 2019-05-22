@@ -1,7 +1,6 @@
 package com.isofh.his.repository.patient.info;
 
 import com.isofh.his.model.patient.info.PatientInsurance;
-import com.isofh.his.model.patient.invoice.PatientInvoice;
 import com.isofh.his.repository.base.BaseRepository;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.Query;
@@ -9,7 +8,6 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Date;
 import java.util.List;
-import java.util.Optional;
 
 public interface PatientInsuranceRepository extends BaseRepository<PatientInsurance, Long> {
 

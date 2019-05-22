@@ -1,13 +1,6 @@
 package com.isofh.his.dto.category;
 
 import com.isofh.his.dto.base.BaseCategoryDto;
-import com.isofh.his.model.category.*;
-import org.hibernate.envers.Audited;
-
-import javax.persistence.Column;
-import javax.persistence.FetchType;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
 
 public class RoomDto extends BaseCategoryDto {
 

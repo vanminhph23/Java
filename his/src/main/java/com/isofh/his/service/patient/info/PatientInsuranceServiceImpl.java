@@ -12,7 +12,6 @@ import com.isofh.his.insurance.card.service.InsuranceCardPortalService;
 import com.isofh.his.model.category.InsuranceCard;
 import com.isofh.his.model.patient.info.PatientHistory;
 import com.isofh.his.model.patient.info.PatientInsurance;
-import com.isofh.his.model.patient.invoice.PatientInvoice;
 import com.isofh.his.model.patient.invoice.PatientInvoiceLine;
 import com.isofh.his.repository.patient.info.PatientInsuranceRepository;
 import com.isofh.his.service.category.ConstService;
