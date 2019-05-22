@@ -3,32 +3,25 @@ package com.isofh.his.model.patient.service;
 import com.isofh.his.model.base.BaseModel;
 import com.isofh.his.model.patient.info.PatientHistory;
 import com.isofh.his.model.patient.invoice.PatientInvoiceLine;
-import org.hibernate.envers.Audited;
 
 import javax.persistence.*;
 
 @Entity
-@Table(name = "his_patient_service_medical_test")
-public class PatientServiceMedicalTest extends BaseModel {
+@Table(name = "his_patient_service_group")
+public class PatientServiceGroup extends BaseModel {
 
     @Id
+    @GeneratedValue(generator = "patient_service_group_generator")
+    @SequenceGenerator(
+            name = "patient_service_group_generator",
+            sequenceName = "patient_service_group_sq",
+            initialValue = 1000000
+    )
     private Long id;
-
-    @OneToOne(fetch = FetchType.LAZY)
-    @MapsId
-    private PatientInvoiceLine patientInvoiceLine;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "patient_history_id")
     private PatientHistory patientHistory;
-
-    @ManyToOne(fetch = FetchType.LAZY, cascade = {CascadeType.ALL})
-    @JoinColumn(name = "patient_service_group_id")
-    private PatientServiceGroup patientServiceGroup;
-
-    @Column(name = "description")
-    @Audited
-    private String description;
 
     @Override
     public Long getId() {

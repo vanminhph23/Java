@@ -3,6 +3,7 @@ package com.isofh.his.model.patient.service;
 import com.isofh.his.model.base.BaseModel;
 import com.isofh.his.model.patient.info.PatientHistory;
 import com.isofh.his.model.patient.invoice.PatientInvoiceLine;
+import org.hibernate.envers.Audited;
 
 import javax.persistence.*;
 
@@ -20,6 +21,14 @@ public class PatientServiceTechnical extends BaseModel {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "patient_history_id")
     private PatientHistory patientHistory;
+
+    @ManyToOne(fetch = FetchType.LAZY, cascade = {CascadeType.ALL})
+    @JoinColumn(name = "patient_service_group_id")
+    private PatientServiceGroup patientServiceGroup;
+
+    @Column(name = "description")
+    @Audited
+    private String description;
 
     @Override
     public Long getId() {

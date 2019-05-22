@@ -6,13 +6,18 @@ import com.isofh.his.exception.data.InvalidDataException;
 import com.isofh.his.importdata.Header;
 import com.isofh.his.importdata.ImportUtil;
 import com.isofh.his.model.base.BaseModel;
+import com.isofh.his.model.category.Department;
 import com.isofh.his.repository.base.BaseRepository;
+import com.isofh.his.security.UserPrincipal;
 import com.isofh.his.storage.StorageService;
 import com.isofh.his.util.ExcelUtil;
 import com.isofh.his.util.Util;
-import org.hibernate.exception.ConstraintViolationException;
 import org.modelmapper.ModelMapper;
 import org.slf4j.Logger;
+import org.springframework.security.authentication.AnonymousAuthenticationToken;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
@@ -113,6 +118,30 @@ public interface BaseService<X extends BaseModel, Y extends BaseDto, Z extends B
             return null;
         }
         return getModelMapper().map(dto, getModelClass());
+    }
+
+    default Long getDepartment() {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+
+        if (authentication == null || !authentication.isAuthenticated() || authentication instanceof AnonymousAuthenticationToken) {
+            return null;
+        }
+
+        UserPrincipal userPrincipal = (UserPrincipal) authentication.getPrincipal();
+
+        return userPrincipal.getDepartmentId();
+    }
+
+    default List<SimpleGrantedAuthority> getAuthorities() {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+
+        if (authentication == null || !authentication.isAuthenticated() || authentication instanceof AnonymousAuthenticationToken) {
+            return null;
+        }
+
+        UserPrincipal userPrincipal = (UserPrincipal) authentication.getPrincipal();
+
+        return userPrincipal.getAuthorities();
     }
 
     default Y getDto(X model) {

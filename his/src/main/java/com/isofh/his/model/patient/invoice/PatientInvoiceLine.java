@@ -4,6 +4,7 @@ import com.isofh.his.model.base.BaseModel;
 import com.isofh.his.model.category.Department;
 import com.isofh.his.model.category.Room;
 import com.isofh.his.model.category.service.ServiceSource;
+import com.isofh.his.model.employee.User;
 import com.isofh.his.model.patient.info.PatientHistory;
 import com.isofh.his.model.patient.info.PatientTransferDepartment;
 import com.isofh.his.model.patient.info.PatientType;
@@ -141,6 +142,14 @@ public class PatientInvoiceLine extends BaseModel {
     @Audited
     private boolean patientRequest;
 
+    @Column(name = "option", nullable = false)
+    @Audited
+    private boolean option;
+
+    @Column(name = "deferred_payment", nullable = false)
+    @Audited
+    private boolean deferredPayment;
+
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "insurance_patient_invoice_id")
     private PatientInvoice insurancePatientInvoice;
@@ -168,6 +177,10 @@ public class PatientInvoiceLine extends BaseModel {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "from_department_id")
     private Department fromDepartment;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "from_doctor_id")
+    private User fromUser;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "department_id")
