@@ -1,6 +1,6 @@
 package com.isofh.his.dto.base;
 
-public abstract class BaseCategoryDto extends BaseDto {
+public class BaseCategoryDto extends BaseDto {
 
     private String value;
 

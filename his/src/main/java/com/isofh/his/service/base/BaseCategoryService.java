@@ -40,6 +40,13 @@ public interface BaseCategoryService<X extends BaseCategoryModel, Y extends Base
         return save(model);
     }
 
+    default BaseCategoryDto getSimpleDto(X model) {
+        if (model == null) {
+            return null;
+        }
+        return getModelMapper().map(model, BaseCategoryDto.class);
+    }
+
     default String findNameById(Long id) {
         return (String) getRepository().findNameById(id).orElse(null);
     }

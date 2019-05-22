@@ -69,8 +69,8 @@ public class AuthController extends BaseResponseController {
 
         Map<String, Object> map = new HashMap<>();
         map.put("authentication", new JwtAuthenticationResponse(tokenProvider.generateToken(authentication)));
-        map.put("roles", userPrincipal.getRoleIds().stream().map(id -> roleService.findDtoById(id)));
-        map.put("departments", userPrincipal.getDepartmentIds().stream().map(id -> departmentService.findDtoById(id)));
+        map.put("roles", userPrincipal.getRoleIds().stream().map(id -> roleService.getSimpleDto(roleService.findById(id))));
+        map.put("departments", userPrincipal.getDepartmentIds().stream().map(id -> departmentService.getSimpleDto(departmentService.findById(id))));
 
         return response(map);
     }
