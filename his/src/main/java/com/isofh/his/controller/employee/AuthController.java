@@ -5,6 +5,9 @@ import com.isofh.his.dto.base.ResponseMsg;
 import com.isofh.his.dto.employee.ChooseRoleRequest;
 import com.isofh.his.dto.employee.JwtAuthenticationResponse;
 import com.isofh.his.dto.employee.LoginRequest;
+import com.isofh.his.exception.data.InvalidDataException;
+import com.isofh.his.model.employee.Privilege;
+import com.isofh.his.model.employee.Role;
 import com.isofh.his.security.JwtTokenProvider;
 import com.isofh.his.security.UserPrincipal;
 import com.isofh.his.service.category.DepartmentService;
@@ -24,7 +27,9 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.validation.Valid;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 @RestController
@@ -56,21 +61,16 @@ public class AuthController extends BaseResponseController {
     @RequestMapping(value = "/login", method = RequestMethod.POST)
     public ResponseEntity<ResponseMsg> login(@Valid @RequestBody LoginRequest request) {
 
-        Authentication authentication = authenticationManager.authenticate(
-                new UsernamePasswordAuthenticationToken(request.getUsernameOrEmail(), request.getPassword())
-        );
+        Authentication authentication = authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(request.getUsernameOrEmail(), request.getPassword()));
 
         SecurityContextHolder.getContext().setAuthentication(authentication);
 
-        Map<String, Object> map = new HashMap<>();
-        map.put("authentication", new JwtAuthenticationResponse(tokenProvider.generateToken(authentication)));
-
         UserPrincipal userPrincipal = (UserPrincipal) authentication.getPrincipal();
 
-        if (userPrincipal != null) {
-            addRoleAndDepartment(map, userPrincipal);
-            map.put("department", departmentService.getDto(userPrincipal.getDepartment()));
-        }
+        Map<String, Object> map = new HashMap<>();
+        map.put("authentication", new JwtAuthenticationResponse(tokenProvider.generateToken(authentication)));
+        map.put("roles", userPrincipal.getRoleIds().stream().map(id -> roleService.findDtoById(id)));
+        map.put("departments", userPrincipal.getDepartmentIds().stream().map(id -> departmentService.findDtoById(id)));
 
         return response(map);
     }
@@ -80,20 +80,39 @@ public class AuthController extends BaseResponseController {
 
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
 
-        Map<String, Object> map = new HashMap<>();
-        map.put("authentication", new JwtAuthenticationResponse(tokenProvider.generateToken(authentication, request.getDepartmentId(), request.getRoleId())));
-
         UserPrincipal userPrincipal = (UserPrincipal) authentication.getPrincipal();
 
-        if (userPrincipal != null) {
-            addRoleAndDepartment(map, userPrincipal);
+        List<Long> allRoleIds = userPrincipal.getRoleIds();
+        if (!allRoleIds.contains(request.getRoleId())) {
+            throw new InvalidDataException("Patient not have role id: " + request.getRoleId());
         }
 
-        return response(map);
-    }
+        List<Long> allDepartmentIds = userPrincipal.getDepartmentIds();
+        if (!allDepartmentIds.contains(request.getDepartmentId())) {
+            throw new InvalidDataException("Patient not have department id: " + request.getRoleId());
+        }
 
-    private void addRoleAndDepartment(Map<String, Object> map, UserPrincipal userPrincipal) {
-        map.put("roles", userPrincipal.getRoles().stream().map(r -> roleService.getDto(r)));
-        map.put("departments", userPrincipal.getDepartments().stream().map(d -> departmentService.getDto(d)));
+        List<Long> roleIds = new ArrayList<>();
+        roleIds.add(request.getRoleId());
+
+        List<Long> departmentIds = new ArrayList<>();
+        departmentIds.add(request.getDepartmentId());
+
+        Role role = roleService.findById(request.getRoleId());
+        List<String> privileges = new ArrayList<>();
+
+        List<Privilege> list = role.getPrivileges();
+
+        for (Privilege pr : list) {
+            privileges.add(pr.getValue());
+        }
+
+        Map<String, Object> map = new HashMap<>();
+        String jwt = tokenProvider.generateToken(userPrincipal.getId(), userPrincipal.getDepartmentId(), roleIds, departmentIds, privileges);
+
+        map.put("authentication", new JwtAuthenticationResponse(jwt));
+        map.put("privileges", privileges);
+
+        return response(map);
     }
 }

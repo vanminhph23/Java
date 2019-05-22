@@ -1,16 +1,13 @@
 package com.isofh.his.security;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.isofh.his.model.category.Department;
 import com.isofh.his.model.employee.Privilege;
 import com.isofh.his.model.employee.Role;
 import com.isofh.his.model.employee.User;
-import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.List;
 import java.util.Objects;
 
@@ -21,91 +18,70 @@ public class UserPrincipal implements UserDetails {
 
     private Long departmentId;
 
-    private Department department;
-
     private List<Long> roleIds;
-
-    private List<Role> roles;
 
     private List<Long> departmentIds;
 
-    private List<Department> departments;
-
-
-
-    @JsonIgnore
     private String email;
 
-    @JsonIgnore
     private String password;
 
     private boolean isEnabled;
 
     private List<SimpleGrantedAuthority> authorities;
 
+    private List<String> privileges;
 
-    public UserPrincipal(Long id, String username, String email, String password, boolean isEnabled, Long departmentId) {
+
+    public UserPrincipal(Long id, String username, String email, String password, boolean isEnabled) {
         this.id = id;
         this.username = username;
         this.email = email;
         this.password = password;
         this.isEnabled = isEnabled;
-        this.departmentId = departmentId;
 
         this.roleIds = new ArrayList<>();
         this.departmentIds = new ArrayList<>();
-        this.roles = new ArrayList<>();
-        this.departments = new ArrayList<>();
         this.authorities = new ArrayList<>();
+        this.privileges = new ArrayList<>();
+    }
+
+    public static UserPrincipal get(Long id, Long departmentId, List<Long> roleIds, List<Long> departmentIds, List<String> privileges) {
+        UserPrincipal userPrincipal = new UserPrincipal(id, null, null, null, true);
+        userPrincipal.setDepartmentId(departmentId);
+        userPrincipal.setRoleIds(roleIds);
+        userPrincipal.setDepartmentIds(departmentIds);
+        userPrincipal.setPrivileges(privileges);
+
+        for (String pr : privileges) {
+            userPrincipal.authorities.add(new SimpleGrantedAuthority(pr));
+        }
+
+        return userPrincipal;
     }
 
     public static UserPrincipal get(User user) {
-        return get(user, null, null);
-    }
+        UserPrincipal userPrincipal = new UserPrincipal(user.getId(), user.getName(), user.getEmail(), user.getPassword(), user.isEnabled());
 
-    public static UserPrincipal get(User user, List<Long> roleIds, List<Long> departmentIds) {
-
-        UserPrincipal userPrincipal = new UserPrincipal(user.getId(), user.getName(), user.getEmail(), user.getPassword(), user.isEnabled(), user.getDepartmentId());
-
-        userPrincipal.setDepartment(user.getDepartment());
+        userPrincipal.setDepartmentId(user.getDepartmentId());
 
         List<Role> roles = user.getRoles();
 
         for (Role r : roles) {
-            if (roleIds != null && roleIds.size() > 0 && !roleIds.contains(r.getId())) {
-                continue;
-            }
-
             userPrincipal.roleIds.add(r.getId());
-            userPrincipal.roles.add(r);
             List<Privilege> privileges = r.getPrivileges();
             for (Privilege pr : privileges) {
+                userPrincipal.privileges.add(pr.getValue());
                 userPrincipal.authorities.add(new SimpleGrantedAuthority(pr.getValue()));
             }
         }
 
         List<Department> departments = user.getDepartments();
         for (Department d : departments) {
-           if (departmentIds != null && departmentIds.size() > 0 && !departmentIds.contains(d.getId())) {
-               continue;
-           }
-
            userPrincipal.departmentIds.add(d.getId());
-           userPrincipal.departments.add(d);
         }
 
         return userPrincipal;
-    }
-
-    private static void validId(List<Long> ids, List<Long> finalIds, Long id) {
-        if (ids != null && ids.size() > 0) {
-
-            if (!ids.contains(id)) {
-                return;
-            }
-        }
-
-        finalIds.add(id);
     }
 
     public Long getId() {
@@ -124,14 +100,6 @@ public class UserPrincipal implements UserDetails {
         this.roleIds = roleIds;
     }
 
-    public List<Department> getDepartments() {
-        return departments;
-    }
-
-    public void setDepartments(List<Department> departments) {
-        this.departments = departments;
-    }
-
     public List<Long> getDepartmentIds() {
         return departmentIds;
     }
@@ -148,20 +116,12 @@ public class UserPrincipal implements UserDetails {
         this.departmentId = departmentId;
     }
 
-    public Department getDepartment() {
-        return department;
+    public List<String> getPrivileges() {
+        return privileges;
     }
 
-    public void setDepartment(Department department) {
-        this.department = department;
-    }
-
-    public List<Role> getRoles() {
-        return roles;
-    }
-
-    public void setRoles(List<Role> roles) {
-        this.roles = roles;
+    public void setPrivileges(List<String> privileges) {
+        this.privileges = privileges;
     }
 
     @Override

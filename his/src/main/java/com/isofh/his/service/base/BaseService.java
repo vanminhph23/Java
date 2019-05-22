@@ -6,7 +6,6 @@ import com.isofh.his.exception.data.InvalidDataException;
 import com.isofh.his.importdata.Header;
 import com.isofh.his.importdata.ImportUtil;
 import com.isofh.his.model.base.BaseModel;
-import com.isofh.his.model.category.Department;
 import com.isofh.his.repository.base.BaseRepository;
 import com.isofh.his.security.UserPrincipal;
 import com.isofh.his.storage.StorageService;

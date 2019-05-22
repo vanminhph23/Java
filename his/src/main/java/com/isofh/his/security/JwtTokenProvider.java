@@ -1,6 +1,5 @@
 package com.isofh.his.security;
 
-import com.isofh.his.dto.employee.UserDto;
 import com.isofh.his.exception.security.JWTTokenException;
 import com.isofh.his.util.Util;
 import io.jsonwebtoken.*;
@@ -8,6 +7,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
@@ -26,33 +26,27 @@ public class JwtTokenProvider {
     private int jwtExpirationInMs;
 
     public String generateToken(Authentication authentication) {
-        return generateToken(authentication, null, null);
+        UserPrincipal userPrincipal = (UserPrincipal) authentication.getPrincipal();
+        List<SimpleGrantedAuthority> authorities = userPrincipal.getAuthorities();
+
+        List<String> privileges = new ArrayList<>();
+        for (SimpleGrantedAuthority authority: authorities) {
+            privileges.add(authority.getAuthority());
+        }
+
+
+        return generateToken(userPrincipal.getId(), userPrincipal.getDepartmentId(), userPrincipal.getRoleIds(), userPrincipal.getDepartmentIds(), privileges);
     }
 
-    public String generateToken(Authentication authentication, Long roleId, Long departmentId) {
-
-        UserPrincipal userPrincipal = (UserPrincipal) authentication.getPrincipal();
-
-        List<Long> roleIds = new ArrayList<>();
-        if (roleId == null || roleId <= 0) {
-            roleIds = userPrincipal.getRoleIds();
-        } else {
-            roleIds.add(roleId);
-        }
-
-        List<Long> departmentIds = new ArrayList<>();
-        if (departmentId == null || departmentId <= 0) {
-            departmentIds = userPrincipal.getDepartmentIds();
-        } else {
-            departmentIds.add(departmentId);
-        }
-
+    public String generateToken(Long id, Long departmentId, List<Long> roleIds, List<Long> departmentIds, List<String> privileges) {
         Date now = new Date();
         Date expiryDate = new Date(now.getTime() + jwtExpirationInMs);
 
         return Jwts.builder()
-                .setSubject(Long.toString(userPrincipal.getId()))
+                .setSubject(Long.toString(id))
+                .claim("departmentId", departmentId)
                 .claim("departmentIds", departmentIds)
+                .claim("authorities", privileges)
                 .claim("roleIds", roleIds)
                 .setIssuedAt(new Date())
                 .setExpiration(expiryDate)
@@ -60,19 +54,19 @@ public class JwtTokenProvider {
                 .compact();
     }
 
-    public UserDto getUserIdFromJWT(String token) {
+    public UserPrincipal decode(String token) {
         Claims claims = Jwts.parser()
                 .setSigningKey(jwtSecret)
                 .parseClaimsJws(token)
                 .getBody();
 
-        UserDto userDto = new UserDto();
-        userDto.setId(Long.parseLong(claims.getSubject()));
+        Long id = Long.valueOf(claims.getSubject());
+        Long departmentId = Long.valueOf((Integer) claims.get("departmentId"));
+        List<Long> departmentIds = Util.convertIntToLong((List<Integer>) claims.get("departmentIds"));
+        List<Long> roleIds = Util.convertIntToLong((List<Integer>) claims.get("roleIds"));
+        List<String> privileges = (List<String>) claims.get("authorities");
 
-        userDto.setDepartmentIds(Util.convertIntToLong((List<Integer>) claims.get("departmentIds")));
-        userDto.setRoleIds(Util.convertIntToLong((List<Integer>) claims.get("roleIds")));
-
-        return userDto;
+        return UserPrincipal.get(id, departmentId, roleIds, departmentIds, privileges);
     }
 
     public void validateToken(String authToken) {

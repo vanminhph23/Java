@@ -9,8 +9,6 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.List;
-
 @Service
 public class UserDetailsServiceImpl implements UserDetailsService {
 
@@ -23,12 +21,5 @@ public class UserDetailsServiceImpl implements UserDetailsService {
         User user = userService.getByName(username);
 
         return UserPrincipal.get(user);
-    }
-
-    @Transactional
-    public UserDetails loadUserById(Long id, List<Long> roleIds, List<Long> departmentIds) {
-        User user = userService.findById(id);
-
-        return UserPrincipal.get(user, roleIds, departmentIds);
     }
 }
