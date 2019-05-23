@@ -25,46 +25,34 @@ public interface PatientHistoryService extends BaseService<PatientHistory, Patie
 
 
     enum PatientTypeEnum implements IEnum {
-        SERVICE(1, "Service"), INSURANCE(2, "Insurance");
+        DICH_VU(1), BAO_HIEM(2);
 
         private int value;
-        private String name;
 
-        PatientTypeEnum(int value, String name) {
+        PatientTypeEnum(int value) {
             this.value = value;
-            this.name = name;
         }
 
         @Override
         public int getValue() {
             return value;
-        }
-
-        @Override
-        public String getName() {
-            return name;
         }
     }
 
     enum PatientStateEnum implements IEnum {
-        NEW(1, "New"), PAID_OUT(30, "PaidOut"), PAID_OUT_AND_APPOINTMENT(31, "PaidOutAndAppointment");
+        NGOAI_TRU(0), NHAP_VIEN(10), DA_LAP_BENH_AN(20), TRONG_VIEN(30), CHUYEN_KHOA(40),
+        RA_VIEN_TAM_THOI(50), RA_VIEN(60), RA_VIEN_HIEN_DIEU_TRI(70), DA_THANH_TOAN(80), DA_THANH_TOAN_HEN_DIEU_TRI(90),
+        DIEU_TRI_NGOAI_TRU(100), HUY_BENH_AN(110);
 
         private int value;
-        private String name;
 
-        PatientStateEnum(int value, String name) {
+        PatientStateEnum(int value) {
             this.value = value;
-            this.name = name;
         }
 
         @Override
         public int getValue() {
             return value;
-        }
-
-        @Override
-        public String getName() {
-            return name;
         }
     }
 }

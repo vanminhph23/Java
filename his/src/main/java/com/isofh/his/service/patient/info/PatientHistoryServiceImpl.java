@@ -123,15 +123,15 @@ public class PatientHistoryServiceImpl implements PatientHistoryService {
         address.setDetail(historyDto.getDetail());
 
         if (history.getPatientType() == null) {
-            history.setPatientType(PatientTypeEnum.SERVICE.getValue());
+            history.setPatientType(PatientTypeEnum.DICH_VU.getValue());
         }
 
-        if (history.getPatientType() != PatientTypeEnum.SERVICE.getValue() && history.getPatientType() != PatientTypeEnum.INSURANCE.getValue()) {
+        if (history.getPatientType() != PatientTypeEnum.DICH_VU.getValue() && history.getPatientType() != PatientTypeEnum.BAO_HIEM.getValue()) {
             throw new InvalidDataException("Patient type " + history.getPatientType());
         }
 
         // Address card
-        if (history.getPatientType() == PatientTypeEnum.INSURANCE.getValue()) {
+        if (history.getPatientType() == PatientTypeEnum.BAO_HIEM.getValue()) {
             PatientInsurance insurance = new PatientInsurance();
             history.setPatientInsurance(insurance);
 
@@ -257,7 +257,7 @@ public class PatientHistoryServiceImpl implements PatientHistoryService {
 
     @Override
     public boolean isInsurancePatient(PatientHistory history, Date actDate) {
-        return PatientTypeEnum.INSURANCE.getValue() == getPatientType(history, actDate);
+        return PatientTypeEnum.BAO_HIEM.getValue() == getPatientType(history, actDate);
     }
 
     private Patient createPatient(PatientHistory history) {
@@ -348,9 +348,9 @@ public class PatientHistoryServiceImpl implements PatientHistoryService {
         type.setPatientHistory(history);
         if (insurance != null) {
             type.setPatientInsurance(insurance);
-            type.setPatientType(PatientTypeEnum.INSURANCE.getValue());
+            type.setPatientType(PatientTypeEnum.BAO_HIEM.getValue());
         } else {
-            type.setPatientType(PatientTypeEnum.SERVICE.getValue());
+            type.setPatientType(PatientTypeEnum.DICH_VU.getValue());
         }
 
         return type;
@@ -370,14 +370,14 @@ public class PatientHistoryServiceImpl implements PatientHistoryService {
         PatientInsurance insurance = insuranceService.findByValidDate(history.getId(), DateUtil.truncateHour(actDate));
 
         if (insurance == null) {
-            return PatientTypeEnum.SERVICE.getValue();
+            return PatientTypeEnum.DICH_VU.getValue();
         }
 
         if (!history.isInpatient() && insurance.isExtra()) {
-            return PatientTypeEnum.SERVICE.getValue();
+            return PatientTypeEnum.DICH_VU.getValue();
         }
 
-        return PatientTypeEnum.INSURANCE.getValue();
+        return PatientTypeEnum.BAO_HIEM.getValue();
     }
 
     private void validatePatientName(PatientHistory history) {
@@ -460,7 +460,7 @@ public class PatientHistoryServiceImpl implements PatientHistoryService {
             id = Long.valueOf(0);
         }
 
-        List<Integer> states = Arrays.asList(PatientStateEnum.NEW.getValue());
+        List<Integer> states = Arrays.asList(PatientStateEnum.TRONG_VIEN.getValue());
 
         List<PatientHistory> list = getRepository().findByPatientValueAndPatientSate(patientValue, states, id, PageRequest.of(0, 1));
 

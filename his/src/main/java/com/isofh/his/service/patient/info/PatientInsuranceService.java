@@ -21,24 +21,17 @@ public interface PatientInsuranceService extends BaseService<PatientInsurance, P
     SimpleInsurancePatientHistoryDto getSimpleInsurancePatientHistoryDto(PatientInsurance insurance);
 
     enum RegionValueEnum implements IEnum {
-        K1(1, "K1"), K2(2, "K2"), K3(3, "K2"), Other(4, "Other");
+        K1(10), K2(20), K3(30), KHAC(40);
 
         int value;
-        String name;
 
-        RegionValueEnum(int value, String name) {
+        RegionValueEnum(int value) {
             this.value = value;
-            this.name = name;
         }
 
         @Override
         public int getValue() {
             return value;
-        }
-
-        @Override
-        public String getName() {
-            return name;
         }
     }
 }
