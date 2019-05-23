@@ -176,20 +176,37 @@ public class PatientInvoiceLine extends BaseModel {
     @JoinColumn(name = "patient_payment_id")
     private PatientPayment patientPayment;
 
+    @Column(name = "from_department_id")
+    @Audited
+    private Long fromDepartmentId;
+
+
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "from_department_id")
+    @JoinColumn(name = "from_department_id", insertable = false, updatable = false)
     private Department fromDepartment;
 
+    @Column(name = "from_doctor_id")
+    @Audited
+    private Long fromUserId;
+
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "from_doctor_id")
+    @JoinColumn(name = "from_doctor_id", insertable = false, updatable = false)
     private User fromUser;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "department_id")
-    private Department department;
+    @Column(name = "department_id")
+    @Audited
+    private Long departmentId;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "room_id")
+    @JoinColumn(name = "department_id", insertable = false, updatable = false)
+    private Department department;
+
+    @Column(name = "room_id")
+    @Audited
+    private Long roomId;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "room_id", insertable = false, updatable = false)
     private Room room;
 
     @Column(name = "created_from_record_id")
@@ -456,6 +473,22 @@ public class PatientInvoiceLine extends BaseModel {
         this.patientRequest = patientRequest;
     }
 
+    public boolean isOption() {
+        return option;
+    }
+
+    public void setOption(boolean option) {
+        this.option = option;
+    }
+
+    public boolean isDeferredPayment() {
+        return deferredPayment;
+    }
+
+    public void setDeferredPayment(boolean deferredPayment) {
+        this.deferredPayment = deferredPayment;
+    }
+
     public PatientInvoice getInsurancePatientInvoice() {
         return insurancePatientInvoice;
     }
@@ -504,6 +537,14 @@ public class PatientInvoiceLine extends BaseModel {
         this.patientPayment = patientPayment;
     }
 
+    public Long getFromDepartmentId() {
+        return fromDepartmentId;
+    }
+
+    public void setFromDepartmentId(Long fromDepartmentId) {
+        this.fromDepartmentId = fromDepartmentId;
+    }
+
     public Department getFromDepartment() {
         return fromDepartment;
     }
@@ -512,12 +553,44 @@ public class PatientInvoiceLine extends BaseModel {
         this.fromDepartment = fromDepartment;
     }
 
+    public Long getFromUserId() {
+        return fromUserId;
+    }
+
+    public void setFromUserId(Long fromUserId) {
+        this.fromUserId = fromUserId;
+    }
+
+    public User getFromUser() {
+        return fromUser;
+    }
+
+    public void setFromUser(User fromUser) {
+        this.fromUser = fromUser;
+    }
+
+    public Long getDepartmentId() {
+        return departmentId;
+    }
+
+    public void setDepartmentId(Long departmentId) {
+        this.departmentId = departmentId;
+    }
+
     public Department getDepartment() {
         return department;
     }
 
     public void setDepartment(Department department) {
         this.department = department;
+    }
+
+    public Long getRoomId() {
+        return roomId;
+    }
+
+    public void setRoomId(Long roomId) {
+        this.roomId = roomId;
     }
 
     public Room getRoom() {

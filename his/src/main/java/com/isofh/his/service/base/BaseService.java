@@ -119,7 +119,7 @@ public interface BaseService<X extends BaseModel, Y extends BaseDto, Z extends B
         return getModelMapper().map(dto, getModelClass());
     }
 
-    default Long getDepartment() {
+    default Long getDepartmentId() {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
 
         if (authentication == null || !authentication.isAuthenticated() || authentication instanceof AnonymousAuthenticationToken) {

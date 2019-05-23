@@ -3,7 +3,9 @@ package com.isofh.his.service.patient.invoice;
 import com.isofh.his.dto.patient.service.PatientInvoiceLineDto;
 import com.isofh.his.model.patient.info.Patient;
 import com.isofh.his.model.patient.invoice.PatientInvoiceLine;
+import com.isofh.his.model.patient.service.PatientServiceCheckUp;
 import com.isofh.his.repository.patient.invoice.PatientInvoiceLineRepository;
+import com.isofh.his.service.patient.service.*;
 import com.isofh.his.storage.StorageService;
 import org.modelmapper.ModelMapper;
 import org.modelmapper.convention.MatchingStrategies;
@@ -21,6 +23,27 @@ public class PatientInvoiceLineServiceImpl implements PatientInvoiceLineService 
 
     @Autowired
     private PatientInvoiceLineRepository repository;
+
+    @Autowired
+    private PatientServiceCheckUpService checkUpService;
+
+    @Autowired
+    private PatientServiceMedicalTestService medicalTestService;
+
+    @Autowired
+    private PatientServiceTechnicalService technicalService;
+
+    @Autowired
+    private PatientServiceOtherService otherService;
+
+    @Autowired
+    private PatientServiceBedService bedService;
+
+    @Autowired
+    private PatientServiceProductService productService;
+
+    @Autowired
+    private PatientServiceBloodService bloodService;
 
     @Override
     public PatientInvoiceLineRepository getRepository() {
@@ -81,7 +104,22 @@ public class PatientInvoiceLineServiceImpl implements PatientInvoiceLineService 
     }
 
     @Override
-    public PatientInvoiceLineDto createDto(PatientInvoiceLine model) {
+    public PatientInvoiceLineDto createDto(PatientInvoiceLineDto dto) {
+
+
         return null;
+    }
+
+    @Override
+    public PatientInvoiceLine create(PatientInvoiceLine model) {
+
+
+        return null;
+    }
+
+    private void autoFillDefaultFields(PatientInvoiceLine model) {
+        if (model.getFromDepartmentId() == null || model.getFromDepartmentId() <= 0) {
+            model.setFromDepartmentId(getDepartmentId());
+        }
     }
 }

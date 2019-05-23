@@ -344,7 +344,7 @@ public class PatientInsuranceServiceImpl implements PatientInsuranceService {
 
     private boolean isExtraInsurance(Long regAtHospitalId, Long patientFromHospitalId, boolean emergency, boolean appointment, Integer regionValue) {
         return !isCurrentHospital(regAtHospitalId) && (patientFromHospitalId == null || patientFromHospitalId <= 0) && !emergency && !appointment
-                && (regionValue == null || RegionValueEnum.Other.getValue() == regionValue);
+                && (regionValue == null || RegionValueEnum.KHAC.getValue() == regionValue);
     }
 
     private String formatInsuranceNumber(String insuranceNumber) {

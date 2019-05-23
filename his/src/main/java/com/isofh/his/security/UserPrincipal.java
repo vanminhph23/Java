@@ -1,8 +1,5 @@
 package com.isofh.his.security;
 
-import com.isofh.his.model.category.Department;
-import com.isofh.his.model.employee.Privilege;
-import com.isofh.his.model.employee.Role;
 import com.isofh.his.model.employee.User;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -18,9 +15,9 @@ public class UserPrincipal implements UserDetails {
 
     private Long departmentId;
 
-    private List<Long> roleIds;
+    private Long roleId;
 
-    private List<Long> departmentIds;
+    private Long mainDepartmentId;
 
     private String email;
 
@@ -38,39 +35,21 @@ public class UserPrincipal implements UserDetails {
         this.password = password;
         this.isEnabled = isEnabled;
 
-        this.roleIds = new ArrayList<>();
-        this.departmentIds = new ArrayList<>();
         this.privileges = new ArrayList<>();
     }
 
-    public static UserPrincipal get(Long id, Long departmentId, List<Long> roleIds, List<Long> departmentIds, List<String> privileges) {
+    public static UserPrincipal get(Long id, Long departmentId, Long roleId, Long mainDepartmentId, List<String> privileges) {
         UserPrincipal userPrincipal = new UserPrincipal(id, null, null, null, true);
         userPrincipal.setDepartmentId(departmentId);
-        userPrincipal.setRoleIds(roleIds);
-        userPrincipal.setDepartmentIds(departmentIds);
+        userPrincipal.setRoleId(roleId);
+        userPrincipal.setMainDepartmentId(mainDepartmentId);
         userPrincipal.setPrivileges(privileges);
         return userPrincipal;
     }
 
     public static UserPrincipal get(User user) {
         UserPrincipal userPrincipal = new UserPrincipal(user.getId(), user.getName(), user.getEmail(), user.getPassword(), user.isEnabled());
-
-        userPrincipal.setDepartmentId(user.getDepartmentId());
-
-        List<Role> roles = user.getRoles();
-
-        for (Role r : roles) {
-            userPrincipal.roleIds.add(r.getId());
-            List<Privilege> privileges = r.getPrivileges();
-            for (Privilege pr : privileges) {
-                userPrincipal.privileges.add(pr.getValue());
-            }
-        }
-
-        List<Department> departments = user.getDepartments();
-        for (Department d : departments) {
-           userPrincipal.departmentIds.add(d.getId());
-        }
+        userPrincipal.setMainDepartmentId(user.getDepartmentId());
 
         return userPrincipal;
     }
@@ -79,24 +58,12 @@ public class UserPrincipal implements UserDetails {
         return id;
     }
 
-    public String getEmail() {
-        return email;
+    public void setId(Long id) {
+        this.id = id;
     }
 
-    public List<Long> getRoleIds() {
-        return roleIds;
-    }
-
-    public void setRoleIds(List<Long> roleIds) {
-        this.roleIds = roleIds;
-    }
-
-    public List<Long> getDepartmentIds() {
-        return departmentIds;
-    }
-
-    public void setDepartmentIds(List<Long> departmentIds) {
-        this.departmentIds = departmentIds;
+    public void setUsername(String username) {
+        this.username = username;
     }
 
     public Long getDepartmentId() {
@@ -105,6 +72,38 @@ public class UserPrincipal implements UserDetails {
 
     public void setDepartmentId(Long departmentId) {
         this.departmentId = departmentId;
+    }
+
+    public Long getRoleId() {
+        return roleId;
+    }
+
+    public void setRoleId(Long roleId) {
+        this.roleId = roleId;
+    }
+
+    public Long getMainDepartmentId() {
+        return mainDepartmentId;
+    }
+
+    public void setMainDepartmentId(Long mainDepartmentId) {
+        this.mainDepartmentId = mainDepartmentId;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
+    public void setEnabled(boolean enabled) {
+        isEnabled = enabled;
     }
 
     public List<String> getPrivileges() {

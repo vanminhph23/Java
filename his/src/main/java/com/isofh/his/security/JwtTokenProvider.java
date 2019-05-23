@@ -35,19 +35,19 @@ public class JwtTokenProvider {
         }
 
 
-        return generateToken(userPrincipal.getId(), userPrincipal.getDepartmentId(), userPrincipal.getRoleIds(), userPrincipal.getDepartmentIds(), privileges);
+        return generateToken(userPrincipal.getId(), userPrincipal.getDepartmentId(), userPrincipal.getRoleId(), userPrincipal.getMainDepartmentId(), privileges);
     }
 
-    public String generateToken(Long id, Long departmentId, List<Long> roleIds, List<Long> departmentIds, List<String> privileges) {
+    public String generateToken(Long id, Long departmentId, Long roleId, Long mainDepartmentId, List<String> privileges) {
         Date now = new Date();
         Date expiryDate = new Date(now.getTime() + jwtExpirationInMs);
 
         return Jwts.builder()
                 .setSubject(Long.toString(id))
                 .claim("departmentId", departmentId)
-                .claim("departmentIds", departmentIds)
+                .claim("mainDepartmentId", mainDepartmentId)
                 .claim("authorities", privileges)
-                .claim("roleIds", roleIds)
+                .claim("roleId", roleId)
                 .setIssuedAt(new Date())
                 .setExpiration(expiryDate)
                 .signWith(SignatureAlgorithm.HS512, jwtSecret)
@@ -62,13 +62,13 @@ public class JwtTokenProvider {
 
         Long id = Long.valueOf(claims.getSubject());
         Integer departmentId = (Integer) claims.get("departmentId");
-        List<Long> departmentIds = Util.convertIntToLong((List<Integer>) claims.get("departmentIds"));
-        List<Long> roleIds = Util.convertIntToLong((List<Integer>) claims.get("roleIds"));
+        Integer mainDepartmentId = (Integer) claims.get("mainDepartmentId");
+        Integer roleId = (Integer) claims.get("roleId");
         List<String> privileges = (List<String>) claims.get("authorities");
 
         privileges = privileges == null ? new ArrayList<>() : privileges;
 
-        return UserPrincipal.get(id, departmentId == null ? null : Long.valueOf(departmentId), roleIds, departmentIds, privileges);
+        return UserPrincipal.get(id, departmentId == null ? null : Long.valueOf(departmentId), roleId == null ? null : Long.valueOf(roleId), mainDepartmentId == null ? null : Long.valueOf(mainDepartmentId), privileges);
     }
 
     public void validateToken(String authToken) {
