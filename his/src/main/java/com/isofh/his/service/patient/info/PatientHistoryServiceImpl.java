@@ -260,6 +260,11 @@ public class PatientHistoryServiceImpl implements PatientHistoryService {
         return PatientTypeEnum.BAO_HIEM.getValue() == getPatientType(history, actDate);
     }
 
+    @Override
+    public boolean isInsurancePatient(PatientType patientType, boolean inPatient) {
+        return PatientTypeEnum.BAO_HIEM.getValue() == getPatientType(patientType, inPatient);
+    }
+
     private Patient createPatient(PatientHistory history) {
         String patientValue = history.getPatientValue();
         if (patientValue != null) {
@@ -367,13 +372,18 @@ public class PatientHistoryServiceImpl implements PatientHistoryService {
     }
 
     private int getPatientType(PatientHistory history, Date actDate) {
-        PatientInsurance insurance = insuranceService.findByValidDate(history.getId(), DateUtil.truncateHour(actDate));
+        PatientType patientType = typeService.findByValidDate(history.getId(), DateUtil.truncateHour(actDate));
 
-        if (insurance == null) {
+        return getPatientType(patientType, history.isInpatient());
+    }
+
+    private int getPatientType(PatientType patientType, boolean inpatient) {
+
+        if (patientType == null || patientType.getPatientType() == PatientTypeEnum.DICH_VU.getValue()) {
             return PatientTypeEnum.DICH_VU.getValue();
         }
 
-        if (!history.isInpatient() && insurance.isExtra()) {
+        if (!inpatient && patientType.getPatientInsurance().isExtra()) {
             return PatientTypeEnum.DICH_VU.getValue();
         }
 

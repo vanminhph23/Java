@@ -14,8 +14,6 @@ public interface PatientInsuranceService extends BaseService<PatientInsurance, P
 
     String INSURANCE_PATTERN = "^[A-Z]{2}[0-9]{3}[A-Z0-9]{2}[0-9]{8}$";
 
-    PatientInsurance findByValidDate(Long patientHistoryId, Date actDate);
-
     void validateInsuranceCard(PatientHistory history, PatientInsurance insurance, boolean ignoreValidatePortalInsurance);
 
     SimpleInsurancePatientHistoryDto getSimpleInsurancePatientHistoryDto(PatientInsurance insurance);

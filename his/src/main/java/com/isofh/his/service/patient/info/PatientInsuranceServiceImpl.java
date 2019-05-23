@@ -94,17 +94,6 @@ public class PatientInsuranceServiceImpl implements PatientInsuranceService {
     }
 
     @Override
-    public PatientInsurance findByValidDate(Long patientHistoryId, Date actDate) {
-        List<PatientInsurance> list = getRepository().findByValidDate(patientHistoryId, DateUtil.truncateHour(actDate), PageRequest.of(0, 1, Sort.by("percent").descending()));
-
-        if (list != null && list.size() > 0) {
-            return list.get(0);
-        }
-
-        return null;
-    }
-
-    @Override
     public void validateInsuranceCard(PatientHistory history, PatientInsurance insurance, boolean ignoreValidatePortalInsurance) {
 
         validateInsuranceNumber(insurance);

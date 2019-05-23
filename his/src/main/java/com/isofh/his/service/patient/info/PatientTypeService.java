@@ -9,5 +9,5 @@ import java.util.Date;
 
 public interface PatientTypeService extends BaseService<PatientType, PatientTypeDto, PatientTypeRepository> {
 
-    PatientType getByActDate(int patientHistoryId, Date actDate);
+    PatientType findByValidDate(Long patientHistoryId, Date actDate);
 }

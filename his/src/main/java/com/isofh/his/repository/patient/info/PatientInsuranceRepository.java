@@ -15,13 +15,6 @@ public interface PatientInsuranceRepository extends BaseRepository<PatientInsura
     @Query("select e from PatientInsurance e" +
             " inner join e.patientType as t" +
             " inner join t.patientHistory as h" +
-            " where h.id = ?1 and e.appliedFromDate <= ?2 and e.appliedToDate >= ?2")
-    List<PatientInsurance> findByValidDate(Long patientHistoryId, Date actDate, Pageable pageable);
-
-    @Transactional(readOnly = true)
-    @Query("select e from PatientInsurance e" +
-            " inner join e.patientType as t" +
-            " inner join t.patientHistory as h" +
             " where e.insuranceNumber = ?1" +
             " and case when h.regDate > e.appliedFromDate then h.regDate else e.appliedFromDate end <= ?2" +
             " and case when h.timeGoOut < e.appliedToDate then h.timeGoOut else e.appliedToDate end >= ?2 and h.id <> ?3")

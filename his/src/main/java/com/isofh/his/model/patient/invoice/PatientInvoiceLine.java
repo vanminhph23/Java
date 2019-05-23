@@ -8,6 +8,7 @@ import com.isofh.his.model.employee.User;
 import com.isofh.his.model.patient.info.PatientHistory;
 import com.isofh.his.model.patient.info.PatientTransferDepartment;
 import com.isofh.his.model.patient.info.PatientType;
+import com.isofh.his.service.patient.invoice.PatientInvoiceLineService;
 import org.hibernate.annotations.Where;
 import org.hibernate.envers.Audited;
 
@@ -29,7 +30,7 @@ public class PatientInvoiceLine extends BaseModel {
     private Long id;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "patient_history_id")
+    @JoinColumn(name = "patient_history_id", nullable = false)
     private PatientHistory patientHistory;
 
     @Column(name = "inpatient", nullable = false)
@@ -64,57 +65,57 @@ public class PatientInvoiceLine extends BaseModel {
     @Audited
     private Long serviceGroupLevel3Id;
 
-    @Column(name = "service_unit_price")
+    @Column(name = "service_unit_price", nullable = false)
     @Audited
     private Double serviceUnitPrice;
 
-    @Column(name = "insurance_unit_price")
+    @Column(name = "insurance_unit_price", nullable = false)
     @Audited
     private Double insuranceUnitPrice;
 
-    @Column(name = "difference_unit_price")
+    @Column(name = "difference_unit_price", nullable = false)
     @Audited
     private Double differenceUnitPrice;
 
-    @Column(name = "service_total_amount")
+    @Column(name = "service_total_amount", nullable = false)
     @Audited
     private Double serviceTotalAmount;
 
-    @Column(name = "insurance_total_amount")
+    @Column(name = "insurance_total_amount", nullable = false)
     @Audited
     private Double insuranceTotalAmount;
 
-    @Column(name = "service_amount")
+    @Column(name = "service_amount", nullable = false)
     @Audited
     private Double serviceAmount;
 
-    @Column(name = "insurance_amount")
+    @Column(name = "insurance_amount", nullable = false)
     @Audited
     private Double insuranceAmount;
 
-    @Column(name = "service_exemption_amount")
+    @Column(name = "service_exemption_amount", nullable = false)
     @Audited
     private Double serviceExemptionAmount;
 
-    @Column(name = "insurance_exemption_amount")
+    @Column(name = "insurance_exemption_amount", nullable = false)
     @Audited
     private Double insuranceExemptionAmount;
 
-    @Column(name = "amount")
+    @Column(name = "amount", nullable = false)
     @Audited
     private Double amount;
 
-    @Column(name = "quantity")
+    @Column(name = "quantity", nullable = false)
     @Audited
     private Double quantity;
 
-    @Column(name = "service_pay_rate")
+    @Column(name = "service_pay_rate", nullable = false)
     @Audited
-    private Double servicePayRate;
+    private Integer servicePayRate;
 
-    @Column(name = "insurance_pay_rate")
+    @Column(name = "insurance_pay_rate", nullable = false)
     @Audited
-    private Double insurancePayRate;
+    private Integer insurancePayRate;
 
     @Column(name = "not_counted", nullable = false)
     @Audited
@@ -168,18 +169,17 @@ public class PatientInvoiceLine extends BaseModel {
     @JoinColumn(name = "patient_type_id")
     private PatientType patientType;
 
-    @Column(name = "transfer_from_outpatient")
+    @Column(name = "transfer_from_outpatient", nullable = false)
     @Audited
-    private boolean transferFromOutpatient;
+    private boolean transferFromOutpatient = false;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "patient_payment_id")
     private PatientPayment patientPayment;
 
-    @Column(name = "from_department_id")
+    @Column(name = "from_department_id", nullable = false)
     @Audited
     private Long fromDepartmentId;
-
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "from_department_id", insertable = false, updatable = false)
@@ -209,27 +209,27 @@ public class PatientInvoiceLine extends BaseModel {
     @JoinColumn(name = "room_id", insertable = false, updatable = false)
     private Room room;
 
-    @Column(name = "created_from_record_id")
+    @Column(name = "created_from_record_id", nullable = false)
     @Audited
     private Long createdFromRecordId;
 
-    @Column(name = "created_from_service_type")
+    @Column(name = "created_from_service_type", nullable = false)
     @Audited
     private int createdFromServiceType;
 
-    @Column(name = "doc_date")
+    @Column(name = "doc_date", nullable = false)
     @Temporal(TemporalType.TIMESTAMP)
     @Audited
     private Date docDate;
 
-    @Column(name = "act_date")
+    @Column(name = "act_date", nullable = false)
     @Temporal(TemporalType.TIMESTAMP)
     @Audited
     private Date actDate;
 
-    @Column(name = "status")
+    @Column(name = "status", nullable = false)
     @Audited
-    private int status;
+    private int status = PatientInvoiceLineService.StatusEnum.THUONG.getValue();
 
     @Override
     public Long getId() {
@@ -401,19 +401,19 @@ public class PatientInvoiceLine extends BaseModel {
         this.quantity = quantity;
     }
 
-    public Double getServicePayRate() {
+    public Integer getServicePayRate() {
         return servicePayRate;
     }
 
-    public void setServicePayRate(Double servicePayRate) {
+    public void setServicePayRate(Integer servicePayRate) {
         this.servicePayRate = servicePayRate;
     }
 
-    public Double getInsurancePayRate() {
+    public Integer getInsurancePayRate() {
         return insurancePayRate;
     }
 
-    public void setInsurancePayRate(Double insurancePayRate) {
+    public void setInsurancePayRate(Integer insurancePayRate) {
         this.insurancePayRate = insurancePayRate;
     }
 

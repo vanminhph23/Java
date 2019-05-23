@@ -36,7 +36,7 @@ public class ServiceSource extends BaseCategoryModel {
     @Audited
     private String cxName;
 
-    @Column(name = "insurance_pay_rate")
+    @Column(name = "insurance_pay_rate", nullable = false)
     @Audited
     private int insurancePayRate;
 

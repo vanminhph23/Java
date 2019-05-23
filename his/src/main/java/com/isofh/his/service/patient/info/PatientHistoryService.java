@@ -3,6 +3,7 @@ package com.isofh.his.service.patient.info;
 import com.isofh.his.dto.patient.info.PatientHistoryDto;
 import com.isofh.his.dto.patient.info.SimpleInsurancePatientHistoryDto;
 import com.isofh.his.model.patient.info.PatientHistory;
+import com.isofh.his.model.patient.info.PatientType;
 import com.isofh.his.repository.patient.info.PatientHistoryRepository;
 import com.isofh.his.service.base.BaseService;
 import com.isofh.his.service.base.IEnum;
@@ -23,6 +24,7 @@ public interface PatientHistoryService extends BaseService<PatientHistory, Patie
 
     boolean isInsurancePatient(PatientHistory history, Date actDate);
 
+    boolean isInsurancePatient(PatientType patientType, boolean inPatient);
 
     enum PatientTypeEnum implements IEnum {
         DICH_VU(1), BAO_HIEM(2);
