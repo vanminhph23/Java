@@ -40,12 +40,12 @@ public interface BaseCategoryRepository<T extends BaseCategoryModel, ID extends 
 
     @Transactional(readOnly = true)
     default boolean existsByValue(String value, ID id) {
-        return findIdByValue(value, id).orElse(Long.valueOf(0)) > 0;
+        return findIdByValue(value, id).orElse(0L) > 0;
     }
 
     @Transactional(readOnly = true)
     default boolean existsByName(String name, ID id) {
-        return findIdByName(name, id).orElse(Long.valueOf(0)) > 0;
+        return findIdByName(name, id).orElse(0L) > 0;
     }
 
     @Override

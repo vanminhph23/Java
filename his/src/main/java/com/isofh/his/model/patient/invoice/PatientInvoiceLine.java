@@ -29,16 +29,23 @@ public class PatientInvoiceLine extends BaseModel {
     )
     private Long id;
 
+    @Column(name = "patient_history_id", nullable = false)
+    private Long patientHistoryId;
+
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "patient_history_id", nullable = false)
+    @JoinColumn(name = "patient_history_id", insertable = false, updatable = false)
     private PatientHistory patientHistory;
 
     @Column(name = "inpatient", nullable = false)
     @Audited
     private boolean inpatient = false;
 
+    @Column(name = "service_id", nullable = false)
+    @Audited
+    private Long serviceId;
+
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "service_id", nullable = false)
+    @JoinColumn(name = "service_id", insertable = false, updatable = false)
     private ServiceSource service;
 
     @Column(name = "service_type", nullable = false)
@@ -193,22 +200,6 @@ public class PatientInvoiceLine extends BaseModel {
     @JoinColumn(name = "from_doctor_id", insertable = false, updatable = false)
     private User fromUser;
 
-    @Column(name = "department_id")
-    @Audited
-    private Long departmentId;
-
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "department_id", insertable = false, updatable = false)
-    private Department department;
-
-    @Column(name = "room_id")
-    @Audited
-    private Long roomId;
-
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "room_id", insertable = false, updatable = false)
-    private Room room;
-
     @Column(name = "created_from_record_id", nullable = false)
     @Audited
     private Long createdFromRecordId;
@@ -239,6 +230,14 @@ public class PatientInvoiceLine extends BaseModel {
     @Override
     public void setId(Long id) {
         this.id = id;
+    }
+
+    public Long getPatientHistoryId() {
+        return patientHistoryId;
+    }
+
+    public void setPatientHistoryId(Long patientHistoryId) {
+        this.patientHistoryId = patientHistoryId;
     }
 
     public PatientHistory getPatientHistory() {
@@ -569,38 +568,6 @@ public class PatientInvoiceLine extends BaseModel {
         this.fromUser = fromUser;
     }
 
-    public Long getDepartmentId() {
-        return departmentId;
-    }
-
-    public void setDepartmentId(Long departmentId) {
-        this.departmentId = departmentId;
-    }
-
-    public Department getDepartment() {
-        return department;
-    }
-
-    public void setDepartment(Department department) {
-        this.department = department;
-    }
-
-    public Long getRoomId() {
-        return roomId;
-    }
-
-    public void setRoomId(Long roomId) {
-        this.roomId = roomId;
-    }
-
-    public Room getRoom() {
-        return room;
-    }
-
-    public void setRoom(Room room) {
-        this.room = room;
-    }
-
     public Long getCreatedFromRecordId() {
         return createdFromRecordId;
     }
@@ -639,5 +606,13 @@ public class PatientInvoiceLine extends BaseModel {
 
     public void setStatus(int status) {
         this.status = status;
+    }
+
+    public Long getServiceId() {
+        return serviceId;
+    }
+
+    public void setServiceId(Long serviceId) {
+        this.serviceId = serviceId;
     }
 }

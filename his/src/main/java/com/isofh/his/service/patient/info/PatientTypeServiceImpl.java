@@ -69,7 +69,7 @@ public class PatientTypeServiceImpl implements PatientTypeService {
 
     @Override
     public PatientType findByValidDate(Long patientHistoryId, Date actDate) {
-        List<PatientType> list = getRepository().findByValidDate(patientHistoryId, DateUtil.truncateHour(actDate), PageRequest.of(0, 1, Sort.by("percent").descending()));
+        List<PatientType> list = getRepository().findByValidDate(patientHistoryId, DateUtil.truncateHour(actDate), PageRequest.of(0, 1, Sort.by("i.percent").descending()));
 
         if (list != null && list.size() > 0) {
             return list.get(0);

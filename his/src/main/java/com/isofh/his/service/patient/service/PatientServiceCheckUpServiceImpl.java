@@ -3,6 +3,8 @@ package com.isofh.his.service.patient.service;
 import com.isofh.his.dto.patient.service.PatientServiceCheckUpDto;
 import com.isofh.his.model.patient.service.PatientServiceCheckUp;
 import com.isofh.his.repository.patient.service.PatientServiceCheckUpRepository;
+import com.isofh.his.service.patient.info.PatientHistoryService;
+import com.isofh.his.service.patient.invoice.PatientInvoiceLineService;
 import com.isofh.his.storage.StorageService;
 import org.modelmapper.ModelMapper;
 import org.modelmapper.convention.MatchingStrategies;
@@ -57,5 +59,17 @@ public class PatientServiceCheckUpServiceImpl implements PatientServiceCheckUpSe
     @Override
     public Logger getLogger() {
         return this.logger;
+    }
+
+    @Override
+    public PatientServiceCheckUpDto createDto(PatientServiceCheckUpDto dto) {
+        return dto;
+    }
+
+    @Override
+    public PatientServiceCheckUp create(PatientServiceCheckUp checkUp) {
+
+        checkUp = save(checkUp);
+        return checkUp;
     }
 }

@@ -467,7 +467,7 @@ public class PatientHistoryServiceImpl implements PatientHistoryService {
 
         Long id = history.getId();
         if (id == null) {
-            id = Long.valueOf(0);
+            id = 0L;
         }
 
         List<Integer> states = Arrays.asList(PatientStateEnum.TRONG_VIEN.getValue());

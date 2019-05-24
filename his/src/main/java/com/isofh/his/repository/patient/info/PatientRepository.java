@@ -15,7 +15,7 @@ public interface PatientRepository extends BaseRepository<Patient, Long> {
 
     @Transactional(readOnly = true)
     default boolean existsByPatientValue(String patientValue) {
-        return findIdByPatientValue(patientValue).orElse(Long.valueOf(0)) > 0;
+        return findIdByPatientValue(patientValue).orElse(0L) > 0;
     }
 
     @Transactional(readOnly = true)

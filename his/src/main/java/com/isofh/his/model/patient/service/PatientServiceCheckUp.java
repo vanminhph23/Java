@@ -1,6 +1,8 @@
 package com.isofh.his.model.patient.service;
 
 import com.isofh.his.model.base.BaseModel;
+import com.isofh.his.model.category.Department;
+import com.isofh.his.model.category.Room;
 import com.isofh.his.model.patient.info.*;
 import com.isofh.his.model.patient.invoice.PatientInvoiceLine;
 import org.hibernate.annotations.Where;
@@ -23,6 +25,22 @@ public class PatientServiceCheckUp extends BaseModel {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "patient_history_id")
     private PatientHistory patientHistory;
+
+    @Column(name = "department_id")
+    @Audited
+    private Long departmentId;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "department_id", insertable = false, updatable = false)
+    private Department department;
+
+    @Column(name = "room_id")
+    @Audited
+    private Long roomId;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "room_id", insertable = false, updatable = false)
+    private Room room;
 
     // CD vao vien
     @OneToOne(fetch = FetchType.LAZY, cascade = {CascadeType.ALL})
@@ -134,6 +152,38 @@ public class PatientServiceCheckUp extends BaseModel {
 
     public void setPatientInvoiceLine(PatientInvoiceLine patientInvoiceLine) {
         this.patientInvoiceLine = patientInvoiceLine;
+    }
+
+    public Long getDepartmentId() {
+        return departmentId;
+    }
+
+    public void setDepartmentId(Long departmentId) {
+        this.departmentId = departmentId;
+    }
+
+    public Department getDepartment() {
+        return department;
+    }
+
+    public void setDepartment(Department department) {
+        this.department = department;
+    }
+
+    public Long getRoomId() {
+        return roomId;
+    }
+
+    public void setRoomId(Long roomId) {
+        this.roomId = roomId;
+    }
+
+    public Room getRoom() {
+        return room;
+    }
+
+    public void setRoom(Room room) {
+        this.room = room;
     }
 
     public PatientInHospitalDiag getPatientInHospitalDiag() {

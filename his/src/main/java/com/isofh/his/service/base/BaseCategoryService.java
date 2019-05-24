@@ -76,25 +76,25 @@ public interface BaseCategoryService<X extends BaseCategoryModel, Y extends Base
     }
 
     default Long findIdByValue(String value) {
-        return findIdByValue(value, Long.valueOf(0));
+        return findIdByValue(value, 0L);
     }
 
     default Long findIdByValue(String value, Long id) {
         if (id == null) {
-            id = Long.valueOf(0);
+            id = 0L;
         }
         return (Long) getRepository().findIdByValue(value, id).orElse(null);
     }
 
     default Long findIdByName(String name, Long id) {
         if (id == null) {
-            id = Long.valueOf(0);
+            id = 0L;
         }
         return (Long) getRepository().findIdByName(name, id).orElse(null);
     }
 
     default Long findIdByName(String name) {
-        return findIdByName(name, Long.valueOf(0));
+        return findIdByName(name, 0L);
     }
 
     default X findById(Long id) {

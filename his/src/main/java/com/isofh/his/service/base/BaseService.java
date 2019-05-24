@@ -199,4 +199,11 @@ public interface BaseService<X extends BaseModel, Y extends BaseDto, Z extends B
 
         return model;
     }
+
+    default X clonePatientService() {
+        X model = getModelMapper().map(this, getModelClass());
+        model.setId(null);
+
+        return model;
+    }
 }

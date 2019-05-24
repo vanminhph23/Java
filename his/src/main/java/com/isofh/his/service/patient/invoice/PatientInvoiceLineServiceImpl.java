@@ -4,10 +4,12 @@ import com.isofh.his.dto.patient.service.PatientInvoiceLineDto;
 import com.isofh.his.exception.data.InvalidDataException;
 import com.isofh.his.model.category.service.ServiceSource;
 import com.isofh.his.model.patient.info.Patient;
+import com.isofh.his.model.patient.info.PatientHistory;
 import com.isofh.his.model.patient.info.PatientType;
 import com.isofh.his.model.patient.invoice.PatientInvoiceLine;
 import com.isofh.his.model.patient.service.PatientServiceCheckUp;
 import com.isofh.his.repository.patient.invoice.PatientInvoiceLineRepository;
+import com.isofh.his.service.category.service.ServiceSourceService;
 import com.isofh.his.service.patient.info.PatientHistoryService;
 import com.isofh.his.service.patient.info.PatientTypeService;
 import com.isofh.his.service.patient.service.*;
@@ -35,6 +37,9 @@ public class PatientInvoiceLineServiceImpl implements PatientInvoiceLineService 
 
     @Autowired
     private PatientHistoryService historyService;
+
+    @Autowired
+    private ServiceSourceService serviceSourceService;
 
     @Autowired
     private PatientServiceCheckUpService checkUpService;
@@ -100,7 +105,7 @@ public class PatientInvoiceLineServiceImpl implements PatientInvoiceLineService 
     @Override
     public List<PatientInvoiceLine> findNotPaidServiceByPatient(Patient patient, Long patientHistoryId) {
         if (patientHistoryId == null) {
-            patientHistoryId = Long.valueOf(0);
+            patientHistoryId = 0L;
         }
 
         return getRepository().findNotPaidServiceByPatient(patient, patientHistoryId);
@@ -109,7 +114,7 @@ public class PatientInvoiceLineServiceImpl implements PatientInvoiceLineService 
     @Override
     public List<PatientInvoiceLine> findNotPaidServiceByInsuranceNumber(String insuranceNumber, Long patientHistoryId) {
         if (patientHistoryId == null) {
-            patientHistoryId = Long.valueOf(0);
+            patientHistoryId = 0L;
         }
 
         return getRepository().findNotPaidServiceByInsuranceNumber(insuranceNumber, patientHistoryId);
@@ -117,7 +122,17 @@ public class PatientInvoiceLineServiceImpl implements PatientInvoiceLineService 
 
     @Override
     public PatientInvoiceLineDto createDto(PatientInvoiceLineDto dto) {
+        PatientInvoiceLine line = create(getModel(dto));
 
+
+        ServiceSource ss = line.getService();
+        if (ss.getServiceType() == ServiceSourceService.ServiceTypeEnum.KHAM.getValue()) {
+            PatientServiceCheckUp checkUp = new PatientServiceCheckUp();
+            checkUp.setPatientInvoiceLine(line);
+
+            checkUp.setRoomId(dto.getRoomId());
+            checkUpService.create(checkUp);
+        }
 
         return null;
     }
@@ -134,16 +149,28 @@ public class PatientInvoiceLineServiceImpl implements PatientInvoiceLineService 
 
         calculatePrice(line);
 
-        return null;
+        return line;
     }
 
     private void autoFillDefaultFields(PatientInvoiceLine line) {
+        if (line.getPatientHistory() == null) {
+            line.setPatientHistory(historyService.findById(line.getPatientHistoryId()));
+        }
+
+        if (line.getService() == null) {
+            line.setService(serviceSourceService.findById(line.getServiceId()));
+        }
+
         if (line.getFromDepartmentId() == null || line.getFromDepartmentId() <= 0) {
             line.setFromDepartmentId(getDepartmentId());
         }
 
         if (line.getDocDate() == null) {
             line.setDocDate(DateUtil.getNow());
+        }
+
+        if (line.getActDate() == null) {
+            line.setActDate(DateUtil.getNow());
         }
 
         line.setInpatient(line.getPatientHistory().isInpatient());
@@ -183,11 +210,11 @@ public class PatientInvoiceLineServiceImpl implements PatientInvoiceLineService 
         Double insuranceTotalAmount = line.getInsuranceTotalAmount();
         Double insuranceAmount = line.getInsuranceAmount();
 
-        serviceTotalAmount = serviceTotalAmount == null ? Double.valueOf(0) : serviceTotalAmount;
-        serviceAmount = serviceAmount == null ? Double.valueOf(0) : serviceAmount;
+        serviceTotalAmount = serviceTotalAmount == null ? 0 : serviceTotalAmount;
+        serviceAmount = serviceAmount == null ? 0 : serviceAmount;
 
-        insuranceTotalAmount = insuranceTotalAmount == null ? Double.valueOf(0) : insuranceTotalAmount;
-        insuranceAmount = insuranceAmount == null ? Double.valueOf(0) : insuranceAmount;
+        insuranceTotalAmount = insuranceTotalAmount == null ? 0 : insuranceTotalAmount;
+        insuranceAmount = insuranceAmount == null ? 0 : insuranceAmount;
 
         setPriceService(line);
 
@@ -224,7 +251,7 @@ public class PatientInvoiceLineServiceImpl implements PatientInvoiceLineService 
         line.setInsurancePayRate(ss.getInsurancePayRate());
 
         if (!line.isServiceInHospital()) {
-            line.setInsuranceUnitPrice(Double.valueOf(0));
+            line.setInsuranceUnitPrice(0.0);
         }
     }
 
@@ -238,7 +265,7 @@ public class PatientInvoiceLineServiceImpl implements PatientInvoiceLineService 
         Integer patientPayRate = patientType.getPatientInsurance().getPercent();
 
         if (patientPayRate == null) {
-            patientPayRate = Integer.valueOf(0);
+            patientPayRate = 0;
         }
 
         patientPayRate = patientPayRate / 100;
@@ -255,25 +282,64 @@ public class PatientInvoiceLineServiceImpl implements PatientInvoiceLineService 
         Integer servicePayRate = line.getServicePayRate();
 
         if (insurancePayRate == null || insurancePayRate <= 0) {
-            insurancePayRate = Integer.valueOf(0);
+            insurancePayRate = 0;
         }
 
         if (servicePayRate == null || servicePayRate <= 0) {
-            servicePayRate = Integer.valueOf(0);
+            servicePayRate = 0;
         }
 
         Double serviceUnitPrice = line.getServiceUnitPrice();
         Double insuranceUnitPrice = line.getInsuranceUnitPrice();
         Double differenceUnitPrice = line.getDifferenceUnitPrice();
 
-        serviceUnitPrice = serviceUnitPrice == null ? Double.valueOf(0) : serviceUnitPrice;
-        insuranceUnitPrice = insuranceUnitPrice == null ? Double.valueOf(0) : insuranceUnitPrice;
-        differenceUnitPrice = differenceUnitPrice == null ? Double.valueOf(0) : differenceUnitPrice;
-
         Double quantity = line.getQuantity();
 
         Double serviceTotalAmount = serviceUnitPrice * quantity;
         Double insuranceTotalAmount = insuranceUnitPrice * quantity;
         Double differenceTotalAmount = differenceUnitPrice * quantity;
+
+        if (ServiceSourceService.ServiceTypeEnum.PHAU_THUAT_THU_THUAT.getValue() == line.getServiceType()
+                || ServiceSourceService.ServiceTypeEnum.CDHA_TDCN.getValue() == line.getServiceType()
+                || ServiceSourceService.ServiceTypeEnum.KHAM.getValue() == line.getServiceType()
+                || ServiceSourceService.ServiceTypeEnum.GIUONG.getValue() == line.getServiceType()) {
+
+            serviceTotalAmount = serviceTotalAmount * servicePayRate;
+            differenceTotalAmount = differenceTotalAmount * servicePayRate;
+            insuranceTotalAmount = insuranceTotalAmount * servicePayRate * insurancePayRate;
+        }
+
+        Double insuranceAmount;
+        Double serviceAmount;
+
+        if (serviceUsed || insurancePayRate == 0) {
+            serviceAmount = serviceTotalAmount;
+            insuranceTotalAmount = 0.0;
+            insuranceAmount = 0.0;
+        } else if (notCounted) {
+            if (!insurancePatient || insuranceUnitPrice == 0) {
+                insuranceTotalAmount = 0.0;
+            } else {
+                serviceTotalAmount = 0.0;
+            }
+
+            serviceAmount = 0.0;
+            insuranceAmount = 0.0;
+        } else if (!insurancePatient || insuranceUnitPrice == 0) {
+            serviceAmount = serviceTotalAmount;
+            insuranceTotalAmount = 0.0;
+            insuranceAmount = 0.0;
+        } else {
+            serviceTotalAmount = differenceTotalAmount;
+            serviceAmount = differenceTotalAmount;
+            insuranceAmount = insuranceTotalAmount * patientPayRate;
+        }
+
+        line.setInsuranceTotalAmount(insuranceTotalAmount);
+        line.setInsuranceAmount(insuranceAmount);
+        line.setServiceTotalAmount(serviceTotalAmount);
+        line.setServiceAmount(serviceAmount);
+
+        line.setAmount(insuranceAmount + serviceAmount);
     }
 }

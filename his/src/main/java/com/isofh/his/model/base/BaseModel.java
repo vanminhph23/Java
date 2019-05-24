@@ -19,7 +19,7 @@ public abstract class BaseModel extends AuditModel {
 
     @Column(name = "deleted", nullable = false)
     @Audited
-    private Long deleted = Long.valueOf(0);
+    private Long deleted = 0L;
 
     @Column(name = "dev", updatable = false)
     private String dev;
