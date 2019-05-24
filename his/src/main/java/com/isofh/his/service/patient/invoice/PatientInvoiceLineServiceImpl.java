@@ -124,7 +124,6 @@ public class PatientInvoiceLineServiceImpl implements PatientInvoiceLineService 
     public PatientInvoiceLineDto createDto(PatientInvoiceLineDto dto) {
         PatientInvoiceLine line = create(getModel(dto));
 
-
         ServiceSource ss = line.getService();
         if (ss.getServiceType() == ServiceSourceService.ServiceTypeEnum.KHAM.getValue()) {
             PatientServiceCheckUp checkUp = new PatientServiceCheckUp();
