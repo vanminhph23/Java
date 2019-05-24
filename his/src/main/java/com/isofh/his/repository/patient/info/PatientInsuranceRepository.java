@@ -16,8 +16,8 @@ public interface PatientInsuranceRepository extends BaseRepository<PatientInsura
             " inner join e.patientType as t" +
             " inner join t.patientHistory as h" +
             " where e.insuranceNumber = ?1" +
-            " and case when h.regDate > e.appliedFromDate then h.regDate else e.appliedFromDate end <= ?2" +
-            " and case when h.timeGoOut < e.appliedToDate then h.timeGoOut else e.appliedToDate end >= ?2 and h.id <> ?3")
+            " and case when h.regDate > t.fromDate then h.regDate else t.fromDate end <= ?2" +
+            " and case when h.timeGoOut < t.toDate then h.timeGoOut else t.toDate end >= ?2 and h.id <> ?3")
     List<PatientInsurance> findByRegDate(String insuranceNumber, Date regDate, Long patientHistoryId, Pageable pageable);
 
     @Transactional(readOnly = true)

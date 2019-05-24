@@ -6,6 +6,7 @@ import org.hibernate.envers.Audited;
 
 import javax.persistence.*;
 import java.sql.Timestamp;
+import java.util.Date;
 
 @Entity
 @Table(name = "his_patient_type", indexes = {@Index(name = "pt_patient_history_id", columnList = "patient_history_id")})
@@ -22,16 +23,27 @@ public class PatientType extends BasePatientModel {
     private Long id;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "patient_history_id")
+    @JoinColumn(name = "patient_history_id", nullable = false)
     private PatientHistory patientHistory;
 
     @Column(name = "patient_type")
     @Audited
     private int patientType;
 
-    @Column(name = "act_date")
+    @Column(name = "act_date", nullable = false)
+    @Temporal(TemporalType.TIMESTAMP)
     @Audited
-    private Timestamp actDate;
+    private Date actDate;
+
+    @Column(name = "from_date", nullable = false)
+    @Temporal(TemporalType.TIMESTAMP)
+    @Audited
+    private Date fromDate;
+
+    @Column(name = "to_date", nullable = false)
+    @Temporal(TemporalType.TIMESTAMP)
+    @Audited
+    private Date toDate;
 
     // insurance info
     @OneToOne(fetch = FetchType.LAZY)
@@ -64,12 +76,28 @@ public class PatientType extends BasePatientModel {
         this.patientType = patientType;
     }
 
-    public Timestamp getActDate() {
+    public Date getActDate() {
         return actDate;
     }
 
-    public void setActDate(Timestamp actDate) {
+    public void setActDate(Date actDate) {
         this.actDate = actDate;
+    }
+
+    public Date getFromDate() {
+        return fromDate;
+    }
+
+    public void setFromDate(Date fromDate) {
+        this.fromDate = fromDate;
+    }
+
+    public Date getToDate() {
+        return toDate;
+    }
+
+    public void setToDate(Date toDate) {
+        this.toDate = toDate;
     }
 
     public PatientInsurance getPatientInsurance() {

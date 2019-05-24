@@ -58,4 +58,27 @@ public class ServiceSourceServiceImpl implements ServiceSourceService {
     public Logger getLogger() {
         return this.logger;
     }
+
+    @Override
+    public ServiceSource create(ServiceSource model) {
+        autoFillDefaultFields(model);
+
+        return model;
+    }
+
+    private ServiceSource autoFillDefaultFields(ServiceSource model) {
+        if (model.getInsuranceUnitPrice() == null || model.getInsuranceUnitPrice() < 0) {
+            model.setInsuranceUnitPrice(0.0);
+        }
+
+        if (model.getServiceUnitPrice() == null || model.getServiceUnitPrice() < 0) {
+            model.setServiceUnitPrice(0.0);
+        }
+
+        if (model.getDifferenceUnitPrice() == null || model.getDifferenceUnitPrice() < 0) {
+            model.setDifferenceUnitPrice(0.0);
+        }
+
+        return model;
+    }
 }

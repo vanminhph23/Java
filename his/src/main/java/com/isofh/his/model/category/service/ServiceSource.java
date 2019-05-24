@@ -72,15 +72,15 @@ public class ServiceSource extends BaseCategoryModel {
     @JoinColumn(name = "service_group_level3_id", insertable = false, updatable = false)
     private ServiceGroupLevel3 serviceGroupLevel3;
 
-    @Column(name = "service_unit_price")
+    @Column(name = "service_unit_price", nullable = false)
     @Audited
     private Double serviceUnitPrice;
 
-    @Column(name = "insurance_unit_price")
+    @Column(name = "insurance_unit_price", nullable = false)
     @Audited
     private Double insuranceUnitPrice;
 
-    @Column(name = "difference_unit_price")
+    @Column(name = "difference_unit_price", nullable = false)
     @Audited
     private Double differenceUnitPrice;
 

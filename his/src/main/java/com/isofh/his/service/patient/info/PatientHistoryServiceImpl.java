@@ -132,12 +132,23 @@ public class PatientHistoryServiceImpl implements PatientHistoryService {
 
         // Address card
         if (history.getPatientType() == PatientTypeEnum.BAO_HIEM.getValue()) {
+            PatientType patientType = new PatientType();
+
+            history.setPatientTypes(new ArrayList<>());
+            history.getPatientTypes().add(patientType);
+
             PatientInsurance insurance = new PatientInsurance();
             history.setPatientInsurance(insurance);
 
+            patientType.setPatientInsurance(insurance);
+            patientType.setPatientHistory(history);
+            patientType.setToDate(historyDto.getInsuranceAppliedToDate());
+            patientType.setFromDate(historyDto.getInsuranceAppliedFromDate());
+            patientType.setActDate(DateUtil.getNow());
+            patientType.setPatientType(PatientTypeEnum.BAO_HIEM.getValue());
+
+            insurance.setPatientType(patientType);
             insurance.setAddress(historyDto.getInsuranceAddress());
-            insurance.setAppliedToDate(historyDto.getInsuranceAppliedToDate());
-            insurance.setAppliedFromDate(historyDto.getInsuranceAppliedFromDate());
             insurance.setAppointment(historyDto.isInsuranceAppointment());
             insurance.setContinuity5Year(historyDto.isInsuranceContinuity5Year());
             insurance.setEmergency(historyDto.isInsuranceEmergency());
@@ -211,8 +222,6 @@ public class PatientHistoryServiceImpl implements PatientHistoryService {
         createPatient(history);
 
         history = save(history);
-
-        createPatientType(history);
 
         return history;
     }
@@ -344,21 +353,6 @@ public class PatientHistoryServiceImpl implements PatientHistoryService {
         statisticsService.countPatientHistoryInHospital(statistics);
 
         return statistics;
-    }
-
-    private PatientType createPatientType(PatientHistory history) {
-        PatientInsurance insurance = history.getPatientInsurance();
-
-        PatientType type = new PatientType();
-        type.setPatientHistory(history);
-        if (insurance != null) {
-            type.setPatientInsurance(insurance);
-            type.setPatientType(PatientTypeEnum.BAO_HIEM.getValue());
-        } else {
-            type.setPatientType(PatientTypeEnum.DICH_VU.getValue());
-        }
-
-        return type;
     }
 
     private void autoFillDefaultFields(PatientHistory history) {

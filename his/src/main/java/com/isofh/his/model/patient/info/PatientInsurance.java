@@ -25,7 +25,7 @@ public class PatientInsurance extends BasePatientModel {
     @OneToOne(fetch = FetchType.LAZY, mappedBy = "patientInsurance")
     private PatientHistory patientHistory;
 
-    @OneToOne(fetch = FetchType.LAZY, mappedBy = "patientInsurance")
+    @OneToOne(fetch = FetchType.LAZY, mappedBy = "patientInsurance", cascade = {CascadeType.ALL})
     private PatientType patientType;
 
     @Column(name = "address")
@@ -41,16 +41,6 @@ public class PatientInsurance extends BasePatientModel {
     @Temporal(TemporalType.TIMESTAMP)
     @Audited
     private Date toDate;
-
-    @Column(name = "applied_from_date", nullable = false)
-    @Temporal(TemporalType.TIMESTAMP)
-    @Audited
-    private Date appliedFromDate;
-
-    @Column(name = "applied_to_date", nullable = false)
-    @Temporal(TemporalType.TIMESTAMP)
-    @Audited
-    private Date appliedToDate;
 
     @Column(name = "insurance_number", length = 15, nullable = false)
     @Audited
@@ -170,22 +160,6 @@ public class PatientInsurance extends BasePatientModel {
 
     public void setToDate(Date toDate) {
         this.toDate = toDate;
-    }
-
-    public Date getAppliedFromDate() {
-        return appliedFromDate;
-    }
-
-    public void setAppliedFromDate(Date appliedFromDate) {
-        this.appliedFromDate = appliedFromDate;
-    }
-
-    public Date getAppliedToDate() {
-        return appliedToDate;
-    }
-
-    public void setAppliedToDate(Date appliedToDate) {
-        this.appliedToDate = appliedToDate;
     }
 
     public String getInsuranceNumber() {

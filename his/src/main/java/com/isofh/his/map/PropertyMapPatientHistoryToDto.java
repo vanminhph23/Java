@@ -16,8 +16,8 @@ public class PropertyMapPatientHistoryToDto extends PropertyMap<PatientHistory, 
         map().setAddress(source.getPatientAddress().getAddress());
         // insurance
         map().setInsuranceAddress(source.getPatientInsurance().getAddress());
-        map().setInsuranceAppliedToDate(source.getPatientInsurance().getAppliedToDate());
-        map().setInsuranceAppliedFromDate(source.getPatientInsurance().getAppliedFromDate());
+        map().setInsuranceAppliedToDate(source.getPatientInsurance().getPatientType().getFromDate());
+        map().setInsuranceAppliedFromDate(source.getPatientInsurance().getPatientType().getToDate());
         map().setInsuranceAppointment(source.getPatientInsurance().isAppointment());
         map().setInsuranceContinuity5Year(source.getPatientInsurance().isContinuity5Year());
         map().setInsuranceEmergency(source.getPatientInsurance().isEmergency());

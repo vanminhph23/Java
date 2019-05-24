@@ -15,6 +15,6 @@ public interface PatientTypeRepository extends BaseRepository<PatientType, Long>
     @Query("select e from PatientType e" +
             " inner join e.patientInsurance as i" +
             " inner join e.patientHistory as h" +
-            " where h.id = ?1 and i.appliedFromDate <= ?2 and i.appliedToDate >= ?2")
+            " where h.id = ?1 and e.fromDate <= ?2 and e.toDate >= ?2")
     List<PatientType> findByValidDate(Long patientHistoryId, Date actDate, Pageable pageable);
 }

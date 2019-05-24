@@ -119,8 +119,8 @@ public class PatientInsuranceServiceImpl implements PatientInsuranceService {
         SimpleInsurancePatientHistoryDto historyDto = patientHistoryMapper.map(insurance.getPatientType().getPatientHistory(), SimpleInsurancePatientHistoryDto.class);
 
         historyDto.setInsuranceAddress(insurance.getAddress());
-        historyDto.setInsuranceAppliedToDate(insurance.getAppliedToDate());
-        historyDto.setInsuranceAppliedFromDate(insurance.getAppliedFromDate());
+        historyDto.setInsuranceAppliedToDate(insurance.getPatientType().getToDate());
+        historyDto.setInsuranceAppliedFromDate(insurance.getPatientType().getFromDate());
         historyDto.setInsuranceAppointment(insurance.isAppointment());
         historyDto.setInsuranceContinuity5Year(insurance.isContinuity5Year());
         historyDto.setInsuranceEmergency(insurance.isEmergency());
@@ -169,8 +169,8 @@ public class PatientInsuranceServiceImpl implements PatientInsuranceService {
         Date fromDate = insurance.getFromDate();
         Date toDate = insurance.getToDate();
 
-        Date appliedFromDate = insurance.getAppliedFromDate();
-        Date appliedToDate = insurance.getAppliedToDate();
+        Date appliedFromDate = insurance.getPatientType().getFromDate();
+        Date appliedToDate = insurance.getPatientType().getToDate();
 
         if (fromDate != null) {
             fromDate = DateUtil.truncateHour(fromDate);
@@ -215,8 +215,8 @@ public class PatientInsuranceServiceImpl implements PatientInsuranceService {
 
         insurance.setFromDate(fromDate);
         insurance.setToDate(toDate);
-        insurance.setAppliedFromDate(appliedFromDate);
-        insurance.setAppliedToDate(appliedToDate);
+        insurance.getPatientType().setFromDate(appliedFromDate);
+        insurance.getPatientType().setToDate(appliedToDate);
     }
 
     void validateRegisterOfInsuranceNumber(PatientHistory history, PatientInsurance insurance) {
@@ -232,7 +232,7 @@ public class PatientInsuranceServiceImpl implements PatientInsuranceService {
     private void validateReturnedInsuranceNumber(PatientHistory history, PatientInsurance insurance) {
         Long id = history.getId();
         if (id == null) {
-            id = Long.valueOf(0);
+            id = 0L;
         }
 
         List<PatientInsurance> list = getRepository().findByKeeping(insurance.getInsuranceNumber(), true, id, PageRequest.of(0, 1));
@@ -247,7 +247,7 @@ public class PatientInsuranceServiceImpl implements PatientInsuranceService {
     void validateRegDateOfInsuranceNumber(PatientHistory history, PatientInsurance insurance) {
         Long id = history.getId();
         if (id == null) {
-            id = Long.valueOf(0);
+            id = 0L;
         }
 
         List<PatientInsurance> list = getRepository().findByRegDate(insurance.getInsuranceNumber(), DateUtil.truncateHour(history.getRegDate()), id, PageRequest.of(0, 1));
@@ -262,7 +262,7 @@ public class PatientInsuranceServiceImpl implements PatientInsuranceService {
     void validatePayTimeOfInsuranceNumber(PatientHistory history, PatientInsurance insurance) {
         Long id = history.getId();
         if (id == null) {
-            id = Long.valueOf(0);
+            id = 0L;
         }
 
         List<PatientInsurance> list = getRepository().findByInsuranceNumberAndPayTime(insurance.getInsuranceNumber(), DateUtil.truncateHour(history.getRegDate()), id, PageRequest.of(0, 1));
