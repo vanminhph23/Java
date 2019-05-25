@@ -1,6 +1,7 @@
 package com.isofh.his.service.patient.invoice;
 
 import com.isofh.his.dto.patient.invoice.PatientInvoiceDto;
+import com.isofh.his.model.patient.info.PatientHistory;
 import com.isofh.his.model.patient.invoice.PatientInvoice;
 import com.isofh.his.repository.patient.invoice.PatientInvoiceRepository;
 import com.isofh.his.storage.StorageService;
@@ -58,4 +59,23 @@ public class PatientInvoiceServiceImpl implements PatientInvoiceService {
     public Logger getLogger() {
         return this.logger;
     }
+
+    @Override
+    public PatientInvoice findByPatientHistory(PatientHistory history, Integer invoiceType, Long patientTypeId, boolean contract, boolean paid) {
+        if (history == null || history.getId() == null || history.getId() <= 0) {
+            return null;
+        }
+
+        if (invoiceType == null) {
+            return null;
+        }
+
+        if (patientTypeId == null) {
+            patientTypeId = 0L;
+        }
+
+        return getRepository().findByPatientHistory(history, invoiceType, patientTypeId, contract, paid);
+    }
+
+    crea
 }

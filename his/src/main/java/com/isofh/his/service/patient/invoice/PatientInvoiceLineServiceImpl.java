@@ -62,6 +62,9 @@ public class PatientInvoiceLineServiceImpl implements PatientInvoiceLineService 
     @Autowired
     private PatientServiceBloodService bloodService;
 
+    @Autowired
+    private PatientInvoiceService invoiceService;
+
     @Override
     public PatientInvoiceLineRepository getRepository() {
         return repository;
@@ -133,7 +136,7 @@ public class PatientInvoiceLineServiceImpl implements PatientInvoiceLineService 
             checkUpService.create(checkUp);
         }
 
-        return null;
+        return dto;
     }
 
     @Override
@@ -147,6 +150,8 @@ public class PatientInvoiceLineServiceImpl implements PatientInvoiceLineService 
         validateFromDepartment(line);
 
         calculatePrice(line);
+
+        initInvoice(line);
 
         return line;
     }
@@ -181,9 +186,15 @@ public class PatientInvoiceLineServiceImpl implements PatientInvoiceLineService 
             throw new InvalidDataException("serviceId is null");
         }
 
+        line.setServiceType(ss.getServiceType());
+        line.setServiceValue(ss.getValue());
+        line.setServiceName(ss.getName());
         line.setServiceGroupLevel1Id(ss.getServiceGroupLevel1Id());
         line.setServiceGroupLevel2Id(ss.getServiceGroupLevel2Id());
         line.setServiceGroupLevel3Id(ss.getServiceGroupLevel3Id());
+
+        line.setInsurancePayRate(ss.getInsurancePayRate());
+        line.setServicePayRate(100);
     }
 
     private void validateQuantity(PatientInvoiceLine line) {
@@ -280,6 +291,17 @@ public class PatientInvoiceLineServiceImpl implements PatientInvoiceLineService 
         Integer insurancePayRate = line.getInsurancePayRate();
         Integer servicePayRate = line.getServicePayRate();
 
+        Double insuranceExemptionAmount = line.getInsuranceExemptionAmount();
+        Double serviceExemptionAmount = line.getServiceExemptionAmount();
+
+        if (insuranceExemptionAmount == null) {
+            insuranceExemptionAmount = 0.0;
+        }
+
+        if (serviceExemptionAmount == null) {
+            serviceExemptionAmount = 0.0;
+        }
+
         if (insurancePayRate == null || insurancePayRate <= 0) {
             insurancePayRate = 0;
         }
@@ -334,11 +356,38 @@ public class PatientInvoiceLineServiceImpl implements PatientInvoiceLineService 
             insuranceAmount = insuranceTotalAmount * patientPayRate;
         }
 
+        line.setServiceExemptionAmount(serviceExemptionAmount);
+        line.setInsuranceExemptionAmount(insuranceExemptionAmount);
+
         line.setInsuranceTotalAmount(insuranceTotalAmount);
         line.setInsuranceAmount(insuranceAmount);
         line.setServiceTotalAmount(serviceTotalAmount);
         line.setServiceAmount(serviceAmount);
 
         line.setAmount(insuranceAmount + serviceAmount);
+    }
+
+    private void initInvoice(PatientInvoiceLine line) {
+
+        if (!line.isInsurancePaid()) {
+            if (line.getInsuranceTotalAmount() > 0) {
+                if (line.getInsurancePatientInvoice() != null) {
+
+                }
+            } else {
+                line.setInsurancePatientInvoice(null);
+            }
+        }
+
+        if (!line.isServicePaid()) {
+            if (line.getServiceTotalAmount() > 0 || line.getInsuranceTotalAmount() <= 0) {
+                if (line.getServicePatientInvoice() != null) {
+
+                }
+            } else {
+                line.setServicePatientInvoice(null);
+            }
+        }
+
     }
 }

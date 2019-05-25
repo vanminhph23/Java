@@ -20,13 +20,13 @@ public interface PatientStatisticsRepository extends BaseRepository<PatientStati
 
     @Transactional(readOnly = true)
     @Query("select count(e) from PatientHistory e inner join e.patientTypes as t" +
-            " where e.patientValue = :patientValue" +
-            " and month(e.regDate) = :month and t.patientType = 2")
-    int countInsOutPatientByPatientValueMonth(@Param("patientValue") String patientValue, @Param("month") int month);
+            " where e.patientValue = ?1" +
+            " and month(e.regDate) = ?2 and t.patientType = 2")
+    int countInsOutPatientByPatientValueMonth(String patientValue, int month);
 
     @Transactional(readOnly = true)
     @Query("select count(e) from PatientHistory e inner join e.patientTypes as t" +
-            " where e.patientValue = :patientValue" +
-            " and year(e.regDate) = :year and t.patientType = 2")
-    int countInsOutPatientByPatientValueYear(@Param("patientValue") String patientValue, @Param("year") int year);
+            " where e.patientValue = ?1" +
+            " and year(e.regDate) = ?2 and t.patientType = 2")
+    int countInsOutPatientByPatientValueYear(String patientValue, int year);
 }

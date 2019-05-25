@@ -28,7 +28,7 @@ public class PatientInvoice extends BaseModel {
     @JoinColumn(name = "patient_history_id")
     private PatientHistory patientHistory;
 
-    @Column(name = "amount")
+    @Column(name = "amount", nullable = false)
     @Audited
     private Double amount;
 
@@ -49,21 +49,33 @@ public class PatientInvoice extends BaseModel {
     @Audited
     private String totalInvoiceNo;
 
-    @Column(name = "paid")
+    @Column(name = "paid", nullable = false)
     @Audited
     private boolean paid;
 
-    @Column(name = "inpatient")
+    @Column(name = "inpatient", nullable = false)
     @Audited
     private boolean inpatient;
 
-    @Column(name = "invoice_type")
+    @Column(name = "contract", nullable = false)
+    @Audited
+    private boolean contract;
+
+    @Column(name = "invoice_type", nullable = false)
     @Audited
     private int invoiceType;
+
+    @Column(name = "patient_type_id")
+    @Audited
+    private Long patientTypeId;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "patient_type_id")
     private PatientType patientType;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "patient_total_invoice_id", nullable = false)
+    private PatientTotalInvoice patientTotalInvoice;
 
     @Override
     public Long getId() {
@@ -139,6 +151,14 @@ public class PatientInvoice extends BaseModel {
         this.inpatient = inpatient;
     }
 
+    public boolean isContract() {
+        return contract;
+    }
+
+    public void setContract(boolean contract) {
+        this.contract = contract;
+    }
+
     public int getInvoiceType() {
         return invoiceType;
     }
@@ -151,7 +171,23 @@ public class PatientInvoice extends BaseModel {
         return patientType;
     }
 
+    public Long getPatientTypeId() {
+        return patientTypeId;
+    }
+
+    public void setPatientTypeId(Long patientTypeId) {
+        this.patientTypeId = patientTypeId;
+    }
+
     public void setPatientType(PatientType patientType) {
         this.patientType = patientType;
+    }
+
+    public PatientTotalInvoice getPatientTotalInvoice() {
+        return patientTotalInvoice;
+    }
+
+    public void setPatientTotalInvoice(PatientTotalInvoice patientTotalInvoice) {
+        this.patientTotalInvoice = patientTotalInvoice;
     }
 }
