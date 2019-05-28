@@ -77,5 +77,4 @@ public class PatientInvoiceServiceImpl implements PatientInvoiceService {
         return getRepository().findByPatientHistory(history, invoiceType, patientTypeId, contract, paid);
     }
 
-    crea
 }
