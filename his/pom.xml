@@ -21,7 +21,7 @@
         <jjwt.version>0.9.0</jjwt.version>
         <poi.version>3.14</poi.version>
         <codec.version>1.12</codec.version>
-        <io.version>2.6</io.version>
+        <io.version>2.7</io.version>
         <lang3.version>3.8.1</lang3.version>
         <collections4.version>4.3</collections4.version>
         <math3.version>3.6.1</math3.version>
