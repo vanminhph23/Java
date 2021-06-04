@@ -28,7 +28,7 @@
         <jasper.version>6.4.0</jasper.version>
         <barbecue.version>1.5-beta1</barbecue.version>
         <groovy.version>2.4.10</groovy.version>
-        <httpclient.version>4.4.1</httpclient.version>
+        <httpclient.version>4.5.13</httpclient.version>
         <modelmapper.version>2.3.0</modelmapper.version>
     </properties>
 
